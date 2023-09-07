@@ -9,7 +9,7 @@ function Layout() {
                 <div className="col-span-1  ">
                     <Sidebar/>
                 </div>
-                <div className="col-span-3 col-start-2 col-end-4">
+                <div className="bg-bg-primary col-span-3 col-start-2 col-end-4">
                     <Header/>
                     <Outlet/>
                 </div>
