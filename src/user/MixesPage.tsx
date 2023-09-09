@@ -7,7 +7,7 @@ const MixesPage = () => {
         {/*Subtitles*/}
         <div className="flex justify-between">
           <div className="text-red-600">
-            <h5 className=" sm:text-base md:text-xl lg:2xl">My Music</h5>
+            <h5 className=" sm:text-base md:text-xl lg:2xl">Mixes</h5>
           </div>
           <div className="flex gap-x-5 text-red-600">
             <div className="flex">

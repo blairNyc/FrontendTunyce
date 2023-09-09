@@ -5,8 +5,9 @@ import ExplorePage from "./user/ExplorePage";
 import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
 import Aboutpage from "./pages/Aboutpage";
-import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
+import MixesPage from "./user/MixesPage";
+import UserWalletPage from "./wallets/UserWalletPage";
 
 const router = createBrowserRouter([
   {
@@ -32,13 +33,16 @@ const router = createBrowserRouter([
         path: "/mixes",
         element: <MixesPage />,
       },
+      {
+        path: "/user-wallet",
+        element: <UserWalletPage />,
+      },
+      {
+        path: "/about",
+        element: <Aboutpage />,
+      },
     ],
   },
-  {
-    path: "/about",
-    element: <Aboutpage />,
-  },
-
   {
     element: <div>Login</div>,
     path: "/login",
