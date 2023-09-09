@@ -11,7 +11,9 @@ import { FaShareAlt, FaDeezer } from 'react-icons/fa';
 import { ImFolderDownload } from 'react-icons/im';
 import { IoSettingsSharp } from 'react-icons/io5';
 import { TbLogout } from 'react-icons/tb';
+import { BsPeopleFill } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom';
+
 
 
 type NavElProps = {
@@ -22,7 +24,7 @@ type NavElProps = {
 function NavElement({ name, path,  children }: NavElProps) {
 
     return (
-        <NavLink to={path??'/'} style={{backgroundColor:'#F0F0F5',}}  className='flex border-r-4 py-2 px-3  border-r-text-primary flex-row items-center w-full mt-2' >
+        <NavLink to={path ?? '/musif'} style={({ isActive }) => { return { backgroundColor: isActive ? '#F0F0F5' : 'white', borderRightColor:isActive?'#FB5857':'white',borderRightWidth:isActive?4:0}}}  className='flex  py-2 px-3  flex-row items-center w-full mt-2' >
             {children}
             <div className='w-6' />
             <p className='text-lg'>{name}</p>
@@ -52,13 +54,13 @@ function Sidebar(props: any) {
                     <div className='flex flex-col w-full justify-center items-center ' >
                         <img alt='tunyce logo' className='w-32 h-auto' src={TunyceLogo} />
                         <div className='w-full'>
-                            <h2 className='text-lg font-medium mt-3'>MENU</h2>
+                            <h2 className='text-lg font-medium ml-3 mt-3'>MENU</h2>
                             <ul className='w-full'>
                                 <NavElement path='/'  name='Discover'>
                                     <GoHomeFill className='text-xl' />
                                 </NavElement>
                                 <NavElement path='/creators' name='Creators'>
-                                    <GoHomeFill className='text-xl' />
+                                    <BsPeopleFill className='text-xl' />
                                 </NavElement>
                                 <NavElement path='explore' name='Explorer'>
                                     <FaCompass className='text-xl' />
@@ -67,7 +69,7 @@ function Sidebar(props: any) {
                                     <FiSearch className='text-xl' />
                                 </NavElement>
                             </ul>
-                            <h2 className='text-lg font-medium mt-3'>LIBRARY</h2>
+                            <h2 className='text-lg font-medium ml-3 mt-3'>LIBRARY</h2>
                             <ul>
                                 <NavElement name='Music'>
                                     <BsMusicNoteBeamed className='text-xl' />
@@ -79,7 +81,7 @@ function Sidebar(props: any) {
                                     <BsFillPersonFill className='text-xl' />
                                 </NavElement>
                             </ul>
-                            <h2 className='text-lg font-medium mt-3'>PLAYLISTS</h2>
+                            <h2 className='text-lg font-medium ml-3 mt-3'>PLAYLISTS</h2>
                             <ul>
                                 <NavElement name='Cover'>
                                     <TbHeadphonesFilled className='text-xl' />
@@ -94,7 +96,7 @@ function Sidebar(props: any) {
                                     <ImFolderDownload className='text-xl' />
                                 </NavElement>
                             </ul>
-                            <h2 className='text-lg font-medium mt-3'>OTHER</h2>
+                            <h2 className='text-lg font-medium ml-3 mt-3'>OTHER</h2>
                             <ul>
                                 <NavElement name='Settings'>
                                     <IoSettingsSharp className='text-xl' />

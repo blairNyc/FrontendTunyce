@@ -21,9 +21,12 @@ function Layout() {
                                 <AiOutlineMenu />
                             </button>
 
-                            <a href="#" className="flex ml-5 md:mr-24">
-                                <img alt='tunyce logo' className='w-auto h-14' src={TunyceLogo} />
-                            </a>
+                            {
+                                !sideBarOpen &&
+                                <a href="#" className="flex ml-5 md:mr-24">
+                                    <img alt='tunyce logo' className='w-auto h-14' src={TunyceLogo} />
+                                </a>
+                            }
 
                         </div>
                         
