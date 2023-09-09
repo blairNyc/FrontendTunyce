@@ -1,17 +1,17 @@
 import React from 'react';
-import TunycLogo from '../../public/tunyce_logo.svg'
+import TunyceLogo from '../assets/tunyce_logo.svg'
 import {GoHomeFill} from 'react-icons/go';
-import { FaCompass } from 'react-icons/fa'
-import { FiSearch } from 'react-icons/fi'
-import { BsMusicNoteBeamed } from 'react-icons/bs'
-import { RiBookMarkFill } from 'react-icons/ri'
-import { BsFillPersonFill } from 'react-icons/bs'
-import { TbHeadphonesFilled } from 'react-icons/tb'
-import { MdFavorite } from 'react-icons/md'
-import { FaShareAlt } from 'react-icons/fa'
-import { ImFolderDownload } from 'react-icons/im'
-import { IoSettingsSharp } from 'react-icons/io5'
-import { TbLogout } from 'react-icons/tb'
+import { FaCompass } from 'react-icons/fa';
+import { FiSearch } from 'react-icons/fi';
+import { BsMusicNoteBeamed } from 'react-icons/bs';
+import { RiBookMarkFill } from 'react-icons/ri';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { TbHeadphonesFilled } from 'react-icons/tb';
+import { MdFavorite } from 'react-icons/md';
+import { FaShareAlt } from 'react-icons/fa';
+import { ImFolderDownload } from 'react-icons/im';
+import { IoSettingsSharp } from 'react-icons/io5';
+import { TbLogout } from 'react-icons/tb';
 
 
 type NavElProps = {
@@ -30,7 +30,7 @@ function NavElement({name, children}:NavElProps){
 function Sidebar() {
     return (
         <div className='flex flex-col justify-center items-center m-10'>
-            <img alt='tunyce logo' className='w-32 h-auto'src={TunycLogo}/>
+            <img alt='tunyce logo' className='w-32 h-auto'src={TunyceLogo}/>
             <div>
                 <h2>MENU</h2>
                 <ul>

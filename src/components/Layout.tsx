@@ -4,17 +4,23 @@ import Sidebar from "./Sidebar";
 
 function Layout() {
   return (
-    <div className="container w-full h-screen">
-      <div className="w-full grid grid-cols-4">
-        <div className="col-span-1  ">
-          <Sidebar />
-        </div>
-        <div className="bg-bg-primary col-span-3 col-start-2 col-end-4">
-          <Header />
-          <Outlet />
+    <>
+      <div className="container w-full h-screen">
+        <div className="w-full grid grid-cols-4">
+          <div className="col-span-1">
+            <Sidebar />
+          </div>
+          <div className="bg-bg-primary col-span-3 col-start-2 col-end-5">
+            <Header />
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+      <div className="bg-bg-primary col-span-3 col-start-2 col-end-4">
+        <Header />
+        <Outlet />
+      </div>
+    </>
   );
 }
 

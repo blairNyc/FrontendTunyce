@@ -1,9 +1,7 @@
-import React from 'react';
-
 function Aboutpage() {
     return (
         <div>
-            <p>Aboutpage</p>
+           <p>About</p>
         </div>
     );
 }
