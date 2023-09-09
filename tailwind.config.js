@@ -11,6 +11,7 @@ export default {
         "bg-primary": "#F9F9FB",
         "universal-primary": "#FB5857",
         grey: "#9ca3af",
+        "text-primary":"#FB5857"
       },
     },
   },

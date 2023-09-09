@@ -40,9 +40,6 @@ function Homepage() {
         'Country'
     ];
 
-
-
-
     return (
         <div className='container'>
 
