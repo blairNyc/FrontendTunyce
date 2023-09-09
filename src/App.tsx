@@ -1,22 +1,13 @@
-<<<<<<< HEAD
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
-import Homepage from "./pages/Homepage";
 import ExplorePage from "./user/ExplorePage";
+import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
-import MusicPage from "./user/MusicPage";
+import Aboutpage from "./pages/Aboutpage";
 import MixesPage from "./user/MixesPage";
-=======
-import './App.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Layout from './components/Layout';
-import ExplorePage from './user/ExplorePage';
-import Homepage from './pages/Homepage';
-import NotFound from './pages/NotFound';
-import Aboutpage from './pages/Aboutpage';
+import MusicPage from "./user/MusicPage";
 
->>>>>>> 37cf602acde77ec1ac56742ac055ed106593b1cf
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -30,7 +21,6 @@ const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
-<<<<<<< HEAD
         path: "/explore",
         element: <ExplorePage />,
       },
@@ -43,17 +33,12 @@ const router = createBrowserRouter([
         element: <MixesPage />,
       },
     ],
-=======
-        path:'/explore',
-        element: <ExplorePage/>
-      },
-      {
-        path:'/about',
-        element: <Aboutpage />
-      }
-    ]
->>>>>>> 37cf602acde77ec1ac56742ac055ed106593b1cf
   },
+  {
+    path: "/about",
+    element: <Aboutpage />,
+  },
+
   {
     element: <div>Login</div>,
     path: "/login",
