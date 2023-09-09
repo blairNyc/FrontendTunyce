@@ -44,6 +44,7 @@ const router = createBrowserRouter([
     path: "/login",
   },
 ]);
+
 function App() {
   return <RouterProvider router={router} />;
 }
