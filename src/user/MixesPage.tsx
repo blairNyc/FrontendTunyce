@@ -36,7 +36,7 @@ const MixesPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 ml-2">
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300 hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -45,7 +45,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -54,7 +54,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -63,7 +63,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -72,7 +72,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -81,7 +81,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -90,7 +90,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -99,7 +99,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -108,7 +108,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300   hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -117,7 +117,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -126,7 +126,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -135,7 +135,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
@@ -144,7 +144,7 @@ const MixesPage = () => {
             {/*End of Mix*/}
             {/*Mix*/}
             <div className="">
-              <div className="bg-gray-300 w-32 h-32  rounded-md shadow-md"></div>
+              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
               <div className="">
                 <p className="text-base font-bold">Afterglow</p>
                 <p className="text-sm">DJ Lyta</p>
