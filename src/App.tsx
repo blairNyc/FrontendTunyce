@@ -4,6 +4,9 @@ import Layout from './components/Layout';
 import Homepage from './pages/Homepage';
 import ExplorePage from './user/ExplorePage';
 import NotFound from './pages/NotFound';
+import CreatorsPage from './pages/Creators';
+import CreatorsList from './pages/CreatorsList';
+import Creator from './components/Creator';
 const router = createBrowserRouter([
   {
     element: <Layout/>,
@@ -19,13 +22,25 @@ const router = createBrowserRouter([
       {
         path:'/explore',
         element: <ExplorePage/>
+      },
+      {
+        path:'/creators',
+        element: <CreatorsPage/>
+      },
+      {
+        path: '/creators/deejays',
+        element: <CreatorsList/>
+      },
+      {
+        path: '/creators/deejays/:id',
+        element: <Creator/>
       }
     ]
   },
   {
     element: <div>Login</div>,
     path:'/login',
-  },
+  }
 ])
 function App() {
 
