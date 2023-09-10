@@ -1,47 +1,33 @@
-
-
 function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
 
 function getContrastTextColor(bgColor: any) {
-    const r = parseInt(bgColor.slice(1, 3), 16);
-    const g = parseInt(bgColor.slice(3, 5), 16);
-    const b = parseInt(bgColor.slice(5, 7), 16);
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    return brightness > 128 ? 'text-black' : 'text-white';
+  const r = parseInt(bgColor.slice(1, 3), 16);
+  const g = parseInt(bgColor.slice(3, 5), 16);
+  const b = parseInt(bgColor.slice(5, 7), 16);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 128 ? "text-black" : "text-white";
 }
 
 function Homepage() {
+  const topArtists = ["Harry", "Taylor", "Steve", "Mark", "Purity", "Ruth"];
 
-    const topArtists = [
-        'Harry',
-        'Taylor',
-        'Steve',
-        'Mark',
-        'Purity',
-        'Ruth',
-    ];
-
-
-    const genreItems = [
-        'Hiphop',
-        'Electric Pop',
-        'Jazz',
-        'Dance Beat',
-        'Classic',
-        'Metal',
-        'Rock',
-        'Country'
-    ];
-
-
-
+  const genreItems = [
+    "Hiphop",
+    "Electric Pop",
+    "Jazz",
+    "Dance Beat",
+    "Classic",
+    "Metal",
+    "Rock",
+    "Country",
+  ];
 
     return (
         <div className='container'>
@@ -131,8 +117,9 @@ function Homepage() {
                     </div>
                 </div>
             </div>
-        </div>
-    );
+            </div>
+        
+  );
 }
 
 export default Homepage;
