@@ -7,6 +7,9 @@ import NotFound from './pages/NotFound';
 import CreatorsPage from './pages/Creators';
 import CreatorsList from './pages/CreatorsList';
 import Creator from './components/Creator';
+import FreqAskedQuesPage from './pages/FreqAskedQuesPage';
+import TermsConditionsPage from './pages/TermsConditionsPage';
+import VideoScreen from './pages/VideoScreen';
 const router = createBrowserRouter([
   {
     element: <Layout/>,
@@ -14,6 +17,14 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <NotFound/>
+      },
+      {
+        path:'/faqs',
+        element: <FreqAskedQuesPage/>
+      },
+      {
+        path:'/terms-conditions',
+        element: <TermsConditionsPage/>
       },
       {
         path:'/',
@@ -34,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: '/creators/deejays/:id',
         element: <Creator/>
+      },
+      {
+        path:'creators/videos/:id',
+        element: <VideoScreen/>
       }
     ]
   },
