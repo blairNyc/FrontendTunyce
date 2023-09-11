@@ -1,33 +1,17 @@
-import { NavLink, useLocation } from "react-router-dom";
-import {FiSearch} from "react-icons/fi";
-import {FaRegBell} from "react-icons/fa6";
-import { BsChevronDown } from "react-icons/bs";
-import {PiShoppingCartSimpleBold} from "react-icons/pi";
-import TunycLogo from '../assets/tunyce_logo.png';
-import {AiOutlineMenu} from "react-icons/ai";
-const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
-    <NavLink style={({isActive})=>{return{color:isActive?'#FB5857':'#4D4D56'}}} to={path} className='mx-[5px] md:mx-2'>
-        <p className={``}>{text}</p>
-        {path===currPath&&(<p className="border-b-4 rounded-lg border-text-primary w-4 mx-auto text-center"></p>)}
-    </NavLink>
-);
-interface IHeaderProp{
-    sideBarOpen: boolean
-    setSideBarOpen: ()=>void
-}
-function Header({setSideBarOpen,sideBarOpen}: IHeaderProp) {
-    const location = useLocation().pathname;
-    console.log(location)
+import { BsChevronDown } from "react-icons/bs"
+import { FaRegBell } from "react-icons/fa"
+import { FiSearch } from "react-icons/fi"
+
+const ListItem = ({text}:{text:string})=>(<li className='mx-2'>{text}</li>)
+
+function Header() {
     return (
-        <header className="w-full  flex items-center justify-between">
-            <div className="flex items-center">
-                <AiOutlineMenu onClick={setSideBarOpen} className="text-2xl text-black"/>
-                <img src={TunycLogo} alt="" className={`w-10  h-auto ${sideBarOpen?'hidden':'block'} mx-2 rounded-full object-contain`}/>
-            </div>
-            <ul className='list-none hidden md:flex items-center'>
-                <ListItem text='Music' currPath={location} path="/music" />
-                <ListItem text='Podcast' currPath={location} path="/podcasts"/>
-                <ListItem text='Live' currPath={location} path="/live"/>
+        <header className="px-4 py-8 w-full">
+            <ul className='list-none flex items-center'>
+                <ListItem text='Music' />
+                <ListItem text='Podcast'/>
+                <ListItem text='Radio'/>
+                <ListItem text='Live'/>
             </ul>
             <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/3  bg-gray-200">
                 <input type="text" placeholder="Search" className="border-2 bg-inherit rounded-lg px-2 py-0 outline-none"/>

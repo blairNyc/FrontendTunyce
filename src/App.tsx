@@ -10,13 +10,17 @@ import Creator from './components/Creator';
 import FreqAskedQuesPage from './pages/FreqAskedQuesPage';
 import TermsConditionsPage from './pages/TermsConditionsPage';
 import VideoScreen from './pages/VideoScreen';
+import Aboutpage from "./pages/Aboutpage";
+import MixesPage from "./user/MixesPage";
+import MusicPage from "./user/MusicPage";
+
 const router = createBrowserRouter([
   {
-    element: <Layout/>,
-    children:[
+    element: <Layout />,
+    children: [
       {
-        path: '*',
-        element: <NotFound/>
+        path: "*",
+        element: <NotFound />,
       },
       {
         path:'/faqs',
@@ -49,7 +53,15 @@ const router = createBrowserRouter([
       {
         path:'creators/videos/:id',
         element: <VideoScreen/>
-      }
+      },
+      {
+        path: "/music",
+        element: <MusicPage />,
+      },
+      {
+        path: "/mixes",
+        element: <MixesPage />,
+      },
     ]
   },
   {
@@ -57,11 +69,10 @@ const router = createBrowserRouter([
     path:'/login',
   }
 ])
-function App() {
 
-  return (
-    <RouterProvider router={router}  />
-  )
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

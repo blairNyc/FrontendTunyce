@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -10,9 +14,12 @@ export default {
         "textbasicgray": "#787887",
         "iconsgray":"#B3B3BC",
         "orangered":"#FF5349",
+        "universal-primary": "#FB5857",
+        grey: "#9ca3af",
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line no-undef
+  plugins: [require("flowbite/plugin")],
 };
 

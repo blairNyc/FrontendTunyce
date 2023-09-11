@@ -1,3 +1,4 @@
+import TunyceLogo from '../assets/tunyce_logo.svg'
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -17,8 +18,11 @@ function Layout() {
                     <Outlet/>
                 </div>
             </div>
+
         </div>
+
     );
 }
 
 export default Layout;
+

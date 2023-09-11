@@ -1,5 +1,5 @@
 import React from 'react';
-import TunyceLogo from '/tunyce_logo.svg'
+import TunyceLogo from '../assets/tunyce_logo.svg'
 import { GoHomeFill } from 'react-icons/go';
 import { FaCompass } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
@@ -13,6 +13,7 @@ import { IoSettingsSharp } from 'react-icons/io5';
 import { TbLogout } from 'react-icons/tb';
 import { BsPeopleFill } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom';
+
 type NavElProps = {
     name: string
     children: React.ReactNode
@@ -100,7 +101,7 @@ function Sidebar({sideBarOpen}: {sideBarOpen: boolean }) {
                         </div>
                     </div>
                 ) : (
-                    <div className={`flex flex-col justify-center items-center`}>
+                    <div className='flex flex-col justify-center items-center'>
                             <ul>
                                 <SmallNavElement name='Discover'>
                                     <GoHomeFill className='text-3xl' />
