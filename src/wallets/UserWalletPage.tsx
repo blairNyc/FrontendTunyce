@@ -1,15 +1,27 @@
+import { BiMoneyWithdraw, BiMoney } from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
 const UserWalletPage = () => {
   return (
     <>
-      <div className="conatiner">
+      <div className="container">
         {/*Header*/}
         <div className="flex justify-between ">
           <div className="">
             <h3>Wallet</h3>
           </div>
-          <div className="">
-            <button>Deposit</button>
-            <button>Withdraw</button>
+          <div className="flex">
+            <div className="">
+              <button>
+                <BiMoney />
+              </button>
+              <button>Deposit</button>
+            </div>
+            <div className="">
+              <button>
+                <BiMoneyWithdraw />
+              </button>
+              <button>Withdraw</button>
+            </div>
           </div>
         </div>
         {/*End Header*/}
@@ -17,7 +29,17 @@ const UserWalletPage = () => {
         <div className="ml-4 mr-4 mx-auto mt-4 rounded-md bg-white flex flex-col">
           {/*Financial Record*/}
           <div className="">
-            <p>Financial Record</p>
+            <div className="flex justify-between">
+              <div className="">
+                <p>Financial Record</p>
+              </div>
+              <div className="">
+                <button>
+                  <BsThreeDotsVertical />
+                </button>
+              </div>
+            </div>
+
             <div className="grid grid-cols-3 gap-4 mr-3 ml-3">
               <div className="flex flex-col border-solid border-2 rounded-md items-center">
                 <p>Total Balance</p>
@@ -46,6 +68,7 @@ const UserWalletPage = () => {
           <div className="flex flex-col rounded-md ">
             <div className="">
               <p>Transaction History</p>
+              <p>History of the last 3 months</p>
             </div>
             <div className="">
               <div className="relative overflow-x-auto">
