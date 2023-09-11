@@ -10,7 +10,7 @@ import Creator from './components/Creator';
 import FreqAskedQuesPage from './pages/FreqAskedQuesPage';
 import TermsConditionsPage from './pages/TermsConditionsPage';
 import VideoScreen from './pages/VideoScreen';
-import Aboutpage from "./pages/Aboutpage";
+// import Aboutpage from "./pages/Aboutpage";
 import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
 

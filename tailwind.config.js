@@ -15,7 +15,7 @@ export default {
         "iconsgray":"#B3B3BC",
         "orangered":"#FF5349",
         "universal-primary": "#FB5857",
-        grey: "#9ca3af",
+        "grey": "#9ca3af",
       },
     },
   },
