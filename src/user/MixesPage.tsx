@@ -33,7 +33,7 @@ const MixesPage = () => {
         <div className="ml-4 mr-4 mx-auto mt-4 rounded-md bg-white">
           <h4 className="font-semibold text-base mb-3 mt-2">11 Mixes</h4>
           {/*Grid*/}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 ml-2">
+          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4 ml-2">
             {/*Mix*/}
             <div className="">
               <div className="bg-gray-300 hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
