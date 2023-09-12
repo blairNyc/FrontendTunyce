@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GiHeadphones } from 'react-icons/gi';
 
 interface ArtistPageProps {}
 
@@ -8,13 +9,25 @@ const ArtistPage: React.FC<ArtistPageProps> = () => {
     {
       id: 1,
       name: 'John Doe',
-      image: 'john-doe.jpg',
+      image: "https://picsum.photos/200/300",
       bio: 'John Doe is a talented musician known for his amazing music.',
     },
     {
       id: 2,
       name: 'Jane Smith',
-      image: 'jane-smith.jpg',
+      image: 'https://picsum.photos/200/300',
+      bio: 'Jane Smith is a singer-songwriter with a unique voice.',
+    },
+    {
+      id: 3,
+      name: 'Mary Smith',
+      image: 'https://picsum.photos/200/300',
+      bio: 'Jane Smith is a singer-songwriter with a unique voice.',
+    },
+    {
+      id: 4,
+      name: 'Purity Smith',
+      image: 'https://picsum.photos/200/300',
       bio: 'Jane Smith is a singer-songwriter with a unique voice.',
     },
     // Add more artists as needed
@@ -39,6 +52,24 @@ const ArtistPage: React.FC<ArtistPageProps> = () => {
       genre: 'Hip Hop',
       artistId: 2, // Artist ID for Jane Smith
     },
+    {
+      id: 3,
+      title: 'Song 4',
+      genre: 'Hip Hop',
+      artistId: 2, // Artist ID for Jane Smith
+    },
+    {
+      id: 4,
+      title: 'Song 3',
+      genre: 'Hip Hop',
+      artistId: 2, // Artist ID for Jane Smith
+    },
+    {
+      id: 5,
+      title: 'Song 3',
+      genre: 'Hip Hop',
+      artistId: 2, // Artist ID for Jane Smith
+    },
     // Add more songs as needed
   ];
 
@@ -56,8 +87,8 @@ const ArtistPage: React.FC<ArtistPageProps> = () => {
     selectedArtist !== null ? music.filter((song) => song.artistId === selectedArtist.id) : [];
 
   return (
-    <div className="container mx-auto mt-8 p-4 flex ml-4 mr-4 mx-auto mt-4 bg-gray bg-auto bg-no-repeat bg-center rounded-lg">
-      <div className="w-1/2">
+    <div className="container mx-auto mt-8 p-4 flex ml-4 mr-4 mx-auto mt-4 bg-white gap-4 bg-auto bg-no-repeat bg-center rounded-lg">
+      <div className="w-1/4">
         <h2 className="text-2xl font-bold">Artists</h2>
         <ul className="mt-4">
           {artists.map((artist, index) => (
@@ -76,8 +107,8 @@ const ArtistPage: React.FC<ArtistPageProps> = () => {
       <div className="w-1/2 ml-4">
         {selectedArtist ? (
           <>
-            <div className="mb-4">
-              <img src={selectedArtist.image} alt={selectedArtist.name} className="w-full" />
+            <div className="mb-2">
+              <img src={selectedArtist.image} alt={selectedArtist.name} className="w-full h-full object-cover h-48 w-96 bg-cover rounded" />
             </div>
             <h1 className="text-2xl font-bold">{selectedArtist.name}</h1>
             <p className="text-gray-500">{selectedArtist.bio}</p>
@@ -86,14 +117,20 @@ const ArtistPage: React.FC<ArtistPageProps> = () => {
           <p className="text-gray-500">Select an artist to view their information.</p>
         )}
       </div>
-      <div className="mt-4 w-full  ">
+      <div className="mt-4 w-full">
         <h2 className="text-2xl font-bold">Music</h2>
         <ul className="mt-4 flex flex-wrap gap-6">
           {selectedArtistMusic.map((song) => (
-            <li key={song.id} className="mb-2 bg-gray-300 hover:bg-gray-500 w-32 h-32  rounded-md shadow-md">
+            <li
+            key={song.id}
+            className="mb-2 p-2 rounded-lg bg-gray-200 flex items-center"
+          >
+            <GiHeadphones className="text-2xl mr-2" />
+            <div>
               <h3 className="text-lg font-semibold">{song.title}</h3>
               <p>{song.genre}</p>
-            </li>
+            </div>
+          </li>
           ))}
         </ul>
       </div>
