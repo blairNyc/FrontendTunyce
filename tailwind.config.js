@@ -9,12 +9,17 @@ export default {
     extend: {
       colors: {
         "bg-primary": "#F9F9FB",
+        "text-primary":"#FB5857",
+        "graybasic": "#B3B3BC;",
+        "textbasicgray": "#787887",
+        "iconsgray":"#B3B3BC",
+        "orangered":"#FF5349",
         "universal-primary": "#FB5857",
-        grey: "#9ca3af",
-        "text-primary":"#FB5857"
+        "grey": "#9ca3af",
       },
     },
   },
+  // eslint-disable-next-line no-undef
   plugins: [require("flowbite/plugin")],
 };
 

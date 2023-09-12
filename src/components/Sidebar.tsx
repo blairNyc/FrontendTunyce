@@ -14,8 +14,6 @@ import { TbLogout } from 'react-icons/tb';
 import { BsPeopleFill } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom';
 
-
-
 type NavElProps = {
     name: string
     children: React.ReactNode
@@ -31,7 +29,6 @@ function NavElement({ name, path,  children }: NavElProps) {
         </NavLink>
     )
 }
-
 function SmallNavElement({ name, children }: NavElProps) {
 
     return (
@@ -41,11 +38,7 @@ function SmallNavElement({ name, children }: NavElProps) {
         </div>
     )
 }
-
-function Sidebar(props: any) {
-
-    const { sideBarOpen } = props;
-
+function Sidebar({sideBarOpen}: {sideBarOpen: boolean }) {
     return (
 
         <div className='w-full'>
@@ -136,5 +129,4 @@ function Sidebar(props: any) {
 
     );
 }
-
 export default Sidebar;
