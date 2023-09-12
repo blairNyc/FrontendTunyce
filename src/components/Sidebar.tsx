@@ -38,7 +38,6 @@ function NavElement({ name, path, children }: NavElProps) {
     </NavLink>
   );
 }
-
 function SmallNavElement({ name, children }: NavElProps) {
   return (
     <div className="flex flex-col justify-center items-center mt-3">
@@ -47,10 +46,7 @@ function SmallNavElement({ name, children }: NavElProps) {
     </div>
   );
 }
-
-function Sidebar(props: any) {
-  const { sideBarOpen } = props;
-
+function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
   return (
     <div className="w-full">
       {sideBarOpen ? (
@@ -74,10 +70,10 @@ function Sidebar(props: any) {
             </ul>
             <h2 className="text-lg font-medium ml-3 mt-3">LIBRARY</h2>
             <ul>
-              <NavElement path="/music" name="Music">
+              <NavElement name="Music">
                 <BsMusicNoteBeamed className="text-xl" />
               </NavElement>
-              <NavElement path="/mixes" name="Mixes">
+              <NavElement name="Mixes">
                 <FaDeezer className="text-xl" />
               </NavElement>
               <NavElement name="Artists">
