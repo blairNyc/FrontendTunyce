@@ -13,6 +13,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import { BsPeopleFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
+import { AiFillWallet } from "react-icons/ai";
 
 type NavElProps = {
   name: string;
@@ -70,10 +71,10 @@ function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
             </ul>
             <h2 className="text-lg font-medium ml-3 mt-3">LIBRARY</h2>
             <ul>
-              <NavElement name="Music">
+              <NavElement path="music" name="Music">
                 <BsMusicNoteBeamed className="text-xl" />
               </NavElement>
-              <NavElement name="Mixes">
+              <NavElement path="mixes" name="Mixes">
                 <FaDeezer className="text-xl" />
               </NavElement>
               <NavElement name="Artists">
@@ -97,6 +98,9 @@ function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
             </ul>
             <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
             <ul>
+              <NavElement path="user-wallet" name="Wallet">
+                <AiFillWallet className="text-xl" />
+              </NavElement>
               <NavElement name="Settings">
                 <IoSettingsSharp className="text-xl" />
               </NavElement>
