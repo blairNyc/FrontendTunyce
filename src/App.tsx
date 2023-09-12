@@ -16,6 +16,7 @@ import MusicPage from "./user/MusicPage";
 import Login from './components/auth/userLogin';
 import SignUp from './components/auth/userSignUp';
 
+import ArtistPage from "./user/ArtistPage";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/mixes",
         element: <MixesPage />,
+      },
+      {
+        path: "/artist",
+        element: <ArtistPage />,
       },
     ]
   },

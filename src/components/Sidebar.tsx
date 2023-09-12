@@ -70,7 +70,7 @@ function Sidebar({sideBarOpen}: {sideBarOpen: boolean }) {
                                 <NavElement name='Mixes'>
                                     <FaDeezer className='text-xl' />
                                 </NavElement>
-                                <NavElement name='Artists'>
+                                <NavElement name='Artists' path='/artist'>
                                     <BsFillPersonFill className='text-xl' />
                                 </NavElement>
                             </ul>
