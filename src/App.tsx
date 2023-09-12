@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import Aboutpage from "./pages/Aboutpage";
 import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
+import ArtistPage from "./user/ArtistPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/mixes",
         element: <MixesPage />,
+      },
+      {
+        path: "/artist",
+        element: <ArtistPage />,
       },
     ],
   },
