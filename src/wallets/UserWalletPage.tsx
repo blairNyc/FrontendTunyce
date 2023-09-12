@@ -7,7 +7,7 @@ const UserWalletPage = () => {
         {/*Header*/}
         <div className="flex justify-between ">
           <div className="">
-            <h3>Wallet</h3>
+            <h3 className="font-bold">Wallet</h3>
           </div>
           <div className="flex">
             <div className="">
@@ -28,10 +28,46 @@ const UserWalletPage = () => {
         {/*Main Card*/}
         <div className="ml-4 mr-4 mx-auto mt-4 rounded-md bg-white flex flex-col">
           {/*Financial Record*/}
-          <div className="">
+          <div className="mx-auto">
             <div className="flex justify-between">
               <div className="">
-                <p>Financial Record</p>
+                <p className="font-bold">Financial Record</p>
+              </div>
+              <div className="">
+                <p className="text-xs">Last 30 days</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 mr-3 ml-3">
+              <div className="flex flex-col border-solid border-2 rounded-md items-center">
+                <p className="text-md">Total Balance</p>
+                <p className="font-bold">KES 25000.00</p>
+                <p className="text-xs">31% from last month</p>
+              </div>
+              <div className="flex flex-col border-solid border-2 rounded-md items-center">
+                <p className="text-md">Total Deposited</p>
+                <p className="font-bold">KES 19000.00</p>
+                <p className="text-xs">2% from last month</p>
+              </div>
+              <div className="flex flex-col border-solid border-2 rounded-md items-center">
+                <p className="text-md">Total Paid</p>
+                <p className="font-bold">KES 16000.00</p>
+                <p className="text-xs">15% from last month</p>
+              </div>
+            </div>
+          </div>
+          {/*End Financial Record*/}
+          {/*Statics*/}
+          <div className="mx-auto rounded-lg  bg-gray-300">
+            <p className="font-bold">Stastics</p>
+          </div>
+          {/*End Statics*/}
+          {/*transaction History*/}
+          <div className="bg-gray-300  mx-auto rounded-lg flex flex-col">
+            <div className="flex justify-between">
+              <div className="">
+                <p className="font-bold">Transaction History</p>
+                <p className="text-xs">History of the last 3 months</p>
               </div>
               <div className="">
                 <button>
@@ -40,39 +76,9 @@ const UserWalletPage = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mr-3 ml-3">
-              <div className="flex flex-col border-solid border-2 rounded-md items-center">
-                <p>Total Balance</p>
-                <p>KES 25000.00</p>
-                <p>31% from last month</p>
-              </div>
-              <div className="flex flex-col border-solid border-2 rounded-md items-center">
-                <p>Total Deposited</p>
-                <p>KES 19000.00</p>
-                <p>2% from last month</p>
-              </div>
-              <div className="flex flex-col border-solid border-2 rounded-md items-center">
-                <p>Total Paid</p>
-                <p>KES 16000.00</p>
-                <p>15% from last month</p>
-              </div>
-            </div>
-          </div>
-          {/*End Financial Record*/}
-          {/*Statics*/}
-          <div className=" rounded-md">
-            <p>Stastics</p>
-          </div>
-          {/*End Statics*/}
-          {/*transaction History*/}
-          <div className="flex flex-col rounded-md ">
-            <div className="">
-              <p>Transaction History</p>
-              <p>History of the last 3 months</p>
-            </div>
             <div className="">
               <div className="relative overflow-x-auto">
-                <table className=" mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
+                <table className="  text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead className="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                       <th scope="col" className="px-6 py-3">
