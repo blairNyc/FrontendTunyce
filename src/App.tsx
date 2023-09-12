@@ -13,6 +13,9 @@ import VideoScreen from './pages/VideoScreen';
 // import Aboutpage from "./pages/Aboutpage";
 import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
+import Login from './components/auth/userLogin';
+import SignUp from './components/auth/userSignUp';
+
 import ArtistPage from "./user/ArtistPage";
 
 const router = createBrowserRouter([
@@ -70,8 +73,12 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <div>Login</div>,
+    element: <Login/>,
     path:'/login',
+  },
+  {
+    element:<SignUp/>,
+    path:'/signup'
   }
 ])
 
