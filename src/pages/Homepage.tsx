@@ -7,7 +7,7 @@ function getRandomColor() {
   return color;
 }
 
-function getContrastTextColor(bgColor: any) {
+function getContrastTextColor(bgColor: string) {
   const r = parseInt(bgColor.slice(1, 3), 16);
   const g = parseInt(bgColor.slice(3, 5), 16);
   const b = parseInt(bgColor.slice(5, 7), 16);
