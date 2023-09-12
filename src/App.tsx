@@ -4,9 +4,11 @@ import Layout from "./components/Layout";
 import ExplorePage from "./user/ExplorePage";
 import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
-import Aboutpage from "./pages/Aboutpage";
 import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
+import Login from './components/auth/userLogin';
+import SignUp from './components/auth/userSignUp';
+
 
 const router = createBrowserRouter([
   {
@@ -35,15 +37,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/about",
-    element: <Aboutpage />,
+    element: <Login/>,
+    path:'/login',
   },
-
   {
-    element: <div>Login</div>,
-    path: "/login",
-  },
-]);
+    element:<SignUp/>,
+    path:'/signup'
+  }
+])
+
 
 function App() {
   return <RouterProvider router={router} />;
