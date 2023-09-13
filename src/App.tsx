@@ -1,5 +1,5 @@
 import './App.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout';
 import Homepage from './pages/Homepage';
 import ExplorePage from './user/ExplorePage';
@@ -10,32 +10,58 @@ import Creator from './components/Creator';
 import FreqAskedQuesPage from './pages/FreqAskedQuesPage';
 import TermsConditionsPage from './pages/TermsConditionsPage';
 import VideoScreen from './pages/VideoScreen';
-// import Aboutpage from "./pages/Aboutpage";
 import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
 import Login from './components/auth/userLogin';
 import SignUp from './components/auth/userSignUp';
-
 import ArtistPage from "./user/ArtistPage";
-
+import LandingPage from './pages/LandingPage';
+import DefaultLayout from './components/DefaultLayout';
+import RestaurantLayout from './restaurant/components/RestaurantLayout';
+import RestaurantHomePage from './restaurant/pages/RestaurantHomePage';
+const NotFoundRouter: RouteObject = {
+  path: "*",
+  element: <NotFound />,
+}
 const router = createBrowserRouter([
+  {
+    element: <RestaurantLayout/>,
+    children:[
+      {
+        path:'/restaurant/home',
+        element: <RestaurantHomePage/>
+      },
+      NotFoundRouter,
+    ]
+  },
+  {
+    element: <DefaultLayout/>,
+    children:[
+      {
+        path:'/',
+        element: <LandingPage/>
+      },
+      NotFoundRouter,
+    ]
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+  {
+    path:'/faqs',
+    element: <FreqAskedQuesPage/>
+  },
+  {
+    path:'/terms-conditions',
+    element: <TermsConditionsPage/>
+  },
   {
     element: <Layout />,
     children: [
+      NotFoundRouter,
       {
-        path: "*",
-        element: <NotFound />,
-      },
-      {
-        path:'/faqs',
-        element: <FreqAskedQuesPage/>
-      },
-      {
-        path:'/terms-conditions',
-        element: <TermsConditionsPage/>
-      },
-      {
-        path:'/',
+        path:'/home',
         element: <Homepage/>
       },
       {
