@@ -14,13 +14,12 @@ import { TbLogout } from 'react-icons/tb';
 import { BsPeopleFill } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom';
 
-type NavElProps = {
+export type NavElProps = {
     name: string
     children: React.ReactNode
     path?: string
 }
-function NavElement({ name, path,  children }: NavElProps) {
-
+export function NavElement({ name, path,  children }: NavElProps) {
     return (
         <NavLink to={path ?? '/musif'} style={({ isActive }) => { return { backgroundColor: isActive ? '#F0F0F5' : 'white', borderRightColor:isActive?'#FB5857':'white',borderRightWidth:isActive?4:0}}}  className='flex  py-2 px-3  flex-row items-center w-full mt-2' >
             {children}
@@ -30,7 +29,6 @@ function NavElement({ name, path,  children }: NavElProps) {
     )
 }
 function SmallNavElement({ name, children }: NavElProps) {
-
     return (
         <div className='flex flex-col justify-center items-center mt-3'>
             {children}

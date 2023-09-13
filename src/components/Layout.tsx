@@ -17,7 +17,6 @@ function Layout() {
                     <Outlet/>
                 </div>
             </div>
-
         </div>
 
     );
