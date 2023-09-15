@@ -17,6 +17,10 @@ import Login from './components/auth/userLogin';
 import SignUp from './components/auth/userSignUp';
 
 import ArtistPage from "./user/ArtistPage";
+import ContentCreatorDashboard from './components/creator/ContentCreatorDashboard';
+import MyContent from './components/creator/MyContent';
+import FilmmakerDashboard from './components/filmMaker/FilmmakerDashboard';
+import FilmmakerWatch from './components/filmMaker/FilmmakerWatch';
 
 const router = createBrowserRouter([
   {
@@ -70,6 +74,22 @@ const router = createBrowserRouter([
         path: "/artist",
         element: <ArtistPage />,
       },
+      {
+        path: "/creator",
+        element: <ContentCreatorDashboard />
+      },
+      {
+        path: "/creator/my_contents",
+        element: <MyContent />
+      },
+      {
+        path: "/film_maker",
+        element: < FilmmakerDashboard/>
+      },
+      {
+         path: "/filmmaker-watch/:id", 
+         element: < FilmmakerWatch />
+      }
     ]
   },
   {
