@@ -13,33 +13,33 @@ function RestaurantLayout() {
     console.log(openSideBar)
     return (
         <div className="w-screen h-screen">
-            <div className="flex w-full">
+            <div className="flex h-full w-full">
                 <div className={`w-0 ${!sideBarOpen?'w-16':'md:w-1/5'} pt-4 `}>
-                <div className='flex flex-col w-full justify-center items-center ' >
-                        <img alt='tunyce logo' className='w-32 h-auto' src={TunyceLogo} />
-                        <div className='w-full'>
-                            <h2 className='text-lg font-medium ml-3 mt-1'>MENU</h2>
-                            <ul className='w-full'>
-                                <NavElement path='/restaurant/home'  name='Dashboard'>
-                                    <GoHomeFill className='text-xl' />
-                                </NavElement>
-                                <NavElement path='/restaurant/my-content' name='My Content'>
-                                    <FaMusic className='text-xl' />
-                                </NavElement>
-                            </ul>
-                            <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>
-                            <ul>
-                                <NavElement path='/restaurant/my-wallet' name='Wallet'>
-                                    <BsWallet className='text-xl' />
-                                </NavElement>
-                                <NavElement path='/restaurant/my-settings' name='Settings'>
-                                    <IoSettingsSharp className='text-xl' />
-                                </NavElement>
-                                <NavElement  name='Logout' path='/logout'>
-                                    <FiLogOut className='text-xl' />
-                                </NavElement>
-                            </ul>
-                        </div>
+                    <div className='flex flex-col w-full justify-center items-center ' >
+                            <img alt='tunyce logo' className='w-32 h-auto' src={TunyceLogo} />
+                            <div className='w-full'>
+                                <h2 className='text-lg font-medium ml-3 mt-1'>MENU</h2>
+                                <ul className='w-full'>
+                                    <NavElement path='/restaurant/oliver'  name='Dashboard'>
+                                        <GoHomeFill className='text-xl' />
+                                    </NavElement>
+                                    <NavElement path='/restaurant/oliver/my-content' name='My Content'>
+                                        <FaMusic className='text-xl' />
+                                    </NavElement>
+                                </ul>
+                                <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>
+                                <ul>
+                                    <NavElement path='/restaurant/oliver/my-wallet' name='Wallet'>
+                                        <BsWallet className='text-xl' />
+                                    </NavElement>
+                                    <NavElement path='/restaurant/oliver/my-settings' name='Settings'>
+                                        <IoSettingsSharp className='text-xl' />
+                                    </NavElement>
+                                    <NavElement  name='Logout' path='/logout'>
+                                        <FiLogOut className='text-xl' />
+                                    </NavElement>
+                                </ul>
+                            </div>
                     </div>
                 </div>
                 <div className={`bg-bg-primary px-4  h-full w-full ${sideBarOpen?'md:w-4/5':'md:w-5/5'}`}>
