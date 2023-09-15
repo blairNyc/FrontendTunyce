@@ -15,6 +15,7 @@ import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
 
 import UserWalletPage from "./wallets/UserWalletPage";
+import MatatuPage from "./matatus/MatatuPage";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/user-wallet",
         element: <UserWalletPage />,
+      },
+      {
+        path: "/matatu",
+        element: <MatatuPage />,
       },
       {
         path: "/about",
