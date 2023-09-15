@@ -17,9 +17,6 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ['GetUsers']
     }),
-
-
-
   })
 });
 
