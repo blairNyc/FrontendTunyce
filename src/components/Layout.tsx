@@ -18,7 +18,6 @@ function Layout() {
                 </div>
             </div>
         </div>
-
     );
 }
 

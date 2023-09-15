@@ -19,6 +19,7 @@ import LandingPage from './pages/LandingPage';
 import DefaultLayout from './components/DefaultLayout';
 import RestaurantLayout from './restaurant/components/RestaurantLayout';
 import RestaurantHomePage from './restaurant/pages/RestaurantHomePage';
+import RestaurantWalletPage from './restaurant/pages/RestaurantWalletPage';
 const NotFoundRouter: RouteObject = {
   path: "*",
   element: <NotFound />,
@@ -28,8 +29,12 @@ const router = createBrowserRouter([
     element: <RestaurantLayout/>,
     children:[
       {
-        path:'/restaurant/home',
+        path:'/restaurant/oliver/',
         element: <RestaurantHomePage/>
+      },
+      {
+        path:'/restaurant/:id/my-wallet',
+        element:<RestaurantWalletPage/>
       },
       NotFoundRouter,
     ]
@@ -44,10 +49,7 @@ const router = createBrowserRouter([
       NotFoundRouter,
     ]
   },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+  NotFoundRouter,
   {
     path:'/faqs',
     element: <FreqAskedQuesPage/>
