@@ -1,14 +1,14 @@
-'use client';
 import React from 'react';
 import {Card, Checkbox, Label } from 'flowbite-react';
 import LogoImage from '../../assets/tunyce_logo.svg';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppDispatch,useAppSelector} from '../../app/hooks'
 import {useForm,SubmitHandler } from 'react-hook-form'
 import { useLoginUserMutation } from '../../app/api/apiAuthorizationSlice'
 import { setCredentials } from '../../app/features/auth/authSlice'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { RootState } from '../../app/store';
 
 interface registrationInput{
   email:string
@@ -23,28 +23,23 @@ const schema = yup
   .required()
 
 
-export default function userLogin() {
+export default function UserLogin() {
+	const access = useAppSelector((state: RootState) => state.persistAuth.auth.access)
+	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
+	const [loginUser] = useLoginUserMutation()
+	
+	React.useEffect(() => {
+		if (access) {
+			navigate('/')
+		}
+	}, [access, navigate])
 
-  const access = useAppSelector((state: any) => state.persistAuth.access)
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
-  const [loginUser] = useLoginUserMutation()
-  
-  React.useEffect(() => {
-    if (access) {
-        navigate('/')
-    }
-  }, [access])
-
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm({
+  const {handleSubmit,register,formState: { errors }} = useForm({
     resolver: yupResolver(schema),
   })
 
-  const onSubmit:SubmitHandler<registrationInput> = async (data: any) => {
+  const onSubmit:SubmitHandler<registrationInput> = async (data: {email:string,password:string}) => {
 
     const userData = {
       email: data.email,
@@ -53,11 +48,9 @@ export default function userLogin() {
 
     try {
       const userAuth = await loginUser(userData).unwrap()
-
       dispatch(setCredentials(userAuth))
-      
     } catch (error) {
-
+      console.log(error)
     }
   }
 
@@ -68,7 +61,7 @@ export default function userLogin() {
     <Card>
       <div className="sm:mx-auto sm:w-[36rem] sm:max-w-full"> 
         <img
-          className="mx-auto h-16 w-16 w-auto"
+          className="mx-auto h-16 w-auto"
           src={LogoImage}
           alt="Tunyce Media"
         />
