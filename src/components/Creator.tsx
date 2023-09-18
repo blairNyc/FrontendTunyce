@@ -92,7 +92,7 @@ function Creator() {
                         </ul>
                     </div>
                     <div className="w-full h-full relative mt-3">
-                        <div className="overflow-y-scroll flex items-center">
+                        <div className="overflow-y-scroll no-scrollbar flex items-center">
                             <VideoItem/>
                             <VideoItem/>
                         </div>
@@ -104,7 +104,7 @@ function Creator() {
                         <p className="text-text-primary font-light text-sm">See all</p>
                     </div>
                     <div className="w-full h-full relative mt-3">
-                        <div className="overflow-y-scroll flex md:flex-col">
+                        <div className="overflow-y-scroll no-scrollbar flex md:flex-col">
                             <MusicItem number={1} views='30K' title="Anyone"  duration='03.11'/>
                             <MusicItem number={2} views='10K' title="Champion"  duration='06.26'/>
                         </div>

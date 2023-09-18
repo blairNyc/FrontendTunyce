@@ -1,6 +1,6 @@
 import './App.css';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Layout from './components/Layout';
+import UserLayout from './components/Layout';
 import Homepage from './pages/Homepage';
 import ExplorePage from './user/ExplorePage';
 import NotFound from './pages/NotFound';
@@ -24,12 +24,15 @@ const NotFoundRouter: RouteObject = {
   path: "*",
   element: <NotFound />,
 }
+type UserType = LooseAutoComplete<"is_normaluser" | "is_restaunt" >;
+type LooseAutoComplete<T extends string> = T | Omit<string, T>;
+const curr_user_type:UserType= "";
 const router = createBrowserRouter([
-  {
+  curr_user_type==="is_restaunt"? {
     element: <RestaurantLayout/>,
     children:[
       {
-        path:'/restaurant/oliver/',
+        path:'/restaurant/',
         element: <RestaurantHomePage/>
       },
       {
@@ -38,8 +41,8 @@ const router = createBrowserRouter([
       },
       NotFoundRouter,
     ]
-  },
-  {
+  }:NotFoundRouter,
+  curr_user_type===""?{
     element: <DefaultLayout/>,
     children:[
       {
@@ -48,7 +51,7 @@ const router = createBrowserRouter([
       },
       NotFoundRouter,
     ]
-  },
+  }:NotFoundRouter,
   NotFoundRouter,
   {
     path:'/faqs',
@@ -58,8 +61,8 @@ const router = createBrowserRouter([
     path:'/terms-conditions',
     element: <TermsConditionsPage/>
   },
-  {
-    element: <Layout />,
+  curr_user_type==="is_normaluser"?{
+    element: <UserLayout />,
     children: [
       NotFoundRouter,
       {
@@ -99,7 +102,7 @@ const router = createBrowserRouter([
         element: <ArtistPage />,
       },
     ]
-  },
+  }:NotFoundRouter,
   {
     element: <Login/>,
     path:'/login',

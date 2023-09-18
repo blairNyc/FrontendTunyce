@@ -20,7 +20,7 @@ export const JointTunce = ()=>(
         </div> 
     </div>
 );
-const BoldText= ({text}:{text:string})=><h2 className="font-bold text-2xl my-4">{text}</h2>
+const BoldText= ({text}:{text:string})=><h2 className="font-bold md:text-2xl text-xl my-4">{text}</h2>
 const RowContainer = ({text}:{text:string})=>(
     <div className="flex items-center w-full justify-between px-3">
         <BoldText text={text}/>
@@ -29,9 +29,9 @@ const RowContainer = ({text}:{text:string})=>(
             <BiChevronRightCircle className="text-2xl inline-block mx-1"/>
         </div>
     </div>
-)
+);
 const GenreBox = ({text,bgcolor}:{text:string, bgcolor:string})=>(
-    <p className={`px-4 text-white mx-1 rounded font-semibold py-1 ${bgcolor}`}>
+    <p className={`px-4 cursor-pointer text-white mx-1 my-2 rounded font-semibold py-1 ${bgcolor}`}>
         {text}
     </p>
 );
@@ -54,7 +54,7 @@ const MusItem = ({plays,title}:{plays:string,title:string})=>(
 function LandingPage() {
     return (
         <div className='w-full h-full py-8'>
-            <div className="flex  items-center">
+            <div className="grid grid-cols-3 md:grid-cols-3 xs:grid-cols-5 ">
                 <GenreBox text="Hip hop" bgcolor="bg-pink-400"/>
                 <GenreBox text="Afro pop" bgcolor="bg-red-500"/>
                 <GenreBox text="Dancehall" bgcolor="bg-lime-300"/>
@@ -68,7 +68,7 @@ function LandingPage() {
                 <div>
                     <p>MUSIC TO GET YOU STARTED</p>
                     <RowContainer text='Popular'/>
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 xs:grid-cols-5 gap-1">
                         <MusItem plays='32K' title='DJ Cleft beats'/>
                         <MusItem plays='32K' title='Best club banger mix DJ 38k'/>
                         <MusItem plays='32K' title='DJ Cleft beats'/>
@@ -77,14 +77,13 @@ function LandingPage() {
                 </div>
                 <div>
                     <RowContainer text='New Releases'/>
-                    <div className="grid grid-cols-5 gap-2">
+                    <div className="grid grid-cols-2 md:grid-cols-3 xs:grid-cols-5 gap-2">
                         <EasyAfterNoon image='/E.png' text='Easy Afternoon'/>
                         <EasyAfterNoon image='/U.png' text='Easy Afternoon'/>
                         <EasyAfterNoon image='/W.png' text='Easy Afternoon'/>
                         <EasyAfterNoon image='/Q.png' text='Easy Afternoon'/>
                         <EasyAfterNoon image='/T.png' text='Easy Afternoon'/>
                         <EasyAfterNoon image='/Y.png' text='Easy Afternoon'/>
-
                     </div>
                 </div>
             </div>
