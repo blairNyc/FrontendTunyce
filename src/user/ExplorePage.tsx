@@ -1,7 +1,7 @@
 import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io"
 // import Player from "../components/Player";
 interface CommonProps{
-    title: string
+    title?: string
     owner?: string
     additionalStyles?: React.HTMLAttributes<HTMLDivElement>['className'] | undefined| string
     children?: React.ReactNode
@@ -32,6 +32,11 @@ export const MusicItem = ({path}:{path?:string})=>(
         <h4 className="font-bold">Like Water</h4>
         <p className="uppercase text-xs">Dj - Freshy</p>
     </a>
+)
+export const RowScroll = ({children}:CommonProps)=>(
+    <div className="w-full flex items-center overflow-x-scroll">
+        {children}
+    </div>
 )
 const ExplorePage = () => {
     return (
