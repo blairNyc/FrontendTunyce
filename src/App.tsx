@@ -28,6 +28,8 @@ import FilmmakerDashboard from './components/filmMaker/FilmmakerDashboard';
 import FilmmakerWatch from './components/filmMaker/FilmmakerWatch';
 import UserWalletPage from "./wallets/UserWalletPage";
 import MatatuPage from "./matatus/MatatuPage";
+import RecordLabelHome from './recordLabel/RecordLabelHome';
+import UserHome from './user/UserHome';
 
 
 const NotFoundRouter: RouteObject = {
@@ -145,6 +147,14 @@ const router = createBrowserRouter([
         path: "/about",
         element: <Aboutpage />,
       },
+      {
+        path: "/userhome",
+        element: <UserHome />
+      },
+      {
+        path: "/record-label",
+        element: <RecordLabelHome />
+      }
     ]
   },
   {
