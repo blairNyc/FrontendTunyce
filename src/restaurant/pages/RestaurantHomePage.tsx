@@ -83,7 +83,7 @@ function RestaurantHomePage() {
                         New Restaurant
                     </button>
                 </div>
-                <div className="w-full mt-5 flex items-center overflow-x-scroll">
+                <div className="w-full mt-5 flex items-center no-scrollbar overflow-x-auto">
                     <FeaturedItem title="Heart want what it wants" />
                     <FeaturedItem title="Live Water" />
                     <FeaturedItem title="Anyone" />

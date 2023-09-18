@@ -20,19 +20,19 @@ function RestaurantLayout() {
                             <div className='w-full'>
                                 <h2 className='text-lg font-medium ml-3 mt-1'>MENU</h2>
                                 <ul className='w-full'>
-                                    <NavElement path='/restaurant/oliver'  name='Dashboard'>
+                                    <NavElement path='/restaurant/'  name='Dashboard'>
                                         <GoHomeFill className='text-xl' />
                                     </NavElement>
-                                    <NavElement path='/restaurant/oliver/my-content' name='My Content'>
+                                    <NavElement path='/restaurant/my-content' name='My Content'>
                                         <FaMusic className='text-xl' />
                                     </NavElement>
                                 </ul>
                                 <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>
                                 <ul>
-                                    <NavElement path='/restaurant/oliver/my-wallet' name='Wallet'>
+                                    <NavElement path='/restaurant/my-wallet' name='Wallet'>
                                         <BsWallet className='text-xl' />
                                     </NavElement>
-                                    <NavElement path='/restaurant/oliver/my-settings' name='Settings'>
+                                    <NavElement path='/restaurant/my-settings' name='Settings'>
                                         <IoSettingsSharp className='text-xl' />
                                     </NavElement>
                                     <NavElement  name='Logout' path='/logout'>

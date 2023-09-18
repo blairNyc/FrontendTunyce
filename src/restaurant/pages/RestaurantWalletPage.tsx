@@ -66,7 +66,7 @@ function RestaurantWalletPage() {
                             <p className='mx-3 mb-3 text-sm text-slate-400'>History of last 3 month</p>
                         </div>
                     </div>
-                    <div className='relative overflow-x-auto'>
+                    <div className='relative overflow-x-auto no-scrollbar'>
                         <table className='w-full'>
                             <thead>
                                 <tr className='text-left'>
