@@ -2,12 +2,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://mighty-thicket-88919.herokuapp.com/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/' }),
   tagTypes: ['GetUsers'],
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: data => ({
-        url: 'authentication/login/v1/',
+        url: 'auth/login/',
         method: 'post',
         body: {
           "email": `${data.email}`,
@@ -17,6 +17,9 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ['GetUsers']
     }),
+
+
+
   })
 });
 

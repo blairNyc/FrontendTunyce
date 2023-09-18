@@ -4,7 +4,7 @@ import { setCredentials, logOut } from '../features/auth/authSlice'
 import { RootState} from '../store'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://mighty-thicket-88919.herokuapp.com/api/',
+    baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).persistAuth.auth.access
         if (token) {
@@ -48,7 +48,7 @@ export const apiSlice = createApi({
         }),
         loginUser: builder.mutation({
             query: (data) => ({
-                url: 'authentication/login/v1/',
+                url: 'auth/login/',
                 method: 'post',
                 body: {
                     "email": `${data.email}`,
