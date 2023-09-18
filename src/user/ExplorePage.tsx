@@ -34,17 +34,17 @@ export const MusicItem = ({path}:{path?:string})=>(
     </a>
 )
 export const RowScroll = ({children}:CommonProps)=>(
-    <div className="w-full flex items-center overflow-x-scroll">
+    <div className="w-full flex items-center no-scrollbar overflow-x-auto">
         {children}
     </div>
 )
 const ExplorePage = () => {
     return (
-        <div className="mt-8 relative w-full overflow-y-scroll">
+        <div className="mt-8 relative w-full no-scrollbar overflow-y-auto">
             <h2 className="text-2xl text-text-primary font-bold">Explore</h2>
             <div className="mt-10">
                 <SectionTitle title="Featured Mixes"/>
-                <div className="w-full flex items-center overflow-x-scroll">
+                <div className="w-full flex items-center overflow-x-auto">
                     <FeaturedItem title="Heart want what it wants" owner="Dj - Freshy"/>
                     <FeaturedItem title="Live Water" owner="Dj - Freshy"/>
                     <FeaturedItem title="Anyone" owner="Justin Beiber"/>
@@ -54,7 +54,7 @@ const ExplorePage = () => {
                 <SectionTitle title="New Releases"/>
                 <div className="w-full flex items-center">
                     <IoIosArrowDropleftCircle className="text-2xl mx-2 absolute left-0 text-text-primary"/>
-                    <div className="flex mx-7 w-full relative overflow-y-hidden overflow-x-scroll items-center">
+                    <div className="flex mx-7 w-full relative overflow-y-auto no-scrollbar overflow-x-auto items-center">
                         <MusicItem/>
                         <MusicItem/>
                         <MusicItem/>
