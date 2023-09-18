@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { MdCloudUpload } from "react-icons/md";
 
 interface AddMatatuModalProps {

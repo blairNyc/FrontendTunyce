@@ -16,6 +16,7 @@ export default {
         "orangered":"#FF5349",
         "universal-primary": "#FB5857",
         "grey": "#9ca3af",
+        "black-rgba": "rgba(0, 0, 0, 0.8)",
       },
     },
   },
