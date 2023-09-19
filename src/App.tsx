@@ -20,6 +20,10 @@ import DefaultLayout from './components/DefaultLayout';
 import RestaurantLayout from './restaurant/components/RestaurantLayout';
 import RestaurantHomePage from './restaurant/pages/RestaurantHomePage';
 import RestaurantWalletPage from './restaurant/pages/RestaurantWalletPage';
+import ArtistsPage from './pages/ArtistsPage';
+import TrendingPage from './pages/TrendingPage';
+import SearchPage from './pages/SearchPage';
+import NewPage from './pages/NewPage';
 const NotFoundRouter: RouteObject = {
   path: "*",
   element: <NotFound />,
@@ -46,7 +50,30 @@ const router = createBrowserRouter([
         path:'/',
         element: <LandingPage/>
       },
-      NotFoundRouter,
+      {
+        path: "/artists",
+        element: <ArtistsPage />,
+      },
+      {
+        path:'/search',
+        element: <SearchPage/>
+      },
+      {
+        path: "/artists/:id",
+        element: <Creator/>,
+      },
+      {
+        path:'/trending',
+        element: <TrendingPage/>
+      },
+      {
+        path:'/trending/:id',
+        element:<VideoScreen/>
+      },
+      {
+        path:'/new',
+        element: <NewPage/>
+      }
     ]
   },
   NotFoundRouter,
