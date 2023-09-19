@@ -6,7 +6,13 @@ import { FaDeezer } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi";
 import { GoHomeFill } from "react-icons/go";
 import TunyceLogo from '/tunyce_logo.svg';
-import { NavElProps } from "./Sidebar";
+// import { NavElProps } from "./Sidebar";
+type NavElProps = {
+    name: string;
+    children: React.ReactNode;
+    path?: string;
+};
+
 function NavElement({ name, path,  children }: NavElProps) {
     return (
         <NavLink to={path ?? '/musif'} style={({ isActive }) => { return { backgroundColor: isActive ? '#F0F0F5' : 'white', borderRightColor:isActive?'#FB5857':'white',borderRightWidth:isActive?4:0}}}  className='flex  py-2 px-3  flex-row items-center w-full mt-1' >

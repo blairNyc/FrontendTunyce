@@ -32,7 +32,7 @@ const MusicPage = () => {
         </div>
         {/*End of Subtitle*/}
 
-        <div className="ml-5 mr-5 mx-auto mt-5 flex flex-col  ">
+        <div className="ml-10 mr-10 mx-auto mt-5 flex flex-col  ">
           {/*Card*/}
           <div className=" container bg-white shadow-md w-full rounded-lg p-1 mt-2 flex  items-center justify-between">
             <div className="flex">
