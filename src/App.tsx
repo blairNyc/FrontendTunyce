@@ -26,7 +26,7 @@ const NotFoundRouter: RouteObject = {
 }
 type UserType = LooseAutoComplete<"is_normaluser" | "is_restaunt" >;
 type LooseAutoComplete<T extends string> = T | Omit<string, T>;
-const curr_user_type:UserType= "";
+const curr_user_type:UserType= "is_restaunt";
 const router = createBrowserRouter([
   curr_user_type==="is_restaunt"? {
     element: <RestaurantLayout/>,
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         element: <RestaurantHomePage/>
       },
       {
-        path:'/restaurant/:id/my-wallet',
+        path:'/restaurant/my-wallet',
         element:<RestaurantWalletPage/>
       },
       NotFoundRouter,
