@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import authReducer from './features/auth/authSlice';
-import { registerUserApi } from './api/apiRegisterUserSlice';
+import authReducer from '../components/auth/auth/authSlice';
+import themeReducer from './features/theme/themeSlice';
+import { registerUserApi } from '../components/auth/auth/apiRegisterUserSlice';
 import { openWeatherApi } from './api/apiOpenWeatherSlice';
 import { cmsApi } from './api/apiContentManagementSlice';
 import { usersApi } from './api/apiAuthorizationSlice';
@@ -12,9 +13,12 @@ const persistAuthConfig = {
   key: 'root',
   storage,
 }
+const persistThemeConfig = {
+  key: 'theme',
+  storage,
+}
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
-
-
+const persistedThemeReducer = persistReducer(persistThemeConfig, themeReducer);
 
 export const store = configureStore({
 
@@ -27,6 +31,7 @@ export const store = configureStore({
     [cmsApi.reducerPath]: cmsApi.reducer,
     auth: authReducer,
     persistAuth: persistedAuthReducer,
+    persistTheme: persistedThemeReducer,
    
    
   },
@@ -40,8 +45,7 @@ export const store = configureStore({
   devTools:process.env.NODE_ENV !=='PRODUCTION' ? true : false,
 });
 
-export const persistor = persistStore(store)
-
+export const persistor = persistStore(store);
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
