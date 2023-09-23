@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setCredentials, logOut } from '../features/auth/authSlice'
+import { setCredentials, logOut } from '../../components/auth/auth/authSlice'
 import { RootState} from '../store'
 
 const baseQuery = fetchBaseQuery({
