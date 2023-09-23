@@ -11,7 +11,7 @@ function CreatorsPage() {
             <h2 className="text-2xl text-text-primary font-bold">Creators</h2>
             <div className="mt-10">
                 <SectionTitle title="Featured Creators"/>
-                <div className="w-full mt-1 flex items-center  overflow-x-scroll">
+                <div className="w-full mt-1 flex items-center no-scrollbar overflow-x-auto">
                     <FeaturedItem title="">
                         <div className="absolute bottom-0 mt-2">
                             <p className="font-bold text-md text-center">DJ Lensy</p>
@@ -28,7 +28,7 @@ function CreatorsPage() {
                 <SectionTitle seeAllPath="/creators/deejays" title="Deejays"/>
                 <div className="w-full flex items-center">
                     <IoIosArrowDropleftCircle className="text-2xl mx-2 absolute left-0 text-text-primary"/>
-                    <div className="flex mx-7 w-full relative overflow-y-hidden overflow-x-scroll items-center">
+                    <div className="flex mx-7 w-full relative overflow-y-hidden no-scrollbar overflow-x-scroll items-center">
                         <MusicItem path="/creators/deejays/3"/>
                         <MusicItem path="/creators/deejays/4"/>
                         <MusicItem path="/creators/deejays/5"/>
