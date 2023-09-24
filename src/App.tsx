@@ -34,6 +34,8 @@ import UserWalletPage from "./wallets/UserWalletPage";
 import MatatuPage from "./matatus/MatatuPage";
 import UserHome from './user/UserHome';
 import ControllerCart from './components/controller/ControllerCart';
+import ControllerCreators from './components/controller/ControllerCreators';
+import AllContollerCreatorsPage from './components/controller/AllContollerCreatorsPage';
 
 
 const NotFoundRouter: RouteObject = {
@@ -181,6 +183,14 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <ControllerCart />
+      },
+      {
+        path: "/controller-creators",
+        element: <ControllerCreators />
+      },
+      {
+        path: "/all-controller-creators",
+        element: <AllContollerCreatorsPage />
       }
     ]
   },
