@@ -32,8 +32,8 @@ import FilmmakerDashboard from './components/filmMaker/FilmmakerDashboard';
 import FilmmakerWatch from './components/filmMaker/FilmmakerWatch';
 import UserWalletPage from "./wallets/UserWalletPage";
 import MatatuPage from "./matatus/MatatuPage";
-import RecordLabelHome from './recordLabel/RecordLabelHome';
 import UserHome from './user/UserHome';
+import ControllerCart from './components/controller/ControllerCart';
 
 
 const NotFoundRouter: RouteObject = {
@@ -179,8 +179,8 @@ const router = createBrowserRouter([
         element: <UserHome />
       },
       {
-        path: "/record-label",
-        element: <RecordLabelHome />
+        path: "/cart",
+        element: <ControllerCart />
       }
     ]
   },
