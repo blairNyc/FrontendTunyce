@@ -10,19 +10,26 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
             }),
         }),
 
-        // upgrade user
+        // upgrade matatu
         upgradeToMatatuOwner: builder.mutation({
-            query: (id) => ({
+            query: () => ({
                 url: '/matatu/upgrade_matatu',
                 method: 'post',
             }),
         }),
 
+        // upgrade matatu
+        upgradeToRestaurantOwner: builder.mutation({
+            query: () => ({
+                url: '/restaurant/upgrade_restaurant',
+                method: 'post',
+            }),
+        }),
     })
-
 })
 
 export const {
     useGetAllContentCreatorsQuery,
-    useUpgradeToMatatuOwnerMutation
+    useUpgradeToMatatuOwnerMutation,
+    useUpgradeToRestaurantOwnerMutation
 } = apiContentSlice;

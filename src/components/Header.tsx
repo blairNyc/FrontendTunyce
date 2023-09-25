@@ -6,12 +6,8 @@ import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import TunycLogo from '../assets/tunyce_logo.png';
 import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
-import { useUpgradeToMatatuOwnerMutation } from "../app/features/content/contentApiSlice";
-import { MutationDefinition, FetchArgs, BaseQueryApi, FetchBaseQueryError, FetchBaseQueryMeta } from "@reduxjs/toolkit/dist/query";
-import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import { MutationActionCreatorResult } from "@reduxjs/toolkit/dist/query/core/buildInitiate";
+import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation } from "../app/features/content/contentApiSlice";
 import { useAppDispatch } from "../app/hooks";
-
 
 const ListItem = ({ text, currPath, path }: { text: string, currPath: string, path: string }) => (
     <NavLink style={({ isActive }) => { return { color: isActive ? '#FB5857' : '#4D4D56' } }} to={path} className='mx-[5px] md:mx-2'>
@@ -45,13 +41,16 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     };
 
     const [upgradeMatatu] = useUpgradeToMatatuOwnerMutation()
+    const [upgradeRestaurant] = useUpgradeToRestaurantOwnerMutation()
 
     const onSubmitUpgrade = async (selectedValue : any) => {
         
         try {
             if (selectedValue == "Matatu Owner") {
                 dispatch(upgradeMatatu)
-            }           
+            } else if (selectedValue == "Restaurant Owner") {
+                dispatch(upgradeRestaurant)
+            }
         } catch (error) {
             console.log(error)
         }
