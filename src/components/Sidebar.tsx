@@ -50,6 +50,7 @@ function SmallNavElement({ name, children }: NavElProps) {
 function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
   return (
     <div className="w-full">
+    {/* <div className="h-full fixed"> */}
       {sideBarOpen ? (
         <div className="flex flex-col w-full justify-center items-center ">
           <img alt="tunyce logo" className="w-32 h-auto" src={TunyceLogo} />

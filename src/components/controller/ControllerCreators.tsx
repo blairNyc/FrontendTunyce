@@ -1,5 +1,6 @@
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io";
 import { SectionTitle, FeaturedItem, MusicItem } from "../../user/ExplorePage";
+
 const TextInfo= ({text,figure}:{text: string,figure: string})=>(
     <h4 className="font-bold text-md text-center mx-2">{figure}
         <span className="block text-xs font-semibold">{text}</span>
