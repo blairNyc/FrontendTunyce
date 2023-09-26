@@ -171,10 +171,7 @@ const router = createBrowserRouter([
         path: "/user-wallet",
         element: <UserWalletPage />,
       },
-      {
-        path: "/matatu",
-        element: <MatatuPage />,
-      },
+     
       {
         path: "/about",
         element: <Aboutpage />,
@@ -273,6 +270,10 @@ function App() {
           element: <UserHome />
         },
         {
+            path: "/matatu",
+            element:<MatatuPage/>
+        },
+        {
           path: "/cart",
           element: <ControllerCart />
         },
@@ -285,7 +286,12 @@ function App() {
           element: <AllContollerCreatorsPage />
         }
       ]
-    }:curr_loggedin_user === "" ? {
+    }
+    : curr_loggedin_user === "is_matatu" ? {
+        path:'/matatu',
+            element:<MatatuPage/>
+        }
+    :curr_loggedin_user === "" ? {
           element: <DefaultLayout />,
           children: [
               {

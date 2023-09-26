@@ -1,13 +1,15 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { FaRegBell } from "react-icons/fa6";
 import { BsChevronDown } from "react-icons/bs";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import TunycLogo from '../assets/tunyce_logo.png';
 import {AiOutlineMenu} from "react-icons/ai";
-import { useAppDispatch} from "../app/hooks";
+import { useAppDispatch, useAppSelector} from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
 import { useState } from "react";
+import { RootState } from "../app/store";
+import { setCredentials } from "./auth/auth/authSlice";
 const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
     <NavLink style={({isActive})=>{return{color:isActive?'#FB5857':'#4D4D56'}}} to={path} className='mx-[5px] md:mx-2'>
         <p className={``}>{text}</p>
@@ -22,7 +24,8 @@ interface IHeaderProp {
 function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
     const dispatch = useAppDispatch()
-
+    const isMatOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_matatu);
+    const authVal = useAppSelector((state:RootState)=>state.persistAuth.auth);
     const location = useLocation().pathname;
     console.log(location);
     // const dispatch = useAppDispatch()
@@ -66,7 +69,24 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
 
     };
-
+    const navigate = useNavigate();
+    const switchAccountHandler = ()=>{
+        try {
+            
+            dispatch(setCredentials({
+                auth:{
+                    curr_loggedin_user:'is_matatu',
+                    access: authVal.access,
+                    refresh: authVal.refresh,
+                    username: authVal.username,
+                    // is_normaluser: authVal.is_normaluser
+                }
+            }));
+            navigate('/matatu');
+        } catch (error) {
+            
+        }
+    }
     const DropdownMenu = () => (
         <div id="dropdownAvatarName" className="z-50 absolute right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
@@ -75,6 +95,12 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             </div>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
+                   {isMatOwner?( <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        onClick={() => {
+                            switchAccountHandler()
+                        }}
+                        >Switch to Matatu owner</a>):null
+                    }
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             setIsDropdownOpen(false)

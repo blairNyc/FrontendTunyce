@@ -1,27 +1,64 @@
 import { FC } from "react";
 import { MdCloudUpload } from "react-icons/md";
-
+import { useUseCreateMatatuMutation } from "../app/features/content/contentApiSlice";
+import * as yup from 'yup'
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup'
 interface AddMatatuModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+interface registrationInput {
+  name: string
+  number_plate: string
+  route: number
+  number_of_seats: number
+  is_trial?: boolean
+  image_interior?: string
+  image_exterior?: string
 
+}
+
+const schema = yup.object({
+  name: yup.string().required(),
+  number_plate: yup.string().required(),
+  number_of_seats: yup.number().required(),
+  route: yup.number().required(),
+  is_trial: yup.boolean(),
+  image_exterior: yup.string(),
+  image_interior: yup.string()
+}).required()
 const AddMatatuModal: FC<AddMatatuModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
-
+  const [createMat] = useUseCreateMatatuMutation();
+  const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput)=>{
+    console.log(data);
+    const userData = {
+      ...data,
+      image_exterior: '',
+      image_interior:'',
+      is_trial: true
+    }
+    const response = await createMat(userData).unwrap()
+    console.log(response);
+  }
+  const { handleSubmit, register } = useForm<registrationInput>({
+    resolver: yupResolver(schema),
+  })
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="modal-container bg-white rounded-md mx-auto">
         {/* Add your modal content here */}
         <div className="modal-content">
           {/* Add form or content for adding a matatu */}
-          <form className="flex flex-col mr-5 ml-5" action="">
+          <form onSubmit={handleSubmit(onSubmit)}  className="flex flex-col mr-5 ml-5" action="">
             <h2>New Matatu</h2>
             <div className="grid grid-cols-2 gap-4 ">
               <div className="mb-6">
                 <input
                   type="text"
                   id="name"
+                  {...register("name")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Name"
                   required
@@ -31,6 +68,7 @@ const AddMatatuModal: FC<AddMatatuModalProps> = ({ isOpen, onClose }) => {
                 <input
                   type="text"
                   id="plate"
+                  {...register("number_plate")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Number of Plate"
                   required
@@ -40,6 +78,7 @@ const AddMatatuModal: FC<AddMatatuModalProps> = ({ isOpen, onClose }) => {
                 <input
                   type="text"
                   id="route"
+                  {...register("route")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Route"
                   required
@@ -49,35 +88,11 @@ const AddMatatuModal: FC<AddMatatuModalProps> = ({ isOpen, onClose }) => {
                 <input
                   type="text"
                   id="seats"
+                  {...register("number_of_seats")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Number of Seats"
                   required
                 />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <div className=" text-sm">
-                <p>Please set your preffered Controller and Player Passwords</p>
-              </div>
-              <div className="grid grid-cols-2 gap-4 ">
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    id="seats"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Driver Password"
-                    required
-                  />
-                </div>
-                <div className="mb-6">
-                  <input
-                    type="text"
-                    id="seats"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Player Password"
-                    required
-                  />
-                </div>
               </div>
             </div>
             <div className="flex justify-between">
@@ -118,7 +133,7 @@ const AddMatatuModal: FC<AddMatatuModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 className="bg-red-600 text-white rounded-lg w-60 mt-6"
-                onClick={onClose}
+                // onClick={onClose}
               >
                 Submit
               </button>
