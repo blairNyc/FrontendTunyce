@@ -61,5 +61,12 @@ export const apiSlice = createApi({
 
 export const mainApiSlice = createApi({
     baseQuery: baseQueryWithReauth,
-    endpoints: builder => ({})
+    endpoints: builder => ({
+        getAll:builder.query({
+            query:()=>({
+                url: "/authentication/request-reset-password/v1/",
+                method: "post",
+            })
+        })
+    })
 })

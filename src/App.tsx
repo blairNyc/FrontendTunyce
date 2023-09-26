@@ -207,7 +207,7 @@ const router = createBrowserRouter([
   }
 ])
 
-
+console.log(router);
 function App() {
   const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
   console.log(curr_loggedin_user);

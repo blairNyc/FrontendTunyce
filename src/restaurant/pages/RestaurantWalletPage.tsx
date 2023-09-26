@@ -103,7 +103,37 @@ function RestaurantWalletPage() {
                         <h2 className='text-xl my-3 font-bold text-black'>Statistics</h2>
                         <div style={{backgroundColor:'#fafafa',border:'1px solid #ccc'}} className='border-2 rounded-2xl'>
                         <Chart
-                            options={apexOptions.options}
+                             options={{
+                                chart: {
+                                    height: 350,
+                                    type: "area",
+                                    zoom: {
+                                        enabled: false
+                                    },
+                                    toolbar: {
+                                        show: false
+                                    },
+                                    background:'#fff'
+                                },
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                colors: ["#43E2B7", "#F25D3B"],
+                                stroke: {
+                                    curve: 'smooth',
+                                    width: [1, 1.5, 5],
+                                    dashArray: [0, 8, 1]
+                                },
+                                xaxis: {
+                                    type: 'datetime',
+                                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                                },
+                                tooltip: {
+                                    x: {
+                                        format: 'dd/MM/yy HH:mm'
+                                    },
+                                }
+                            }}
                             series={apexOptions.series}
                             type={"area"}
                             height={350}
