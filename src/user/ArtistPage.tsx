@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GiHeadphones } from 'react-icons/gi';
+import ReactPlayer from 'react-player';
 
 interface ArtistPageProps {}
 
@@ -9,130 +9,86 @@ const ArtistPage: React.FC<ArtistPageProps> = () => {
     {
       id: 1,
       name: 'John Doe',
-      image: "https://picsum.photos/200/300",
-      bio: 'John Doe is a talented musician known for his amazing music.',
+      image: 'https://picsum.photos/200/300',
+      bio: 'John Doe is a talented musician known for his amazing music. https://www.youtube.com/watch?v=L_LUpnjgPso&pp=ygUQYm9uZmlyZSA0ayB2aWRlbw%3D%3D',
     },
     {
       id: 2,
       name: 'Jane Smith',
       image: 'https://picsum.photos/200/300',
-      bio: 'Jane Smith is a singer-songwriter with a unique voice.',
+      bio: 'Jane Smith is a singer-songwriter with a unique voice. https://www.youtube.com/watch?v=anDLBBLyPB8&pp=ygUINGsgdmlkZW8%3D',
     },
     {
       id: 3,
       name: 'Mary Smith',
       image: 'https://picsum.photos/200/300',
-      bio: 'Jane Smith is a singer-songwriter with a unique voice.',
+      bio: 'Mary Smith is a singer-songwriter with a unique voice. https://www.youtube.com/watch?v=7PIji8OubXU&pp=ygUINGsgdmlkZW8%3D',
     },
     {
       id: 4,
       name: 'Purity Smith',
       image: 'https://picsum.photos/200/300',
-      bio: 'Jane Smith is a singer-songwriter with a unique voice.',
+      bio: 'Purity Smith is a singer-songwriter with a unique voice. https://www.youtube.com/watch?v=xqo3Vsm3fVQ&pp=ygUINGsgdmlkZW8%3D',
     },
     // Add more artists as needed
   ];
 
-  const music = [
-    {
-      id: 1,
-      title: 'Song 1',
-      genre: 'Pop',
-      artistId: 1, // Artist ID for John Doe
-    },
-    {
-      id: 2,
-      title: 'Song 2',
-      genre: 'Rock',
-      artistId: 1, // Artist ID for John Doe
-    },
-    {
-      id: 3,
-      title: 'Song 3',
-      genre: 'Hip Hop',
-      artistId: 2, // Artist ID for Jane Smith
-    },
-    {
-      id: 3,
-      title: 'Song 4',
-      genre: 'Hip Hop',
-      artistId: 2, // Artist ID for Jane Smith
-    },
-    {
-      id: 4,
-      title: 'Song 3',
-      genre: 'Hip Hop',
-      artistId: 2, // Artist ID for Jane Smith
-    },
-    {
-      id: 5,
-      title: 'Song 3',
-      genre: 'Hip Hop',
-      artistId: 2, // Artist ID for Jane Smith
-    },
-    // Add more songs as needed
-  ];
+  // State to track the URL of the most recent uploaded content and the artist being hovered over
+  const [recentContentUrl, setRecentContentUrl] = useState<string | null>(null);
+  const [hoveredArtist, setHoveredArtist] = useState<number | null>(null);
 
-  // State to track the selected artist index
-  const [selectedArtistIndex, setSelectedArtistIndex] = useState<number | null>(null);
+  // Function to handle hover over an artist's card
+  const handleArtistHover = (artistIndex: number) => {
+    const youtubeUrlRegex = /(https?:\/\/(www\.)?youtube\.com\/watch\?v=[\w-]+)/;
+    const videoUrlMatch = artists[artistIndex].bio.match(youtubeUrlRegex);
 
-  const handleArtistSelect = (index: number) => {
-    setSelectedArtistIndex(index);
+    if (videoUrlMatch) {
+      setRecentContentUrl(videoUrlMatch[0]);
+      setHoveredArtist(artistIndex);
+    } else {
+      setRecentContentUrl(null);
+      setHoveredArtist(null);
+    }
   };
 
-  const selectedArtist = selectedArtistIndex !== null ? artists[selectedArtistIndex] : null;
-
-  // Filter music by the selected artist
-  const selectedArtistMusic =
-    selectedArtist !== null ? music.filter((song) => song.artistId === selectedArtist.id) : [];
+  // Function to handle hover out from an artist's card
+  const handleArtistHoverOut = () => {
+    setRecentContentUrl(null);
+    setHoveredArtist(null);
+  };
 
   return (
-    <div className="container mx-auto mt-8 p-4 flex ml-4 mr-4 mx-auto mt-4 bg-white gap-4 bg-auto bg-no-repeat bg-center rounded-lg">
-      <div className="w-1/4">
-        <h2 className="text-2xl font-bold">Artists</h2>
-        <ul className="mt-4">
-          {artists.map((artist, index) => (
-            <li
-              key={artist.id}
-              onClick={() => handleArtistSelect(index)}
-              className={`cursor-pointer mb-2 ${
-                index === selectedArtistIndex ? 'text-blue-500 font-semibold' : ''
-              }`}
-            >
-              {artist.name}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="w-1/2 ml-4">
-        {selectedArtist ? (
-          <>
-            <div className="mb-2">
-              <img src={selectedArtist.image} alt={selectedArtist.name} className="w-full h-full object-cover h-48 w-96 bg-cover rounded" />
-            </div>
-            <h1 className="text-2xl font-bold">{selectedArtist.name}</h1>
-            <p className="text-gray-500">{selectedArtist.bio}</p>
-          </>
-        ) : (
-          <p className="text-gray-500">Select an artist to view their information.</p>
-        )}
-      </div>
-      <div className="mt-4 w-full">
-        <h2 className="text-2xl font-bold">Music</h2>
-        <ul className="mt-4 flex flex-wrap gap-6">
-          {selectedArtistMusic.map((song) => (
-            <li
-            key={song.id}
-            className="mb-2 p-2 rounded-lg bg-gray-200 flex items-center"
+    <div className="container mx-auto mt-8 p-4 ml-4 mr-4 mx-auto mt-4 bg-white gap-4 bg-auto bg-no-repeat bg-center rounded-lg">
+      <h2 className="text-2xl font-bold">Artists</h2>
+      <div className="grid grid-cols-3 gap-4">
+        {artists.map((artist, index) => (
+          <div
+            key={artist.id}
+            className={`bg-white rounded-lg cursor-pointer`}
+            onMouseEnter={() => handleArtistHover(index)}
+            onMouseLeave={handleArtistHoverOut} // Add the onMouseLeave event handler
           >
-            <GiHeadphones className="text-2xl mr-2" />
-            <div>
-              <h3 className="text-lg font-semibold">{song.title}</h3>
-              <p>{song.genre}</p>
+            <div className="mb-2">
+              <div
+                className="w-full h-0 relative rounded-lg pb-56 bg-cover"
+                style={{ backgroundImage: `url(${artist.image})` }}
+              >
+                {hoveredArtist === index && recentContentUrl && (
+                  <ReactPlayer
+                    url={recentContentUrl}
+                    controls
+                    playing={true}
+                    width="100%"
+                    height="100%"
+                    style={{ position: 'absolute', top: 0, left: 0 }}
+                  />
+                )}
+              </div>
             </div>
-          </li>
-          ))}
-        </ul>
+            <h1 className="text-2xl font-bold">{artist.name}</h1>
+            <p className="text-gray-500">{artist.bio}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

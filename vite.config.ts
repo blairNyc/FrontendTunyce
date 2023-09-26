@@ -7,5 +7,8 @@ export default defineConfig({
   server:{
     cors:true,
     host:true,
+  },
+  build: {
+    outDir: 'dist',
   }
 })

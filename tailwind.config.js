@@ -10,7 +10,7 @@ export default {
       colors: {
         "bg-primary": "#F9F9FB",
         "text-primary":"#FB5857",
-        "graybasic": "#B3B3BC;",
+        "graybasic": "#B3B3BC",
         "textbasicgray": "#787887",
         "iconsgray":"#B3B3BC",
         "orangered":"#FF5349",
