@@ -36,7 +36,6 @@ import UserHome from './user/UserHome';
 import ControllerCart from './components/controller/ControllerCart';
 import ControllerCreators from './components/controller/ControllerCreators';
 import AllContollerCreatorsPage from './components/controller/AllContollerCreatorsPage';
-import AccountUpgradePage from './user/AccountUpgradePage';
 
 
 const NotFoundRouter: RouteObject = {
@@ -192,10 +191,6 @@ const router = createBrowserRouter([
       {
         path: "/all-controller-creators",
         element: <AllContollerCreatorsPage />
-      },
-      {
-        path: "/account-upgrade",
-        element: <AccountUpgradePage />
       }
     ]
   },
