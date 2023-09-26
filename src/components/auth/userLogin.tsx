@@ -38,7 +38,7 @@ export default function UserLogin() {
             navigate('/')
         }
     }, [access, navigate])
-
+    
     const {handleSubmit,register,formState: { errors }} = useForm<registrationInput>({
       resolver: yupResolver(schema),
     })
@@ -48,7 +48,7 @@ export default function UserLogin() {
             email: data.email,
             password: data.password,
         }
-
+        console.log(userData);
         try {
             const userAuth = await loginUser(userData).unwrap();
             console.log(userAuth);
@@ -84,8 +84,7 @@ export default function UserLogin() {
                                     <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
                                 </svg>
                             </div>
-                            <input type="text" id="email" {...register("email")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Email">
-                            </input>
+                            <input type="text" id="email"   {...register("email")} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Email"/>
                             <p className='text-red-900'>{errors.email?.message}</p>
                         </div>  
                         <div>
@@ -96,7 +95,7 @@ export default function UserLogin() {
                                     value="Your password"
                                 />
                             </div>
-                            <input type="text" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password">
+                                <input {...register("password")}  type="text" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password">
                             </input>
                             <p className='text-red-900'>{errors.password?.message}</p>
                         </div>
@@ -106,7 +105,7 @@ export default function UserLogin() {
                             Remember me
                             </Label>
                         </div>
-                        <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Login</button>
+                        <button type="submit" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Login</button>
                         
                         </form>
                         <p className="mt-10 text-center text-sm text-gray-500">

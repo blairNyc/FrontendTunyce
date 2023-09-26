@@ -35,10 +35,9 @@ const GenreBox = ({text,bgcolor}:{text:string, bgcolor:string})=>(
         {text}
     </p>
 );
-const EasyAfterNoon = ({text,image}:{text:string,image:string})=>(
+const EasyAfterNoon = ({image}:{image:string})=>(
     <div style={{backgroundImage:`url(${image}`}} className="w-full relative bg-opacity-10 bg-black cursor-pointer h-40  bg-cover bg-center bg-no-repeat rounded">
         <div className='absolute bottom-2 left-1/4'>
-            <h2 className="text-white text-center text-2xl font-bold">{text}</h2>
         </div>
     </div>
 )
@@ -63,6 +62,8 @@ function LandingPage() {
                 <GenreBox text="Gengetone" bgcolor="bg-pink-400"/>
                 <GenreBox text="Kenyan" bgcolor="bg-pink-400"/>
                 <GenreBox text="Reggae" bgcolor="bg-orange-500"/>
+                <GenreBox text="Podcasts" bgcolor="bg-red-500" />
+
             </div>
             <div className="mx-4 w-full my-6">
                 <div>
@@ -78,12 +79,12 @@ function LandingPage() {
                 <div>
                     <RowContainer text='New Releases'/>
                     <div className="grid grid-cols-2 md:grid-cols-3 xs:grid-cols-5 gap-2">
-                        <EasyAfterNoon image='/E.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/U.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/W.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/Q.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/T.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/Y.png' text='Easy Afternoon'/>
+                        <EasyAfterNoon image='/E.png' />
+                        <EasyAfterNoon image='/U.png'/>
+                        <EasyAfterNoon image='/W.png'/>
+                        <EasyAfterNoon image='/Q.png' />
+                        <EasyAfterNoon image='/T.png'/>
+                        <EasyAfterNoon image='/Y.png' />
                     </div>
                 </div>
             </div>
