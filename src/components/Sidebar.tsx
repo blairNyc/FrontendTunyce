@@ -47,7 +47,7 @@ function Sidebar({sideBarOpen}: {sideBarOpen: boolean }) {
                         <div className='w-full'>
                             <h2 className='text-lg font-medium ml-3 mt-3'>MENU</h2>
                             <ul className='w-full'>
-                                <NavElement path='/home'  name='Discover'>
+                                <NavElement path='/'  name='Discover'>
                                     <GoHomeFill className='text-xl' />
                                 </NavElement>
                                 <NavElement path='/creators' name='Creators'>

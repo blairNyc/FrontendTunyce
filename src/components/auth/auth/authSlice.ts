@@ -9,7 +9,7 @@ interface Credentials {
         username: string;
         id: string | null;
         [key: string]: string | null | boolean;
-        curr_loggedin_user: string
+        curr_loggedin_user: keyof UserTypes | ""
     }
 }
 const INITIAL_STATE: Credentials={
@@ -27,6 +27,7 @@ const authSlice = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         setCredentials: (state, action:PayloadAction<Credentials>) => {
+            console.log(action.payload);
             const { refresh, access, username, id } = action.payload.auth
             if (action.payload.auth.is_normaluser) {
                 state.auth.is_normaluser = true;
@@ -54,6 +55,7 @@ const authSlice = createSlice({
             state.auth.access = access;
             state.auth.username = username;
             state.auth.id = id;
+            console.log('Heere passed.');
         },
         logOut: (state) => { 
             state.auth.access = null;

@@ -5,9 +5,9 @@ import { BsChevronDown } from "react-icons/bs";
 import {PiShoppingCartSimpleBold} from "react-icons/pi";
 import TunycLogo from '../assets/tunyce_logo.png';
 import {AiOutlineMenu} from "react-icons/ai";
-import { useAppDispatch} from "../app/hooks";
-import { switchUser } from "./auth/auth/authSlice";
-import { UserTypes } from "../types";
+// import { useAppDispatch} from "../app/hooks";
+// import { switchUser } from "./auth/auth/authSlice";
+// import { UserTypes } from "../types";
 const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
     <NavLink style={({isActive})=>{return{color:isActive?'#FB5857':'#4D4D56'}}} to={path} className='mx-[5px] md:mx-2'>
         <p className={``}>{text}</p>
@@ -21,10 +21,10 @@ interface IHeaderProp{
 function Header({setSideBarOpen,sideBarOpen}: IHeaderProp) {
     const location = useLocation().pathname;
     console.log(location);
-    const dispatch = useAppDispatch()
-    const handleSwithUser = (userType: keyof UserTypes)=>{
-        dispatch(switchUser(userType))
-    }
+    // const dispatch = useAppDispatch()
+    // const handleSwithUser = (userType: keyof UserTypes)=>{
+    //     dispatch(switchUser(userType))
+    // }
     return (
         <header className="w-full  flex items-center justify-between">
             <div className="flex items-center">
@@ -53,13 +53,13 @@ function Header({setSideBarOpen,sideBarOpen}: IHeaderProp) {
                     <span className="text-md mx-2 font-bold">John Doe
                     </span>
                     <BsChevronDown className="text-xl mx-2 text-black"/>
-                    <div className="absolute w-full -bottom-20 right-0">
+                    {/* <div className="absolute w-full -bottom-20 right-0">
                         <div className="bg-slate-300 px-1 py-2">
                             <h1>Continue as:</h1>
                             <button onClick={()=>handleSwithUser('is_contentcreator')} className="inline text-sm font-bold bg-red-400 text-white px-1 rounded-lg">Content Creator</button>
                             <button onClick={()=>handleSwithUser('is_matatu')} className="inline text-sm bg-red-400 text-white px-1 rounded-lg">Matatu owner</button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="flex items-center md:hidden">

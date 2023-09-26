@@ -66,7 +66,7 @@ function DefaultLayout() {
                                 <Actions text="Create you First playlist" info="it's easy, we'll help you"/>
                                 <Actions text="Enjoy greate podcasts" info="it's easy, we'll help you"/>
                             </div>
-                            <button className='w-4/5 py-1 px-1 hover:bg-red-600 my-3 font-bold text-white bg-text-primary'>SIGN IN</button>
+                            <a href="/login" className='w-4/5   py-1 px-1 hover:bg-red-600 my-3 font-bold text-white bg-text-primary'>SIGN IN</a>
                         </div>
                     </div>
                 </div>

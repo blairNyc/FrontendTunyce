@@ -74,7 +74,7 @@ function App() {
           element: <NotFound />,
         },
         {
-          path:'/home',
+          path:'/',
           element: <Homepage/>
         },
         {

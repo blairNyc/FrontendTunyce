@@ -46,6 +46,7 @@ export default function UserSignUp() {
             email: data.email,
             username: data.username,
         }
+        console.log(userData,'user data');
         try {
             await registerUser(userData).unwrap()
 

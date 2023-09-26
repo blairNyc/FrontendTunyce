@@ -52,7 +52,13 @@ export default function UserLogin() {
         try {
             const userAuth = await loginUser(userData).unwrap();
             console.log(userAuth);
-            dispatch(setCredentials(userAuth))
+            const response = {
+                auth:{
+                    ...userAuth
+                }
+            };
+            dispatch(setCredentials(response));
+            navigate('/');
         } catch (error) {
             console.log(error)
         }
