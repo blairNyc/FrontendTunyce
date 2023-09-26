@@ -209,7 +209,7 @@ const router = createBrowserRouter([
 
 
 function App() {
-  const curr_loggedin_user= useAppSelector((state:RootState)=>state.auth.auth.curr_loggedin_user);
+  const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
   console.log(curr_loggedin_user);
   const router = createBrowserRouter([
     curr_loggedin_user==="is_restaunt"? {
@@ -223,49 +223,26 @@ function App() {
           path:'/restaurant/my-wallet',
           element:<RestaurantWalletPage/>
         },
-        NotFoundRouter,
+        // NotFoundRouter,
       ]
-    }:NotFoundRouter,
-    curr_loggedin_user===""?{
-      element: <DefaultLayout/>,
-      children:[
-        {
-          path:'/',
-          element: <LandingPage/>
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-      ]
-    }:{},
-    // NotFoundRouter,
-    {
-      path:'/faqs',
-      element: <FreqAskedQuesPage/>
-    },
-    {
-      path:'/terms-conditions',
-      element: <TermsConditionsPage/>
-    },
-    curr_loggedin_user==="is_normaluser"?{
+    }:curr_loggedin_user==="is_normaluser"?{
       element: <UserLayout />,
       children: [
+          {
+          path:'/home',
+          element: <Homepage/>
+        },
         {
           path: "*",
           element: <NotFound />,
-        },
-        {
-          path:'/',
-          element: <Homepage/>
         },
         {
           path:'/explore',
           element: <ExplorePage/>
         },
         {
-          path:'/creators',
-          element: <CreatorsPage/>
+            path:'/creators',
+            element: <CreatorsPage/>
         },
         {
           path: '/creators/deejays',
@@ -308,15 +285,32 @@ function App() {
           element: <AllContollerCreatorsPage />
         }
       ]
-    }:NotFoundRouter,
-    {
-      element: <Login/>,
-      path:'/login',
-    },
-    {
-      element:<SignUp/>,
-      path:'/signup'
-    }
+    }:curr_loggedin_user === "" ? {
+          element: <DefaultLayout />,
+          children: [
+              {
+                  path: '/',
+                  element: <LandingPage />
+              },
+              NotFoundRouter
+          ]
+      } : NotFoundRouter,
+      {
+        element: <Login />,
+         path: '/login',
+      },
+      {
+         element: <SignUp />,
+        path: '/signup'
+      },
+      {
+          path: '/faqs',
+          element: <FreqAskedQuesPage />
+      },
+      {
+          path: '/terms-conditions',
+          element: <TermsConditionsPage />
+      },
   ]);
   return <RouterProvider router={router} />;
 }

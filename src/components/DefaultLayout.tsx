@@ -72,10 +72,10 @@ function DefaultLayout() {
                                 <Actions button_label="Stream podcasts" text="Enjoy greate podcasts" info="it's easy, we'll help you"/>
                             </div>
                             <div className="flex flex-col items-center">
-                                <button className='w-3/5 py-1 px-1 text-center hover:bg-red-600 my-3 font-bold rounded-md text-white bg-text-primary'>SIGN IN</button>
+                                <a href="/login" className='w-3/5 py-1 px-1 text-center hover:bg-red-600 my-3 font-bold rounded-md text-white bg-text-primary'>SIGN IN</a>
                                 <p className="text-sm text-slate-600 leading-3 w-4/5">Sign in to create & share playlists, get personalized recommendations and more.</p>
                             </div>
-                            <a href="/login" className='w-4/5   py-1 px-1 hover:bg-red-600 my-3 font-bold text-white bg-text-primary'>SIGN IN</a>
+                            {/* <a href="/login" className='w-4/5   py-1 px-1 hover:bg-red-600 my-3 font-bold text-white bg-text-primary'>SIGN IN</a> */}
                         </div>
                     </div>
                 </div>

@@ -28,14 +28,15 @@ const schema = yup.object({
     password: yup.string().required(),
 }).required()
 export default function UserLogin() {
-    const access = useAppSelector((state: RootState) => state.persistAuth.auth.access)
+    const access = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+    const curr = useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const [loginUser,{isError, error}] = useLoginUserMutation()
-    
+    console.log('Access token',access,curr);
     React.useEffect(() => {
         if (access) {
-            navigate('/')
+            navigate('/home')
         }
     }, [access, navigate])
     
@@ -58,7 +59,7 @@ export default function UserLogin() {
                 }
             };
             dispatch(setCredentials(response));
-            navigate('/');
+            navigate('/home');
         } catch (error) {
             console.log(error)
         }
