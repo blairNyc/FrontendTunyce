@@ -124,7 +124,7 @@ export default function UserLogin() {
 
                         <p className="mt-5 text-center text-sm text-gray-500">
                             Not a member?{' '}
-                            <a href="#" className="font-semibold leading-6 text-red-600 hover:text-red-400">
+                            <a href="/signup" className="font-semibold leading-6 text-red-600 hover:text-red-400">
                                 Start your journey
                             </a>
                         </p>
