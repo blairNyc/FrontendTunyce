@@ -27,7 +27,7 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
         }),
 
         // register matatu
-        useCreateMatatu: builder.mutation({
+        createMatatu: builder.mutation({
             query: (matatuData) => ({
                 url: `matatu/create_matatu`,
                 method: 'post',
@@ -36,7 +36,12 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
                 },
             }),
         }),
-
+        getAllMatatus: builder.query({
+            query: () => ({
+                url: 'matatu/matatus',
+                method: 'get',
+            }),
+        }),
     })
 })
 
@@ -44,5 +49,7 @@ export const {
     useGetAllContentCreatorsQuery,
     useUpgradeToMatatuOwnerMutation,
     useUpgradeToRestaurantOwnerMutation,
-    useUseCreateMatatuMutation
+    // useCreateMatatuMutation
+    useCreateMatatuMutation,
+    useGetAllMatatusQuery
 } = apiContentSlice;

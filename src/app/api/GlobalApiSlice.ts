@@ -60,6 +60,54 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+     //records when video ends
+     videoEndUpdates: builder.mutation({
+      query: (id) => ({
+        url: `authentication/video_end_updates/${id}/v1/`,
+        method: 'post',
+        body: {},
+      }),
+    }),
+
+    switchVideo: builder.mutation({
+      query: (id) => ({
+        url: `matmanagement/switchmatvideo/v1/`,
+        method: 'put',
+        body: {
+          playingVideo: `${id}`,
+          videoStartTime: 0,
+        },
+      }),
+    }),
+
+    switchVideoTime: builder.mutation({
+      query: (time) => ({
+        url: `authentication/single_matatu/15/${time}/v1/`,
+        method: 'put',
+        body: {
+          videoStartTime: `${time}`,
+        },
+      }),
+    }),
+
+    getPlayingLink: builder.mutation({
+      query: (id) => ({
+        url: `authentication/single_matatu_playing_link/${id}/v1/`,
+        method: 'post',
+        body: {},
+      }),
+    }),
+
+     //gets a single matatu
+     getSingleVenue: builder.query({
+      query: (data) => ({
+        url: `authentication/single_matatu_time_record/15/${data.time}/${data.latitude}/${data.longitude}/v1/`,
+        method: 'get',
+      }),
+    }),
+
+
+
   }),  
 })
    
@@ -76,5 +124,10 @@ export const {
   useGetMixesQuery,
   useGetAllMixesQuery,
   useGetAllTrendingMixesQuery,
-  
+  useSwitchVideoMutation,
+  useGetPlayingLinkMutation,
+  useSwitchVideoTimeMutation,
+  useVideoEndUpdatesMutation,
+  useGetSingleVenueQuery
+
 } = apiVenuesSlice
