@@ -39,7 +39,7 @@ const videoData: VideoData[] = [
 ];
 
 const FilmmakerDashboard: React.FC = () => {
-  // Access the "id" parameter from the URL
+  // Access the "id" parameter from the url
   const { id } = useParams<{ id?: string }>(); // Make "id" optional
 
   // Parse the "id" parameter to an integer, providing a default value of 0
