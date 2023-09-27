@@ -20,7 +20,7 @@ export const JointTunce = ()=>(
         </div> 
     </div>
 );
-const BoldText= ({text}:{text:string})=><h2 className="font-bold text-2xl my-4">{text}</h2>
+const BoldText= ({text}:{text:string})=><h2 className="font-bold md:text-2xl text-xl my-4">{text}</h2>
 const RowContainer = ({text}:{text:string})=>(
     <div className="flex items-center w-full justify-between px-3">
         <BoldText text={text}/>
@@ -29,16 +29,15 @@ const RowContainer = ({text}:{text:string})=>(
             <BiChevronRightCircle className="text-2xl inline-block mx-1"/>
         </div>
     </div>
-)
+);
 const GenreBox = ({text,bgcolor}:{text:string, bgcolor:string})=>(
-    <p className={`px-4 text-white mx-1 rounded font-semibold py-1 ${bgcolor}`}>
+    <p className={`px-4 cursor-pointer text-white mx-1 my-2 rounded font-semibold py-1 ${bgcolor}`}>
         {text}
     </p>
 );
-const EasyAfterNoon = ({text,image}:{text:string,image:string})=>(
+const EasyAfterNoon = ({image}:{image:string})=>(
     <div style={{backgroundImage:`url(${image}`}} className="w-full relative bg-opacity-10 bg-black cursor-pointer h-40  bg-cover bg-center bg-no-repeat rounded">
         <div className='absolute bottom-2 left-1/4'>
-            <h2 className="text-white text-center text-2xl font-bold">{text}</h2>
         </div>
     </div>
 )
@@ -54,7 +53,7 @@ const MusItem = ({plays,title}:{plays:string,title:string})=>(
 function LandingPage() {
     return (
         <div className='w-full h-full py-8'>
-            <div className="flex  items-center">
+            <div className="grid grid-cols-3 md:grid-cols-3 xs:grid-cols-5 ">
                 <GenreBox text="Hip hop" bgcolor="bg-pink-400"/>
                 <GenreBox text="Afro pop" bgcolor="bg-red-500"/>
                 <GenreBox text="Dancehall" bgcolor="bg-lime-300"/>
@@ -63,12 +62,14 @@ function LandingPage() {
                 <GenreBox text="Gengetone" bgcolor="bg-pink-400"/>
                 <GenreBox text="Kenyan" bgcolor="bg-pink-400"/>
                 <GenreBox text="Reggae" bgcolor="bg-orange-500"/>
+                <GenreBox text="Podcasts" bgcolor="bg-red-500" />
+
             </div>
             <div className="mx-4 w-full my-6">
                 <div>
                     <p>MUSIC TO GET YOU STARTED</p>
                     <RowContainer text='Popular'/>
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 xs:grid-cols-5 gap-1">
                         <MusItem plays='32K' title='DJ Cleft beats'/>
                         <MusItem plays='32K' title='Best club banger mix DJ 38k'/>
                         <MusItem plays='32K' title='DJ Cleft beats'/>
@@ -77,14 +78,13 @@ function LandingPage() {
                 </div>
                 <div>
                     <RowContainer text='New Releases'/>
-                    <div className="grid grid-cols-5 gap-2">
-                        <EasyAfterNoon image='/E.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/U.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/W.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/Q.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/T.png' text='Easy Afternoon'/>
-                        <EasyAfterNoon image='/Y.png' text='Easy Afternoon'/>
-
+                    <div className="grid grid-cols-2 md:grid-cols-3 xs:grid-cols-5 gap-2">
+                        <EasyAfterNoon image='/E.png' />
+                        <EasyAfterNoon image='/U.png'/>
+                        <EasyAfterNoon image='/W.png'/>
+                        <EasyAfterNoon image='/Q.png' />
+                        <EasyAfterNoon image='/T.png'/>
+                        <EasyAfterNoon image='/Y.png' />
                     </div>
                 </div>
             </div>

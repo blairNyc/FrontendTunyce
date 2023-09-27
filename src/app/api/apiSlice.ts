@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setCredentials, logOut } from '../features/auth/authSlice'
+import { setCredentials, logOut } from '../../components/auth/auth/authSlice'
 import { RootState} from '../store'
 
 const baseQuery = fetchBaseQuery({
@@ -48,7 +48,7 @@ export const apiSlice = createApi({
         }),
         loginUser: builder.mutation({
             query: (data) => ({
-                url: 'authentication/login/v1/',
+                url: 'auth/login/',
                 method: 'post',
                 body: {
                     "email": `${data.email}`,
@@ -56,5 +56,17 @@ export const apiSlice = createApi({
                 }
             }),
         }),
+    })
+})
+
+export const mainApiSlice = createApi({
+    baseQuery: baseQueryWithReauth,
+    endpoints: builder => ({
+        getAll:builder.query({
+            query:()=>({
+                url: "/authentication/request-reset-password/v1/",
+                method: "post",
+            })
+        })
     })
 })

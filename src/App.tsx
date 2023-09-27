@@ -1,16 +1,17 @@
 import './App.css';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import UserLayout from './components/Layout';
+import Homepage from './pages/Homepage';
+import ExplorePage from './user/ExplorePage';
+import NotFound from './pages/NotFound';
+import CreatorsPage from './pages/Creators';
+import CreatorsList from './pages/CreatorsList';
+import Creator from './components/Creator';
+import FreqAskedQuesPage from './pages/FreqAskedQuesPage';
+import TermsConditionsPage from './pages/TermsConditionsPage';
+import VideoScreen from './pages/VideoScreen';
 import "./App.css";
 import Layout from "./components/Layout";
-import Homepage from "./pages/Homepage";
-import ExplorePage from "./user/ExplorePage";
-import NotFound from "./pages/NotFound";
-import CreatorsPage from "./pages/Creators";
-import CreatorsList from "./pages/CreatorsList";
-import Creator from "./components/Creator";
-import FreqAskedQuesPage from "./pages/FreqAskedQuesPage";
-import TermsConditionsPage from "./pages/TermsConditionsPage";
-import VideoScreen from "./pages/VideoScreen";
 import Aboutpage from "./pages/Aboutpage";
 import MixesPage from "./user/MixesPage";
 import MusicPage from "./user/MusicPage";
@@ -22,6 +23,8 @@ import DefaultLayout from './components/DefaultLayout';
 import RestaurantLayout from './restaurant/components/RestaurantLayout';
 import RestaurantHomePage from './restaurant/pages/RestaurantHomePage';
 import RestaurantWalletPage from './restaurant/pages/RestaurantWalletPage';
+import { useAppSelector } from './app/hooks';
+import { RootState } from './app/store';
 import ArtistsPage from './pages/ArtistsPage';
 import TrendingPage from './pages/TrendingPage';
 import SearchPage from './pages/SearchPage';
@@ -32,6 +35,13 @@ import FilmmakerDashboard from './components/filmMaker/FilmmakerDashboard';
 import FilmmakerWatch from './components/filmMaker/FilmmakerWatch';
 import UserWalletPage from "./wallets/UserWalletPage";
 import MatatuPage from "./matatus/MatatuPage";
+import UserHome from './user/UserHome';
+import ControllerCart from './components/controller/ControllerCart';
+import ControllerCreators from './components/controller/ControllerCreators';
+import AllContollerCreatorsPage from './components/controller/AllContollerCreatorsPage';
+import MatatuLayout from './matatus/components/MatatuLayout';
+// import { UserTypes } from './types';
+import InnerPage from './components/inner-page'
 import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 
 
@@ -43,11 +53,11 @@ const NotFoundRouter: RouteObject = {
 
 const router = createBrowserRouter([
   {
-    element: <RestaurantLayout/>,
+    element: <MatatuLayout/>,
     children:[
       {
-        path:'/restaurant/oliver/',
-        element: <RestaurantHomePage/>
+        path:'/matatu',
+        element: <MatatuPage/>
       },{
         path: '/restaurant/:id/my-wallet',
         element: <RestaurantWalletPage />
@@ -122,6 +132,10 @@ const router = createBrowserRouter([
         element: <ExplorePage />,
       },
       {
+        path: "/explore/innerpage",
+        element: <InnerPage />,
+      },
+      {
         path: "/creators",
         element: <CreatorsPage />,
       },
@@ -169,14 +183,27 @@ const router = createBrowserRouter([
         path: "/user-wallet",
         element: <UserWalletPage />,
       },
-      {
-        path: "/matatu",
-        element: <MatatuPage />,
-      },
+     
       {
         path: "/about",
         element: <Aboutpage />,
       },
+      {
+        path: "/userhome",
+        element: <UserHome />
+      },
+      {
+        path: "/cart",
+        element: <ControllerCart />
+      },
+      {
+        path: "/controller-creators",
+        element: <ControllerCreators />
+      },
+      {
+        path: "/all-controller-creators",
+        element: <AllContollerCreatorsPage />
+      }
     ]
   },
   {
@@ -189,8 +216,124 @@ const router = createBrowserRouter([
   }
 ])
 
-
+console.log(router);
 function App() {
+  const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
+	console.log(curr_loggedin_user);
+  const router = createBrowserRouter([
+    curr_loggedin_user==="is_restaunt"? {
+      element: <RestaurantLayout/>,
+      children:[
+        {
+          path:'/restaurant/',
+          element: <RestaurantHomePage/>
+        },
+        {
+          path:'/restaurant/my-wallet',
+          element:<RestaurantWalletPage/>
+        },
+        // NotFoundRouter,
+      ]
+    }:curr_loggedin_user==="is_normaluser"?{
+      element: <UserLayout />,
+      children: [
+          {
+          path:'/home',
+          element: <Homepage/>
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+        {
+          path:'/explore',
+          element: <ExplorePage/>
+        },
+        {
+          path: "/explore/innerpage",
+          element: <InnerPage />,
+        },
+        {
+            path:'/creators',
+            element: <CreatorsPage/>
+        },
+        {
+          path: '/creators/deejays',
+          element: <CreatorsList/>
+        },
+        {
+          path: '/creators/deejays/:id',
+          element: <Creator/>
+        },
+        {
+          path:'creators/videos/:id',
+          element: <VideoScreen/>
+        },
+        {
+          path: "/music",
+          element: <MusicPage />,
+        },
+        {
+          path: "/mixes",
+          element: <MixesPage />,
+        },
+        {
+          path: "/artist",
+          element: <ArtistPage />,
+        },
+        {
+          path: "/userhome",
+          element: <UserHome />
+        },
+        {
+          path: "/cart",
+          element: <ControllerCart />
+        },
+        {
+          path: "/controller-creators",
+          element: <ControllerCreators />
+        },
+        {
+          path: "/all-controller-creators",
+          element: <AllContollerCreatorsPage />
+        }
+      ]
+    }:curr_loggedin_user === "is_matatu" ? {
+		element:<MatatuLayout/>,
+		children:[
+			{
+				path:'/matatu',
+				element: <MatatuPage/>,
+			}
+		],
+    }
+    :curr_loggedin_user === "" ? {
+          element: <DefaultLayout />,
+          children: [
+              {
+                  path: '/',
+                  element: <LandingPage />
+              },
+              NotFoundRouter
+          ]
+      } : NotFoundRouter,
+      {
+        element: <Login />,
+         path: '/login',
+      },
+      {
+         element: <SignUp />,
+        path: '/signup'
+      },
+      {
+          path: '/faqs',
+          element: <FreqAskedQuesPage />
+      },
+      {
+          path: '/terms-conditions',
+          element: <TermsConditionsPage />
+      },
+  ]);
   return <RouterProvider router={router} />;
 }
 

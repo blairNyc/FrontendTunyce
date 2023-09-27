@@ -29,6 +29,7 @@ function NavElement({ name, path, children }: NavElProps) {
           backgroundColor: isActive ? "#F0F0F5" : "white",
           borderRightColor: isActive ? "#FB5857" : "white",
           borderRightWidth: isActive ? 4 : 0,
+          color:'#4D4D56'
         };
       }}
       className="flex  py-2 px-3  flex-row items-center w-full mt-2"
@@ -50,13 +51,14 @@ function SmallNavElement({ name, children }: NavElProps) {
 function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
   return (
     <div className="w-full">
+    {/* <div className="h-full fixed"> */}
       {sideBarOpen ? (
         <div className="flex flex-col w-full justify-center items-center ">
           <img alt="tunyce logo" className="w-32 h-auto" src={TunyceLogo} />
           <div className="w-full">
             <h2 className="text-lg font-medium ml-3 mt-3">MENU</h2>
             <ul className="w-full">
-              <NavElement path="/" name="Discover">
+              <NavElement path="/home" name="Discover">
                 <GoHomeFill className="text-xl" />
               </NavElement>
               <NavElement path="/creators" name="Creators">

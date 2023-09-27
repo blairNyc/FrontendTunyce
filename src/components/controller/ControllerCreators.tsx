@@ -1,17 +1,19 @@
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io";
-import { SectionTitle, FeaturedItem, MusicItem } from "../user/ExplorePage";
+import { SectionTitle, FeaturedItem, MusicItem } from "../../user/ExplorePage";
+
 const TextInfo= ({text,figure}:{text: string,figure: string})=>(
     <h4 className="font-bold text-md text-center mx-2">{figure}
         <span className="block text-xs font-semibold">{text}</span>
     </h4>
 )
-function CreatorsPage() {
+
+const ControllerCreators = () => {
     return (
         <div className="mt-8 w-full h-full">
             <h2 className="text-2xl text-text-primary font-bold">Creators</h2>
             <div className="mt-10">
                 <SectionTitle title="Featured Creators"/>
-                <div className="w-full mt-1 flex items-center no-scrollbar overflow-x-auto">
+                <div className="w-full mt-1 flex items-center  overflow-x-scroll">
                     <FeaturedItem title="">
                         <div className="absolute bottom-0 mt-2">
                             <p className="font-bold text-md text-center">DJ Lensy</p>
@@ -28,7 +30,7 @@ function CreatorsPage() {
                 <SectionTitle seeAllPath="/creators/deejays" title="Deejays"/>
                 <div className="w-full flex items-center">
                     <IoIosArrowDropleftCircle className="text-2xl mx-2 absolute left-0 text-text-primary"/>
-                    <div className="flex mx-7 w-full relative overflow-y-hidden no-scrollbar overflow-x-scroll items-center">
+                    <div className="flex mx-7 w-full relative overflow-y-hidden overflow-x-scroll items-center">
                         <MusicItem path="/creators/deejays/3"/>
                         <MusicItem path="/creators/deejays/4"/>
                         <MusicItem path="/creators/deejays/5"/>
@@ -42,5 +44,5 @@ function CreatorsPage() {
     );
 }
 
-export default CreatorsPage
+export default ControllerCreators
 ;

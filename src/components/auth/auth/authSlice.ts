@@ -1,30 +1,22 @@
 import { PayloadAction, createSlice,} from "@reduxjs/toolkit";
-type UserTypes = {
-    "is_normaluser"?:true, 
-    "is_restaunt"?:true,
-    "is_superuser"?:true,
-    "is_matatu"? : true,
-    "is_filmmaker"? : true,
-    "is_contentcreator"? : true,
-    "is_recordlabel"? : true,
-}
-type Credentials ={
+import { UserTypes } from "../../../types";
+interface Credentials {
     auth: {
             [key in keyof UserTypes]: true;
         } & {
         refresh: string | null;
         access: string | null;
         username: string;
-        id: string | null;
         [key: string]: string | null | boolean;
+        curr_loggedin_user: keyof UserTypes | ""
     }
-};
+}
 const INITIAL_STATE: Credentials={
     auth:{
         refresh:'',
         access:'',
         username:'',
-        id: '',
+        curr_loggedin_user:""
     }
 }
 
@@ -33,9 +25,11 @@ const authSlice = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         setCredentials: (state, action:PayloadAction<Credentials>) => {
-            const { refresh, access, username, id } = action.payload.auth
+            console.log(action.payload);
+            const { refresh, access, username,  } = action.payload.auth
             if (action.payload.auth.is_normaluser) {
                 state.auth.is_normaluser = true;
+                state.auth.curr_loggedin_user="is_normaluser";
             }
             if (action.payload.auth.is_restaunt) {
                 state.auth.is_restaunt = true;
@@ -58,18 +52,22 @@ const authSlice = createSlice({
             state.auth.refresh = refresh;
             state.auth.access = access;
             state.auth.username = username;
-            state.auth.id = id;
+            console.log('Heere passed.');
         },
         logOut: (state) => { 
             state.auth.access = null;
             state.auth.refresh = null;
             state.auth.username = '';
             state.auth.id = null;
+        },
+        switchUser: (state,action: PayloadAction<keyof UserTypes>)=>{
+            state.auth.curr_loggedin_user = action.payload
         }
     }
+    
 })
 
-export const { setCredentials, logOut } = authSlice.actions
+export const { setCredentials, logOut,switchUser } = authSlice.actions
 export default authSlice.reducer
 export const selectCurrentRefresh = (state: Credentials) => state.auth.refresh
 export const selectCurrentAccess = (state: Credentials) => state.auth.access

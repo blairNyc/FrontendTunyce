@@ -3,19 +3,18 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const registerUserApi = createApi({
   reducerPath: 'registerUserApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://mighty-thicket-88919.herokuapp.com/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/api/v1' }),
   tagTypes: ['Register'],
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: userData => ({
-        url: 'authentication/registeruser/v1/',
+        url: 'auth/signup/',
         method: 'post',
         body: {
           'email': `${userData?.email}`,
+          "phone_number":`${userData.phone_number}`,
           'password': `${userData?.password}`,
-          're_password': `${userData?.password}`,
-          'first_name': `${userData?.first_name}`,
-          'hesquserrole': `${userData?.hesquserrole}`
+          "username":`${userData.username}`,
         },
       }),
       invalidatesTags: ['Register']
