@@ -39,6 +39,8 @@ import UserHome from './user/UserHome';
 import ControllerCart from './components/controller/ControllerCart';
 import ControllerCreators from './components/controller/ControllerCreators';
 import AllContollerCreatorsPage from './components/controller/AllContollerCreatorsPage';
+import MatatuLayout from './matatus/components/MatatuLayout';
+// import { UserTypes } from './types';
 
 
 const NotFoundRouter: RouteObject = {
@@ -49,11 +51,11 @@ const NotFoundRouter: RouteObject = {
 
 const router = createBrowserRouter([
   {
-    element: <RestaurantLayout/>,
+    element: <MatatuLayout/>,
     children:[
       {
-        path:'/restaurant/oliver/',
-        element: <RestaurantHomePage/>
+        path:'/matatu',
+        element: <MatatuPage/>
       },{
         path: '/restaurant/:id/my-wallet',
         element: <RestaurantWalletPage />
@@ -207,7 +209,7 @@ const router = createBrowserRouter([
 console.log(router);
 function App() {
   const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
-  console.log(curr_loggedin_user);
+	console.log(curr_loggedin_user);
   const router = createBrowserRouter([
     curr_loggedin_user==="is_restaunt"? {
       element: <RestaurantLayout/>,
@@ -270,10 +272,6 @@ function App() {
           element: <UserHome />
         },
         {
-            path: "/matatu",
-            element:<MatatuPage/>
-        },
-        {
           path: "/cart",
           element: <ControllerCart />
         },
@@ -286,11 +284,15 @@ function App() {
           element: <AllContollerCreatorsPage />
         }
       ]
+    }:curr_loggedin_user === "is_matatu" ? {
+		element:<MatatuLayout/>,
+		children:[
+			{
+				path:'/matatu',
+				element: <MatatuPage/>,
+			}
+		],
     }
-    : curr_loggedin_user === "is_matatu" ? {
-        path:'/matatu',
-            element:<MatatuPage/>
-        }
     :curr_loggedin_user === "" ? {
           element: <DefaultLayout />,
           children: [
