@@ -29,6 +29,7 @@ function NavElement({ name, path, children }: NavElProps) {
           backgroundColor: isActive ? "#F0F0F5" : "white",
           borderRightColor: isActive ? "#FB5857" : "white",
           borderRightWidth: isActive ? 4 : 0,
+          color:'#4D4D56'
         };
       }}
       className="flex  py-2 px-3  flex-row items-center w-full mt-2"
