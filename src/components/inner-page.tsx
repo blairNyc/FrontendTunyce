@@ -3,6 +3,7 @@ import VideoItem from "./cards/videoItem";
 import SkeletonItem from "./cards/skeletonItem";
 import LazyLoad from 'react-lazyload';
 
+
 const ExplorePage = () => {
   const { data: allMixes, isLoading } = useGetAllMixesQuery(1);
 

@@ -18,7 +18,7 @@ export const SectionTitle = ({title}: CommonProps) => {
             <h3 className="text-lg font-semibold">
                  {title}
             </h3>
-            <Link to="/explore/inner-page" className="text-text-primary cursor-pointer font-bold ml-2">See All</Link>
+            <Link to="/explore/innerpage" className="text-text-primary cursor-pointer font-bold ml-2">See All</Link>
         </div>
     )
 }
@@ -28,7 +28,7 @@ export const FeaturedItem = ({title,children,additionalStyles, owner,srcUrl}:Com
         <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-bg-primary to-transparent rounded-xl"></div>
         <div className="absolute  z-40">
             <h4 className="text-white text-center font-bold text-xl">
-                {title.length > 20 ? `${title.slice(0, 20)}...` : title}
+                {`${title?.slice(0, 20)}...`}
             </h4>
             <p className="text-center">{owner}</p>
         </div>
@@ -39,7 +39,7 @@ export const MusicItem = ({path,owner,srcUrl,title}:CommonProps)=>(
     <a href={path} className="min-w-[150px] mx-2 cursor-pointer hover:scale-105">
         <img src={`${srcUrl}`} alt="" className="w-32 h-32 rounded-xl object-cover"/>
         <h4 className="font-bold">
-            {title.length > 20 ? `${title.slice(0, 20)}...` : title}
+             {`${title?.slice(0, 20)}...`}
         </h4>
         <p className="uppercase text-xs">{owner}</p>
     </a>
