@@ -98,6 +98,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                    {isMatOwner?( <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             switchAccountHandler()
+                            setIsDropdownOpen(false)
                         }}
                         >Switch to Matatu owner</a>):null
                     }

@@ -36,6 +36,7 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
     console.log(data);
     const userData = {
       ...data,
+      driver: 'his Name',
       image_exterior: '',
       image_interior:'',
       is_trial: true
