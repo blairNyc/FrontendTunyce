@@ -43,6 +43,7 @@ import MatatuLayout from './matatus/components/MatatuLayout';
 // import { UserTypes } from './types';
 import InnerPage from './components/inner-page'
 import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
+import ImageUpload from './matatus/ImageUpload';
 
 
 const NotFoundRouter: RouteObject = {
@@ -300,6 +301,10 @@ function App() {
         {
           path: '/matatu',
           element: <MatatuPage />,
+        },
+        {
+          path: '/imageUpload',
+          element: <ImageUpload />
         }
       ]
     }:curr_loggedin_user === "is_matatu" ? {

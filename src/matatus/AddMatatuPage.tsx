@@ -5,6 +5,8 @@ import * as yup from 'yup'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import Backdrop from "../components/Backdrop";
+import { useAppSelector } from "../app/hooks";
+import { RootState } from "../app/store";
 
 interface registrationInput {
   name: string
@@ -27,6 +29,14 @@ const schema = yup.object({
   image_interior: yup.string()
 }).required()
 function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) {
+
+  // const isMatatuUser = useAppSelector((state: RootState) => state.persistAuth.auth);
+  // const isMatatuUser2 = useAppSelector((state: RootState) => state.persistAuth.auth.refresh);
+  // console.log(isMatatuUser2,'is matatu user')
+  // console.log(isMatatuUser)
+
+  // const isMatatuUser = "UserName"
+
   if (!isOpen) return null;
   const { handleSubmit, register } = useForm<registrationInput>({
     resolver: yupResolver(schema),
@@ -34,12 +44,20 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
   const [createMat] = useCreateMatatuMutation();
   const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput)=>{
     console.log(data);
+    // const userData = {
+    //   ...data,
+    //   driver: 'tester123',
+    //   image_exterior: '',
+    //   image_interior:'',
+    // }
     const userData = {
-      ...data,
-      driver: 'his Name',
-      image_exterior: '',
-      image_interior:'',
-      is_trial: true
+      "name": "Everything Fishv1",
+      "number_plate": "kfmvkfvk",
+      "number_of_seats": 12,
+      "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      "driver": "Tester12",
+      "route": 1
     }
     const response = await createMat(userData).unwrap()
     console.log(response);
