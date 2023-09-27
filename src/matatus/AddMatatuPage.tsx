@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import Backdrop from "../components/Backdrop";
+import axios from 'axios';
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 
@@ -56,12 +57,59 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
       "number_of_seats": 12,
       "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
       "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-      "driver": "Tester12",
-      "route": 1
+      "driver": "tester5",
+      "capacity" : "42"
     }
-    const response = await createMat(userData).unwrap()
-    console.log(response);
+    try {
+      const response = await createMat(userData).unwrap()
+      console.log(response)
+    } catch (error: any) {
+      console.error(error);
+    }
   }
+
+
+  
+  const handleClickForCreate = async () => {
+    console.log("Cliccckede")
+
+    const authToken : string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1ODQ0NzQyLCJpYXQiOjE2OTU4NDI5NDIsImp0aSI6ImQ2ZmFhOWVmODM0NTRmMzE5NjA3ZTJlMDNiNjRhYWQ5IiwidXNlcl9pZCI6MTN9.JGiR8Sjsqo1chkKQPPmiW65nuQUwqonhH1r3nO456FM"
+
+    try {
+
+      const userData = {
+        "name": "Everything Fishv1",
+        "number_plate": "kfmvkfvk",
+        "number_of_seats": 12,
+        "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+        "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+        "driver": "tester5",
+        "capacity": "42"
+      }
+      
+
+      // Make a POST request using Axios
+      const response = await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_matatu', userData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      // Log the response
+      console.log('POST Response:', response);
+      console.log(response.data)
+
+      
+
+     
+    } catch (error) {
+      // Handle errors
+      console.error('Error posting data:', error);
+
+      
+    }
+  };
+
+
   return (
     <Backdrop>
       <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -159,6 +207,8 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
             </form>
 
             <button onClick={onClose}>Close</button>
+
+            <button onClick={handleClickForCreate}>Clickable</button>
           </div>
         </div>
       </div>

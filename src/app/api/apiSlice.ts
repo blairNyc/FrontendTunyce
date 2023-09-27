@@ -68,7 +68,7 @@ export const mainApiSlice = createApi({
             query:()=>({
                 url: "/authentication/request-reset-password/v1/",
                 method: "post",
-            })
+            }),
         })
     })
 })

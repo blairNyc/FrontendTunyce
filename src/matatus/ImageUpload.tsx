@@ -7,21 +7,23 @@ interface ImageUploadProps { }
 const ImageUpload: React.FC<ImageUploadProps> = () => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
+
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
 
         const formData = new FormData();
-        formData.append('image', file);
+        formData.append('file', file);
 
         try {
             // Replace YOUR_ENDPOINT_HERE with the actual endpoint URL
-            const response = await axios.post<{ imageUrl: string }>('https://media.tunycemedia.com/upload/advert', formData);
+            const response = await axios.post<{
+                AdvertPath: string }>('https://media.tunycemedia.com/upload/advert', formData);
 
             // Assuming the response contains the image URL
-            const { imageUrl } = response.data;
+            const { AdvertPath } = response.data;
 
-            setImageUrl(imageUrl);
-            console.log('Image uploaded successfully. URL:', imageUrl);
+            setImageUrl(AdvertPath);
+            console.log('Image uploaded successfully. URL:', AdvertPath);
         } catch (error : any) {
             console.error('Error uploading image:', error.message);
         }
