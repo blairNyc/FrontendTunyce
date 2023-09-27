@@ -90,8 +90,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const DropdownMenu = () => (
         <div id="dropdownAvatarName" className="z-50 absolute right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                <div className="font-medium ">John Doe</div>
-                <div className="truncate">johndoe@gmail.com</div>
+                <div className="font-medium ">{authVal.username}</div>
+                <div className="truncate">mail@mail.com</div>
             </div>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
@@ -109,6 +109,13 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                     >Upgrade Account</a>
                 </li>
             </ul>
+            <div className="py-2">
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onClick={() => {
+                        setIsDropdownOpen(false)
+                    }}
+                >Advertise</a>
+            </div>
             <div className="py-2">
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
@@ -206,7 +213,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                     </div>
                     <div className="flex h-full mx-2 items-center" onClick={toggleDropdown}>
                         <img src="https://picsum.photos/200/300" alt="" className="w-10 h-10 rounded-full object-cover" />
-                        <h3 className="text-md mx-2 font-bold">John Doe</h3>
+                        <h3 className="text-md mx-2 font-bold">{authVal.username}</h3>
                         <BsChevronDown className="text-xl mx-2 text-black" />
                     </div>
                 </div>
