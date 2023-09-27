@@ -32,6 +32,7 @@ import FilmmakerDashboard from './components/filmMaker/FilmmakerDashboard';
 import FilmmakerWatch from './components/filmMaker/FilmmakerWatch';
 import UserWalletPage from "./wallets/UserWalletPage";
 import MatatuPage from "./matatus/MatatuPage";
+import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 
 
 const NotFoundRouter: RouteObject = {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         path:'/new',
         element: <NewPage/>
+      },
+      {
+        path:'/filmmaker_wallet',
+        element: <FilmmakerWalletPage />
       }
     ]
   },
