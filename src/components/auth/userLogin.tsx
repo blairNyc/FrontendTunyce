@@ -11,8 +11,8 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RootState } from '../../app/store';
 
-export const SnackBar=({text}:{text:string})=>(
-    <div className='absolute flex items-center justify-between px-4 top-8 py-1 w-1/3 bg-red-500 min-w-[250px] rounded-2xl left-1/4 md:left-1/3 '>
+export const SnackBar=({text}:{text:string| number})=>(
+    <div className='absolute flex items-center justify-between px-4 top-8 my-1 py-1 w-1/3 bg-red-500 min-w-[250px] rounded-2xl left-1/4 md:left-1/3 '>
         <p className='text-center font-bold text-sm text-white'>{text}</p>
         <AiOutlineClose className='text-white cursor-pointer text-lg font-bold'/>
     </div>
@@ -22,7 +22,12 @@ interface registrationInput{
     email:string
     password:string
 }
-
+type ErrorType = { 
+    status:number, 
+    data:{
+        [key:string]:string
+    }
+}
 const schema = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
@@ -60,15 +65,17 @@ export default function UserLogin() {
             };
             dispatch(setCredentials(response));
             navigate('/home');
-        } catch (error) {
-            console.log(error)
+        } catch (error ) {
+            // const err = error as ErrorType
+            console.log('Error encountered: ',error)
         }
     }
-
-
     return (
         <>
-            {isError&&(<SnackBar text={error as string} />)}
+            {isError&&
+                Object.values((error as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err} />)
+            
+            }
             <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
                 <Card>
                     <div className="sm:mx-auto sm:w-[36rem] sm:max-w-full"> 
