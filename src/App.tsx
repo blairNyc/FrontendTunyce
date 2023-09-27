@@ -41,6 +41,7 @@ import ControllerCreators from './components/controller/ControllerCreators';
 import AllContollerCreatorsPage from './components/controller/AllContollerCreatorsPage';
 import MatatuLayout from './matatus/components/MatatuLayout';
 // import { UserTypes } from './types';
+import InnerPage from './components/inner-page'
 
 
 const NotFoundRouter: RouteObject = {
@@ -124,6 +125,10 @@ const router = createBrowserRouter([
       {
         path: "/explore",
         element: <ExplorePage />,
+      },
+      {
+        path: "/explore/innerpage",
+        element: <InnerPage />,
       },
       {
         path: "/creators",
@@ -238,6 +243,10 @@ function App() {
         {
           path:'/explore',
           element: <ExplorePage/>
+        },
+        {
+          path: "/explore/innerpage",
+          element: <InnerPage />,
         },
         {
             path:'/creators',

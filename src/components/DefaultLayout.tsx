@@ -6,6 +6,7 @@ import { FaDeezer } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi";
 import { GoHomeFill } from "react-icons/go";
 import TunyceLogo from '/tunyce_logo.svg';
+import '../App.css';
 // import { NavElProps } from "./Sidebar";
 type NavElProps = {
     name: string;
