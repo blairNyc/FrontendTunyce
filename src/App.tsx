@@ -39,6 +39,7 @@ import UserHome from './user/UserHome';
 import ControllerCart from './components/controller/ControllerCart';
 import ControllerCreators from './components/controller/ControllerCreators';
 import AllContollerCreatorsPage from './components/controller/AllContollerCreatorsPage';
+import InnerPage from './components/inner-page'
 
 
 const NotFoundRouter: RouteObject = {
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: "/explore",
         element: <ExplorePage />,
+      },
+      {
+        path: "/explore/innerpage",
+        element: <InnerPage />,
       },
       {
         path: "/creators",
@@ -236,6 +241,10 @@ function App() {
         {
           path:'/explore',
           element: <ExplorePage/>
+        },
+        {
+          path: "/explore/innerpage",
+          element: <InnerPage />,
         },
         {
             path:'/creators',

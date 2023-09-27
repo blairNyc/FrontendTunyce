@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials, logOut } from '../../components/auth/auth/authSlice'
 import { RootState} from '../store'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/api/v1/',
+    baseUrl: 'https://mighty-thicket-88919.herokuapp.com/api/',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).persistAuth.auth.access
         if (token) {

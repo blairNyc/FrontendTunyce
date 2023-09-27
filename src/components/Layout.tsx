@@ -2,8 +2,8 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
 import Header from "./Header";
-// import { AiOutlineMenu } from "react-icons/ai";
-// import TunyceLogo from '/tunyce_logo.svg';
+import '../App.css';
+
 function Layout() {
   const [sideBarOpen, setSideBarOpen] = useState<boolean>(true);
   return (
@@ -23,6 +23,7 @@ function Layout() {
               setSideBarOpen(!sideBarOpen);
             }}
           />
+          
           <Outlet />
         </div>
       </div>
