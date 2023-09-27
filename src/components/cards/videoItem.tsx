@@ -69,7 +69,7 @@ const VideoItem = ({ title, owner, vidUrl, srcUrl }: CommonProps) => {
           <img className="w-10 h-10 rounded-full" src={srcUrl} alt={title}/>
           <div className="pl-4">
               <h3 className="text-black font-bold text-sm md:text-lg">
-                  {title.length > 70 ? `${title.slice(0, 70)}...` : title}
+                {`${title?.slice(0, 20)}...`}
               </h3>
             <p className="text-text-secondary my-1 text-sm">{owner} . 10 days ago</p>
           </div>
