@@ -4,14 +4,15 @@ import { FaRegBell } from "react-icons/fa6";
 import { BsChevronDown } from "react-icons/bs";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import TunycLogo from '../assets/tunyce_logo.png';
-import {AiOutlineMenu} from "react-icons/ai";
-import { useAppDispatch, useAppSelector} from "../app/hooks";
+import { AiOutlineMenu } from "react-icons/ai";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RootState } from "../app/store";
 import { setCredentials } from "./auth/auth/authSlice";
-const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
-    <NavLink style={({isActive})=>{return{color:isActive?'#FB5857':'#4D4D56'}}} to={path} className='mx-[5px] md:mx-2'>
+import { useSelector } from 'react-redux';
+const ListItem = ({ text, currPath, path }: { text: string, currPath: string, path: string }) => (
+    <NavLink style={({ isActive }) => { return { color: isActive ? '#FB5857' : '#4D4D56' } }} to={path} className='mx-[5px] md:mx-2'>
         <p className={``}>{text}</p>
         {path === currPath && (<p className="border-b-4 rounded-lg border-text-primary w-4 mx-auto text-center"></p>)}
     </NavLink>
@@ -24,38 +25,31 @@ interface IHeaderProp {
 function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
     const dispatch = useAppDispatch()
-    const isMatOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_matatu);
-    const authVal = useAppSelector((state:RootState)=>state.persistAuth.auth);
+    const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
+    const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
     const location = useLocation().pathname;
     console.log(location);
-    // const dispatch = useAppDispatch()
-    // const handleSwithUser = (userType: keyof UserTypes)=>{
-    //     dispatch(switchUser(userType))
-    // }
-    // return (
-    //     <header className="w-full  flex items-center justify-between">
-    //         <div className="flex items-center">
-    //             <AiOutlineMenu onClick={setSideBarOpen} className="text-2xl text-black"/>
-    //             <img src={TunycLogo} alt="" className={`w-10  h-auto ${sideBarOpen?'hidden':'block'} mx-2 rounded-full object-contain`}/>
-
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+    const authState = useSelector((state: RootState) => state.persistAuth.auth);
+    const token = authState.access;
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
     const [displayUpgradeModal, setDisplayUpgradeModal] = useState(false);
 
+    // In the source application (http://localhost:3000)
+
     const [selectedValue, setSelectedValue] = useState("Content Creator");
-    const handleSelectChange = (event : any) => {
+    const handleSelectChange = (event: any) => {
         setSelectedValue(event.target.value);
     };
 
     const [upgradeMatatu] = useUpgradeToMatatuOwnerMutation()
     const [upgradeRestaurant] = useUpgradeToRestaurantOwnerMutation()
 
-    const onSubmitUpgrade = async (selectedValue : any) => {
-        
+    const onSubmitUpgrade = async (selectedValue: any) => {
+
         try {
             if (selectedValue == "Matatu Owner") {
                 dispatch(upgradeMatatu)
@@ -70,12 +64,12 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
     };
     const navigate = useNavigate();
-    const switchAccountHandler = ()=>{
+    const switchAccountHandler = () => {
         try {
-            
+
             dispatch(setCredentials({
-                auth:{
-                    curr_loggedin_user:'is_matatu',
+                auth: {
+                    curr_loggedin_user: 'is_matatu',
                     access: authVal.access,
                     refresh: authVal.refresh,
                     username: authVal.username,
@@ -84,9 +78,19 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             }));
             navigate('/matatu');
         } catch (error) {
-            
+
         }
     }
+
+    const handleAdvertClick = () => {
+        setIsDropdownOpen(false);
+
+        if (token) {
+            navigate(`http://localhost:5173/?token=${token}`);
+        }
+    };
+
+
     const DropdownMenu = () => (
         <div id="dropdownAvatarName" className="z-50 absolute right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
@@ -95,11 +99,11 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             </div>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
-                   {isMatOwner?( <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    {isMatOwner ? (<a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             switchAccountHandler()
                         }}
-                        >Switch to Matatu owner</a>):null
+                    >Switch to Matatu owner</a>) : null
                     }
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
@@ -113,6 +117,15 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
                         setIsDropdownOpen(false)
+                        handleAdvertClick
+window.location.href = `http://localhost:5173/?token=${token}`;
+                    }}
+                >Advert</a>
+            </div>
+            <div className="py-2">
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onClick={() => {
+                        setIsDropdownOpen(false)
                     }}
                 >Sign out</a>
             </div>
@@ -122,9 +135,9 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const UpgradeAccountModal = () => (
         <div id="staticModal" data-modal-backdrop="static" tabIndex={-1} aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center">
             <div className="relative w-full max-w-2xl max-h-full">
-                
+
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    
+
                     <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                             Account Upgrade
@@ -139,7 +152,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                             <span className="sr-only">Close modal</span>
                         </button>
                     </div>
-                    
+
                     <div className="p-6 space-y-6">
                         <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                             To upgrade your account please pick an account type from the dropdown below:
@@ -159,11 +172,11 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                             <option value="Advertiser">Advertiser</option>
                         </select>
                     </div>
-                    
+
                     <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button data-modal-hide="staticModal" type="button" className="text-white bg-universal-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             onClick={() => {
-                                
+
                                 onSubmitUpgrade(selectedValue)
                                 setDisplayUpgradeModal(false)
                             }}
@@ -218,7 +231,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                     <input type="text" placeholder="Search" className="border-2 w-4/5 bg-inherit rounded-lg px-2 h-full outline-none" />
                     <FiSearch className="text-xl text-black w-1/5" />
                 </div>
-                
+
             </header>
 
             {isDropdownOpen && <DropdownMenu />}
