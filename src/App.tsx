@@ -213,22 +213,22 @@ const router = createBrowserRouter([
 
 console.log(router);
 function App() {
-  const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
+    const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
 	console.log(curr_loggedin_user);
-  const router = createBrowserRouter([
+    const router = createBrowserRouter([
     curr_loggedin_user==="is_restaunt"? {
-      element: <RestaurantLayout/>,
-      children:[
-        {
-          path:'/restaurant/',
-          element: <RestaurantHomePage/>
-        },
-        {
-          path:'/restaurant/my-wallet',
-          element:<RestaurantWalletPage/>
-        },
-        // NotFoundRouter,
-      ]
+        element: <RestaurantLayout/>,
+        children:[
+            {
+            path:'/restaurant',
+            element: <RestaurantHomePage/>
+            },
+            {
+            path:'/restaurant/my-wallet',
+            element:<RestaurantWalletPage/>
+            },
+            NotFoundRouter,
+        ]
     }:curr_loggedin_user==="is_normaluser"?{
       element: <UserLayout />,
       children: [
@@ -299,10 +299,14 @@ function App() {
 			{
 				path:'/matatu',
 				element: <MatatuPage/>,
+			},
+			{
+				path: "*",
+				element: <NotFound />,
 			}
 		],
     }
-    :curr_loggedin_user === "" ? {
+    :!curr_loggedin_user ? {
           element: <DefaultLayout />,
           children: [
               {
@@ -311,24 +315,24 @@ function App() {
               },
               NotFoundRouter
           ]
-      } : NotFoundRouter,
-      {
+    } : NotFoundRouter,
+    {
         element: <Login />,
-         path: '/login',
-      },
-      {
-         element: <SignUp />,
-        path: '/signup'
-      },
-      {
-          path: '/faqs',
-          element: <FreqAskedQuesPage />
-      },
-      {
-          path: '/terms-conditions',
-          element: <TermsConditionsPage />
-      },
-  ]);
+        path: '/login',
+    },
+    {
+        element: <SignUp />,
+    path: '/signup'
+    },
+    {
+        path: '/faqs',
+        element: <FreqAskedQuesPage />
+    },
+    {
+        path: '/terms-conditions',
+        element: <TermsConditionsPage />
+    },
+    ]);
   return <RouterProvider router={router} />;
 }
 
