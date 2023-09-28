@@ -1,5 +1,5 @@
 const loadingArray = [1,2,3,4,5,6,7,8,9,10,11,12]
-const LoadingSkeleton = () => {
+export const LoadingSkeleton = () => {
     return(
         <div role="status" className="w-44 border-gray-300 m-2  min-w-[80px] xl:min-w-[100px] md:min-w-[190px] border p-3 md:p-2 rounded  animate-pulse ">
             <div className="flex items-center justify-center h-32 mb-4 bg-gray-300 rounded dark:bg-gray-900">

@@ -9,7 +9,8 @@ import { useAppDispatch, useAppSelector} from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
 import { useState } from "react";
 import { RootState } from "../app/store";
-import { setCredentials } from "./auth/auth/authSlice";
+import { setCredentials, switchUser } from "./auth/auth/authSlice";
+import { UserTypes } from "../types";
 const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
     <NavLink style={({isActive})=>{return{color:isActive?'#FB5857':'#4D4D56'}}} to={path} className='mx-[5px] md:mx-2'>
         <p className={``}>{text}</p>
@@ -25,19 +26,9 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
     const dispatch = useAppDispatch()
     const isMatOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_matatu);
-    const authVal = useAppSelector((state:RootState)=>state.persistAuth.auth);
+    const isResOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_restaunt);
     const location = useLocation().pathname;
     console.log(location);
-    // const dispatch = useAppDispatch()
-    // const handleSwithUser = (userType: keyof UserTypes)=>{
-    //     dispatch(switchUser(userType))
-    // }
-    // return (
-    //     <header className="w-full  flex items-center justify-between">
-    //         <div className="flex items-center">
-    //             <AiOutlineMenu onClick={setSideBarOpen} className="text-2xl text-black"/>
-    //             <img src={TunycLogo} alt="" className={`w-10  h-auto ${sideBarOpen?'hidden':'block'} mx-2 rounded-full object-contain`}/>
-
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -47,44 +38,46 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const [displayUpgradeModal, setDisplayUpgradeModal] = useState(false);
 
     const [selectedValue, setSelectedValue] = useState("Content Creator");
-    const handleSelectChange = (event : any) => {
+    const handleSelectChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(event.target.value);
     };
-
+    const authVals = useAppSelector((state:RootState)=>state.persistAuth.auth);
     const [upgradeMatatu] = useUpgradeToMatatuOwnerMutation()
     const [upgradeRestaurant] = useUpgradeToRestaurantOwnerMutation()
-
-    const onSubmitUpgrade = async (selectedValue : any) => {
-        
+    const onSubmitUpgrade = async (selectedValue : string) => {
         try {
             if (selectedValue == "Matatu Owner") {
-                dispatch(upgradeMatatu)
+                const response = await dispatch(upgradeMatatu)
+                console.log(response);
+                dispatch(setCredentials({
+                    auth:{
+                        ...authVals,
+                        is_matatu: true
+                    }
+                }))   
             } else if (selectedValue == "Restaurant Owner") {
-                dispatch(upgradeRestaurant)
+                const response = await dispatch(upgradeRestaurant);
+                dispatch(setCredentials({
+                    auth:{
+                        ...authVals,
+                        is_restaunt: true
+                    }
+                }))
+                console.log("Restaurant owner",response);
             }
         } catch (error) {
             console.log(error)
         }
-
-
-
     };
     const navigate = useNavigate();
-    const switchAccountHandler = ()=>{
+    const switchAccountHandler = (accountType: keyof UserTypes)=>{
         try {
-            
-            dispatch(setCredentials({
-                auth:{
-                    curr_loggedin_user:'is_matatu',
-                    access: authVal.access,
-                    refresh: authVal.refresh,
-                    username: authVal.username,
-                    // is_normaluser: authVal.is_normaluser
-                }
-            }));
-            navigate('/matatu');
+            dispatch(switchUser(accountType));
+            if (accountType == "is_matatu") navigate('/matatu');
+            else if (accountType == "is_restaunt") navigate('/restaurant');
+            return;
         } catch (error) {
-            
+            console.log(error);
         }
     }
     const DropdownMenu = () => (
@@ -95,11 +88,17 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             </div>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
-                   {isMatOwner?( <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                   {isMatOwner?( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
-                            switchAccountHandler()
+                            switchAccountHandler('is_matatu')
                         }}
                         >Switch to Matatu owner</a>):null
+                    }
+                    {isResOwner?( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        onClick={() => {
+                            switchAccountHandler('is_restaunt')
+                        }}
+                        >Switch to Restaurant owner</a>):null
                     }
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
