@@ -64,7 +64,7 @@ const ExplorePage = () => {
                         <FeaturedItem title={`${mix?.name}`} owner={`${mix?.owner}`} srcUrl={
                               mix && mix?.thumbnail
                                 ? mix?.thumbnail
-                                : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
+                                : 'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'
                             }/>
                      ))}
 
@@ -82,7 +82,7 @@ const ExplorePage = () => {
                                 srcUrl={
                                 mix && mix?.thumbnail
                                 ? mix?.thumbnail
-                                : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
+                                : 'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'
                                  }
                                 />
                         ))}
@@ -101,7 +101,7 @@ const ExplorePage = () => {
                                 srcUrl={
                                 mix && mix?.thumbnail
                                 ? mix?.thumbnail
-                                : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
+                                : 'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'
                                  }
                                 />
                         ))}
