@@ -54,7 +54,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     // get all latest mixes
     getAllMixes: builder.query({
       query: () => ({
-        url: `videos/mixes/latest/v1/`,
+        url: `/media/video/latest/`,
         method: 'get',
 
       }),
@@ -63,7 +63,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     // get all trending
     getAllTrendingMixes: builder.query({
       query: () => ({
-        url: `media/video/trending/`,
+        url: `/media/video/trending/`,
         method: 'get',
       }),
     }),
@@ -79,12 +79,8 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     switchVideo: builder.mutation({
       query: (id) => ({
-        url: `matmanagement/switchmatvideo/v1/`,
-        method: 'put',
-        body: {
-          playingVideo: `${id}`,
-          videoStartTime: 0,
-        },
+        url: `matatu/switch_content/${id}/`,
+        method: 'post',
       }),
     }),
 
@@ -99,8 +95,8 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     }),
 
     getPlayingLink: builder.mutation({
-      query: (id) => ({
-        url: `authentication/single_matatu_playing_link/${id}/v1/`,
+      query: () => ({
+        url: `matatu/get_content`,
         method: 'post',
         body: {},
       }),

@@ -4,6 +4,7 @@ import { setCredentials, logOut } from '../../components/auth/auth/authSlice'
 import { RootState} from '../store'
 
 const baseQuery = fetchBaseQuery({
+
     baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/api/v1/',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).persistAuth.auth.access
@@ -17,10 +18,14 @@ const baseQuery = fetchBaseQuery({
 
 
 const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi) => {
-    let result = await baseQuery(args, api,{})
+    let result = await baseQuery(args, api,{
+        method: 'POST'
+    })
     
     if (result?.error?.status === 401) {
-        const refreshResult = await baseQuery('authentication/token/refresh/v1/', api, {})
+        const refreshResult = await baseQuery('auth/token/refresh/', api , {
+            method: 'POST',
+        })
         console.log(refreshResult)
         if (refreshResult?.data) {
             api.dispatch(setCredentials((refreshResult as {data: any}).data))
