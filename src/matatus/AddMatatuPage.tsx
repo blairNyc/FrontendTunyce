@@ -94,15 +94,15 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
         image_interior: `${interiorImageUrl}`,
       }
 
-      const userData = {
-        "name": "Everything Fishv1",
-        "number_plate": "kfmvkfvk",
-        "number_of_seats": 12,
-        "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-        "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-        "driver": "tester5",
-        "capacity": "42"
-      }
+      // const userData = {
+      //   "name": "Everything Fishv1",
+      //   "number_plate": "kfmvkfvk",
+      //   "number_of_seats": 12,
+      //   "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      //   "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      //   "driver": "tester5",
+      //   "capacity": "42"
+      // }
 
 
       // Make a POST request using Axios
