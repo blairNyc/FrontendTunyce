@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 
 import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials, logOut } from '../../components/auth/auth/authSlice'
 import { RootState} from '../store'
-
+// import { useNavigate } from 'react-router-dom'
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://mighty-thicket-88919.herokuapp.com/api/',
+    baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/api/v1/',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).persistAuth.auth.access
         if (token) {
@@ -16,12 +17,32 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi) => {
     let result = await baseQuery(args, api,{})
-    
+    const authVals = (api.getState() as RootState).persistAuth.auth;
+    console.log(authVals);
+    // const navigate = useNavigate()
     if (result?.error?.status === 401) {
-        const refreshResult = await baseQuery('authentication/token/refresh/v1/', api, {})
+        if (!authVals.refresh) {
+
+            api.dispatch(logOut())
+            // navigate('/')
+            return result;
+        }
+        //  api.dispatch(logOut())
+        const refreshResult = await baseQuery('auth/token/refresh/', api, {
+            method: 'POST',
+            body: {
+                refresh: authVals.refresh,
+            },
+        })
         console.log(refreshResult)
         if (refreshResult?.data) {
-            api.dispatch(setCredentials((refreshResult as {data: any}).data))
+            // api.dispatch(setCredentials((refreshResult as {data: any}).data))
+            api.dispatch(setCredentials({
+                auth: {
+                    ...authVals,
+                    refresh: (refreshResult as {data: {refresh:string}}).data.refresh,
+                }
+            }))
             result = await baseQuery(args, api, {})
         } else {
             api.dispatch(logOut())
