@@ -48,6 +48,7 @@ function SmallNavElement({ name, children }: NavElProps) {
     </div>
   );
 }
+
 function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
   return (
     <div className="w-full">

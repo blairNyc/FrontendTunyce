@@ -42,6 +42,7 @@ import AllContollerCreatorsPage from './components/controller/AllContollerCreato
 import MatatuLayout from './matatus/components/MatatuLayout';
 // import { UserTypes } from './types';
 import InnerPage from './components/inner-page'
+import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 
 
 const NotFoundRouter: RouteObject = {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path:'/new',
         element: <NewPage/>
+      },
+      {
+        path:'/filmmaker_wallet',
+        element: <FilmmakerWalletPage />
       }
     ]
   },
@@ -291,6 +296,10 @@ function App() {
         {
           path: "/all-controller-creators",
           element: <AllContollerCreatorsPage />
+        },
+        {
+          path: '/matatu',
+          element: <MatatuPage />,
         }
       ]
     }:curr_loggedin_user === "is_matatu" ? {

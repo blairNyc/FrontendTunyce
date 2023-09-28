@@ -10,7 +10,9 @@ function MatatuPage(){
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
-	console.log(data);
+
+	// console.log(data.message);
+
 	const closeModal = () => {
 		setIsModalOpen(false);
 	};

@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRegisterUserMutation } from './auth/apiRegisterUserSlice'
 import * as yup from "yup";
 import { SnackBar } from './userLogin';
+
 interface IRegistrationInput{
     username:string
     phone_number:string

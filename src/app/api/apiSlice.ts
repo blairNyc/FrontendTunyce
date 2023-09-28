@@ -15,6 +15,8 @@ const baseQuery = fetchBaseQuery({
     }
 })
 
+
+
 const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi) => {
     let result = await baseQuery(args, api,{})
     const authVals = (api.getState() as RootState).persistAuth.auth;
@@ -87,7 +89,7 @@ export const mainApiSlice = createApi({
             query:()=>({
                 url: "/authentication/request-reset-password/v1/",
                 method: "post",
-            })
+            }),
         })
     })
 })
