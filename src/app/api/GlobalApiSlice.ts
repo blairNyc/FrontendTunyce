@@ -35,10 +35,18 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         method: 'get',
       }),
     }),
-  
+
     getMixes: builder.query({
       query: () => ({
         url: `matmanagement/mixes/v1/`,
+        method: 'get',
+      }),
+    }),
+
+
+    getLatestMusic: builder.query({
+      query: () => ({
+        url: 'media/video/latest/',
         method: 'get',
       }),
     }),
@@ -48,7 +56,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/media/video/latest/`,
         method: 'get',
-        
+
       }),
     }),
 
@@ -60,8 +68,8 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-     //records when video ends
-     videoEndUpdates: builder.mutation({
+    //records when video ends
+    videoEndUpdates: builder.mutation({
       query: (id) => ({
         url: `authentication/video_end_updates/${id}/v1/`,
         method: 'post',
@@ -94,8 +102,8 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-     //gets a single matatu
-     getSingleVenue: builder.query({
+    //gets a single matatu
+    getSingleVenue: builder.query({
       query: (data) => ({
         url: `authentication/single_matatu_time_record/15/${data.time}/${data.latitude}/${data.longitude}/v1/`,
         method: 'get',
@@ -104,12 +112,12 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
 
 
-  }),  
+  }),
 })
-   
-    
 
-  
+
+
+
 
 export const {
   useAllVideoCategoriesQuery,
@@ -117,6 +125,7 @@ export const {
   useAllDeejaysQuery,
   useAllDjVideosQuery,
   useAllDeejayMixesQuery,
+  useGetLatestMusicQuery,
   useGetMixesQuery,
   useGetAllMixesQuery,
   useGetAllTrendingMixesQuery,

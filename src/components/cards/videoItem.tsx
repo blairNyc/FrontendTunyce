@@ -89,6 +89,7 @@ const VideoItem = ({ title, owner, id ,vidUrl, date,srcUrl,views }: CommonProps)
           <div className="pl-4">
               <h3 className="text-black font-bold text-sm md:text-lg">
               {`${title?.slice(0, 80)}...`}
+
               </h3>
             <p className="text-text-secondary my-1 text-sm">
               <span className='font-bold'>{owner}</span>.  {views} . {date} </p>

@@ -296,6 +296,10 @@ function App() {
         {
           path: "/all-controller-creators",
           element: <AllContollerCreatorsPage />
+        },
+        {
+          path: '/matatu',
+          element: <MatatuPage />,
         }
       ]
     }:curr_loggedin_user === "is_matatu" ? {

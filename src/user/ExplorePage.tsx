@@ -92,6 +92,7 @@ const ExplorePage = () => {
                             onClick={() => handleItemClick(mix.id)}
 
                             />
+
                      ))}
 
                 </div>
@@ -132,6 +133,7 @@ const ExplorePage = () => {
                                  : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'} onClick={function (): void {
                                      throw new Error("Function not implemented.");
                                  } }                                />
+
                         ))}
                 </div>
             </div>
