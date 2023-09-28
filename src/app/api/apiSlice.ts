@@ -4,7 +4,7 @@ import { setCredentials, logOut } from '../../components/auth/auth/authSlice'
 import { RootState} from '../store'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/',
+    baseUrl: 'https://warm-journey-18609535df73.herokuapp.com/api/v1/',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).persistAuth.auth.access
         if (token) {

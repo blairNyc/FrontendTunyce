@@ -63,7 +63,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     // get all trending
     getAllTrendingMixes: builder.query({
       query: () => ({
-        url: `videos/mixes/trending/v1/`,
+        url: `media/video/trending/`,
         method: 'get',
       }),
     }),
