@@ -3,14 +3,52 @@ import { BsChevronDown, BsWallet,} from "react-icons/bs";
 import { GoHomeFill } from "react-icons/go";
 import TunyceLogo from '/tunyce_logo.svg';
 import NavElement from "../../components/navelement";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import {IoSettingsSharp} from 'react-icons/io5';
 import {FiLogOut, FiSearch} from 'react-icons/fi';
 import {FaMusic, FaRegBell} from 'react-icons/fa';
+import { useAppDispatch } from "../../app/hooks";
+import { switchUser } from "../../components/auth/auth/authSlice";
+export const DropdownMenu = ({setIsDropdownOpen,switchAccountHandler}:{ setIsDropdownOpen:(val:boolean)=>void, switchAccountHandler:()=>void}) => (
+    <div id="dropdownAvatarName" className="z-50 absolute top-1 right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div className="font-medium ">John Doe</div>
+            <div className="truncate">johndoe@gmail.com</div>
+        </div>
+        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+            <li>
+               <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    onClick={() => {
+                        switchAccountHandler()
+                    }}
+                    >Switch to NormalUser
+                </a>
+            </li>
+        </ul>
+        <div className="py-2">
+            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                onClick={() => {
+                    setIsDropdownOpen(false)
+                }}
+            >Sign out</a>
+        </div>
+    </div>
+);
 function MatatuLayout() {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const openSideBar = ()=>{setSideBarOpen(!sideBarOpen)}
-    console.log(openSideBar)
+    console.log(openSideBar);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const switchAccountHandler = () => {
+        dispatch(switchUser('is_normaluser'));
+        setIsDropdownOpen(false);
+        navigate('/home');
+    };
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
     return (
         <div className="w-screen h-screen">
             <div className="flex h-full w-full">
@@ -55,7 +93,7 @@ function MatatuLayout() {
                                     <div className="absolute -top-0 -right-0 w-1 h-1 rounded-full bg-red-500"></div>
                                 </div>
                             </div>
-                            <div className="flex h-full mx-2 items-center">
+                            <div onClick={toggleDropdown} className="flex h-full mx-2 items-center">
                                 <img src="https://picsum.photos/200/300" alt="" className="w-10 h-10 rounded-full object-cover"/>
                                 <h3 className="text-md mx-2 font-bold">John Doe</h3>
                                 <BsChevronDown className="text-xl mx-2 text-black"/>
@@ -65,6 +103,7 @@ function MatatuLayout() {
                     <Outlet/>
                 </div>
             </div>
+            {isDropdownOpen && <DropdownMenu setIsDropdownOpen={toggleDropdown} switchAccountHandler={switchAccountHandler} />}
         </div>
     );
 }
