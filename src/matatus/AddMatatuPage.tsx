@@ -14,11 +14,12 @@ interface registrationInput {
   number_plate: string
   route: number
   number_of_seats: number
-  driver : string,
+  driver : string
   is_trial?: boolean
   image_interior?: string
   image_exterior?: string
-
+  controller_password : string
+  player_password : string
 }
 
 const schema = yup.object({
@@ -29,7 +30,9 @@ const schema = yup.object({
   is_trial: yup.boolean(),
   driver: yup.string().required(),
   image_exterior: yup.string(),
-  image_interior: yup.string()
+  image_interior: yup.string(),
+  controller_password: yup.string().required(),
+  player_password: yup.string().required()
 }).required()
 function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) {
 
@@ -58,6 +61,8 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
       setExteriorImageUrl(text);
     }
   };
+
+  const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,6 +115,14 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
         image_interior: `${interiorImageUrl}`,
       }
 
+      const controllerDetails = {
+        password: `${data.controller_password}`
+      }
+
+      const playerDetails = {
+        password: `${data.player_password}`
+      }
+
       console.log(userDataMain)
 
       // const userData = {
@@ -130,23 +143,25 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
         },
       });
 
-      // const routeResponse = await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/region/routes/', userDataMain, {
+      // const controllerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_player/${2}/`, controllerDetails, {
       //   headers: {
       //     Authorization: `Bearer ${authToken}`,
       //   },
       // });
 
-      // console.log(routeResponse)
+      // const playerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_controller/${2}/`, playerDetails, {
+      //   headers: {
+      //     Authorization: `Bearer ${authToken}`,
+      //   },
+      // });
       
       console.log('POST Response:', response);
       console.log(response.data)
-
+      console.log(response.status)
 
     } catch (error) {
       // Handle errors
       console.error('Error posting data:', error);
-
-
     }
   }
 
@@ -270,6 +285,27 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
                           required
                         />
                       </div>
+
+                      <div className="mb-3">
+                        <input
+                          type="text"
+                          id="controller_password"
+                          {...register("controller_password")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="Controller Password"
+                          required
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <input
+                          type="text"
+                          id="player_password"
+                          {...register("player_password")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="Player Password"
+                          required
+                        />
+                      </div>
                     </div>
                     <div className="flex justify-between">
                       <div className="flex flex-col">
@@ -288,8 +324,6 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
                       <button data-modal-hide="staticModal" type="button" onClick={onClose} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
                     </div>
                   </form>
-                  
-                  
 
 
                 </div>
@@ -303,6 +337,26 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
           
         </div>
       </div>
+
+      {
+        displaySuccessNotification && 
+        <div id="toast-success" className="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+          <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span className="sr-only">Check icon</span>
+          </div>
+          <div className="ml-3 text-sm font-normal">Ite successfully.</div>
+          <button type="button" className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+            <span className="sr-only">Close</span>
+            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+          </button>
+        </div>
+      }
+      
     </Backdrop>
   );
 }
