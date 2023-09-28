@@ -23,8 +23,9 @@ function Layout() {
               setSideBarOpen(!sideBarOpen);
             }}
           />
-          
-          <Outlet />
+          <div >
+               <Outlet />
+          </div>
         </div>
       </div>
     </div>

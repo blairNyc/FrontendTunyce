@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import { useSwitchVideoMutation } from '../../app/api/GlobalApiSlice';
 
 
 interface CommonProps{
@@ -12,9 +13,11 @@ interface CommonProps{
     children?: React.ReactNode
     seeAllPath?: string
     path?:string
+    date?:string
+    views?:string
 }
 
-const VideoItem = ({ title, owner, vidUrl, srcUrl }: CommonProps) => {
+const VideoItem = ({ title, owner, id ,vidUrl, date,srcUrl,views }: CommonProps) => {
     const [isHovered, setIsHovered] = useState(false);
   
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -40,16 +43,32 @@ const VideoItem = ({ title, owner, vidUrl, srcUrl }: CommonProps) => {
       }
     };
   }, [hoverTimeout]);
+
+  const [switchVideoMutation] = useSwitchVideoMutation();
+
+  const handleItemClick = async () => {
+    try {
+      const result = await switchVideoMutation({ variables: { id } });
+
+      if ('data' in result) {
+        console.log('Video switched successfully:', result.data);
+      } else if ('error' in result) {
+        console.error('Video switch error:', result.error);
+      }
+    } catch (error) {
+      console.error('Video switch error:', error);
+    }
+  };
   
     return (
       <a
-        href="/creators/videos/3"
         className=""
       >
         <div 
            className="w-full h-60 relative"
            onMouseEnter={handleMouseEnter}
            onMouseLeave={handleMouseLeave}
+           onClick={handleItemClick}
         >
           {isHovered ? (
             <ReactPlayer
@@ -69,9 +88,10 @@ const VideoItem = ({ title, owner, vidUrl, srcUrl }: CommonProps) => {
           <img className="w-10 h-10 rounded-full" src={srcUrl} alt={title}/>
           <div className="pl-4">
               <h3 className="text-black font-bold text-sm md:text-lg">
-                  {title.length > 70 ? `${title.slice(0, 70)}...` : title}
+              {`${title?.slice(0, 80)}...`}
               </h3>
-            <p className="text-text-secondary my-1 text-sm">{owner} . 10 days ago</p>
+            <p className="text-text-secondary my-1 text-sm">
+              <span className='font-bold'>{owner}</span>.  {views} . {date} </p>
           </div>
         </div>
       </a>

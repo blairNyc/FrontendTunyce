@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { FaRegBell } from "react-icons/fa6";
 import { BsChevronDown } from "react-icons/bs";
@@ -10,12 +10,7 @@ import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, }
 import { useState } from "react";
 import { RootState } from "../app/store";
 import { setCredentials } from "./auth/auth/authSlice";
-const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
-    <NavLink style={({isActive})=>{return{color:isActive?'#FB5857':'#4D4D56'}}} to={path} className='mx-[5px] md:mx-2'>
-        <p className={``}>{text}</p>
-        {path === currPath && (<p className="border-b-4 rounded-lg border-text-primary w-4 mx-auto text-center"></p>)}
-    </NavLink>
-);
+
 interface IHeaderProp {
     sideBarOpen: boolean
     setSideBarOpen: () => void
@@ -185,16 +180,22 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             <header className="w-full flex items-center justify-between">
                 <div className="flex items-center">
                     <AiOutlineMenu onClick={setSideBarOpen} className="text-2xl text-black" />
-                    <img src={TunycLogo} alt="" className={`w-10  h-auto ${sideBarOpen ? 'hidden' : 'block'} mx-2 rounded-full object-contain`} />
+                    <img src={TunycLogo} alt="" className={`w-24  h-auto ${sideBarOpen ? 'hidden' : 'block'} mx-2l object-contain`} />
                 </div>
-                <ul className='list-none hidden md:flex items-center'>
-                    <ListItem text='Music' currPath={location} path="/music" />
-                    <ListItem text='Podcast' currPath={location} path="/podcasts" />
-                    <ListItem text='Live' currPath={location} path="/live" />
-                </ul>
-                <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/3  bg-gray-200">
-                    <input type="text" placeholder="Search" className="border-2 bg-inherit rounded-lg px-2 py-0 outline-none" />
-                    <FiSearch className="text-2xl text-black mx-2" />
+                <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/2">
+                    
+<form className="w-full">   
+    <div className="relative w-full">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+        </div>
+        <input type="search" id="default-search" className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Artists, Mixes..." required></input>
+        <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+    </div>
+</form>
+
                 </div>
                 <div className="hidden md:flex items-center h-full cursor-pointer justify-between">
                     <div className="flex items-center mr-8">
@@ -220,10 +221,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                 </div>
                 
             </header>
-
             {isDropdownOpen && <DropdownMenu />}
             {displayUpgradeModal && <UpgradeAccountModal />}
-
         </div>
 
 
