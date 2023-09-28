@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { VscDiffAdded } from "react-icons/vsc";
 import AddMatatuModal from "./AddMatatuPage";
-import { useGetAllMatatusQuery } from "../app/features/content/contentApiSlice";
+import { useGetAllMatatusQuery } from "./state";
 import LoadingSkeletonList from "../components/LoadingSkeletonList";
 import { IMatatuType } from "../types";
 function MatatuPage(){
@@ -16,7 +16,7 @@ function MatatuPage(){
 	};
 	return (
 		<>
-			{isLoading && <LoadingSkeletonList/>}
+			{/* {isLoading && <LoadingSkeletonList/>} */}
 			<div className="container">
 				{/*Title */}
 				<div className="flex justify-between my-3 px-2 text-red-500">
@@ -31,15 +31,21 @@ function MatatuPage(){
 					</div>
 				</div>
 			</div>
-			<div className="grid grid-cols-4 gap-4">
-				{
-					data?.map((matatu:IMatatuType) => (
-						<div className="bg-slate-300 rounded-lg h-32 flex flex-col justify-end">
-						<h5 className="ml-3">{matatu.name}</h5>
-						</div>
-					))
-				}
-			</div>
+			{
+				isLoading?(
+					<LoadingSkeletonList/>
+				):(
+				<div className="grid grid-cols-4 gap-4">
+					{
+						
+						data?.map((matatu:IMatatuType) => (
+							<div className="bg-slate-300 rounded-lg h-32 flex flex-col justify-end">
+								<h5 className="ml-3">{matatu.name}</h5>
+							</div>
+						))
+					}
+				</div>)
+			}
 			{/* Render the modal */}
 			<AddMatatuModal isOpen={isModalOpen} onClose={closeModal} />
 		</>
