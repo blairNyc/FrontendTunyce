@@ -1,13 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
-import { useDropzone, DropzoneRootProps, DropzoneInputProps } from 'react-dropzone';
-
-interface ImageUploadProps { }
-
-const ImageUpload: React.FC<ImageUploadProps> = () => {
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
+import { useDropzone } from 'react-dropzone';
 
 
+interface ChildProps {
+    onChildText: (text: string) => void;
+}
+
+const ImageUpload: React.FC<ChildProps> = ({onChildText}) => {
+    const [imageUrl, setImageUrl] = useState<string>("");
+    
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
 
@@ -23,6 +25,7 @@ const ImageUpload: React.FC<ImageUploadProps> = () => {
             const { AdvertPath } = response.data;
 
             setImageUrl(AdvertPath);
+            onChildText(AdvertPath)
             console.log('Image uploaded successfully. URL:', AdvertPath);
         } catch (error : any) {
             console.error('Error uploading image:', error.message);
@@ -36,17 +39,16 @@ const ImageUpload: React.FC<ImageUploadProps> = () => {
 
     return (
         <div className="container mx-auto mt-8">
-            <div {...getRootProps()} className={dropzoneStyle(isDragActive)}>
+            {!imageUrl && (<div {...getRootProps()} className={dropzoneStyle(isDragActive)}>
                 <input {...getInputProps()} />
                 <p className="text-lg text-gray-600">
                     {isDragActive
                         ? 'Drop the image here...'
                         : 'Drag \'n\' drop an image here, or click to select one'}
                 </p>
-            </div>
+            </div>)}
             {imageUrl && (
                 <div className="mt-4">
-                    <p className="text-lg text-gray-800">Uploaded Image:</p>
                     <img src={imageUrl} alt="Uploaded" className="mt-2 max-w-full h-auto" />
                 </div>
             )}
