@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import ImageUpload from "./ImageUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface registrationInput {
   name: string
@@ -59,40 +59,58 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
     }
   };
 
-  const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput)=>{
-    // console.log(data);
-    // const userData = {
-    //   ...data,
-    //   driver: 'tester123',
-    //   image_exterior: '',
-    //   image_interior:'',
-    // }
-    // const userData = {
-    //   "name": "Everything Fishv1",
-    //   "number_plate": "kfmvkfvk",
-    //   "number_of_seats": 12,
-    //   "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-    //   "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-    //   "driver": "tester5",
-    //   "capacity" : "42"
-    // }
-    // try {
-    //   const response = await createMat(userData).unwrap()
-      
-    // } catch (error: any) {
-    //   // console.error(error);
-    // }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/region/routes/', {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        });
 
+        const data = responseRoute.data;
+        console.log(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+
+    // return () => {
+    //   // Cleanup code here
+    // };
+  }, [userToken]);
+
+  const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput)=>{
+    
     const authToken: string = `${userToken}`
 
     try {
 
       console.log(data);
+
+      // name: string
+      // number_plate: string
+      // route: number
+      // number_of_seats: number
+      // driver: string,
+      // is_trial ?: boolean
+      // image_interior ?: string
+      // image_exterior ?: string
+
+
       const userDataMain = {
-        ...data,
+        name : `${data.name}`,
+        number_plate : `${data.number_plate}`,
+        route : data.route,
+        capacity : data.number_of_seats,
+        driver : `${data.driver}`,
         image_exterior: `${exteriorImageUrl}`,
         image_interior: `${interiorImageUrl}`,
       }
+
+      console.log(userDataMain)
 
       // const userData = {
       //   "name": "Everything Fishv1",
@@ -111,11 +129,17 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
           Authorization: `Bearer ${authToken}`,
         },
       });
-      // Log the response
+
+      // const routeResponse = await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/region/routes/', userDataMain, {
+      //   headers: {
+      //     Authorization: `Bearer ${authToken}`,
+      //   },
+      // });
+
+      // console.log(routeResponse)
+      
       console.log('POST Response:', response);
       console.log(response.data)
-
-
 
 
     } catch (error) {
@@ -257,15 +281,7 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
                         <ImageUpload onChildText={handleExteriorImage} />
                       </div>
                     </div>
-                    {/* <div className="flex justify-center">
-                      <button
-                        type="submit"
-                        className="bg-red-600 text-white rounded-lg w-60 mt-6"
-                      // onClick={onClose}
-                      >
-                        Submit
-                      </button>
-                    </div> */}
+           
 
                     <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                       <button data-modal-hide="staticModal" type="submit" className="text-white bg-universal-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
