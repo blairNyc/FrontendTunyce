@@ -68,7 +68,7 @@ function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
               <NavElement path="explore" name="Explorer">
                 <FaCompass className="text-xl" />
               </NavElement>
-              <NavElement path="/search" name="Search">
+              <NavElement path="/player" name="Search">
                 <FiSearch className="text-xl" />
               </NavElement>
             </ul>
