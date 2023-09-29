@@ -6,13 +6,11 @@ import LoadingSkeletonList from "../components/LoadingSkeletonList";
 import { IMatatuType } from "../types";
 function MatatuPage(){
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const { data, isLoading } = useGetAllMatatusQuery(1);
+	const { data, error,currentData, isLoading } = useGetAllMatatusQuery(1);
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
-
-	// console.log(data.message);
-
+	console.log(data, currentData, error);
 	const closeModal = () => {
 		setIsModalOpen(false);
 	};

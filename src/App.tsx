@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         path:'/matatu',
         element: <MatatuPage/>
       },{
-        path: '/restaurant/:id/my-wallet',
+        path: '/restaurant/my-wallet',
         element: <RestaurantWalletPage />
       },
       {
@@ -229,8 +229,8 @@ function App() {
             element: <RestaurantHomePage/>
             },
             {
-            path:'/restaurant/my-wallet',
-            element:<RestaurantWalletPage/>
+              path:'/restaurant/my-wallet',
+              element:<RestaurantWalletPage/>
             },
             NotFoundRouter,
         ]
@@ -319,8 +319,32 @@ function App() {
           element: <DefaultLayout />,
           children: [
               {
-                  path: '/',
-                  element: <LandingPage />
+                path: '/',
+                element: <LandingPage />
+              },
+              {
+                path: "/artists",
+                element: <ArtistsPage />,
+              },
+              {
+                path:'/search',
+                element: <SearchPage/>
+              },
+              {
+                path: "/artists/:id",
+                element: <Creator/>,
+              },
+              {
+                path:'/trending',
+                element: <TrendingPage/>
+              },
+              {
+                path:'/trending/:id',
+                element:<VideoScreen/>
+              },
+              {
+                path:'/new',
+                element: <NewPage/>
               },
               NotFoundRouter
           ]

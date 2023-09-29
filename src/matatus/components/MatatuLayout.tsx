@@ -6,14 +6,17 @@ import NavElement from "../../components/navelement";
 import { Outlet, useNavigate } from "react-router-dom";
 import {IoSettingsSharp} from 'react-icons/io5';
 import {FiLogOut, FiSearch} from 'react-icons/fi';
-import {FaMusic, FaRegBell} from 'react-icons/fa';
-import { useAppDispatch } from "../../app/hooks";
+import { FaRegBell} from 'react-icons/fa';
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { switchUser } from "../../components/auth/auth/authSlice";
-export const DropdownMenu = ({setIsDropdownOpen,switchAccountHandler}:{ setIsDropdownOpen:(val:boolean)=>void, switchAccountHandler:()=>void}) => (
+import { RootState } from "../../app/store";
+import { AiOutlineClose } from "react-icons/ai";
+export const DropdownMenu = ({setIsDropdownOpen, userName, switchAccountHandler}:{userName:string, setIsDropdownOpen:(val:boolean)=>void, switchAccountHandler:()=>void}) => (
     <div id="dropdownAvatarName" className="z-50 absolute top-1 right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <AiOutlineClose className="text-2xl cursor-pointer m-2 text-black mx-2" onClick={() => {setIsDropdownOpen(false)}} />
         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div className="font-medium ">John Doe</div>
-            <div className="truncate">johndoe@gmail.com</div>
+            <div className="font-medium ">{userName}</div>
+            {/* <div className="truncate">johndoe@gmail.com</div> */}
         </div>
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
             <li>
@@ -40,6 +43,7 @@ function MatatuLayout() {
     console.log(openSideBar);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dispatch = useAppDispatch();
+    const userName = useAppSelector((state:RootState) => state.persistAuth.auth.username);
     const navigate = useNavigate();
     const switchAccountHandler = () => {
         dispatch(switchUser('is_normaluser'));
@@ -60,9 +64,6 @@ function MatatuLayout() {
                                 <ul className='w-full'>
                                     <NavElement path='/matatu'  name='Dashboard'>
                                         <GoHomeFill className='text-xl' />
-                                    </NavElement>
-                                    <NavElement path='/matatu/my-content' name='My Content'>
-                                        <FaMusic className='text-xl' />
                                     </NavElement>
                                 </ul>
                                 <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>
@@ -94,8 +95,8 @@ function MatatuLayout() {
                                 </div>
                             </div>
                             <div onClick={toggleDropdown} className="flex h-full mx-2 items-center">
-                                <img src="https://picsum.photos/200/300" alt="" className="w-10 h-10 rounded-full object-cover"/>
-                                <h3 className="text-md mx-2 font-bold">John Doe</h3>
+                                <div className="w-10 h-10 text-white font-bold text-2xl p-1 text-center rounded-full bg-red-600">{userName[0]}</div>
+                                <h3 className="text-md mx-2 font-bold">{userName}</h3>
                                 <BsChevronDown className="text-xl mx-2 text-black"/>
                             </div>
                         </div>
@@ -103,7 +104,7 @@ function MatatuLayout() {
                     <Outlet/>
                 </div>
             </div>
-            {isDropdownOpen && <DropdownMenu setIsDropdownOpen={toggleDropdown} switchAccountHandler={switchAccountHandler} />}
+            {isDropdownOpen && <DropdownMenu userName={userName} setIsDropdownOpen={toggleDropdown} switchAccountHandler={switchAccountHandler} />}
         </div>
     );
 }

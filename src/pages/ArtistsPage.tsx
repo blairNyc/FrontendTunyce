@@ -19,8 +19,8 @@ function ArtistsPage() {
                     <FiSearch className="text-2xl text-black mx-2"/>
                 </div>
                 <div className="hidden md:flex md:flex-row flex-col items-center">
-                    <button className="border px-4 my-2 rounded-2xl border-black ">Sign Up</button>
-                    <button className="px-4 py-1 my-2 mx-3 bg-text-primary rounded-2xl text-white font-semibold">Sign In</button>
+                    <a href="/register" className="border cursor-pointer px-4 my-2 rounded-2xl border-black ">Sign Up</a>
+                    <a href="/login" className="px-4 py-1 my-2 mx-3 bg-text-primary rounded-2xl text-white font-semibold">Sign In</a>
                 </div>
             </header>
             <h2 className="text-2xl text-text-primary font-bold">Artists</h2>
