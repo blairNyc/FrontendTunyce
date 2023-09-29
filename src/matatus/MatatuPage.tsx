@@ -9,14 +9,16 @@ import { RootState } from "../app/store";
 import axios from 'axios';
 function MatatuPage(){
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	// const { data, isLoading } = useGetAllMatatusQuery(1);
+	const { data, isLoading } = useGetAllMatatusQuery(1);
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
 
+	console.log(data)
+
 	const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
 
-	const [data, setMatData] = useState<any>()
+	// const [data, setMatData] = useState<any>()
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -29,7 +31,7 @@ function MatatuPage(){
 
 				const data = responseRoute.data;
 				console.log(data);
-				setMatData(data.message)
+				// setMatData(data.message)
 
 				// setOwnerInformation(data.message)
 
@@ -48,7 +50,7 @@ function MatatuPage(){
 	};
 	return (
 		<>
-			{/* {isLoading && <LoadingSkeletonList/>} */}
+			{isLoading && <LoadingSkeletonList/>}
 			<div className="container">
 				{/*Title */}
 				<div className="flex justify-between my-3 px-2 text-red-500">

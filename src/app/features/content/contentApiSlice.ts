@@ -36,8 +36,10 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
                 },
             }),
         }),
+
+        // get all matatus
         getAllMatatus: builder.query({
-            query: () => ({
+            query: (id) => ({
                 url: 'matatu/matatus',
                 method: 'get',
             }),
