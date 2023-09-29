@@ -1,24 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VscDiffAdded } from "react-icons/vsc";
 import AddMatatuModal from "./AddMatatuPage";
 import { useGetAllMatatusQuery } from "../app/features/content/contentApiSlice";
 import LoadingSkeletonList from "../components/LoadingSkeletonList";
 import { IMatatuType } from "../types";
+import { useAppSelector } from "../app/hooks";
+import { RootState } from "../app/store";
+import axios from 'axios';
 function MatatuPage(){
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const { data, isLoading } = useGetAllMatatusQuery(1);
+	// const { data, isLoading } = useGetAllMatatusQuery(1);
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
 
-	// console.log(data.message);
+	const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+
+	const [data, setMatData] = useState<any>()
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/matatus', {
+					headers: {
+						Authorization: `Bearer ${userToken}`,
+					},
+				});
+
+				const data = responseRoute.data;
+				console.log(data);
+				setMatData(data.message)
+
+				// setOwnerInformation(data.message)
+
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+		};
+
+		fetchData();
+
+	}, [userToken]);
+
 
 	const closeModal = () => {
 		setIsModalOpen(false);
 	};
 	return (
 		<>
-			{isLoading && <LoadingSkeletonList/>}
+			{/* {isLoading && <LoadingSkeletonList/>} */}
 			<div className="container">
 				{/*Title */}
 				<div className="flex justify-between my-3 px-2 text-red-500">
