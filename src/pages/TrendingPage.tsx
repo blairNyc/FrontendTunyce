@@ -4,26 +4,40 @@ import { useGetAllTrendingMixesQuery } from "../app/api/GlobalApiSlice";
 import SignModal from './SignModal';
 import { useState } from "react";
 
-const VideoItem = ({ mix, onClick }: { mix: any, onClick: () => void }) => (
-    <div onClick={onClick} className="cursor-pointer md:w-52 w-40 my-1 hover:bg-gray-100 border-gray-320 md:m-2 min-h-[100px] min-w-[90px] xl:min-w-[320px] md:min-w-[190px]  rounded-lg">
-        <div className="w-full h-32 relative">
-            <span className="absolute bottom-0 left-0 mx-2 flex h-6 w-6">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orangered opacity-75"></span>
-                <BsPlayCircle className="relative mb-9 inline-flex rounded-full h-6 w-6 bg-orangered" />
-            </span>
-            <img src={mix.video_thumbnail} alt="" className="w-full h-full object-cover rounded-lg" />
-            <p className="absolute bottom-0 right-0 mx-2 font-bold text-white">{mix.views} Views</p>
-        </div>
-        <div className="my-2">
-            <h3 className="text-text-primary font-semibold text-sm md:text-lg overflow-hidden line-clamp-2">{mix.name}</h3>
-            <p className="text-text-secondary my-1 text-sm font-bold">{mix.owner?.username}</p>
-            <p className="text-text-secondary my-1 text-xs">10k Views . 10 days ago</p>
-        </div>
-    </div>
-);
-function TrendingPage() {
+const calculateDaysSinceCreation = (createdDateStr: string) => {
+    const createdDate = new Date(createdDateStr);
+    const currentDate = new Date();
+    const timeDifference = currentDate.getTime() - createdDate.getTime();
+    return Math.floor(timeDifference / (24 * 60 * 60 * 1000)); // Calculate days
+};
 
-    const { data: trendingMixes } = useGetAllTrendingMixesQuery([])
+const VideoItem = ({ mix, onClick }: { mix: any; onClick: () => void }) => {
+    const daysSinceCreation = calculateDaysSinceCreation(mix.created_at);
+
+    return (
+        <div onClick={onClick} className="cursor-pointer md:w-52 w-40 my-1 hover:bg-gray-100 border-gray-320 md:m-2 min-h-[100px] min-w-[90px] xl:min-w-[320px] md:min-w-[190px]  rounded-lg">
+            <div className="w-full h-32 relative flex items-center justify-center">
+                <span className="absolute mx-2 flex h-6 w-6" style={{ bottom: '50%', left: '50%', transform: 'translate(-50%, 50%)' }}>
+                    <BsPlayCircle className="mb-9 inline-flex rounded-full h-6 w-6 bg-orangered" />
+                </span>
+                <img src={mix && mix.video_thumbnail ? mix.video_thumbnail :
+                    'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} alt="" className="w-full h-full object-cover rounded-lg" />
+            </div>
+            <div className="my-2">
+                <h3 className="text-text-primary font-semibold text-sm md:text-lg overflow-hidden line-clamp-2">{mix.name}</h3>
+                <p className="text-text-secondary my-1 text-sm font-bold">{mix.owner?.username}</p>
+                {daysSinceCreation >= 30 ? (
+                    <p className="text-text-secondary my-1 text-xs mx-2">{mix.views} Views . {Math.floor(daysSinceCreation / 30)} months ago</p>
+                ) : (
+                    <p className="text-text-secondary my-1 text-xs mx-2">{mix.views} Views . {daysSinceCreation} days ago</p>
+                )}
+            </div>
+        </div>
+    );
+};
+
+function TrendingPage() {
+    const { data: trendingMixes } = useGetAllTrendingMixesQuery([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     if (trendingMixes === undefined) {
@@ -42,6 +56,7 @@ function TrendingPage() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
     return (
         <div className='w-full mt-4 h-full'>
             <header className="w-full mt-3 flex items-center justify-between">
@@ -56,7 +71,7 @@ function TrendingPage() {
             </header>
             <h2 className="text-2xl text-text-primary font-bold">Trending Content</h2>
             <div className="mt-1 flex flex-wrap">
-                {trendingMixes.slice(0,10).map((mix: any) => (
+                {trendingMixes.slice(0, 9).map((mix: any) => (
                     <VideoItem onClick={() => openModal()} key={mix.id} mix={mix} />
                 ))}
             </div>
