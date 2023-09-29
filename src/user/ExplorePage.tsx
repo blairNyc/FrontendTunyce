@@ -1,6 +1,7 @@
 import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io"
 import {useGetAllMixesQuery, useGetAllTrendingMixesQuery,useSwitchVideoMutation} from "../app/api/GlobalApiSlice"
 import { Link } from 'react-router-dom';
+import { Mix } from "../types";
 
 interface CommonProps{
     title?: string
@@ -10,11 +11,11 @@ interface CommonProps{
     children?: React.ReactNode
     seeAllPath?: string
     path?:string
-    onClick: () => void;
+    onClick?: () => void;
 
 }
 
-export const SectionTitle = ({title,onClick}: CommonProps) => {
+export const SectionTitle = ({title,}: CommonProps) => {
     return(
         <div className="w-full flex justify-between items-center">
             <h3 className="text-lg font-semibold">
@@ -24,7 +25,7 @@ export const SectionTitle = ({title,onClick}: CommonProps) => {
         </div>
     )
 }
-export const FeaturedItem = ({title,children,additionalStyles, owner,srcUrl,onClick}:CommonProps)=>(
+export const FeaturedItem = ({title,children,additionalStyles, owner,srcUrl}:CommonProps)=>(
     <div className={`w-1/3 min-w-[280px] mx-3 relative ${additionalStyles} flex flex-col cursor-pointer items-center justify-end pb-4 h-40`}>
         <img src={`${srcUrl}`} alt="" className="w-full absolute top-0 left-0 rounded-xl h-full object-center"/>
         <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-bg-primary to-transparent rounded-xl"></div>
@@ -83,7 +84,7 @@ const ExplorePage = () => {
                     throw new Error("Function not implemented.");
                 } }/>
                 <div className="w-full flex items-center overflow-x-scroll">
-                     {trendingMixes?.map((mix: any) => (
+                     {trendingMixes?.map((mix: Mix) => (
                         <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl={
                               mix && mix?.video_thumbnail
                                 ? mix?.video_thumbnail
@@ -104,7 +105,7 @@ const ExplorePage = () => {
                 <div className="w-full flex items-center">
                     <IoIosArrowDropleftCircle className="text-2xl mx-2 absolute left-0 text-text-primary"/>
                     <div className="flex mx-7 w-full relative overflow-y-hidden overflow-x-scroll items-center">
-                        {allMixes?.map((mix: any) => (
+                        {allMixes?.map((mix: Mix) => (
                                 <MusicItem
                                 title={`${mix?.name}`}
                                 owner={`${mix?.owner?.username}`}
@@ -124,7 +125,7 @@ const ExplorePage = () => {
                     throw new Error("Function not implemented.");
                 } }/>
                 <div className="w-full flex items-center">
-                     {allMixes?.map((mix: any) => (
+                     {allMixes?.map((mix: Mix) => (
                                 <MusicItem
                              title={`${mix?.name}`}
                              owner={`${mix?.owner?.username}`}
