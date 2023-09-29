@@ -3,7 +3,7 @@
 import { BiChevronLeftCircle, BiChevronRightCircle } from 'react-icons/bi';
 import { useGetAllTrendingMixesQuery, useGetLatestMusicQuery } from '../app/api/GlobalApiSlice';
 import { useState } from 'react';
-
+import { Mix } from '../types';
 const ButtonStyle = ({ text }: { text: string }) => (<button className='w-full rounded-md hover:bg-red-600 my-3 font-bold uppercase text-white bg-text-primary py-3'>{text}</button>)
 export const JointTunce = () => (
     <div className='h-screen flex pt-8 justify-center md:items-center'>
@@ -74,13 +74,17 @@ function LandingPage() {
         // Go to next page
         setVisibleItems((prevVisibleItems) => prevVisibleItems + 9);
     };
-    const showPreviousItems = () => {
-        // Go back
-        setVisibleItems((prevVisibleItems) => Math.max(prevVisibleItems - 9, 9));
-    };
 
     return (
-        <div className='w-full h-full py-8'>
+        <div className='w-full h-full py-3'>
+            <header className="w-full flex mb-3 items-center justify-between">
+                <div className="flex items-center justify-between rounded-2xl px-2 w-4/5 md:w-1/3 bg-gray-200">
+                </div>
+                <div className="hidden md:flex md:flex-row flex-col items-center">
+                    <a href="/register" className="border cursor-pointer px-4 my-2 rounded-2xl border-black ">Sign Up</a>
+                    <a href="/login" className="px-4 py-1 my-2 mx-3 bg-text-primary rounded-2xl text-white font-semibold">Sign In</a>
+                </div>
+            </header>
             <div className="flex flex-row flex-wrap">
                 <GenreBox text="Hip hop" bgcolor="bg-pink-400" />
                 <GenreBox text="Afro pop" bgcolor="bg-red-500" />
@@ -98,11 +102,11 @@ function LandingPage() {
                     <p>MUSIC TO GET YOU STARTED</p>
                     <RowContainer onClick={showMore} text='Popular' />
                     <div className="grid grid-cols-1 md:grid-cols-4 xs:grid-cols-3">
-                        {trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: any) => (
+                        {trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: Mix) => (
                             <MusItem
                                 key={tmix.id}
                                 plays='32K'
-                                title={tmix?.owner.username}
+                                title={tmix?.owner.username??'Mix'}
                                 image={tmix && tmix.video_thumbnail ? tmix.video_thumbnail :
                                     'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />
                         ))}
@@ -111,7 +115,7 @@ function LandingPage() {
                 <div>
                     <RowContainer onClick={showMore} text='New Releases' />
                     <div className="flex flex-row gap-2">
-                        {latestMixes?.slice(0, 7).map((mix: any) => (
+                        {latestMixes?.slice(0, 7).map((mix: Mix) => (
                             <EasyAfterNoon key={mix.id} image={mix && mix.video_thumbnail ? mix.video_thumbnail :
                                 'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />
                         ))}

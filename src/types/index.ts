@@ -19,3 +19,12 @@ export interface IMatatuType{
     id?: string
   
   }
+export interface Mix{ 
+    name: string,
+    video_thumbnail?: string,
+    owner:{
+        username?:string
+    },
+    views?:string, 
+    id: string 
+}
