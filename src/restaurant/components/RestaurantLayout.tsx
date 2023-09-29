@@ -8,9 +8,10 @@ import {IoSettingsSharp} from 'react-icons/io5';
 import {FiLogOut, FiSearch} from 'react-icons/fi';
 import {FaMusic, FaRegBell} from 'react-icons/fa';
 import { DropdownMenu } from "../../matatus/components/MatatuLayout";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch,useAppSelector } from "../../app/hooks";
 import { switchUser } from "../../components/auth/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../app/store";
 function RestaurantLayout() {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const openSideBar = ()=>{setSideBarOpen(!sideBarOpen)}
@@ -18,6 +19,7 @@ function RestaurantLayout() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const userName = useAppSelector((state:RootState)=>state.persistAuth.auth.username);
     const switchAccountHandler = () => {
         dispatch(switchUser('is_normaluser'));
         setIsDropdownOpen(false);
@@ -80,7 +82,7 @@ function RestaurantLayout() {
                     <Outlet/>
                 </div>
             </div>
-            {isDropdownOpen && <DropdownMenu setIsDropdownOpen={toggleDropdown} switchAccountHandler={switchAccountHandler} />}
+            {isDropdownOpen && <DropdownMenu userName={userName}  setIsDropdownOpen={toggleDropdown} switchAccountHandler={switchAccountHandler} />}
         </div>
     );
 }

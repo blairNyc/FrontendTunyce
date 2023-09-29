@@ -1,4 +1,4 @@
-import {useGetAllMixesQuery,useGetAllTrendingMixesQuery} from "../app/api/GlobalApiSlice";
+import {useGetAllMixesQuery} from "../app/api/GlobalApiSlice";
 import VideoItem from "./cards/videoItem";
 import SkeletonItem from "./cards/skeletonItem";
 import LazyLoad from 'react-lazyload';
