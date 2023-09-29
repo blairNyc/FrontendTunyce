@@ -28,3 +28,8 @@ export interface Mix{
     views?:string, 
     id: string 
 }
+export type IContentCreatorsType = {
+    email: string
+    id: string | number
+    username: string
+}

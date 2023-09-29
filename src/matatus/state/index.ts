@@ -9,8 +9,8 @@ export const apiMatatuSlice = apiSlice.injectEndpoints({
                 method: 'get',
             }),
             transformResponse: (response: {message:IMatatuType[]}) => {
-                console.log(response);
-                return response.message;
+                console.log(response.message);
+                return response.message
             },
         }),
         createMatatu: builder.mutation({

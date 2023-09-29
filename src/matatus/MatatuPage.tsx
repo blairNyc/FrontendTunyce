@@ -6,11 +6,11 @@ import LoadingSkeletonList from "../components/LoadingSkeletonList";
 import { IMatatuType } from "../types";
 function MatatuPage(){
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const { data, error,currentData, isLoading } = useGetAllMatatusQuery(1);
+	const { data: matatus, error,currentData, isLoading } = useGetAllMatatusQuery(1);
 	const openModal = () => {
 		setIsModalOpen(true);
 	};
-	console.log(data, currentData, error);
+	console.log(matatus, currentData, error);
 	const closeModal = () => {
 		setIsModalOpen(false);
 	};
@@ -38,7 +38,7 @@ function MatatuPage(){
 				<div className="grid grid-cols-4 gap-4">
 					{
 						
-						data?.map((matatu:IMatatuType) => (
+						matatus?.map((matatu:IMatatuType) => (
 							<div className="bg-slate-300 rounded-lg h-32 flex flex-col justify-end">
 								<h5 className="ml-3">{matatu.name}</h5>
 							</div>
