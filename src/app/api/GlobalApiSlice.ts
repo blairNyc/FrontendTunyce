@@ -97,13 +97,12 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     getPlayingLink: builder.mutation({
       query: () => ({
         url: `matatu/get_content`,
-        method: 'post',
-        body: {},
+        method: 'get',
       }),
     }),
 
     //gets a single matatu
-    getSingleVenue: builder.query({
+    getSinglePlayer: builder.query({
       query: (data) => ({
         url: `authentication/single_matatu_time_record/15/${data.time}/${data.latitude}/${data.longitude}/v1/`,
         method: 'get',
@@ -133,6 +132,5 @@ export const {
   useGetPlayingLinkMutation,
   useSwitchVideoTimeMutation,
   useVideoEndUpdatesMutation,
-  useGetSingleVenueQuery
 
 } = apiVenuesSlice
