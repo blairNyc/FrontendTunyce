@@ -63,6 +63,7 @@ export default function UserLogin() {
                     ...userAuth
                 }
             };
+
             dispatch(setCredentials(response));
             navigate('/home');
         } catch (error ) {

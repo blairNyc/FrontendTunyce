@@ -68,7 +68,7 @@ const MatatuDetails = () => {
                 setPlayerInformation(playerData.message)
 
                 const data = responseRoute.data;
-                console.log(data.message);
+                // console.log(data.message);
 
                 setOwnerInformation(data.message)
 

@@ -1,3 +1,6 @@
+import { useAppSelector } from "../app/hooks";
+import { RootState } from "../app/store";
+
 function getRandomColor() {
   const letters = "0123456789ABCDEF";
   let color = "#";
@@ -16,6 +19,10 @@ function getContrastTextColor(bgColor: string) {
 }
 
 function Homepage() {
+
+    // const userInfos: string | null = useAppSelector((state: RootState) => state.persistAuth.auth);
+    // console.log(userInfos)
+
   const topArtists = ["Harry", "Taylor", "Steve", "Mark", "Purity", "Ruth"];
 
   const genreItems = [

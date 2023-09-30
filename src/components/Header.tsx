@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
 import { useState } from "react";
 import { RootState } from "../app/store";
-import { setCredentials, switchUser } from "./auth/auth/authSlice";
+import { logOut, setCredentials, switchUser } from "./auth/auth/authSlice";
 import { UserTypes } from "../types";
 // import { NavLink } from "react-router-dom";
 // const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
@@ -33,7 +33,6 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const isResOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_restaunt);
     // const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
     const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
-    console.log(authVal)
 
     const location = useLocation().pathname;
     console.log(location);
@@ -74,7 +73,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         is_restaunt: true
                     }
                 }))
-                console.log("Restaurant owner",response);
+                console.log("Restaurant Owner",response);
             }
         } catch (error) {
             console.log(error)
@@ -100,6 +99,10 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
         }
     };
 
+    const onLogout = async () => {
+        dispatch(logOut());
+        navigate('/');
+    };
 
     const DropdownMenu = () => (
         <div id="dropdownAvatarName" className="z-50 absolute right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
@@ -148,6 +151,7 @@ window.location.href = `http://localhost:5173/?token=${token}`;
             <div className="py-2">
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
+                        onLogout()
                         setIsDropdownOpen(false)
                     }}
                 >Sign out</a>
