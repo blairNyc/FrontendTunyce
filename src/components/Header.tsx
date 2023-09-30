@@ -7,10 +7,9 @@ import TunycLogo from '../assets/tunyce_logo.png';
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RootState } from "../app/store";
 import { setCredentials } from "./auth/auth/authSlice";
-import { useSelector } from 'react-redux';
 const ListItem = ({ text, currPath, path }: { text: string, currPath: string, path: string }) => (
     <NavLink style={({ isActive }) => { return { color: isActive ? '#FB5857' : '#4D4D56' } }} to={path} className='mx-[5px] md:mx-2'>
         <p className={``}>{text}</p>

@@ -25,3 +25,9 @@ export interface IMatatuType{
     artist_stage_name: string;
     
   }
+
+  export interface SingleCreator {
+    id: string;
+    title: string;
+    thumbnailUrl: string;
+  }
