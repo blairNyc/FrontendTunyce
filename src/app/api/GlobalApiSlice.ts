@@ -114,7 +114,13 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-
+    
+    getAllArtists: builder.query({
+      query: () => ({
+          url: `record-label/get-all-artists/`,
+          method: 'get',
+      })
+  })
 
   }),
 })
@@ -137,6 +143,7 @@ export const {
   useGetPlayingLinkMutation,
   useSwitchVideoTimeMutation,
   useVideoEndUpdatesMutation,
-  useGetSingleVenueQuery
+  useGetSingleVenueQuery,
+  useGetAllArtistsQuery
 
 } = apiVenuesSlice

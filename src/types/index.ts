@@ -19,3 +19,9 @@ export interface IMatatuType{
     id?: string
   
   }
+
+  export interface Artist {
+    id: string;
+    artist_stage_name: string;
+    
+  }

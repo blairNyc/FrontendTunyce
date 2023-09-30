@@ -30,15 +30,12 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const location = useLocation().pathname;
     console.log(location);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const authState = useSelector((state: RootState) => state.persistAuth.auth);
-    const token = authState.access;
+    const token = authVal.access;
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
     const [displayUpgradeModal, setDisplayUpgradeModal] = useState(false);
-
-    // In the source application (http://localhost:3000)
 
     const [selectedValue, setSelectedValue] = useState("Content Creator");
     const handleSelectChange = (event: any) => {

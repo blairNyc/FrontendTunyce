@@ -1,3 +1,7 @@
+import { useGetAllArtistsQuery } from "../app/api/GlobalApiSlice";
+import { Artist } from "../types";
+
+
 function getRandomColor() {
   const letters = "0123456789ABCDEF";
   let color = "#";
@@ -16,7 +20,8 @@ function getContrastTextColor(bgColor: string) {
 }
 
 function Homepage() {
-  const topArtists = ["Harry", "Taylor", "Steve", "Mark", "Purity", "Ruth"];
+  const { data: allArtists } = useGetAllArtistsQuery([]);
+  console.log(allArtists)
 
   const genreItems = [
     "Hiphop",
@@ -30,8 +35,9 @@ function Homepage() {
   ];
 
     return (
-        <div className='container'>
+        
 
+        <div className='container'>
             <div className='m-20'>
                 <div className='mb-2'>
                     <p className='text-universal-primary text-3xl'>OUR FEATURES</p>
@@ -56,12 +62,12 @@ function Homepage() {
                 </div>
 
                 <div className="flex flex-wrap justify-center">
-                    {topArtists.map((item, index) => {
+                    {allArtists.map((artist: Artist) => {
 
                         return (
-                            <div key={index} className='flex flex-col items-center p-1 cursor-pointer' >
+                            <div className='flex flex-col items-center p-1 cursor-pointer' >
                                 <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
-                                <p className="uppercase">{item}</p>
+                                <p className="uppercase">{artist.artist_stage_name}</p>
                                 <p>30M PLAYS</p>
                             </div>
 
@@ -81,10 +87,10 @@ function Homepage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center">
-                        {topArtists.map((index) => {
+                        {allArtists.map((artist: Artist) => {
 
                             return (
-                                <div key={index} className='flex flex-col items-center p-1' >
+                                <div key={artist.id} className='flex flex-col items-center p-1' >
                                     <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
                                 </div>
                                 
