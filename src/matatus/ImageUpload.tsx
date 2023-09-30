@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { useDropzone } from 'react-dropzone';
+import { Accept, useDropzone } from 'react-dropzone';
 
 
 interface ChildProps {
@@ -27,13 +27,13 @@ const ImageUpload: React.FC<ChildProps> = ({onChildText}) => {
             setImageUrl(AdvertPath);
             onChildText(AdvertPath)
             console.log('Image uploaded successfully. URL:', AdvertPath);
-        } catch (error : any) {
-            console.error('Error uploading image:', error.message);
+        } catch (error) {
+            console.error('Error uploading image:', (error as {message:string}).message);
         }
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: 'image/*' as any,
+        accept: 'image/*' as unknown as Accept | undefined,
         onDrop,
     });
 

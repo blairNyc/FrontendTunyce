@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { VscDiffAdded } from "react-icons/vsc";
 import AddMatatuModal from "./AddMatatuPage";
-import { useGetAllMatatusQuery } from "../app/features/content/contentApiSlice";
+// import { useGetAllMatatusQuery } from "./state";
 import LoadingSkeletonList from "../components/LoadingSkeletonList";
 import { IMatatuType } from "../types";
 import { useAppSelector } from "../app/hooks";

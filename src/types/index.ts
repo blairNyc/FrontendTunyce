@@ -17,4 +17,20 @@ export interface IMatatuType{
     image_exterior?: string
     owner?: string
     id?: string
+  
   }
+  
+export interface Mix{ 
+    name: string,
+    video_thumbnail?: string,
+    owner:{
+        username?:string
+    },
+    views?:string, 
+    id: string 
+}
+export type IContentCreatorsType = {
+    email: string
+    id: string | number
+    username: string
+}

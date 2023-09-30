@@ -35,7 +35,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         method: 'get',
       }),
     }),
-  
+
     getMixes: builder.query({
       query: () => ({
         url: `matmanagement/mixes/v1/`,
@@ -43,29 +43,80 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+
+    getLatestMusic: builder.query({
+      query: () => ({
+        url: 'media/video/latest/',
+        method: 'get',
+      }),
+    }),
+
     // get all latest mixes
     getAllMixes: builder.query({
       query: () => ({
-        url: `videos/mixes/latest/v1/`,
+        url: `/media/video/latest/`,
         method: 'get',
-        
+
       }),
     }),
 
     // get all trending
     getAllTrendingMixes: builder.query({
       query: () => ({
-        url: `videos/mixes/trending/v1/`,
+        url: `/media/video/trending/`,
         method: 'get',
       }),
     }),
 
-  }),  
-})
-   
-    
+    //records when video ends
+    videoEndUpdates: builder.mutation({
+      query: (id) => ({
+        url: `authentication/video_end_updates/${id}/v1/`,
+        method: 'post',
+        body: {},
+      }),
+    }),
 
-  
+    switchVideo: builder.mutation({
+      query: (id) => ({
+        url: `matatu/switch_content/${id}/`,
+        method: 'post',
+      }),
+    }),
+
+    switchVideoTime: builder.mutation({
+      query: (time) => ({
+        url: `authentication/single_matatu/15/${time}/v1/`,
+        method: 'put',
+        body: {
+          videoStartTime: `${time}`,
+        },
+      }),
+    }),
+
+    getPlayingLink: builder.mutation({
+      query: () => ({
+        url: `matatu/get_content`,
+        method: 'get',
+      }),
+    }),
+
+    //gets a single matatu
+    getSinglePlayer: builder.query({
+      query: (data) => ({
+        url: `authentication/single_matatu_time_record/15/${data.time}/${data.latitude}/${data.longitude}/v1/`,
+        method: 'get',
+      }),
+    }),
+
+
+
+  }),
+})
+
+
+
+
 
 export const {
   useAllVideoCategoriesQuery,
@@ -73,8 +124,13 @@ export const {
   useAllDeejaysQuery,
   useAllDjVideosQuery,
   useAllDeejayMixesQuery,
+  useGetLatestMusicQuery,
   useGetMixesQuery,
   useGetAllMixesQuery,
   useGetAllTrendingMixesQuery,
-  
+  useSwitchVideoMutation,
+  useGetPlayingLinkMutation,
+  useSwitchVideoTimeMutation,
+  useVideoEndUpdatesMutation,
+
 } = apiVenuesSlice

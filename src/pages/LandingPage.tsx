@@ -1,90 +1,124 @@
 // import React from 'react';
 // import Backdrop from '../components/Backdrop';   
-import {BiChevronLeftCircle, BiChevronRightCircle} from 'react-icons/bi';   
-const ButtonStyle=({text}:{text:string})=>(<button className='w-full rounded-md hover:bg-red-600 my-3 font-bold uppercase text-white bg-text-primary py-3'>{text}</button>)
-export const JointTunce = ()=>(
+import { BiChevronLeftCircle, BiChevronRightCircle } from 'react-icons/bi';
+import { useGetAllTrendingMixesQuery, useGetLatestMusicQuery } from '../app/api/GlobalApiSlice';
+import { useState } from 'react';
+import { Mix } from '../types';
+const ButtonStyle = ({ text }: { text: string }) => (<button className='w-full rounded-md hover:bg-red-600 my-3 font-bold uppercase text-white bg-text-primary py-3'>{text}</button>)
+export const JointTunce = () => (
     <div className='h-screen flex pt-8 justify-center md:items-center'>
         <div className='bg-black w-4/5 md:w-1/2 max-h-[500px] rounded-xl'>
             <div className='flex py-8 flex-col md:flex-row w-full h-full px-2 items-center'>
-                    <img src='/tunyce-light-text.jpeg'
-                        alt='tunyce media'
-                        className='w-full md:w-1/2 min-h-[200px] h-3/4'
-                    />
-                    <div className='m-4 md:ml-4 w-full md:w-1/2'>
-                        <p className='text-white text-2xl'>Join the Tunyce community</p>
-                        <p className='text-white text-sm'>Already have an account?</p>
-                        <ButtonStyle text='Sign Up'/>
-                        <ButtonStyle text='Sign In'/>
-                    </div>
+                <img src='/tunyce-light-text.jpeg'
+                    alt='tunyce media'
+                    className='w-full md:w-1/2 min-h-[200px] h-3/4'
+                />
+                <div className='m-4 md:ml-4 w-full md:w-1/2'>
+                    <p className='text-white text-2xl'>Join the Tunyce community</p>
+                    <p className='text-white text-sm'>Already have an account?</p>
+                    <ButtonStyle text='Sign Up' />
+                    <ButtonStyle text='Sign In' />
+                </div>
             </div>
-        </div> 
-    </div>
-);
-const BoldText= ({text}:{text:string})=><h2 className="font-bold md:text-2xl text-xl my-4">{text}</h2>
-const RowContainer = ({text}:{text:string})=>(
-    <div className="flex items-center w-full justify-between px-3">
-        <BoldText text={text}/>
-        <div>
-            <BiChevronLeftCircle className="text-2xl inline-block mx-1"/>
-            <BiChevronRightCircle className="text-2xl inline-block mx-1"/>
         </div>
     </div>
 );
-const GenreBox = ({text,bgcolor}:{text:string, bgcolor:string})=>(
-    <p className={`px-4 cursor-pointer text-white mx-1 my-2 rounded font-semibold py-1 ${bgcolor}`}>
+const BoldText = ({ text }: { text: string }) => <h2 className="font-bold md:text-2xl text-xl my-4">{text}</h2>
+const RowContainer = ({ text, onClick }: { text: string; onClick: () => void }) => (
+    <div className="flex items-center w-full justify-between px-3" onClick={onClick}>
+        <BoldText text={text} />
+        <div>
+            <BiChevronLeftCircle className="text-2xl inline-block mx-1" />
+            <BiChevronRightCircle className="text-2xl inline-block mx-1" />
+        </div>
+    </div>
+);
+const GenreBox = ({ text, bgcolor }: { text: string, bgcolor: string }) => (
+    <p className={`px-4 cursor-pointer text-white text-sm mx-1 my-2 rounded-lg font-semibold py-1 ${bgcolor}`}>
         {text}
     </p>
 );
-const EasyAfterNoon = ({image}:{image:string})=>(
-    <div style={{backgroundImage:`url(${image}`}} className="w-full relative bg-opacity-10 bg-black cursor-pointer h-40  bg-cover bg-center bg-no-repeat rounded">
+const EasyAfterNoon = ({ image }: { image: string }) => (
+    <div style={{ backgroundImage: `url(${image}` }} className="w-1/2 relative bg-opacity-10 bg-black cursor-pointer h-40  bg-cover bg-center bg-no-repeat rounded">
         <div className='absolute bottom-2 left-1/4'>
         </div>
     </div>
 )
-const MusItem = ({plays,title}:{plays:string,title:string})=>(
-    <div className="flex border p-2 cursor-pointer hover:scale-105 m-2 min-w-[250px]">
-        <img src="/tunyce-light-text.jpeg" alt="tunyce media" className="w-1/4 h-auto rounded-xl"/>
+const MusItem = ({ plays, title, image }: { plays: string, title: string, image: string }) => (
+    <div className="flex border rounded-xl p-px cursor-pointer hover:scale-105 m-2 justify-center items-center">
+        <img src={image} alt="tunyce media" className="min-w-1/4 max-h-12 rounded-xl" />
         <div className="ml-3 w-3/4">
             <h4 className="text-sm uppercase font-bold">{title}</h4>
             <p className="">{plays}Plays</p>
         </div>
     </div>
 )
+
+
 function LandingPage() {
+    const { data: latestMixes } = useGetLatestMusicQuery([]);
+    const { data: trendingMixes } = useGetAllTrendingMixesQuery([]);
+    const [visibleItems, setVisibleItems] = useState(9);
+    console.log(trendingMixes);
+
+    if (latestMixes === undefined || trendingMixes === undefined) {
+        return (
+            <div className="w-full h-full py-8">
+                {/* Render loading indicator or placeholder */}
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
+    const showMore = () => {
+        // Go to next page
+        setVisibleItems((prevVisibleItems) => prevVisibleItems + 9);
+    };
+
     return (
-        <div className='w-full h-full py-8'>
-            <div className="grid grid-cols-3 md:grid-cols-3 xs:grid-cols-5 ">
-                <GenreBox text="Hip hop" bgcolor="bg-pink-400"/>
-                <GenreBox text="Afro pop" bgcolor="bg-red-500"/>
-                <GenreBox text="Dancehall" bgcolor="bg-lime-300"/>
-                <GenreBox text="Jazz" bgcolor="bg-purple-600"/>
-                <GenreBox text="Rhumba" bgcolor="bg-blue-500"/>
-                <GenreBox text="Gengetone" bgcolor="bg-pink-400"/>
-                <GenreBox text="Kenyan" bgcolor="bg-pink-400"/>
-                <GenreBox text="Reggae" bgcolor="bg-orange-500"/>
+        <div className='w-full h-full py-3'>
+            <header className="w-full flex mb-3 items-center justify-between">
+                <div className="flex items-center justify-between rounded-2xl px-2 w-4/5 md:w-1/3 bg-gray-200">
+                </div>
+                <div className="hidden md:flex md:flex-row flex-col items-center">
+                    <a href="/register" className="border cursor-pointer px-4 my-2 rounded-2xl border-black ">Sign Up</a>
+                    <a href="/login" className="px-4 py-1 my-2 mx-3 bg-text-primary rounded-2xl text-white font-semibold">Sign In</a>
+                </div>
+            </header>
+            <div className="flex flex-row flex-wrap">
+                <GenreBox text="Hip hop" bgcolor="bg-pink-400" />
+                <GenreBox text="Afro pop" bgcolor="bg-red-500" />
+                <GenreBox text="Dancehall" bgcolor="bg-lime-300" />
+                <GenreBox text="Jazz" bgcolor="bg-purple-600" />
+                <GenreBox text="Rhumba" bgcolor="bg-blue-500" />
+                <GenreBox text="Gengetone" bgcolor="bg-pink-400" />
+                <GenreBox text="Kenyan" bgcolor="bg-pink-400" />
+                <GenreBox text="Reggae" bgcolor="bg-orange-500" />
                 <GenreBox text="Podcasts" bgcolor="bg-red-500" />
 
             </div>
             <div className="mx-4 w-full my-6">
                 <div>
                     <p>MUSIC TO GET YOU STARTED</p>
-                    <RowContainer text='Popular'/>
-                    <div className="grid grid-cols-1 md:grid-cols-3 xs:grid-cols-5 gap-1">
-                        <MusItem plays='32K' title='DJ Cleft beats'/>
-                        <MusItem plays='32K' title='Best club banger mix DJ 38k'/>
-                        <MusItem plays='32K' title='DJ Cleft beats'/>
-                        <MusItem plays='32K' title='DJ Cleft beats'/>
+                    <RowContainer onClick={showMore} text='Popular' />
+                    <div className="grid grid-cols-1 md:grid-cols-4 xs:grid-cols-3">
+                        {trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: Mix) => (
+                            <MusItem
+                                key={tmix.id}
+                                plays='32K'
+                                title={tmix?.owner.username??'Mix'}
+                                image={tmix && tmix.video_thumbnail ? tmix.video_thumbnail :
+                                    'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />
+                        ))}
                     </div>
                 </div>
                 <div>
-                    <RowContainer text='New Releases'/>
-                    <div className="grid grid-cols-2 md:grid-cols-3 xs:grid-cols-5 gap-2">
-                        <EasyAfterNoon image='/E.png' />
-                        <EasyAfterNoon image='/U.png'/>
-                        <EasyAfterNoon image='/W.png'/>
-                        <EasyAfterNoon image='/Q.png' />
-                        <EasyAfterNoon image='/T.png'/>
-                        <EasyAfterNoon image='/Y.png' />
+                    <RowContainer onClick={showMore} text='New Releases' />
+                    <div className="flex flex-row gap-2">
+                        {latestMixes?.slice(0, 7).map((mix: Mix) => (
+                            <EasyAfterNoon key={mix.id} image={mix && mix.video_thumbnail ? mix.video_thumbnail :
+                                'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />
+                        ))}
                     </div>
                 </div>
             </div>

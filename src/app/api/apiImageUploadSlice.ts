@@ -32,5 +32,12 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi) 
 
 export const mainApiSlice = createApi({
     baseQuery: baseQueryWithReauth,
-    endpoints: builder => ({})
+    endpoints: builder => ({
+        get: builder.query({
+            query:()=>({
+                url:'',
+                method:'POST'
+            })
+        })
+    })
 })

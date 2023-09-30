@@ -1,14 +1,9 @@
-import { mainApiSlice } from '../../api/apiSlice'
+import { apiSlice } from '../../api/apiSlice'
 
-export const apiContentSlice = mainApiSlice.injectEndpoints({
+export const apiContentSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({ 
         //gets all content creators
-        getAllContentCreators: builder.query({
-            query: () => ({
-                url: 'content_creators/content_creators',
-                method: 'get',
-            }),
-        }),
+        
 
         // upgrade matatu
         upgradeToMatatuOwner: builder.mutation({
@@ -44,14 +39,14 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
                 method: 'get',
             }),
         }),
+        
+        
     })
 })
 
 export const {
-    useGetAllContentCreatorsQuery,
     useUpgradeToMatatuOwnerMutation,
     useUpgradeToRestaurantOwnerMutation,
     // useCreateMatatuMutation
-    useCreateMatatuMutation,
-    useGetAllMatatusQuery
+    
 } = apiContentSlice;

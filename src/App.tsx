@@ -44,6 +44,7 @@ import MatatuLayout from './matatus/components/MatatuLayout';
 import InnerPage from './components/inner-page'
 import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 import MatatuDetails from './matatus/MatatuDetails';
+import PlayerScreen from './Controller-Screen/VideoScreen'
 
 
 const NotFoundRouter: RouteObject = {
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
         path:'/matatu',
         element: <MatatuPage/>
       },{
-        path: '/restaurant/:id/my-wallet',
+        path: '/restaurant/my-wallet',
         element: <RestaurantWalletPage />
       },
       {
@@ -219,22 +220,22 @@ const router = createBrowserRouter([
 
 console.log(router);
 function App() {
-  const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
+    const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
 	console.log(curr_loggedin_user);
-  const router = createBrowserRouter([
+    const router = createBrowserRouter([
     curr_loggedin_user==="is_restaunt"? {
-      element: <RestaurantLayout/>,
-      children:[
-        {
-          path:'/restaurant/',
-          element: <RestaurantHomePage/>
-        },
-        {
-          path:'/restaurant/my-wallet',
-          element:<RestaurantWalletPage/>
-        },
-        // NotFoundRouter,
-      ]
+        element: <RestaurantLayout/>,
+        children:[
+            {
+            path:'/restaurant',
+            element: <RestaurantHomePage/>
+            },
+            {
+              path:'/restaurant/my-wallet',
+              element:<RestaurantWalletPage/>
+            },
+            NotFoundRouter,
+        ]
     }:curr_loggedin_user==="is_normaluser"?{
       element: <UserLayout />,
       children: [
@@ -245,6 +246,10 @@ function App() {
         {
           path: "*",
           element: <NotFound />,
+        },
+        {
+          path:"/player",
+          element: <PlayerScreen/>
         },
         {
           path:'/explore',
@@ -302,10 +307,7 @@ function App() {
           path: '/matatu',
           element: <MatatuPage />,
         },
-        {
-          path: '/matatu-details/:id',
-          element: <MatatuDetails />
-        }
+        
       ]
     }:curr_loggedin_user === "is_matatu" ? {
 		element:<MatatuLayout/>,
@@ -313,36 +315,69 @@ function App() {
 			{
 				path:'/matatu',
 				element: <MatatuPage/>,
+			},
+      {
+        path: '/matatu-details/:id',
+        element: <MatatuDetails />
+      },
+			{
+				path: "*",
+				element: <NotFound />,
 			}
 		],
     }
-    :curr_loggedin_user === "" ? {
+    :!curr_loggedin_user ? {
           element: <DefaultLayout />,
           children: [
               {
-                  path: '/',
-                  element: <LandingPage />
+                path: '/',
+                element: <LandingPage />
+              },
+              {
+                path: "/artists",
+                element: <ArtistsPage />,
+              },
+              {
+                path:'/search',
+                element: <SearchPage/>
+              },
+              {
+                path: "/artists/:id",
+                element: <Creator/>,
+              },
+              {
+                path:'/trending',
+                element: <TrendingPage/>
+              },
+              {
+                path:'/trending/:id',
+                element:<VideoScreen/>
+              },
+              {
+                path:'/new',
+                element: <NewPage/>
               },
               NotFoundRouter
           ]
-      } : NotFoundRouter,
+      } 
+      : NotFoundRouter,
       {
         element: <Login />,
-         path: '/login',
-      },
-      {
-         element: <SignUp />,
-        path: '/signup'
-      },
-      {
-          path: '/faqs',
-          element: <FreqAskedQuesPage />
-      },
-      {
-          path: '/terms-conditions',
-          element: <TermsConditionsPage />
-      },
-  ]);
+        path: '/login',
+    },
+    {
+        element: <SignUp />,
+    path: '/signup'
+    },
+    {
+        path: '/faqs',
+        element: <FreqAskedQuesPage />
+    },
+    {
+        path: '/terms-conditions',
+        element: <TermsConditionsPage />
+    },
+    ]);
   return <RouterProvider router={router} />;
 }
 

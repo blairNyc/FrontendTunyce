@@ -59,6 +59,14 @@ const authSlice = createSlice({
             state.auth.refresh = null;
             state.auth.username = '';
             state.auth.id = null;
+            state.auth.curr_loggedin_user = "";
+            delete state.auth.is_normaluser;
+            delete state.auth.is_restaunt;
+            delete state.auth.is_superuser;
+            delete state.auth.is_matatu;
+            delete state.auth.is_filmmaker;
+            delete state.auth.is_contentcreator;
+            delete state.auth.is_recordlabel;
         },
         switchUser: (state,action: PayloadAction<keyof UserTypes>)=>{
             state.auth.curr_loggedin_user = action.payload

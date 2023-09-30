@@ -1,4 +1,6 @@
-import { useCreateMatatuMutation } from "../app/features/content/contentApiSlice";
+/* eslint-disable react-hooks/rules-of-hooks */
+// import { MdCloudUpload } from "react-icons/md";
+// import { useCreateMatatuMutation } from "./state";
 import * as yup from 'yup'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -44,7 +46,7 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
   const { handleSubmit, register } = useForm<registrationInput>({
     resolver: yupResolver(schema),
   })
-  const [createMat] = useCreateMatatuMutation();
+  // const [createMat] = useCreateMatatuMutation();
 
   const [interiorImageUrl, setInteriorImageUrl] = useState<string>('');
   const [exteriorImageUrl, setExteriorImageUrl] = useState<string>('');
