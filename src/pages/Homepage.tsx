@@ -62,8 +62,7 @@ function Homepage() {
                 </div>
 
                 <div className="flex flex-wrap justify-center">
-                    {allArtists.map((artist: Artist) => {
-
+                    {allArtists && allArtists.map((artist: Artist) => {
                         return (
                             <div className='flex flex-col items-center p-1 cursor-pointer' >
                                 <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
@@ -87,7 +86,7 @@ function Homepage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center">
-                        {allArtists.map((artist: Artist) => {
+                        {allArtists && allArtists.map((artist: Artist) => {
 
                             return (
                                 <div key={artist.id} className='flex flex-col items-center p-1' >
