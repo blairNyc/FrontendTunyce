@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 interface OwnerInterface {
     id: number;
@@ -26,6 +27,8 @@ interface ControllerPlayerDetails {
 
 const MatatuDetails = () => {
 
+    const { id } = useParams<{ id: string }>();
+
     const userToken: any = useAppSelector((state: RootState) => state.persistAuth.auth.access);
 
     // Matatu Information
@@ -34,24 +37,25 @@ const MatatuDetails = () => {
     const [controllerInfo, setControllerInformation] = useState<ControllerPlayerDetails | null>(null);
     const [playerInfo, setPlayerInformation] = useState<ControllerPlayerDetails | null>(null);
 
-    const [matatuId, setMatatuId] = useState<string>("5")
+    
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responseRoute = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/update_matatu/${matatuId}/`, {
+                const responseRoute = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/update_matatu/${id}/`, {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },
                 });
 
-                const responseController = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/controller/${matatuId}/`, {
+                const responseController = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/controller/${id}/`, {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },
                 });
 
-                const responsePlayer = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/player/${matatuId}/`, {
+                const responsePlayer = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/player/${id}/`, {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },
@@ -75,7 +79,7 @@ const MatatuDetails = () => {
 
         fetchData();
 
-    }, [userToken]);
+    }, [userToken, id]);
 
     const [displayControllerModal, setDisplayContollerModal] = useState(false);
 
@@ -88,7 +92,7 @@ const MatatuDetails = () => {
                 password: `${controllerPassword}`
             }
 
-            const controllerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_controller/${matatuId}/`, controllerDetails, {
+            const controllerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_controller/${id}/`, controllerDetails, {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
@@ -161,7 +165,7 @@ const MatatuDetails = () => {
                 password: `${controllerPassword}`
             }
 
-            const controllerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_player/${matatuId}/`, controllerDetails, {
+            const controllerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_player/${id}/`, controllerDetails, {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },

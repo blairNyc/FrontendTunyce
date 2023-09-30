@@ -17,5 +17,4 @@ export interface IMatatuType{
     image_exterior?: string
     owner?: string
     id?: string
-  
   }

@@ -303,7 +303,7 @@ function App() {
           element: <MatatuPage />,
         },
         {
-          path: '/matatu-details',
+          path: '/matatu-details/:id',
           element: <MatatuDetails />
         }
       ]
