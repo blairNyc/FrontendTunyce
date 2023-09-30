@@ -45,6 +45,7 @@ import InnerPage from './components/inner-page'
 import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 import MatatuDetails from './matatus/MatatuDetails';
 import PlayerScreen from './Controller-Screen/VideoScreen'
+import RestaurantDetails from './restaurant/pages/RestaurantDetails';
 
 
 const NotFoundRouter: RouteObject = {
@@ -234,6 +235,10 @@ function App() {
               path:'/restaurant/my-wallet',
               element:<RestaurantWalletPage/>
             },
+          {
+            path: '/restaurant-details/:id',
+            element: <RestaurantDetails />
+          },
             NotFoundRouter,
         ]
     }:curr_loggedin_user==="is_normaluser"?{

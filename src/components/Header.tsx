@@ -33,6 +33,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const isResOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_restaunt);
     // const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
     const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
+    console.log(authVal)
+
     const location = useLocation().pathname;
     console.log(location);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -113,7 +115,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         }}
                     >Switch to Matatu owner</a>) : null
                     }
-                    {isResOwner?( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    {isResOwner ? ( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             switchAccountHandler('is_restaunt')
                         }}

@@ -20,8 +20,6 @@ interface registrationInput {
   is_trial?: boolean
   image_interior?: string
   image_exterior?: string
-  controller_password : string
-  player_password : string
 }
 
 const schema = yup.object({
@@ -33,8 +31,6 @@ const schema = yup.object({
   driver: yup.string().required(),
   image_exterior: yup.string(),
   image_interior: yup.string(),
-  controller_password: yup.string().required(),
-  player_password: yup.string().required()
 }).required()
 function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) {
 
@@ -46,7 +42,6 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
   const { handleSubmit, register } = useForm<registrationInput>({
     resolver: yupResolver(schema),
   })
-  // const [createMat] = useCreateMatatuMutation();
 
   const [interiorImageUrl, setInteriorImageUrl] = useState<string>('');
   const [exteriorImageUrl, setExteriorImageUrl] = useState<string>('');
@@ -84,9 +79,6 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
 
     fetchData();
 
-    // return () => {
-    //   // Cleanup code here
-    // };
   }, [userToken]);
 
   const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput)=>{
@@ -94,18 +86,6 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
     const authToken: string = `${userToken}`
 
     try {
-
-      console.log(data);
-
-      // name: string
-      // number_plate: string
-      // route: number
-      // number_of_seats: number
-      // driver: string,
-      // is_trial ?: boolean
-      // image_interior ?: string
-      // image_exterior ?: string
-
 
       const userDataMain = {
         name : `${data.name}`,
@@ -117,25 +97,8 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
         image_interior: `${interiorImageUrl}`,
       }
 
-      const controllerDetails = {
-        password: `${data.controller_password}`
-      }
+      // console.log(userDataMain)
 
-      const playerDetails = {
-        password: `${data.player_password}`
-      }
-
-      console.log(userDataMain)
-
-      // const userData = {
-      //   "name": "Everything Fishv1",
-      //   "number_plate": "kfmvkfvk",
-      //   "number_of_seats": 12,
-      //   "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-      //   "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-      //   "driver": "tester5",
-      //   "capacity": "42"
-      // }
 
 
       // Make a POST request using Axios
@@ -145,71 +108,11 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
         },
       });
 
-      // const controllerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_player/${2}/`, controllerDetails, {
-      //   headers: {
-      //     Authorization: `Bearer ${authToken}`,
-      //   },
-      // });
-
-      // const playerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_controller/${2}/`, playerDetails, {
-      //   headers: {
-      //     Authorization: `Bearer ${authToken}`,
-      //   },
-      // });
-      
-      console.log('POST Response:', response);
-      console.log(response.data)
-      console.log(response.status)
-
     } catch (error) {
       // Handle errors
       console.error('Error posting data:', error);
     }
   }
-
-
-  
-  // const handleClickForCreate = async () => {
-  //   console.log("Cliccckede")
-
-  //   const authToken: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1ODQ2NjI4LCJpYXQiOjE2OTU4NDQ4MjgsImp0aSI6IjRiN2Y2N2M4ZjliMzQyNTM4MTMzY2M5NmNlMTgzNWUzIiwidXNlcl9pZCI6MTN9.4yL6qIHJaID6NideBqTCGeBLYvt6g-NABhXQZOuHmbo"
-
-  //   try {
-
-  //     const userData = {
-  //       "name": "Everything Fishv1",
-  //       "number_plate": "kfmvkfvk",
-  //       "number_of_seats": 12,
-  //       "image_exterior": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-  //       "image_interior": "https://plus.unsplash.com/premium_photo-1661589586735-c5f07b7da1fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-  //       "driver": "tester5",
-  //       "capacity": "42"
-  //     }
-      
-
-  //     // Make a POST request using Axios
-  //     const response = await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_matatu', userData, {
-  //       headers: {
-  //         Authorization: `Bearer ${authToken}`,
-  //       },
-  //     });
-  //     // Log the response
-  //     console.log('POST Response:', response);
-  //     console.log(response.data)
-
-     
-  //   } catch (error) {
-  //     // Handle errors
-  //     console.error('Error posting data:', error);
-
-  //   }
-  // };
-
-  // Images
-  
-  
-  
-
 
   return (
     <Backdrop>
@@ -288,26 +191,6 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
                         />
                       </div>
 
-                      <div className="mb-3">
-                        <input
-                          type="text"
-                          id="controller_password"
-                          {...register("controller_password")}
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Controller Password"
-                          required
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <input
-                          type="text"
-                          id="player_password"
-                          {...register("player_password")}
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Player Password"
-                          required
-                        />
-                      </div>
                     </div>
                     <div className="flex justify-between">
                       <div className="flex flex-col">
@@ -349,7 +232,7 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
             </svg>
             <span className="sr-only">Check icon</span>
           </div>
-          <div className="ml-3 text-sm font-normal">Ite successfully.</div>
+          <div className="ml-3 text-sm font-normal">Item successfully.</div>
           <button type="button" className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
             <span className="sr-only">Close</span>
             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

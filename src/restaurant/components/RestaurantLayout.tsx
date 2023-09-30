@@ -74,7 +74,7 @@ function RestaurantLayout() {
                             </div>
                             <div onClick={toggleDropdown} className="flex h-full mx-2 items-center">
                                 <img src="https://picsum.photos/200/300" alt="" className="w-10 h-10 rounded-full object-cover"/>
-                                <h3 className="text-md mx-2 font-bold">John Doe</h3>
+                                <h3 className="text-md mx-2 font-bold">{userName}</h3>
                                 <BsChevronDown className="text-xl mx-2 text-black"/>
                             </div>
                         </div>
