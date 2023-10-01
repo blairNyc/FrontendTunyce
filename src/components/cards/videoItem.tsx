@@ -5,7 +5,7 @@ import { useSwitchVideoMutation } from '../../app/api/GlobalApiSlice';
 
 interface CommonProps{
     title?: string
-    id?:bigint
+    id?:string
     owner?: string
     srcUrl?:string
     vidUrl?:string
@@ -48,7 +48,7 @@ const VideoItem = ({ title, owner, id ,vidUrl, date,srcUrl,views }: CommonProps)
 
   const handleItemClick = async () => {
     try {
-      const result = await switchVideoMutation({ variables: { id } });
+      const result = await switchVideoMutation(id);
 
       if ('data' in result) {
         console.log('Video switched successfully:', result.data);
