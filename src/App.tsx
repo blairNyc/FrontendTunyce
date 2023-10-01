@@ -44,6 +44,7 @@ import MatatuLayout from './matatus/components/MatatuLayout';
 // import { UserTypes } from './types';
 import InnerPage from './components/inner-page'
 import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
+import PlayerLogin from './Controller-Screen/auth/PlayerLogin';
 
 
 const NotFoundRouter: RouteObject = {
@@ -359,6 +360,10 @@ function App() {
       {
         element: <Login />,
          path: '/login',
+      },
+      {
+        element:<PlayerLogin/>,
+        path:'/login/player'
       },
       {
          element: <SignUp />,

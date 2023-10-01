@@ -1,14 +1,22 @@
+import React from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import TunycLogo from '../assets/tunyce_logo.png';
 import VideoScreen from './VideoPlay';
 import {useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 
 const PlayerLayout = () => {
   const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
-
+  const access = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+  const navigate = useNavigate()
+   React.useEffect(() => {
+        if (!access) {
+            navigate('login/player')
+        }
+    }, [access, navigate])
   return (
     <div>
       <div className='w-full fixed top-0'>
