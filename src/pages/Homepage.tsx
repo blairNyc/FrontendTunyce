@@ -14,9 +14,40 @@ function getContrastTextColor(bgColor: string) {
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
   return brightness > 128 ? "text-black" : "text-white";
 }
-
+const topArt=[
+    {
+        name: "Harry",
+        plays: "",
+        img: "/E.png"
+    },
+    {
+        name: "DJ Clef",
+        plays: "",
+        img: "/Q.png"
+    },
+    {
+        name: "DJ Lensy",
+        plays: "",
+        img: "/Y.png"
+    },
+    {
+        name: "DJ Bunney254",
+        plays: "",
+        img: "/R.png"
+    },
+    {
+        name: "DJ Clef",
+        plays: "",
+        img: "/T.png"
+    },
+    {
+        name: "Mr CEO",
+        plays: "",
+        img: "/W.png"
+    },
+]
 function Homepage() {
-  const topArtists = ["Harry", "Taylor", "Steve", "Mark", "Purity", "Ruth"];
+//   const topArtists = ["Harry", "Taylor", "Steve", "Mark", "Purity", "Ruth"];
 
   const genreItems = [
     "Hiphop",
@@ -32,39 +63,39 @@ function Homepage() {
     return (
         <div className='container'>
 
-            <div className='m-20'>
+            <div className='m-7 md:m-20'>
                 <div className='mb-2'>
-                    <p className='text-universal-primary text-3xl'>OUR FEATURES</p>
+                    <p className='text-universal-primary  md:text-3xl'>OUR FEATURES</p>
                 </div>
                 <div className='mb-10'>
-                    <h1 className='text-5xl font-semibold capitalize'>Get Premium Access &</h1>
-                    <h1 className='text-5xl font-semibold capitalize'>Unlock All Popular Songs</h1>
+                    <h1 className='text-2xl md:text-5xl  font-semibold capitalize'>Get Premium Access &</h1>
+                    <h1 className='text-xl md:text-5xl font-semibold capitalize'>Unlock All Popular Songs</h1>
                 </div>
                 <div className='flex flex-row items-center '>
-                    <button className='bg-universal-primary hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full'>
+                    <button className='bg-universal-primary text-sm hover:bg-blue-700 text-white font-bold md:py-3 py-2 md:px-8 px-6 rounded-full'>
                         Get Now
                     </button>
                     <div className='mx-1.5' />
-                    <p className='text-universal-primary underline underline-offset-1 opacity-100 hover:opacity-80 cursor-pointer'>1 Month Free Trial</p>
+                    <p className='text-universal-primary text-sm md:text-md underline underline-offset-1 opacity-100 hover:opacity-80 cursor-pointer'>1 Month Free Trial</p>
                 </div>
             </div>
 
-            <div className='mx-20 bg-white rounded-lg px-5 py-5'>
-                <div className='flex flex-row items-center mx-4'>
+            <div className='md:mx-20 bg-white rounded-lg px-2 py-2 md:px-5 md:py-5'>
+                <div className='flex flex-row items-center md:mx-4'>
                     <p className='mr-auto text-xl mb-2 font-semibold'>TOP ARTISTS</p>
                     <p className='text-md opacity-60 hover:opacity-100 cursor-pointer'>More List</p>
                 </div>
 
-                <div className="flex flex-wrap justify-center">
-                    {topArtists.map((item, index) => {
+                <div className="flex flex-wrap justify-evenly md:justify-center">
+                    {topArt.map((item, index) => {
 
                         return (
                             <div key={index} className='flex flex-col items-center p-1 cursor-pointer' >
-                                <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
-                                <p className="uppercase">{item}</p>
-                                <p>30M PLAYS</p>
+                                {/* <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div> */}
+                                <img src={item.img} alt="random" className="w-28 h-28 shadow-md rounded-lg" />
+                                <p className="uppercase text-sm">{item.name}</p>
+                                <p className="text-xs">{item.plays} PLAYS</p>
                             </div>
-
                         );
                     })}
                 </div>
@@ -72,7 +103,7 @@ function Homepage() {
 
             
             <div className='h-10' />
-            <div className='mx-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4'>
+            <div className='md:mx-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4'>
                 
                 <div className='bg-white rounded-lg'>
                     <div className='flex flex-row items-center mx-4 my-6'>
@@ -81,7 +112,7 @@ function Homepage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center">
-                        {topArtists.map((index) => {
+                        {topArt.map((it,index) => {
 
                             return (
                                 <div key={index} className='flex flex-col items-center p-1' >
