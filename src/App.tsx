@@ -10,6 +10,7 @@ import Creator from './components/Creator';
 import FreqAskedQuesPage from './pages/FreqAskedQuesPage';
 import TermsConditionsPage from './pages/TermsConditionsPage';
 import VideoScreen from './pages/VideoScreen';
+import PlayerLayout from './Controller-Screen/PlayerLayout';
 import "./App.css";
 import Layout from "./components/Layout";
 import Aboutpage from "./pages/Aboutpage";
@@ -214,6 +215,10 @@ const router = createBrowserRouter([
   {
     element:<SignUp/>,
     path:'/signup'
+  },
+  {
+    element:<PlayerLayout/>,
+    path:'player_view'
   }
 ])
 
@@ -279,7 +284,7 @@ function App() {
           element: <MusicPage />,
         },
         {
-          path: "/mixes",
+          path: "/mevixes",
           element: <MixesPage />,
         },
         {
@@ -318,7 +323,7 @@ function App() {
 				path: "*",
 				element: <NotFound />,
 			}
-		],
+		]
     }
     :!curr_loggedin_user ? {
           element: <DefaultLayout />,
@@ -357,21 +362,25 @@ function App() {
       : NotFoundRouter,
       {
         element: <Login />,
-        path: '/login',
-    },
-    {
-        element: <SignUp />,
-    path: '/signup'
-    },
-    {
-        path: '/faqs',
-        element: <FreqAskedQuesPage />
-    },
-    {
-        path: '/terms-conditions',
-        element: <TermsConditionsPage />
-    },
-    ]);
+         path: '/login',
+      },
+      {
+         element: <SignUp />,
+         path: '/signup'
+      },
+      {
+          path: '/faqs',
+          element: <FreqAskedQuesPage />
+      },
+      {
+          path: '/terms-conditions',
+          element: <TermsConditionsPage />
+      },
+      {
+          path:'/play',
+          element:<PlayerLayout/>
+      }
+  ]);
   return <RouterProvider router={router} />;
 }
 
