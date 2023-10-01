@@ -1,4 +1,4 @@
-import {useGetAllMixesQuery} from "../app/api/GlobalApiSlice";
+import {useGetAllTrendingMixesQuery} from "../app/api/GlobalApiSlice";
 import VideoItem from "./cards/videoItem";
 import SkeletonItem from "./cards/skeletonItem";
 import LazyLoad from 'react-lazyload';
@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 
 const ExplorePage = () => {
-  const { data: allMixes, isLoading } = useGetAllMixesQuery(1);
+  const { data: allMixes, isLoading } = useGetAllTrendingMixesQuery(1);
   const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
