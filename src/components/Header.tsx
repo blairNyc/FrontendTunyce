@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { FaRegBell } from "react-icons/fa6";
 import { BsChevronDown } from "react-icons/bs";
@@ -7,7 +7,7 @@ import TunycLogo from '../assets/tunyce_logo.png';
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
-import { useState } from "react";
+import {useState } from "react";
 import { RootState } from "../app/store";
 import { logOut, setCredentials, switchUser } from "./auth/auth/authSlice";
 import { UserTypes } from "../types";
@@ -15,12 +15,6 @@ import { UserTypes } from "../types";
 // const ListItem = ({text,currPath, path}:{text:string,currPath: string, path: string})=>(
     // <NavLink style={({isActive})=>{return{color:isActive?'#FB5857':'#4D4D56'}}} to={path} className='mx-[5px] md:mx-2'>
 import { useSelector } from 'react-redux';
-// const ListItem = ({ text, currPath, path }: { text: string, currPath: string, path: string }) => (
-//     <NavLink style={({ isActive }) => { return { color: isActive ? '#FB5857' : '#4D4D56' } }} to={path} className='mx-[5px] md:mx-2'>
-//         <p className={``}>{text}</p>
-//         {path === currPath && (<p className="border-b-4 rounded-lg border-text-primary w-4 mx-auto text-center"></p>)}
-//     </NavLink>
-// );
 interface IHeaderProp {
     sideBarOpen: boolean
     setSideBarOpen: () => void
@@ -112,11 +106,18 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             </div>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
-                   {isMatOwner?( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={() => {
-                            switchAccountHandler('is_matatu')
-                        }}
-                    >Switch to Matatu owner</a>) : null
+                    {isMatOwner ? (
+                    
+                    <><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            onClick={() => {
+                                switchAccountHandler('is_matatu');
+                                setIsDropdownOpen(false);
+                            } }
+                        >Manage Fleet</a>
+                        <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link>
+                   </>   
+                    
+                    ) : null
                     }
                     {isResOwner ? ( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {

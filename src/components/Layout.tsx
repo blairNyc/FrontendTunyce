@@ -5,7 +5,9 @@ import Header from "./Header";
 import '../App.css';
 
 function Layout() {
+  
   const [sideBarOpen, setSideBarOpen] = useState<boolean>(true);
+
   return (
     <div className="w-screen h-screen">
       <div className="flex w-full">

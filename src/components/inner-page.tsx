@@ -45,7 +45,7 @@ const ExplorePage = () => {
                       ? mix?.video_thumbnail
                       : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
                   }
-                  id={mix.id}   
+                  id={`${mix?.id}`}   
                   date={`${daysDifference} days ago`}
                   views={`${mix?.views} views`}               
                 />
