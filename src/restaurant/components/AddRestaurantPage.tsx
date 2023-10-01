@@ -5,8 +5,8 @@ import Backdrop from "../../components/Backdrop";
 import axios from 'axios';
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
-import ImageUpload from "../../matatus/ImageUpload";
 import { useEffect, useState } from "react";
+import RestaurantImageUpload from './RestaurantImageUpload';
 
 interface registrationInput {
     name: string
@@ -16,6 +16,11 @@ interface registrationInput {
     is_trial?: boolean
     image_interior?: string
     image_exterior?: string
+}
+
+interface Location {
+    id: number;
+    name: string;
 }
 
 const schema = yup.object({
@@ -56,16 +61,25 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
 
     const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
 
+    const [locations, setLocations] = useState<Location[]>([]);
+
+    const [selectedLocationId, setSelectedLocationId] = useState<number | ''>('');
+
+    const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedLocationId(Number(event.target.value));
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/region/routes/', {
+                const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/region/location/', {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },
                 });
 
-                const data = responseRoute.data;
+                const data = responseRoute.data.message;
+                setLocations(data);
                 console.log(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -91,11 +105,6 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                 image_interior: `${interiorImageUrl}`,
             }
 
-
-            // console.log(userDataMain)
-
-
-
             // Make a POST request using Axios
             const response = await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/restaurant/create_restaurant', userDataMain, {
                 headers: {
@@ -103,10 +112,9 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                 },
             });
 
-
-            // console.log('POST Response:', response);
-            // console.log(response.data)
-            // console.log(response.status)
+            console.log('POST Response:', response);
+            console.log(response.data)
+            console.log(response.status)
 
         } catch (error) {
             // Handle errors
@@ -150,17 +158,25 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                                                     required
                                                 />
                                             </div>
-                                            {/* <div className="mb-3">
-                                                <input
-                                                    type="text"
-                                                    id="plate"
-                                                    {...register("number_plate")}
-                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Number of Plate"
-                                                    required
-                                                />
-                                            </div> */}
+
                                             <div className="mb-3">
+                                                <select
+                                                    id="location"
+                                                    {...register("location")}
+                                                    value={selectedLocationId}
+                                                    onChange={(e) => {
+                                                        handleLocationChange(e);
+                                                    }}
+                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                >
+                                                    <option value="" label="Select a route" />
+                                                    {Array.isArray(locations) && locations.map((location) => (
+                                                        <option key={location.id} value={location.id} label={location.name} />
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            
+                                            {/* <div className="mb-3">
                                                 <input
                                                     type="text"
                                                     id="location"
@@ -169,7 +185,7 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                                                     placeholder="Location"
                                                     required
                                                 />
-                                            </div>
+                                            </div> */}
                                             <div className="mb-3">
                                                 <input
                                                     type="text"
@@ -195,14 +211,13 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                                         <div className="flex justify-between">
                                             <div className="flex flex-col">
                                                 <h4>Photo Interior</h4>
-                                                <ImageUpload onChildText={handleInteriorImage} />
+                                                <RestaurantImageUpload onRestaurantText={handleInteriorImage} />
                                             </div>
                                             <div className="flex flex-col">
                                                 <h4>Photo Exterior</h4>
-                                                <ImageUpload onChildText={handleExteriorImage} />
+                                                <RestaurantImageUpload onRestaurantText={handleExteriorImage} />
                                             </div>
                                         </div>
-
 
                                         <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                             <button data-modal-hide="staticModal" type="submit" className="text-white bg-universal-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>

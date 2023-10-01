@@ -32,6 +32,19 @@ const schema = yup.object({
   image_exterior: yup.string(),
   image_interior: yup.string(),
 }).required()
+
+interface Checkpoint {
+  id: number;
+  name: string;
+}
+
+interface Route {
+  id: number;
+  name: string;
+  grade: string;
+  checkpoint: Checkpoint[];
+}
+
 function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) {
 
   if (!isOpen) return null;
@@ -61,6 +74,14 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
 
   const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
 
+  const [routes, setRoutes] = useState<Route[]>([]);
+
+  const [selectedRouteId, setSelectedRouteId] = useState<number | ''>('');
+  
+  const handleRouteChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRouteId(Number(event.target.value));
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -70,7 +91,8 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
           },
         });
 
-        const data = responseRoute.data;
+        const data = responseRoute.data.message;
+        setRoutes(data);
         console.log(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -97,16 +119,14 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
         image_interior: `${interiorImageUrl}`,
       }
 
-      // console.log(userDataMain)
-
-
-
       // Make a POST request using Axios
       const response = await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_matatu', userDataMain, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
       });
+
+      console.log("Response")
 
     } catch (error) {
       // Handle errors
@@ -160,15 +180,22 @@ function AddMatatuModal({ isOpen, onClose }:{isOpen:boolean, onClose:()=>void}) 
                           required
                         />
                       </div>
+
                       <div className="mb-3">
-                        <input
-                          type="text"
+                        <select
                           id="route"
                           {...register("route")}
+                          value={selectedRouteId}
+                          onChange={(e) => {
+                            handleRouteChange(e);
+                          }}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Route"
-                          required
-                        />
+                        >
+                          <option value="" label="Select a route" />
+                          {Array.isArray(routes) && routes.map((route) => (
+                            <option key={route.id} value={route.id} label={route.name} />
+                          ))}
+                        </select>
                       </div>
                       <div className="mb-3">
                         <input

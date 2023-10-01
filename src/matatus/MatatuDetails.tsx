@@ -37,8 +37,6 @@ const MatatuDetails = () => {
     const [controllerInfo, setControllerInformation] = useState<ControllerPlayerDetails | null>(null);
     const [playerInfo, setPlayerInformation] = useState<ControllerPlayerDetails | null>(null);
 
-    
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,28 +47,27 @@ const MatatuDetails = () => {
                     },
                 });
 
+                const data = responseRoute.data;
+                setOwnerInformation(data.message)
+
                 const responseController = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/controller/${id}/`, {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },
                 });
+                const controllerData = responseController.data;
+                setControllerInformation(controllerData.message)
 
                 const responsePlayer = await axios.get(`https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/player/${id}/`, {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
                     },
-                });
-
-                const controllerData = responseController.data;
-                setControllerInformation(controllerData.message)
+                });               
 
                 const playerData = responsePlayer.data;
                 setPlayerInformation(playerData.message)
 
-                const data = responseRoute.data;
-                // console.log(data.message);
-
-                setOwnerInformation(data.message)
+                
 
             } catch (error) {
                 console.error('Error fetching data:', error);

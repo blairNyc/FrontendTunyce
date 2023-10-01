@@ -5,10 +5,10 @@ import { FaCompass } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { BsMusicNoteBeamed } from "react-icons/bs";
 import { BsFillPersonFill } from "react-icons/bs";
-import { TbHeadphonesFilled } from "react-icons/tb";
+// import { TbHeadphonesFilled } from "react-icons/tb";
 import { MdFavorite } from "react-icons/md";
 import { FaShareAlt, FaDeezer } from "react-icons/fa";
-import { ImFolderDownload } from "react-icons/im";
+// import { ImFolderDownload } from "react-icons/im";
 import { IoSettingsSharp } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import { BsPeopleFill } from "react-icons/bs";
@@ -84,7 +84,7 @@ function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
                 <BsFillPersonFill className="text-xl" />
               </NavElement>
             </ul>
-            <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
+            {/* <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
             <ul>
               <NavElement name="Cover">
                 <TbHeadphonesFilled className="text-xl" />
@@ -98,7 +98,7 @@ function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
               <NavElement name="Downloads">
                 <ImFolderDownload className="text-xl" />
               </NavElement>
-            </ul>
+            </ul> */}
             <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
             <ul>
               <NavElement path="user-wallet" name="Wallet">

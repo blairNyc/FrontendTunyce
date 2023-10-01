@@ -27,7 +27,6 @@ const AllContollerCreatorsPage = () =>  {
                 <CreatorItem />
                 <CreatorItem />
                 <CreatorItem />
-                
             </div>
         </div>
     );
