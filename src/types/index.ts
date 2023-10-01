@@ -6,6 +6,7 @@ export interface UserTypes{
     "is_filmmaker"? : true,
     "is_contentcreator"? : true,
     "is_recordlabel"? : true,
+    "is_controller"?:true,
 }
 export interface IMatatuType{
     name: string
