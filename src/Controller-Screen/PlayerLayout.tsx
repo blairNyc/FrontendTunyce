@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import TunycLogo from '../assets/tunyce_logo.png';
 import VideoScreen from './VideoPlay';
+import VideoLoader from './videoLoader';
 import {useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import { useNavigate } from 'react-router-dom';
@@ -11,12 +12,18 @@ import '../App.css';
 const PlayerLayout = () => {
   const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
   const access = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+  const [videoFinished, setVideoFinished] = React.useState(false);
   const navigate = useNavigate()
    React.useEffect(() => {
         if (!access) {
             navigate('login/player')
         }
     }, [access, navigate])
+
+    const handleVideoEnd = () => {
+      setVideoFinished(true);
+    };
+
   return (
     <div>
       <div className='w-full fixed top-0'>
@@ -45,8 +52,11 @@ const PlayerLayout = () => {
       </div>
 
       <div className='mt-36 w-2800 flex align-center justify-center video-container'>
-
-      <VideoScreen/>
+      {!videoFinished ? (
+        <VideoLoader onVideoEnd={handleVideoEnd} />
+      ):(
+        <VideoScreen/>
+      )}
 
       </div>
 
