@@ -44,14 +44,22 @@ import MatatuLayout from './matatus/components/MatatuLayout';
 import InnerPage from './components/inner-page'
 import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 import PlayerScreen from './Controller-Screen/VideoScreen'
+import ControllerLogin from './components/controller/controllerLogin';
+import ControllerLayout from './components/controller/components/ControllerLayout';
 
 
 const NotFoundRouter: RouteObject = {
   path: "*",
   element: <NotFound />,
 }
-
-
+const TermsCondsRouter:RouteObject={
+    path: '/terms-conditions',
+    element: <TermsConditionsPage />
+}
+const FAQSRouter:RouteObject={
+    path:'/faqs',
+    element: <FreqAskedQuesPage/>
+}
 const router = createBrowserRouter([
   {
     element: <MatatuLayout/>,
@@ -67,10 +75,7 @@ const router = createBrowserRouter([
         path: "/faqs",
         element: <FreqAskedQuesPage />,
       },
-      {
-        path: "/terms-conditions",
-        element: <TermsConditionsPage />,
-      },
+      TermsCondsRouter,
       NotFoundRouter,
     ]
   },
@@ -97,6 +102,7 @@ const router = createBrowserRouter([
         path:'/trending',
         element: <TrendingPage/>
       },
+      TermsCondsRouter,
       {
         path:'/trending/:id',
         element:<VideoScreen/>
@@ -219,160 +225,187 @@ const router = createBrowserRouter([
 
 console.log(router);
 function App() {
-    const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
+    const curr_loggedin_user= useAppSelector((state: RootState)=>state.persistAuth.auth.curr_loggedin_user);
 	console.log(curr_loggedin_user);
     const router = createBrowserRouter([
-    curr_loggedin_user==="is_restaunt"? {
-        element: <RestaurantLayout/>,
-        children:[
-            {
-            path:'/restaurant',
-            element: <RestaurantHomePage/>
-            },
-            {
-              path:'/restaurant/my-wallet',
-              element:<RestaurantWalletPage/>
-            },
-            NotFoundRouter,
-        ]
-    }:curr_loggedin_user==="is_normaluser"?{
-      element: <UserLayout />,
-      children: [
-          {
-          path:'/home',
-          element: <Homepage/>
-        },
-        {
-          path: "*",
-          element: <NotFound />,
-        },
-        {
-          path:"/player",
-          element: <PlayerScreen/>
-        },
-        {
-          path:'/explore',
-          element: <ExplorePage/>
-        },
-        {
-          path: "/explore/innerpage",
-          element: <InnerPage />,
-        },
-        {
-            path:'/creators',
-            element: <CreatorsPage/>
-        },
-        {
-          path: '/creators/deejays',
-          element: <CreatorsList/>
-        },
-        {
-          path: '/creators/deejays/:id',
-          element: <Creator/>
-        },
-        {
-          path:'creators/videos/:id',
-          element: <VideoScreen/>
-        },
-        {
-          path: "/music",
-          element: <MusicPage />,
-        },
-        {
-          path: "/mixes",
-          element: <MixesPage />,
-        },
-        {
-          path: "/artist",
-          element: <ArtistPage />,
-        },
-        {
-          path: "/userhome",
-          element: <UserHome />
-        },
-        {
-          path: "/cart",
-          element: <ControllerCart />
-        },
-        {
-          path: "/controller-creators",
-          element: <ControllerCreators />
-        },
-        {
-          path: "/all-controller-creators",
-          element: <AllContollerCreatorsPage />
-        },
-        {
-          path: '/matatu',
-          element: <MatatuPage />,
+        curr_loggedin_user==="is_restaunt"? {
+            element: <RestaurantLayout/>,
+            children:[
+                {
+                    path:'/restaurant',
+                    element: <RestaurantHomePage/>
+                },
+                {
+                    path:'/restaurant/my-wallet',
+                    element:<RestaurantWalletPage/>
+                },
+                NotFoundRouter,
+                FAQSRouter,
+                TermsCondsRouter,
+            ]
+        }:curr_loggedin_user==="is_normaluser"?{
+            element: <UserLayout />,
+            children: [
+                {
+                    path:'/home',
+                    element: <Homepage/>
+                },
+                {
+                path: "*",
+                element: <NotFound />,
+                },
+                FAQSRouter,
+                    TermsCondsRouter,
+                {
+                path:'/explore',
+                element: <ExplorePage/>
+                },
+                {
+                path: "/explore/innerpage",
+                element: <InnerPage />,
+                },
+                {
+                    path:'/creators',
+                    element: <CreatorsPage/>
+                },
+                {
+                path: '/creators/deejays',
+                element: <CreatorsList/>
+                },
+                {
+                path: '/creators/deejays/:id',
+                element: <Creator/>
+                },
+                {
+                path:'creators/videos/:id',
+                element: <VideoScreen/>
+                },
+                {
+                path: "/music",
+                element: <MusicPage />,
+                },
+                {
+                path: "/mixes",
+                element: <MixesPage />,
+                },
+                {
+                path: "/artist",
+                element: <ArtistPage />,
+                },
+                {
+                path: "/userhome",
+                element: <UserHome />
+                },
+                {
+                path: "/cart",
+                element: <ControllerCart />
+                },
+                
+                {
+                path: '/matatu',
+                element: <MatatuPage />,
+                }
+            ]
+        }:curr_loggedin_user === "is_matatu" ? {
+            element:<MatatuLayout/>,
+            children:[
+                {
+                    path:'/matatu',
+                    element: <MatatuPage/>,
+                },
+                FAQSRouter,
+                TermsCondsRouter,
+                {
+                    path: "*",
+                    element: <NotFound />,
+                },
+                
+                {
+                    path:'/matatu/my-wallet',
+                    element:<RestaurantWalletPage/>
+                },
+            ],
         }
-      ]
-    }:curr_loggedin_user === "is_matatu" ? {
-		element:<MatatuLayout/>,
-		children:[
-			{
-				path:'/matatu',
-				element: <MatatuPage/>,
-			},
-			{
-				path: "*",
-				element: <NotFound />,
-			}
-		],
-    }
-    :!curr_loggedin_user ? {
-          element: <DefaultLayout />,
-          children: [
-              {
-                path: '/',
-                element: <LandingPage />
-              },
-              {
-                path: "/artists",
-                element: <ArtistsPage />,
-              },
-              {
-                path:'/search',
-                element: <SearchPage/>
-              },
-              {
-                path: "/artists/:id",
-                element: <Creator/>,
-              },
-              {
-                path:'/trending',
-                element: <TrendingPage/>
-              },
-              {
-                path:'/trending/:id',
-                element:<VideoScreen/>
-              },
-              {
-                path:'/new',
-                element: <NewPage/>
-              },
-              NotFoundRouter
-          ]
-      } 
-      : NotFoundRouter,
-      {
-        element: <Login />,
-        path: '/login',
-    },
-    {
-        element: <SignUp />,
-    path: '/signup'
-    },
-    {
-        path: '/faqs',
-        element: <FreqAskedQuesPage />
-    },
-    {
-        path: '/terms-conditions',
-        element: <TermsConditionsPage />
-    },
+        :!curr_loggedin_user ? {
+            element: <DefaultLayout />,
+            children: [
+                {
+                    path: '/',
+                    element: <LandingPage />
+                },
+                FAQSRouter,
+                TermsCondsRouter,
+                {
+                    path: "/artists",
+                    element: <ArtistsPage />,
+                },
+                {
+                    path:'/search',
+                    element: <SearchPage/>
+                },
+                {
+                    path: "/artists/:id",
+                    element: <Creator/>,
+                },
+                {
+                    path: '/faqs',
+                    element: <FreqAskedQuesPage />
+                },
+                {
+                    path: '/terms-conditions',
+                    element: <TermsConditionsPage />
+                },
+                {
+                    path:'/trending',
+                    element: <TrendingPage/>
+                },
+                {
+                    path:'/trending/:id',
+                    element:<VideoScreen/>
+                },
+                {
+                    path:'/new',
+                    element: <NewPage/>
+                },
+                NotFoundRouter
+            ]
+        }:curr_loggedin_user==='is_controller'?{
+            element: <ControllerLayout/>,
+            children:[
+                {
+                    path: "/controller-creators",
+                    element: <ControllerCreators />
+                },
+                FAQSRouter,
+                TermsCondsRouter,
+                {
+                    path: "/all-controller-creators",
+                    element: <AllContollerCreatorsPage />
+                },
+                NotFoundRouter
+            ] 
+        }
+        :NotFoundRouter,
+        {
+            element: <Login />,
+            path: '/login',
+        },
+        FAQSRouter,
+        TermsCondsRouter,
+        {
+            element: <SignUp />,
+            path: '/signup'
+        },
+        {
+            path:"/player",
+            element: <PlayerScreen/>
+        },
+        {
+            path:"/matatu/controller/login",
+            element:<ControllerLogin/>
+        },
     ]);
-  return <RouterProvider router={router} />;
+    return <RouterProvider router={router} />;
 }
 
 export default App;
