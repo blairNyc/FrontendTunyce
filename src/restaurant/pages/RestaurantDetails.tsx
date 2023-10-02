@@ -252,7 +252,7 @@ const RestaurantDetails = () => {
             </div>
 
             <div className="flex flex-col h-auto my-4 rounded bg-gray-50 dark:bg-gray-800">
-                <h3 className="text-2xl font-semibold">Matatu Name </h3>
+                <h3 className="text-2xl font-semibold">Restaurant Name</h3>
                 <p className="text-xl">Restaurant Name: {ownerInfo?.name}</p>
                 <p className="text-xl">Number of Seats: {ownerInfo?.capacity}</p>
                 <p className="text-xl">Location: {ownerInfo?.location}</p>

@@ -256,7 +256,6 @@ const MatatuDetails = () => {
                 <p className="text-xl">Matatu Name: {ownerInfo?.name}</p>
                 <p className="text-xl">Number Plate: {ownerInfo?.number_plate}</p>
                 <p className="text-xl">Number of Seats: {ownerInfo?.number_of_seats}</p>
-                <p className="text-xl">Driver username: {ownerInfo?.driver}</p>
                 <p className="text-xl">Matatu Route: {ownerInfo?.route}</p>
                 <div>
                     <div className="flex items-center p-6 space-x-2 border-t border-gray-200">
