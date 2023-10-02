@@ -46,14 +46,23 @@ import InnerPage from './components/inner-page'
 import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 import MatatuDetails from './matatus/MatatuDetails';
 import RestaurantDetails from './restaurant/pages/RestaurantDetails';
+// import PlayerScreen from './Controller-Screen/VideoScreen'
+// import ControllerLogin from './components/controller/controllerLogin';
+import ControllerLayout from './components/controller/components/ControllerLayout';
 
 
 const NotFoundRouter: RouteObject = {
   path: "*",
   element: <NotFound />,
 }
-
-
+const TermsCondsRouter:RouteObject={
+    path: '/terms-conditions',
+    element: <TermsConditionsPage />
+}
+const FAQSRouter:RouteObject={
+    path:'/faqs',
+    element: <FreqAskedQuesPage/>
+}
 const router = createBrowserRouter([
   {
     element: <MatatuLayout/>,
@@ -69,10 +78,7 @@ const router = createBrowserRouter([
         path: "/faqs",
         element: <FreqAskedQuesPage />,
       },
-      {
-        path: "/terms-conditions",
-        element: <TermsConditionsPage />,
-      },
+      TermsCondsRouter,
       NotFoundRouter,
     ]
   },
@@ -99,6 +105,7 @@ const router = createBrowserRouter([
         path:'/trending',
         element: <TrendingPage/>
       },
+      TermsCondsRouter,
       {
         path:'/trending/:id',
         element:<VideoScreen/>
@@ -225,7 +232,7 @@ const router = createBrowserRouter([
 
 console.log(router);
 function App() {
-    const curr_loggedin_user= useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
+    const curr_loggedin_user= useAppSelector((state: RootState)=>state.persistAuth.auth.curr_loggedin_user);
 	console.log(curr_loggedin_user);
     const router = createBrowserRouter([
     curr_loggedin_user==="is_restaunt"? {
@@ -243,6 +250,8 @@ function App() {
             path: '/restaurant-details/:id',
             element: <RestaurantDetails />
           },
+          FAQSRouter,
+                TermsCondsRouter,
             NotFoundRouter,
         ]
     }:curr_loggedin_user==="is_normaluser"?{
@@ -256,7 +265,8 @@ function App() {
           path: "*",
           element: <NotFound />,
         },
-
+        FAQSRouter,
+        TermsCondsRouter,
         {
           path:'/explore',
           element: <ExplorePage/>
@@ -286,7 +296,7 @@ function App() {
           element: <MusicPage />,
         },
         {
-          path: "/mevixes",
+          path: "/mixes",
           element: <MixesPage />,
         },
         {
@@ -329,7 +339,13 @@ function App() {
 			{
 				path: "*",
 				element: <NotFound />,
-			}
+			},
+      {
+        path:'/matatu/my-wallet',
+        element:<RestaurantWalletPage/>
+      },
+      FAQSRouter,
+      TermsCondsRouter,
 		]
     }
     :!curr_loggedin_user ? {
@@ -339,6 +355,9 @@ function App() {
                 path: '/',
                 element: <LandingPage />
               },
+
+              FAQSRouter,
+              TermsCondsRouter,
               {
                 path: "/artists",
                 element: <ArtistsPage />,
@@ -365,7 +384,22 @@ function App() {
               },
               NotFoundRouter
           ]
-      } 
+      }:curr_loggedin_user==='is_controller'?{
+        element: <ControllerLayout/>,
+        children:[
+            {
+                path: "/controller-creators",
+                element: <ControllerCreators />
+            },
+            FAQSRouter,
+            TermsCondsRouter,
+            {
+                path: "/all-controller-creators",
+                element: <AllContollerCreatorsPage />
+            },
+            NotFoundRouter
+        ] 
+      }
       : NotFoundRouter,
       {
         element: <Login />,

@@ -2,15 +2,17 @@ import { useState } from "react";
 import { BsChevronDown, BsWallet,} from "react-icons/bs";
 import { GoHomeFill } from "react-icons/go";
 import TunyceLogo from '/tunyce_logo.svg';
+import TunycDarkLogo from '../../assets/tunyce_logo.svg'
 import NavElement from "../../components/navelement";
 import { Outlet, useNavigate } from "react-router-dom";
-import {IoSettingsSharp} from 'react-icons/io5';
+// import {IoSettingsSharp} from 'react-icons/io5';
 import {FiLogOut, FiSearch} from 'react-icons/fi';
 import { FaRegBell} from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { switchUser } from "../../components/auth/auth/authSlice";
 import { RootState } from "../../app/store";
 import { AiOutlineClose } from "react-icons/ai";
+import { Link } from "react-router-dom";
 export const DropdownMenu = ({setIsDropdownOpen, userName, switchAccountHandler}:{userName:string, setIsDropdownOpen:(val:boolean)=>void, switchAccountHandler:()=>void}) => (
     <div id="dropdownAvatarName" className="z-50 absolute top-1 right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
         <AiOutlineClose className="text-2xl cursor-pointer m-2 text-black mx-2" onClick={() => {setIsDropdownOpen(false)}} />
@@ -20,12 +22,17 @@ export const DropdownMenu = ({setIsDropdownOpen, userName, switchAccountHandler}
         </div>
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
             <li>
-               <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+               <button  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     onClick={() => {
                         switchAccountHandler()
                     }}
                     >Switch to NormalUser
-                </a>
+                </button>
+            </li>
+            <li className="border-t">
+                <Link to={'/matatu/controller/login'} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    Go to Controller Account
+                </Link>
             </li>
         </ul>
         <div className="py-2">
@@ -68,12 +75,12 @@ function MatatuLayout() {
                                 </ul>
                                 <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>
                                 <ul>
-                                    <NavElement path='/restaurant/my-wallet' name='Wallet'>
+                                    <NavElement path='/matatu/my-wallet' name='Wallet'>
                                         <BsWallet className='text-xl' />
                                     </NavElement>
-                                    <NavElement path='/restaurant/my-settings' name='Settings'>
+                                    {/* <NavElement path='/restaurant/my-settings' name='Settings'>
                                         <IoSettingsSharp className='text-xl' />
-                                    </NavElement>
+                                    </NavElement> */}
                                     <NavElement  name='Logout' path='/logout'>
                                         <FiLogOut className='text-xl' />
                                     </NavElement>
@@ -87,6 +94,7 @@ function MatatuLayout() {
                             <input type="text" placeholder="Search" className="border-none w-full h-full bg-inherit rounded-lg px-2 py-0 outline-none"/>
                             <FiSearch className="text-2xl text-black mx-2"/>
                         </div>
+                        <img src={TunycDarkLogo} alt="" className={`w-20  h-auto md:hidden  object-contain`} />
                         <div className="hidden md:flex items-center h-full cursor-pointer justify-between">
                             <div className="flex items-center mr-8">
                                 <div className="relative mx-2">

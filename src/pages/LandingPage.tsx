@@ -49,22 +49,21 @@ const MusItem = ({ plays, title, image }: { plays: string, title: string, image:
         <img src={image} alt="tunyce media" className="min-w-1/4 max-h-12 rounded-xl" />
         <div className="ml-3 w-3/4">
             <h4 className="text-sm uppercase font-bold">{title}</h4>
-            <p className="">{plays}Plays</p>
+            <p className="">{plays}</p>
         </div>
     </div>
 )
 
 
 function LandingPage() {
-    const { data: latestMixes } = useGetLatestMusicQuery([]);
-    const { data: trendingMixes } = useGetAllTrendingMixesQuery([]);
+    const { data: latestMixes,isLoading:isLoadingMixes } = useGetLatestMusicQuery([]);
+    const { data: trendingMixes,isLoading:isLoadingTrending } = useGetAllTrendingMixesQuery([]);
     const [visibleItems, setVisibleItems] = useState(9);
     console.log(trendingMixes);
 
-    if (latestMixes === undefined || trendingMixes === undefined) {
+    if (isLoadingMixes || isLoadingTrending) {
         return (
-            <div className="w-full h-full py-8">
-                {/* Render loading indicator or placeholder */}
+            <div className="w-screen bg-black-rgba h-screen ">
                 <p>Loading...</p>
             </div>
         );

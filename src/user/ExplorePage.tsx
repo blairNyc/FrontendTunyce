@@ -84,7 +84,7 @@ const ExplorePage = () => {
                 <SectionTitle title="Featured Mixes" onClick={function (): void {
                     throw new Error("Function not implemented.");
                 } }/>
-                <div className="w-full flex items-center overflow-x-scroll">
+                <div className="w-full flex items-center no-scrollbar overflow-x-auto">
                      {
                         isLoadingAllTrend?(
                             [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
@@ -107,7 +107,7 @@ const ExplorePage = () => {
                 <SectionTitle title="All mixes" onClick={function (): void {
                     throw new Error("Function not implemented.");
                 } }/>
-                <div className="w-full flex items-center">
+                <div className="w-full flex no-scrollbar overflow-x-auto items-center">
                     <IoIosArrowDropleftCircle className="text-2xl mx-2 absolute left-0 text-text-primary"/>
                     <div className="flex mx-7 w-full relative overflow-y-hidden overflow-x-scroll items-center">
                         {
@@ -136,17 +136,17 @@ const ExplorePage = () => {
                 <SectionTitle title="New Releases" onClick={function (): void {
                     throw new Error("Function not implemented.");
                 } }/>
-                <div className="w-full flex items-center">
+                <div className="w-full no-scrollbar overflow-x-auto flex items-center">
                      {allMixes?.map((mix: Mix) => (
-                                <MusicItem
-                             title={`${mix?.name}`}
-                             owner={`${mix?.owner?.username}`}
-                             srcUrl={mix && mix?.video_thumbnail
+                        <MusicItem
+                            title={`${mix?.name}`}
+                            owner={`${mix?.owner?.username}`}
+                            srcUrl={mix && mix?.video_thumbnail
                                  ? mix?.video_thumbnail
                                  : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'} onClick={function (): void {
                                      throw new Error("Function not implemented.");
-                                 } }                                />
-
+                            }}                                
+                        />
                         ))}
                 </div>
             </div>

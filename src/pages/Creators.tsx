@@ -2,6 +2,7 @@ import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons
 import { SectionTitle, FeaturedItem, MusicItem } from "../user/ExplorePage";
 import { useGetAllContentCreatorsQuery } from "../user/UsersState";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
+import { IContentCreatorsType } from "../types";
 const TextInfo= ({text,figure}:{text: string,figure: string})=>(
     <h4 className="font-bold text-md text-center mx-2">{figure}
         <span className="block text-xs font-semibold">{text}</span>
@@ -36,7 +37,7 @@ function CreatorsPage() {
                             isLoading?(
                                 [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                             ):(
-                                data?.slice(0, 5).map((contentCreator,index)=>(
+                                data?.slice(0, 5).map((contentCreator:IContentCreatorsType,index)=>(
                                     <MusicItem path={`/creators/deejays/${contentCreator.id}`} srcUrl="https://picsum.photos/200/300" title={contentCreator.username}   key={index}/>
                                 ))
                             )
