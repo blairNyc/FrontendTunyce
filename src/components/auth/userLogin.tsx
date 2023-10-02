@@ -64,6 +64,8 @@ export default function UserLogin() {
                 }
             };
 
+            console.log(response)
+
             dispatch(setCredentials(response));
             navigate('/home');
         } catch (error ) {

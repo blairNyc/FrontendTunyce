@@ -134,7 +134,7 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
 
                                 <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        New Matatu
+                                        New Restaurant
                                     </h3>
                                     <button type="button" onClick={onClose} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal"
                                     >
@@ -169,7 +169,7 @@ function AddRestaurantModal({ isOpen, onClose }: { isOpen: boolean, onClose: () 
                                                     }}
                                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 >
-                                                    <option value="" label="Select a route" />
+                                                    <option value="" label="Select a location" />
                                                     {Array.isArray(locations) && locations.map((location) => (
                                                         <option key={location.id} value={location.id} label={location.name} />
                                                     ))}

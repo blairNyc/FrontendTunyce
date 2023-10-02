@@ -31,7 +31,7 @@ const authSlice = createSlice({
                 state.auth.is_normaluser = true;
                 state.auth.curr_loggedin_user="is_normaluser";
             }
-            if (action.payload.auth.is_restaunt) {
+            if (action.payload.auth.is_restraunt) {
                 state.auth.is_restaunt = true;
             }
             if (action.payload.auth.is_superuser) {
