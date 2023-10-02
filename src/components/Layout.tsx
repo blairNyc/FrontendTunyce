@@ -6,28 +6,26 @@ import '../App.css';
 
 function Layout() {
   const [sideBarOpen, setSideBarOpen] = useState<boolean>(true);
+  const toggleSideBar = () => {setSideBarOpen(!sideBarOpen)};
   return (
     <div className="w-screen h-screen">
-      <div className="flex w-full">
-        <div className={`w-0 ${!sideBarOpen ? "w-16" : "md:w-1/5"} pt-4 `}>
-          <Sidebar sideBarOpen={sideBarOpen} />
+        <div className="flex w-full">
+            <div className={`w-0  ${!sideBarOpen ? "absolute w-3/5 md:hidden bg-white" : "md:w-1/5"} pt-4 `}>
+                <Sidebar toggleSideBar={toggleSideBar} />
+            </div>
+            <div className={`bg-bg-primary px-4 py-8 h-full w-full ${
+                    sideBarOpen ? "md:w-4/5" : "md:w-5/5"
+                }`}
+                >
+                <Header
+                    sideBarOpen={sideBarOpen}
+                    setSideBarOpen={toggleSideBar}
+                />
+                <div>
+                    <Outlet />
+                </div>
+            </div>
         </div>
-        <div
-          className={`bg-bg-primary px-4 py-8 h-full w-full ${
-            sideBarOpen ? "md:w-4/5" : "md:w-5/5"
-          }`}
-        >
-          <Header
-            sideBarOpen={sideBarOpen}
-            setSideBarOpen={() => {
-              setSideBarOpen(!sideBarOpen);
-            }}
-          />
-          <div >
-               <Outlet />
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

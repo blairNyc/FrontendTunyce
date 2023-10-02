@@ -5,15 +5,15 @@ import { FaCompass } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { BsMusicNoteBeamed } from "react-icons/bs";
 import { BsFillPersonFill } from "react-icons/bs";
-import { TbHeadphonesFilled } from "react-icons/tb";
-import { MdFavorite } from "react-icons/md";
-import { FaShareAlt, FaDeezer } from "react-icons/fa";
-import { ImFolderDownload } from "react-icons/im";
-import { IoSettingsSharp } from "react-icons/io5";
-import { TbLogout } from "react-icons/tb";
+// import { TbHeadphonesFilled } from "react-icons/tb";
+// import { MdFavorite } from "react-icons/md";
+import {  FaDeezer } from "react-icons/fa";
+// import { ImFolderDownload } from "react-icons/im";
+// import { IoSettingsSharp } from "react-icons/io5";
+// import { TbLogout } from "react-icons/tb";
 import { BsPeopleFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import { AiFillWallet } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 
 type NavElProps = {
   name: string;
@@ -40,103 +40,72 @@ function NavElement({ name, path, children }: NavElProps) {
     </NavLink>
   );
 }
-function SmallNavElement({ name, children }: NavElProps) {
-  return (
-    <div className="flex flex-col justify-center items-center mt-3">
-      {children}
-      <p className="text-xs">{name}</p>
-    </div>
-  );
+type Props={
+    toggleSideBar: ()=>void
 }
-
-function Sidebar({ sideBarOpen }: { sideBarOpen: boolean }) {
+function Sidebar({toggleSideBar}:Props) {
   return (
     <div className="w-full">
-    {/* <div className="h-full fixed"> */}
-      {sideBarOpen ? (
+        <AiOutlineClose onClick={toggleSideBar}  className="text-xl md:hidden border-black border p-1 hover:bg-text-primary float-right mx-1 cursor-pointer" />
         <div className="flex flex-col w-full justify-center items-center ">
-          <img alt="tunyce logo" className="w-32 h-auto" src={TunyceLogo} />
-          <div className="w-full">
-            <h2 className="text-lg font-medium ml-3 mt-3">MENU</h2>
-            <ul className="w-full">
-              <NavElement path="/home" name="Discover">
-                <GoHomeFill className="text-xl" />
-              </NavElement>
-              <NavElement path="/creators" name="Creators">
-                <BsPeopleFill className="text-xl" />
-              </NavElement>
-              <NavElement path="explore" name="Explorer">
-                <FaCompass className="text-xl" />
-              </NavElement>
-              <NavElement path="/player" name="Search">
-                <FiSearch className="text-xl" />
-              </NavElement>
-            </ul>
-            <h2 className="text-lg font-medium ml-3 mt-3">LIBRARY</h2>
-            <ul>
-              <NavElement path="music" name="Music">
-                <BsMusicNoteBeamed className="text-xl" />
-              </NavElement>
-              <NavElement path="mixes" name="Mixes">
-                <FaDeezer className="text-xl" />
-              </NavElement>
-              <NavElement name="Artists">
-                <BsFillPersonFill className="text-xl" />
-              </NavElement>
-            </ul>
-            <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
-            <ul>
-              <NavElement name="Cover">
-                <TbHeadphonesFilled className="text-xl" />
-              </NavElement>
-              <NavElement name="Favorites">
-                <MdFavorite className="text-xl" />
-              </NavElement>
-              <NavElement name="Shared">
-                <FaShareAlt className="text-xl" />
-              </NavElement>
-              <NavElement name="Downloads">
-                <ImFolderDownload className="text-xl" />
-              </NavElement>
-            </ul>
-            <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
-            <ul>
-              <NavElement path="user-wallet" name="Wallet">
-                <AiFillWallet className="text-xl" />
-              </NavElement>
-              <NavElement name="Settings">
-                <IoSettingsSharp className="text-xl" />
-              </NavElement>
-              <NavElement name="Logout">
-                <TbLogout className="text-xl" />
-              </NavElement>
-            </ul>
-          </div>
+            <img alt="tunyce logo" className="w-32 h-auto" src={TunyceLogo} />
+            <div className="w-full">
+                <h2 className="text-lg font-medium ml-3 mt-3">MENU</h2>
+                <ul className="w-full">
+                    <NavElement path="/home" name="Discover">
+                        <GoHomeFill className="text-xl" />
+                    </NavElement>
+                    <NavElement path="/creators" name="Creators">
+                        <BsPeopleFill className="text-xl" />
+                    </NavElement>
+                    <NavElement path="explore" name="Explorer">
+                        <FaCompass className="text-xl" />
+                    </NavElement>
+                    <NavElement path="/player" name="Search">
+                        <FiSearch className="text-xl" />
+                    </NavElement>
+                </ul>
+                <h2 className="text-lg font-medium ml-3 mt-3">LIBRARY</h2>
+                <ul>
+                    <NavElement path="music" name="Music">
+                        <BsMusicNoteBeamed className="text-xl" />
+                    </NavElement>
+                    <NavElement path="mixes" name="Mixes">
+                        <FaDeezer className="text-xl" />
+                    </NavElement>
+                    <NavElement name="Artists">
+                        <BsFillPersonFill className="text-xl" />
+                    </NavElement>
+                </ul>
+                {/* <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
+                <ul>
+                    <NavElement name="Cover">
+                        <TbHeadphonesFilled className="text-xl" />
+                    </NavElement>
+                    <NavElement name="Favorites">
+                        <MdFavorite className="text-xl" />
+                    </NavElement>
+                    <NavElement name="Shared">
+                        <FaShareAlt className="text-xl" />
+                    </NavElement>
+                    <NavElement name="Downloads">
+                        <ImFolderDownload className="text-xl" />
+                    </NavElement>
+                </ul> */}
+                {/* <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
+                <ul>
+                    <NavElement path="user-wallet" name="Wallet">
+                        <AiFillWallet className="text-xl" />
+                    </NavElement>
+                    <NavElement name="Settings">
+                        <IoSettingsSharp className="text-xl" />
+                    </NavElement>
+                    <NavElement name="Logout">
+                        <TbLogout className="text-xl" />
+                    </NavElement>
+                </ul> */}
+            </div>
         </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center">
-          <ul>
-            <SmallNavElement name="Discover">
-              <GoHomeFill className="text-3xl" />
-            </SmallNavElement>
-            <SmallNavElement name="Explorer">
-              <FaCompass className="text-3xl" />
-            </SmallNavElement>
-            <SmallNavElement name="Search">
-              <FiSearch className="text-3xl" />
-            </SmallNavElement>
-            <SmallNavElement name="Music">
-              <BsMusicNoteBeamed className="text-3xl" />
-            </SmallNavElement>
-            <SmallNavElement name="Artists">
-              <BsFillPersonFill className="text-3xl" />
-            </SmallNavElement>
-            <SmallNavElement name="Favorites">
-              <MdFavorite className="text-3xl" />
-            </SmallNavElement>
-          </ul>
-        </div>
-      )}
     </div>
   );
 }

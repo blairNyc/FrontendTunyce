@@ -3,8 +3,6 @@ import { apiSlice } from '../../api/apiSlice'
 export const apiContentSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({ 
         //gets all content creators
-        
-
         // upgrade matatu
         upgradeToMatatuOwner: builder.mutation({
             query: () => ({
@@ -12,7 +10,16 @@ export const apiContentSlice = apiSlice.injectEndpoints({
                 method: 'post',
             }),
         }),
-
+        loginAsController: builder.mutation({
+            query: (data) => ({
+                url: '/matatu/controller/login/',
+                method: 'post',
+                body: {
+                    uuid: data.uuid,
+                    password: data.password,
+                }
+            }),
+        }),
         // upgrade matatu
         upgradeToRestaurantOwner: builder.mutation({
             query: () => ({
@@ -31,5 +38,5 @@ export const {
     useUpgradeToMatatuOwnerMutation,
     useUpgradeToRestaurantOwnerMutation,
     // useCreateMatatuMutation
-    
+    useLoginAsControllerMutation
 } = apiContentSlice;
