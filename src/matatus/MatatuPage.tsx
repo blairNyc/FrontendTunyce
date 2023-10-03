@@ -29,8 +29,6 @@ function MatatuPage() {
 
 	const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
 
-
-
 	useEffect(() => {
 
 		const fetchData = async () => {
@@ -68,10 +66,14 @@ function MatatuPage() {
 	};
 
 	const successRegistration = () => {
+		setIsModalOpen(false);
+
+
+
 		setDisplaySuccessNotification(true)
 		const timer = setTimeout(() => {
 			setDisplaySuccessNotification(false)
-		}, 5000);
+		}, 3000);
 
 		return () => clearTimeout(timer);
 	}

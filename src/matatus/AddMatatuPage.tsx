@@ -115,7 +115,6 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
 
         const data = responseRoute.data.message;
         setRoutes(data);
-        console.log(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -124,6 +123,16 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
     fetchData();
 
   }, [userToken]);
+
+  useEffect(() => {
+    if(displayErrorNotification) {
+      setTimeout(()=>{setDisplayErrorNotification(!displayErrorNotification)}, 3000 );
+    }
+    if(displayServerErrorNotification) {
+      setTimeout(() => { setDisplayErrorNotification(!displayErrorNotification) }, 3000);
+    }
+
+  }, [displayErrorNotification, displayServerErrorNotification]);
 
   const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput)=>{
     
@@ -144,13 +153,16 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
       }
 
       // Make a POST request using Axios
-      const response = await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_matatu', userDataMain, {
+      await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_matatu', userDataMain, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
-      }).then(() => {
-        setSubmitting(false)
-        close()
+      }).then(response => {
+        if(response.status == 201) {
+          setSubmitting(false)
+          isRegistrationSuccessFull()
+          close()
+        }
       }
         ).catch( error => {
           setSubmitting(false)
@@ -171,27 +183,6 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
           }}
 
           )
-
-      
-
-      // if(response.status == 201) {
-      //   setSubmitting(false)
-      //   onClose
-      //   isRegistrationSuccessFull
-      // } 
-
-
-      // if(response.status == 201) {
-      //   setSubmitting(false)
-      //   onClose
-      //   isRegistrationSuccessFull  
-      // } else if (response.status == 500){
-      //   setSubmitting(false)
-      //   setDisplayServerErrorNotification(true)
-      // } else {
-      //   setSubmitting(false)
-      //   setDisplayErrorNotification(true)
-      // }
 
     } catch (error: unknown) {
         setSubmitting(false)     
