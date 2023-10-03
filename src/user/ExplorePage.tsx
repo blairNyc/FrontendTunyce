@@ -40,13 +40,13 @@ export const FeaturedItem = ({title,children,additionalStyles, owner,srcUrl}:Com
     </div>
 );
 export const MusicItem = ({path,owner,srcUrl,title}:CommonProps)=>(
-    <a href={path} className="min-w-[150px] mx-2 cursor-pointer hover:scale-105">
+    <Link to={path??''} className="min-w-[150px] mx-2 cursor-pointer hover:scale-105">
         <img src={`${srcUrl}`} alt="" className="w-32 h-32 rounded-xl object-cover"/>
         <h4 className="font-bold">
              {`${title?.slice(0, 20)}...`}
         </h4>
         <p className="uppercase text-xs">{owner}</p>
-    </a>
+    </Link>
 )
 export const RowScroll = ({children}:CommonProps)=>(
     <div className="w-full flex items-center no-scrollbar overflow-x-auto">
