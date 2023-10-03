@@ -11,7 +11,7 @@ export const apiContentSlice = apiSlice.injectEndpoints({
             }),
         }),
         loginAsController: builder.mutation({
-            query: (data) => ({
+            query: (data:{uuid:string,password:string}) => ({
                 url: '/matatu/controller/login/',
                 method: 'post',
                 body: {
@@ -41,7 +41,7 @@ export const apiContentSlice = apiSlice.injectEndpoints({
 
         // get all matatus
         getAllMatatus: builder.query({
-            query: (id) => ({
+            query: () => ({
                 url: 'matatu/matatus',
                 method: 'get',
             }),
