@@ -205,7 +205,7 @@ const MatatuDetails = () => {
     );
 
     const [displayPlayerModal, setDisplayPlayerModal] = useState(false);
-    const [submittingPlayer, setSubmittingPlayer] = useState<boolean>(false)
+    // const [submittingPlayer, setSubmittingPlayer] = useState<boolean>(false)
 
     const handlePlayerModalSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -363,7 +363,7 @@ const MatatuDetails = () => {
                         </div>
 
                         <div className="flex flex-col h-auto my-4 rounded bg-gray-50 dark:bg-gray-800">
-                            <h3 className="text-2xl font-semibold">Details Details</h3>
+                            <h3 className="text-2xl font-semibold">Player Details</h3>
                             <p className="text-xl">Unique Identifier: {playerInfo?.uuid}</p>
                         </div>
                     </div>

@@ -211,7 +211,7 @@ const RestaurantDetails = () => {
                 password: `${playerPassword}`
             }
 
-            const controllerCreation = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/restaurant/create_player/${id}/`, playerDetails, {
+            await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/restaurant/create_player/${id}/`, playerDetails, {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
@@ -355,7 +355,7 @@ const RestaurantDetails = () => {
                         </div>
 
                         <div className="flex flex-col h-auto my-4 rounded bg-gray-50 dark:bg-gray-800">
-                            <h3 className="text-2xl font-semibold">Details Details</h3>
+                            <h3 className="text-2xl font-semibold">Player Details</h3>
                             <p className="text-xl">Unique Identifier: {playerInfo?.uuid}</p>
                         </div>
                     </div>
@@ -403,9 +403,6 @@ const RestaurantDetails = () => {
                     </div>
                 </div>
             }
-
-
-
 
             {displayControllerModal && <RegisterControllerModal />}
             {displayPlayerModal && <RegisterPlayerModal />}
