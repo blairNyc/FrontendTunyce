@@ -2,18 +2,13 @@ import {Card, Checkbox, Label } from 'flowbite-react';
 import LogoImage from '../../assets/tunyce_logo.svg';
 import { useNavigate } from 'react-router-dom';
 import {useForm,SubmitHandler } from 'react-hook-form'
-import { AiOutlineClose } from 'react-icons/ai';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useLoginAsControllerMutation } from '../../app/features/content/contentApiSlice';
 import { useAppDispatch } from '../../app/hooks';
 import { switchUser } from '../auth/auth/authSlice';
-export const SnackBar=({text}:{text:string| number})=>(
-    <div className='absolute flex items-center justify-between px-4 top-8 my-1 py-1 w-1/3 bg-red-500 min-w-[250px] rounded-2xl left-1/4 md:left-1/3 '>
-        <p className='text-center font-bold text-sm text-white'>{text}</p>
-        <AiOutlineClose className='text-white cursor-pointer text-lg font-bold'/>
-    </div>
-)
+import { SnackBar } from '../auth/userLogin';
+import LoadingSpinner from '../LoadingSpinner';
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement>{}
 export const TextInput = ({id,type,placeholder,...rest}:TextInputProps)=>(
     <input 
@@ -32,9 +27,15 @@ const schema = yup.object({
     uuid: yup.string().required(),
     password: yup.string().required(),
 }).required()
+type ErrorType = { 
+    status:number, 
+    data:{
+        [key:string]:string
+    }
+}
 export default function ControllerLogin() {
     const navigate = useNavigate();
-    const [loginAsController, ] = useLoginAsControllerMutation();
+    const [loginAsController,{isError,status,isLoading, error:resErr} ] = useLoginAsControllerMutation();
     const {handleSubmit,register,formState: { errors }} = useForm<registrationInput>({
       resolver: yupResolver(schema),
     })
@@ -44,18 +45,27 @@ export default function ControllerLogin() {
             uuid: data.uuid,
             password: data.password,
         }
-        console.log(userData,'user data');
+        console.log(userData);
         try {
             const response = await loginAsController(userData).unwrap();
-            console.log(response);
+            console.log(response)
             dispatch(switchUser('is_controller'))
             navigate('/controller-creators');
         } catch (error ) {
-            console.log('Error encountered: ',error)
+            return;
         }
     }
+    console.log('Error',isError,status,resErr);
     return (
         <>
+            {isError &&
+                Object.values((resErr as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err??'Error encountered'} />)
+            }
+            {
+                isLoading &&(
+                    <LoadingSpinner />
+                )
+            }
             <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
                 <Card>
                     <div className="sm:mx-auto sm:w-[36rem] sm:max-w-full"> 
