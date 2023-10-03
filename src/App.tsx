@@ -47,8 +47,9 @@ import FilmmakerWalletPage from './components/filmMaker/FilmmakerWallet';
 import MatatuDetails from './matatus/MatatuDetails';
 import RestaurantDetails from './restaurant/pages/RestaurantDetails';
 // import PlayerScreen from './Controller-Screen/VideoScreen'
-// import ControllerLogin from './components/controller/controllerLogin';
+import ControllerLogin from './components/controller/controllerLogin';
 import ControllerLayout from './components/controller/components/ControllerLayout';
+import ControllerMusicPage from './components/controller/ControllerMusicPage';
 
 
 const NotFoundRouter: RouteObject = {
@@ -397,6 +398,14 @@ function App() {
                 path: "/all-controller-creators",
                 element: <AllContollerCreatorsPage />
             },
+            {
+                path: "/music",
+                element: <ControllerMusicPage/>
+            },
+            {
+                path: '/creators/deejays/:id',
+                element: <Creator/>
+              },
             NotFoundRouter
         ] 
       }
@@ -412,6 +421,10 @@ function App() {
       {
           path: '/faqs',
           element: <FreqAskedQuesPage />
+      },
+      {
+        path:'/controller/login',
+        element:<ControllerLogin/>
       },
       {
           path: '/terms-conditions',
