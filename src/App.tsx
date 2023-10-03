@@ -50,6 +50,7 @@ import RestaurantDetails from './restaurant/pages/RestaurantDetails';
 import ControllerLogin from './components/controller/controllerLogin';
 import ControllerLayout from './components/controller/components/ControllerLayout';
 import ControllerMusicPage from './components/controller/ControllerMusicPage';
+import ControllerCreator from './components/controller/ControllerCreator';
 
 
 const NotFoundRouter: RouteObject = {
@@ -395,17 +396,13 @@ function App() {
             FAQSRouter,
             TermsCondsRouter,
             {
-                path: "/all-controller-creators",
-                element: <AllContollerCreatorsPage />
-            },
-            {
                 path: "/music",
                 element: <ControllerMusicPage/>
             },
             {
-                path: '/creators/deejays/:id',
-                element: <Creator/>
-              },
+                path: '/controller-creators/:id',
+                element: <ControllerCreator/>
+            },
             NotFoundRouter
         ] 
       }
