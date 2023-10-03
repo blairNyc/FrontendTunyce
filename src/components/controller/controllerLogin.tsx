@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../app/hooks';
 import { switchUser } from '../auth/auth/authSlice';
 import { SnackBar } from '../auth/userLogin';
 import LoadingSpinner from '../LoadingSpinner';
+import { setControllerCredentials } from '../../app/features/controller';
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement>{}
 export const TextInput = ({id,type,placeholder,...rest}:TextInputProps)=>(
     <input 
@@ -49,6 +50,11 @@ export default function ControllerLogin() {
         try {
             const response = await loginAsController(userData).unwrap();
             console.log(response)
+            dispatch(setControllerCredentials({
+                controller:{
+                    ...response.data
+                }
+            }))
             dispatch(switchUser('is_controller'))
             navigate('/controller-creators');
         } catch (error ) {
