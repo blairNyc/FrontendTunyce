@@ -8,6 +8,29 @@ export interface UserTypes{
     "is_recordlabel"? : true,
     "is_controller"?:true,
 }
+export interface ErrorType { 
+    status:number, 
+    data:{
+        [key:string]:string
+    }
+}
+export interface MusicItemProp{
+    name:string;
+    description:string;
+    id:number;
+    media:{
+        id:number
+        media_url:string
+    }
+    created_at:string
+    views?:number;
+    owner:{
+        id:number
+        username:string
+        email:string
+    }
+    video_thumbnail:string,
+}
 export interface IMatatuType{
     name: string
     number_plate: string
