@@ -10,7 +10,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RootState } from '../../app/store';
-
+import LoadingSpinner from '../LoadingSpinner';
 export const SnackBar=({text}:{text:string| number})=>(
     <div className='absolute flex items-center justify-between px-4 top-8 my-1 py-1 w-1/3 bg-red-500 min-w-[250px] rounded-2xl left-1/4 md:left-1/3 '>
         <p className='text-center font-bold text-sm text-white'>{text}</p>
@@ -37,7 +37,7 @@ export default function UserLogin() {
     const curr = useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const [loginUser,{isError, error}] = useLoginUserMutation()
+    const [loginUser,{isError,isLoading, error}] = useLoginUserMutation()
     console.log('Access token',access,curr);
     React.useEffect(() => {
         if (access) {
@@ -77,7 +77,9 @@ export default function UserLogin() {
         <>
             {isError&&
                 Object.values((error as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err} />)
-            
+            }
+            {
+                isLoading &&(<LoadingSpinner/>)
             }
             <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
                 <Card>
