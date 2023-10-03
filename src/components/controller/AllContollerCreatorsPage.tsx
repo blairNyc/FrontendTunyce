@@ -14,7 +14,7 @@ const AllContollerCreatorsPage = () =>  {
     return (
         <div className='w-full mt-4 h-screen'>
             <h2 className="text-2xl text-text-primary font-bold">All Creators</h2>
-            <div className="mt-1 grid grid-cols-2 lg:grid-cols-8 md:grid-cols-4 ">
+            <div className="mt-1 grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 ">
                 <CreatorItem />
                 <CreatorItem />
                 <CreatorItem />
