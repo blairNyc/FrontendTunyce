@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { apiSlice } from './api/apiSlice';
 import { PasswordResetApi } from './api/apiPasswordResetSlice';
+import controllerReducer from './features/controller'
 const persistAuthConfig = {
   key: 'root',
   storage,
@@ -15,9 +16,13 @@ const persistThemeConfig = {
   key: 'theme',
   storage,
 }
+const persistControllerConfig = {
+  key: 'controller',
+  storage,
+}
 const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
 const persistedThemeReducer = persistReducer(persistThemeConfig, themeReducer);
-
+const persistedControllerReducer = persistReducer(persistControllerConfig, controllerReducer);
 export const store = configureStore({
 
   reducer: {
@@ -28,7 +33,7 @@ export const store = configureStore({
     auth: authReducer,
     persistAuth: persistedAuthReducer,
     persistTheme: persistedThemeReducer,
-   
+    persistController: persistedControllerReducer,
    
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false}).concat([ 

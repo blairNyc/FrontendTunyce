@@ -8,7 +8,7 @@ interface Credentials {
         access: string | null;
         username: string;
         [key: string]: string | null | boolean;
-        curr_loggedin_user: keyof UserTypes | ""
+        curr_loggedin_user: keyof UserTypes | "";
     }
 }
 const INITIAL_STATE: Credentials={
