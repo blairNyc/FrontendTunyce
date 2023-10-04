@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-// Define a type for your video data
 type VideoData = {
   id: number;
   title: string;
@@ -9,7 +8,6 @@ type VideoData = {
   url: string;
 };
 
-// Define your list of videos (similar to YouTube homepage)
 const videoData: VideoData[] = [
   {
     id: 1,
@@ -35,17 +33,14 @@ const videoData: VideoData[] = [
     thumbnail: "https://picsum.photos/200/300",
     url: 'https://www.youtube.com/watch?v=xqo3Vsm3fVQ',
   },
-  // Add more videos as needed
 ];
 
 const FilmmakerDashboard: React.FC = () => {
-  // Access the "id" parameter from the url
-  const { id } = useParams<{ id?: string }>(); // Make "id" optional
 
-  // Parse the "id" parameter to an integer, providing a default value of 0
+  const { id } = useParams<{ id?: string }>(); 
+
   const selectedVideoId = id ? parseInt(id, 10) : 0;
 
-  // Find the selected video based on the "id" parameter
   const selectedVideo = videoData.find((video) => video.id === selectedVideoId);
 
   const navigate = useNavigate();
@@ -56,14 +51,14 @@ const FilmmakerDashboard: React.FC = () => {
   
 
   return (
-    <div className="container mx-auto mt-8 p-4 ml-4 mr-4 mx-auto mt-4 bg-white gap-4 bg-auto bg-no-repeat bg-center rounded-lg">
+    <div className="container mx-auto mt-8 p-4 ml-4 mr-4 bg-white gap-4 bg-auto bg-no-repeat bg-center rounded-lg">
       <h2 className="text-2xl font-bold">Film Home</h2>
       <div className="grid grid-cols-3 gap-4">
         {videoData.map((video) => (
           <div key={video.id} className="bg-white rounded-lg">
             {/* Use handleVideoClick to navigate to the selected video */}
             <Link
-              to={`/filmmaker-dashboard/${video.id}`} // Use an anchor tag for navigation
+              to={`/filmmaker-dashboard/${video.id}`} 
               onClick={(e) => {
                 e.preventDefault();
                 handleVideoClick(video.url);

@@ -57,3 +57,15 @@ export type IContentCreatorsType = {
     id: string | number
     username: string
 }
+
+  export interface Artist {
+    id: string;
+    artist_stage_name: string;
+    
+  }
+
+  export interface SingleCreator {
+    id: string;
+    title: string;
+    thumbnailUrl: string;
+  }

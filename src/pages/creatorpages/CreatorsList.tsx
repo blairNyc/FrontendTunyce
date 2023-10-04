@@ -1,13 +1,13 @@
-// import LoadingSkeletonList from "../components/LoadingSkeletonList";
 import {FaShoppingBag} from  'react-icons/fa';
-import { useGetAllContentCreatorsQuery } from '../user/UsersState';
-import LoadingSkeletonList from '../components/LoadingSkeletonList';
+import { Link } from 'react-router-dom';
+import { useGetAllContentCreatorsQuery } from '../../user/UsersState';
+import LoadingSkeletonList from '../../components/LoadingSkeletonList';
+
 type ContentCreatorsType = {
     email: string
     id: string | number
     username: string
 }
-import { Link } from 'react-router-dom';
 const CreatorItem = ({username,id}:ContentCreatorsType)=>(
     <div className="md:w-56 w-44 cursor-pointer hover:bg-gray-100 border-gray-300 m-2  min-h-[100px] min-w-[90px] xl:min-w-[100px] md:min-w-[190px]  p-2 md:p-2 rounded-md">
         <Link to={`/creators/deejays/${id}`}>

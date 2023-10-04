@@ -1,7 +1,7 @@
-import { apiSlice } from '../../api/apiSlice'
+import { mainApiSlice } from '../../api/apiSlice'
 
-export const apiContentSlice = apiSlice.injectEndpoints({
-    endpoints: (builder) => ({ 
+export const apiContentSlice = mainApiSlice.injectEndpoints({
+    endpoints: (builder) => ({
         //gets all content creators
         // upgrade matatu
         upgradeToMatatuOwner: builder.mutation({

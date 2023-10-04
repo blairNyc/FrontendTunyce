@@ -110,6 +110,19 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     }),
 
 
+    getAllArtists: builder.query({
+      query: () => ({
+        url: `record-label/get-all-artists/`,
+        method: 'get',
+      })
+    }),
+
+    getSingleCreator: builder.query({
+      query: (creator_id) => ({
+        url: `creator/content-creator/${creator_id}/content`,
+        method: 'get',
+      })
+    })
 
   }),
 })
@@ -132,5 +145,8 @@ export const {
   useGetPlayingLinkMutation,
   useSwitchVideoTimeMutation,
   useVideoEndUpdatesMutation,
+  useGetAllArtistsQuery,
+  useGetSingleCreatorQuery
+
 
 } = apiVenuesSlice

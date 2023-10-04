@@ -4,6 +4,8 @@ import { BiChevronLeftCircle, BiChevronRightCircle } from 'react-icons/bi';
 import { useGetAllTrendingMixesQuery, useGetLatestMusicQuery } from '../app/api/GlobalApiSlice';
 import { useState } from 'react';
 import { Mix } from '../types';
+import SignModal from './SignModal';
+
 const ButtonStyle = ({ text }: { text: string }) => (<button className='w-full rounded-md hover:bg-red-600 my-3 font-bold uppercase text-white bg-text-primary py-3'>{text}</button>)
 export const JointTunce = () => (
     <div className='h-screen flex pt-8 justify-center md:items-center'>
@@ -33,19 +35,19 @@ const RowContainer = ({ text, onClick }: { text: string; onClick: () => void }) 
         </div>
     </div>
 );
-const GenreBox = ({ text, bgcolor }: { text: string, bgcolor: string }) => (
-    <p className={`px-4 cursor-pointer text-white text-sm mx-1 my-2 rounded-lg font-semibold py-1 ${bgcolor}`}>
+const GenreBox = ({ text, bgcolor, onClick }: { text: string, bgcolor: string, onClick: () => void }) => (
+    <p onClick={onClick} className={`px-4 cursor-pointer text-white text-sm mx-1 my-2 rounded-lg font-semibold py-1 ${bgcolor}`}>
         {text}
     </p>
 );
-const EasyAfterNoon = ({ image }: { image: string }) => (
-    <div style={{ backgroundImage: `url(${image}` }} className="w-1/2 relative bg-opacity-10 bg-black cursor-pointer h-40  bg-cover bg-center bg-no-repeat rounded">
+const EasyAfterNoon = ({ image, onClick }: { image: string, onClick: () => void }) => (
+    <div onClick={onClick} style={{ backgroundImage: `url(${image}` }} className="w-1/2 relative bg-opacity-10 bg-black cursor-pointer h-40  bg-cover bg-center bg-no-repeat rounded">
         <div className='absolute bottom-2 left-1/4'>
         </div>
     </div>
 )
-const MusItem = ({ plays, title, image }: { plays: string, title: string, image: string }) => (
-    <div className="flex border rounded-xl p-px cursor-pointer hover:scale-105 m-2 justify-center items-center">
+const MusItem = ({ plays, title, image, onClick }: { plays: string, title: string, image: string, onClick: () => void }) => (
+    <div onClick={onClick} className="flex border rounded-xl p-px cursor-pointer hover:scale-105 m-2 justify-center items-center">
         <img src={image} alt="tunyce media" className="min-w-1/4 max-h-12 rounded-xl" />
         <div className="ml-3 w-3/4">
             <h4 className="text-sm uppercase font-bold">{title}</h4>
@@ -56,22 +58,24 @@ const MusItem = ({ plays, title, image }: { plays: string, title: string, image:
 
 
 function LandingPage() {
-    const { data: latestMixes,isLoading:isLoadingMixes } = useGetLatestMusicQuery([]);
-    const { data: trendingMixes,isLoading:isLoadingTrending } = useGetAllTrendingMixesQuery([]);
+    const { data: latestMixes, isLoading: isLoadingMixes } = useGetLatestMusicQuery([]);
+    const { data: trendingMixes, isLoading: isLoadingTrending } = useGetAllTrendingMixesQuery([]);
     const [visibleItems, setVisibleItems] = useState(9);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     console.log(trendingMixes);
 
-    if (isLoadingMixes || isLoadingTrending) {
-        return (
-            <div className="w-screen bg-black-rgba h-screen ">
-                <p>Loading...</p>
-            </div>
-        );
-    }
 
     const showMore = () => {
         // Go to next page
         setVisibleItems((prevVisibleItems) => prevVisibleItems + 9);
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -85,27 +89,27 @@ function LandingPage() {
                 </div>
             </header>
             <div className="flex flex-row flex-wrap">
-                <GenreBox text="Hip hop" bgcolor="bg-pink-400" />
-                <GenreBox text="Afro pop" bgcolor="bg-red-500" />
-                <GenreBox text="Dancehall" bgcolor="bg-lime-300" />
-                <GenreBox text="Jazz" bgcolor="bg-purple-600" />
-                <GenreBox text="Rhumba" bgcolor="bg-blue-500" />
-                <GenreBox text="Gengetone" bgcolor="bg-pink-400" />
-                <GenreBox text="Kenyan" bgcolor="bg-pink-400" />
-                <GenreBox text="Reggae" bgcolor="bg-orange-500" />
-                <GenreBox text="Podcasts" bgcolor="bg-red-500" />
-
+                <GenreBox onClick={() => openModal()} text="Hip hop" bgcolor="bg-pink-400" />
+                <GenreBox onClick={() => openModal()} text="Afro pop" bgcolor="bg-red-500" />
+                <GenreBox onClick={() => openModal()} text="Dancehall" bgcolor="bg-lime-300" />
+                <GenreBox onClick={() => openModal()} text="Jazz" bgcolor="bg-purple-600" />
+                <GenreBox onClick={() => openModal()} text="Rhumba" bgcolor="bg-blue-500" />
+                <GenreBox onClick={() => openModal()} text="Gengetone" bgcolor="bg-pink-400" />
+                <GenreBox onClick={() => openModal()} text="Kenyan" bgcolor="bg-pink-400" />
+                <GenreBox onClick={() => openModal()} text="Reggae" bgcolor="bg-orange-500" />
+                <GenreBox onClick={() => openModal()} text="Podcasts" bgcolor="bg-red-500" />
             </div>
             <div className="mx-4 w-full my-6">
                 <div>
                     <p>MUSIC TO GET YOU STARTED</p>
                     <RowContainer onClick={showMore} text='Popular' />
                     <div className="grid grid-cols-1 md:grid-cols-4 xs:grid-cols-3">
-                        {trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: Mix) => (
+                        {trendingMixes && trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: Mix) => (
                             <MusItem
                                 key={tmix.id}
                                 plays='32K'
-                                title={tmix?.owner.username??'Mix'}
+                                title={tmix?.owner.username ?? 'Mix'}
+                                onClick={() => openModal()}
                                 image={tmix && tmix.video_thumbnail ? tmix.video_thumbnail :
                                     'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />
                         ))}
@@ -114,13 +118,17 @@ function LandingPage() {
                 <div>
                     <RowContainer onClick={showMore} text='New Releases' />
                     <div className="flex flex-row gap-2">
-                        {latestMixes?.slice(0, 7).map((mix: Mix) => (
-                            <EasyAfterNoon key={mix.id} image={mix && mix.video_thumbnail ? mix.video_thumbnail :
-                                'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />
+                        {latestMixes?.slice(0, 7).map((mix: any) => (
+                            <EasyAfterNoon
+                                key={mix.id}
+                                onClick={() => openModal()}
+                                image={mix && mix.video_thumbnail ? mix.video_thumbnail :
+                                    'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />
                         ))}
                     </div>
                 </div>
             </div>
+            <SignModal isOpen={isModalOpen} onClose={closeModal} />
         </div>
     );
 }

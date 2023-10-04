@@ -15,7 +15,7 @@ const MyContent: React.FC = () => {
 
     return (
         <div className='flex'>
-            <div className="min-h-screen p-8 container mx-auto mt-8 p-4 ml-4 mr-4 mx-auto mt-4 bg-white gap-4 bg-auto bg-no-repeat bg-center rounded-lg">
+            <div className="min-h-screen p-8 container mx-auto mt-8 ml-4 mr-4  bg-white gap-4 bg-auto bg-no-repeat bg-center rounded-lg">
                 <div className="">
                     <ul className="flex space-x-20">
                         <li

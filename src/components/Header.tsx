@@ -9,10 +9,16 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
 import {useState } from "react";
-import { RootState } from "../app/store";
 import { logOut, setCredentials, switchUser } from "./auth/auth/authSlice";
 import { UserTypes } from "../types";
-import { useSelector } from 'react-redux';
+import { RootState } from "../app/store";
+
+// const ListItem = ({ text, currPath, path }: { text: string, currPath: string, path: string }) => (
+//     <NavLink style={({ isActive }) => { return { color: isActive ? '#FB5857' : '#4D4D56' } }} to={path} className='mx-[5px] md:mx-2'>
+//         <p className={``}>{text}</p>
+//         {path === currPath && (<p className="border-b-4 rounded-lg border-text-primary w-4 mx-auto text-center"></p>)}
+//     </NavLink>
+// );
 interface IHeaderProp {
     sideBarOpen: boolean
     setSideBarOpen: () => void
@@ -28,15 +34,12 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const location = useLocation().pathname;
     console.log(location);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const authState = useSelector((state: RootState) => state.persistAuth.auth);
-    const token = authState.access;
+    const token = authVal.access;
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
     const [displayUpgradeModal, setDisplayUpgradeModal] = useState(false);
-
-    // In the source application (http://localhost:3000)
 
     const [selectedValue, setSelectedValue] = useState("Content Creator");
     const handleSelectChange = (event : React.ChangeEvent<HTMLSelectElement>) => {

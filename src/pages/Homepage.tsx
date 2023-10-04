@@ -1,3 +1,7 @@
+import { useGetAllArtistsQuery } from "../app/api/GlobalApiSlice";
+import { Artist } from "../types";
+
+
 function getRandomColor() {
   const letters = "0123456789ABCDEF";
   let color = "#";
@@ -47,7 +51,8 @@ const topArt=[
     },
 ]
 function Homepage() {
-//   const topArtists = ["Harry", "Taylor", "Steve", "Mark", "Purity", "Ruth"];
+  const { data: allArtists } = useGetAllArtistsQuery([]);
+  console.log(allArtists)
 
   const genreItems = [
     "Hiphop",
@@ -61,9 +66,10 @@ function Homepage() {
   ];
 
     return (
-        <div className='container'>
+        
 
-            <div className='m-7 md:m-20'>
+        <div className='container'>
+            <div className='m-20'>
                 <div className='mb-2'>
                     <p className='text-universal-primary  md:text-3xl'>OUR FEATURES</p>
                 </div>
@@ -86,15 +92,13 @@ function Homepage() {
                     <p className='text-md opacity-60 hover:opacity-100 cursor-pointer'>More List</p>
                 </div>
 
-                <div className="flex flex-wrap justify-evenly md:justify-center">
-                    {topArt.map((item, index) => {
-
+                <div className="flex flex-wrap justify-center">
+                    {allArtists && allArtists.map((artist: Artist) => {
                         return (
-                            <div key={index} className='flex flex-col items-center p-1 cursor-pointer' >
-                                {/* <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div> */}
-                                <img src={item.img} alt="random" className="w-28 h-28 shadow-md rounded-lg" />
-                                <p className="uppercase text-sm">{item.name}</p>
-                                <p className="text-xs">{item.plays} PLAYS</p>
+                            <div className='flex flex-col items-center p-1 cursor-pointer' >
+                                <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
+                                <p className="uppercase">{artist.artist_stage_name}</p>
+                                <p>30M PLAYS</p>
                             </div>
                         );
                     })}
@@ -112,11 +116,10 @@ function Homepage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center">
-                        {topArt.map((it,index) => {
-                            console.log(it)
+                        {allArtists && allArtists.map((artist: Artist) => {
 
                             return (
-                                <div key={index} className='flex flex-col items-center p-1' >
+                                <div key={artist.id} className='flex flex-col items-center p-1' >
                                     <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
                                 </div>
                                 
