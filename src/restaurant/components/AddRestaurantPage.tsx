@@ -133,6 +133,12 @@ function AddRestaurantModal({ isOpen, onClose, isRegistrationSuccessFull }: { is
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                 },
+            }).then(response => {
+                if (response.status == 201) {
+                    setSubmitting(false)
+                    isRegistrationSuccessFull()
+                    close()
+                }
             }).catch(error => {
                 setSubmitting(false)
 

@@ -1,8 +1,6 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import TunycLogo from '../assets/tunyce_logo.png';
 import VideoScreen from './VideoPlay';
-import { useAppSelector } from "../app/hooks";
-import { RootState } from "../app/store";
 import '../App.css';
 
 
