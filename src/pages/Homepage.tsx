@@ -1,6 +1,7 @@
 import { useGetAllArtistsQuery } from "../app/api/GlobalApiSlice";
 import { Artist } from "../types";
-
+import { useEffect, useState } from "react";
+import { useGetAllGenresQuery } from "../app/features/content/contentApiSlice";
 
 function getRandomColor() {
   const letters = "0123456789ABCDEF";
@@ -50,9 +51,47 @@ const topArt=[
         img: "/W.png"
     },
 ]
+
+interface MusicGenre {
+    id: number;
+    name: string;
+    image: string;
+    description: string | null;
+}
+
 function Homepage() {
   const { data: allArtists } = useGetAllArtistsQuery([]);
   console.log(allArtists)
+
+    // const [genres, setAvailableGenres] = useState()
+    const [musicGenres, setMusicGenres] = useState<MusicGenre[]>([]);
+
+    console.log(musicGenres)
+
+    const {
+        data: genreItem,
+    } = useGetAllGenresQuery(1)
+   // console.log(genreItem.message);
+
+    // if (genreItems !== null) {
+    //     setMusicGenres(genreItems.message);
+    //     console.log(genreItems.message)
+    // }
+
+    useEffect(() => {
+        if(genreItem !== null) {
+
+            const data = {
+                ...genreItem
+            };
+
+            setMusicGenres(data.message);
+           // console.log(data)
+
+           //  console.log(genreItem)
+        }
+
+    }, [genreItem]);
 
   const genreItems = [
     "Hiphop",
@@ -135,20 +174,23 @@ function Homepage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center items-center">
-                        {genreItems.map((item, index) => {
+
+                        
+                        {musicGenres &&  musicGenres.map((genre) => {
                             const bgColor = getRandomColor();
                             const textColorClass = getContrastTextColor(bgColor);
+
                             return (
                                 <button
-                                    key={index}
+                                    key={genre.id}
                                     className={`px-5 py-4 m-2 rounded-full font-bold ${textColorClass}`}
                                     style={{ backgroundColor: bgColor }}
                                 >
-                                    {item}
+                                    {genre.name}
                                 </button>
-                            );
+                                
+                            )
                         })}
-
                     </div>
                 </div>
             </div>
