@@ -43,7 +43,7 @@ const SignModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
             </h2>
             <p>Download App</p>
             <p className="text-sm">Already have an account?</p>
-            <ButtonStyle text='Sign In' to='login' />
+            <ButtonStyle text='Sign In' to='/login' />
           </div>
         </div>
       </motion.div>
