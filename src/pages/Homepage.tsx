@@ -175,7 +175,7 @@ function Homepage() {
                     <div className="flex flex-wrap justify-center items-center">
 
                         
-                        {musicGenres.map((genre) => {
+                        {musicGenres &&  musicGenres.map((genre) => {
                             const bgColor = getRandomColor();
                             const textColorClass = getContrastTextColor(bgColor);
 
