@@ -1,7 +1,6 @@
 import {useGetAllMixesQuery} from "../app/api/GlobalApiSlice";
 import VideoItem from "./cards/videoItem";
 import SkeletonItem from "./cards/skeletonItem";
-import LazyLoad from 'react-lazyload';
 import { useEffect, useState } from "react";
 
 
@@ -35,7 +34,6 @@ const ExplorePage = () => {
               
               return(
 
-               <LazyLoad height={200} offset={100} key={mix.id}>
                  <VideoItem
                   title={`${mix?.name}`}
                   owner={`${mix?.owner?.username}`}
@@ -49,7 +47,6 @@ const ExplorePage = () => {
                   date={`${daysDifference} days ago`}
                   views={`${mix?.views} views`}               
                 />
-              </LazyLoad>
             )}
             ))}
         </div>
