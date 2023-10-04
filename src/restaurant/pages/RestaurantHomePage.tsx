@@ -1,7 +1,4 @@
 import {IoAdd } from 'react-icons/io5';
-
-import Backdrop from '../../components/Backdrop';
-import UploadIcon from '/uploadicon.svg';
 import { useEffect, useState } from 'react';
 import AddRestaurantModal from '../components/AddRestaurantPage';
 import { useNavigate } from 'react-router-dom';

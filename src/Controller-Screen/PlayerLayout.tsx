@@ -1,13 +1,13 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import TunycLogo from '../assets/tunyce_logo.png';
 import VideoScreen from './VideoPlay';
-import {useAppSelector } from "../app/hooks";
+import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import '../App.css';
 
 
-const PlayerLayout = () => {
-  const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
+const yout = () => {
+  // const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
 
   return (
     <div>
@@ -38,7 +38,7 @@ const PlayerLayout = () => {
 
       <div className='mt-36 w-2800 flex align-center justify-center video-container'>
 
-      <VideoScreen/>
+        <VideoScreen />
 
       </div>
 
@@ -47,4 +47,4 @@ const PlayerLayout = () => {
   );
 };
 
-export default PlayerLayout;
+export default yout;

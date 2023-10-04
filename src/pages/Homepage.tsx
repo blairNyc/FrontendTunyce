@@ -113,6 +113,7 @@ function Homepage() {
 
                     <div className="flex flex-wrap justify-center">
                         {topArt.map((it,index) => {
+                            console.log(it)
 
                             return (
                                 <div key={index} className='flex flex-col items-center p-1' >

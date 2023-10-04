@@ -7,7 +7,7 @@ import '../App.css'
 import Hls from 'hls.js';
 import 'video.js/dist/video-js.css'
 
-const VideoScreen = (props: any) => {
+const VideoScreen = () => {
  
   // const fullscreenRef = useRef<HTMLDivElement>(null)
 

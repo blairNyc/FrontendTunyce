@@ -45,15 +45,6 @@ interface Route {
   checkpoint: Checkpoint[];
 }
 
-type ErrorType = {
-  status: number,
-  data: {
-    [key: string]: string
-  }
-}
-
-
-
 function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: boolean, onClose: () => void, isRegistrationSuccessFull:() => void}) {
 
   if (!isOpen) return null;
