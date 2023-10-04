@@ -46,6 +46,14 @@ export const apiContentSlice = apiSlice.injectEndpoints({
                 method: 'get',
             }),
         }),
+
+        // get genres
+        getAllGenres : builder.query({
+            query : () => ({
+                url: '/genres/',
+                method : 'get'
+            })
+        })
         
         
     })
@@ -55,5 +63,6 @@ export const {
     useUpgradeToMatatuOwnerMutation,
     useUpgradeToRestaurantOwnerMutation,
     // useCreateMatatuMutation
-    useLoginAsControllerMutation
+    useLoginAsControllerMutation,
+    useGetAllGenresQuery
 } = apiContentSlice;
