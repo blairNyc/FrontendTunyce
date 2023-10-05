@@ -1,6 +1,7 @@
 import { mainApiSlice } from '../../api/apiSlice'
 
 export const apiContentSlice = mainApiSlice.injectEndpoints({
+    
     endpoints: (builder) => ({
         //gets all content creators
         // upgrade matatu
@@ -12,7 +13,7 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
         }),
         loginAsController: builder.mutation({
             query: (data) => ({
-                url: '/matatu/controller/login/',
+                url: 'matatu/controller/login/',
                 method: 'post',
                 body: {
                     uuid: data.uuid,
