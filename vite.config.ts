@@ -7,6 +7,7 @@ export default defineConfig({
   server:{
     cors:true,
     host:true,
+    port: 5179
   },
   build: {
     outDir: 'dist',
