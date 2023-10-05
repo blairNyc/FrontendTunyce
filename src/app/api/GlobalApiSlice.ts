@@ -47,16 +47,11 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     getLatestMusic: builder.query({
       query: () => ({
-        url: 'media/video/latest/',
+        url: 'media/video/',
         method: 'get',
       }),
       transformResponse: (response:MusicItemProp[]) => {
-        //return response if media url is from youtube
-        return response.map((item) => {
-          if (item.media.media_url.includes('youtube')) {
-            return item;
-          }
-        });
+        return response.filter((item) =>item.media.media_url.includes('youtube'));
       }
     }),
 
