@@ -79,7 +79,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     switchVideo: builder.mutation({
       query: (id) => ({
-        url: `matatu/switch_content/${id}/`,
+        url: `matatu/switch_content/${id}/12/`,
         method: 'post',
       }),
     }),
@@ -96,7 +96,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     getPlayingLink: builder.mutation({
       query: () => ({
-        url: `matatu/get_content`,
+        url: `matatu/get_content/12/`,
         method: 'get',
       }),
     }),

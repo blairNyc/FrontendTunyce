@@ -47,21 +47,27 @@ export default function ControllerLogin() {
             password: data.password,
         }
         console.log(userData);
+       
         try {
             const response = await loginAsController(userData).unwrap();
             console.log(response)
-            dispatch(setControllerCredentials({
-                controller:{
-                    ...response.data
-                }
-            }))
-            dispatch(switchUser('is_controller'))
-            navigate('/controller-creators');
+            // console.log("here jjjjj")
+            // // console.log(response)
+
+            // navigate('/explore');
+            // dispatch(setControllerCredentials({
+            //     controller:{
+            //         ...response.data
+            //     }
+            // }))
+            // dispatch(switchUser('is_controller'))
+         
         } catch (error ) {
+            console.log("here jjjjj")
             return;
         }
     }
-    console.log('Error',isError,status,resErr);
+    // console.log('Error',isError,status,resErr);
     return (
         <>
             {isError &&

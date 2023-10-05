@@ -24,7 +24,9 @@ const VideoScreen = () => {
 
   if (isError) return <div>Error</div>;
   console.log(error)
-  const mediaUrl = data?.url?.media_url;
+//   const mediaUrl = data?.url?.media_url;
+  
+  const mediaUrl = "https://www.youtube.com/watch?v=cXzYWEFib4M";
 
   if (!mediaUrl) return <div>No media URL available.</div>;
 

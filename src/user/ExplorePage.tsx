@@ -3,7 +3,7 @@ import {useGetAllMixesQuery, useGetAllTrendingMixesQuery,useSwitchVideoMutation}
 import { Link } from 'react-router-dom';
 import { Mix } from "../types";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
-
+import { BsFillPlayFill } from "react-icons/bs";
 interface CommonProps{
     title?: string
     owner?: string
@@ -35,6 +35,14 @@ export const FeaturedItem = ({title,children,additionalStyles, owner,srcUrl}:Com
                 {`${title?.slice(0, 20)}...`}
             </h4>
             <p className="text-center">{owner}</p>
+            <div className="flex">
+              <button className=" sm:text-sm md:text-md lg:text-xl">
+                <BsFillPlayFill />
+              </button>
+              <button className=" sm:text-sm md:text-md lg:text-xl ml-1">
+                Play
+              </button>
+            </div>
         </div>
         {children}
     </div>
@@ -46,6 +54,14 @@ export const MusicItem = ({path,owner,srcUrl,title}:CommonProps)=>(
              {`${title?.slice(0, 20)}...`}
         </h4>
         <p className="uppercase text-xs">{owner}</p>
+        <div className="flex">
+              <button className=" sm:text-sm md:text-md lg:text-xl">
+                <BsFillPlayFill />
+              </button>
+              <button className=" sm:text-sm md:text-md lg:text-xl ml-1">
+                Play
+              </button>
+        </div>
     </Link>
 )
 export const RowScroll = ({children}:CommonProps)=>(
@@ -90,11 +106,12 @@ const ExplorePage = () => {
                             [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                         ):(
                             trendingMixes?.map((mix: Mix) => (
-                                <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl={
-                                    mix && mix?.video_thumbnail
-                                        ? mix?.video_thumbnail
-                                        : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
-                                    }
+                                <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                                // {
+                                //     mix && mix?.video_thumbnail
+                                //         ? mix?.video_thumbnail
+                                //         : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
+                                //     }
                                     onClick={() => handleItemClick(mix.id)}
                                 />
                             ))
@@ -118,12 +135,9 @@ const ExplorePage = () => {
                                     <MusicItem
                                         title={`${mix?.name}`}
                                         owner={`${mix?.owner?.username}`}
-                                        srcUrl={mix && mix?.video_thumbnail
-                                            ? mix?.video_thumbnail
-                                            : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'} onClick={function (): void {
-                                                throw new Error("Function not implemented.");
-                                            } 
-                                        }                                
+                                        srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                                        
+                                        onClick={() => handleItemClick(mix.id)}                               
                                     />
                                 )
                         ))}
@@ -141,11 +155,15 @@ const ExplorePage = () => {
                         <MusicItem
                             title={`${mix?.name}`}
                             owner={`${mix?.owner?.username}`}
-                            srcUrl={mix && mix?.video_thumbnail
-                                 ? mix?.video_thumbnail
-                                 : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'} onClick={function (): void {
-                                     throw new Error("Function not implemented.");
-                            }}                                
+                            srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                            // {mix && mix?.video_thumbnail
+                            //      ? mix?.video_thumbnail
+                            //      : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'} 
+                           
+                            onClick={function (): void {
+                                      throw new Error("Function not implemented.");
+                             }
+                        }                                
                         />
                         ))}
                 </div>
