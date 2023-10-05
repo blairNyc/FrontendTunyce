@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import {useForm,SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useLoginAsControllerMutation } from '../../app/features/content/contentApiSlice';
+import { useLoginAsControllerMutation } from '../../app/api/apiAuthorizationSlice';
 import { useAppDispatch } from '../../app/hooks';
 import { switchUser } from '../auth/auth/authSlice';
 import { SnackBar } from '../auth/userLogin';
 import LoadingSpinner from '../LoadingSpinner';
 import { setControllerCredentials } from '../../app/features/controller';
+import { setCredentials } from '../auth/auth/authSlice';
+import { useLoginUserMutation } from '../../app/api/apiAuthorizationSlice';
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement>{}
 export const TextInput = ({id,type,placeholder,...rest}:TextInputProps)=>(
     <input 
@@ -40,6 +42,8 @@ export default function ControllerLogin() {
     const {handleSubmit,register,formState: { errors }} = useForm<registrationInput>({
       resolver: yupResolver(schema),
     })
+
+    // const [loginUser,{isError,isLoading, resErr}] = useLoginUserMutation()
     const dispatch = useAppDispatch();
     const onSubmit:SubmitHandler<registrationInput> = async (data: {uuid:string,password:string}) => {
         const userData = {
@@ -48,16 +52,21 @@ export default function ControllerLogin() {
         }
         console.log(userData);
         try {
-            const response = await loginAsController(userData).unwrap();
+            console.log("running thiss")
+            const response = await loginAsController(userData).unwrap()
+            
             console.log(response)
+            
             dispatch(setControllerCredentials({
                 controller:{
                     ...response.data
                 }
             }))
             dispatch(switchUser('is_controller'))
-            navigate('/controller-creators');
+            navigate('/explore');
+
         } catch (error ) {
+            console.log(error)
             return;
         }
     }
@@ -65,7 +74,7 @@ export default function ControllerLogin() {
     return (
         <>
             {isError &&
-                Object.values((resErr as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err??'Error encountered'} />)
+               Object.values((error as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err} />)
             }
             {
                 isLoading &&(
@@ -128,5 +137,4 @@ export default function ControllerLogin() {
         </>   
     )
 }
-
 

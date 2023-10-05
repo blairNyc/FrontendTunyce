@@ -1,9 +1,24 @@
 import { BiShuffle } from "react-icons/bi";
 import { BsFillPlayFill } from "react-icons/bs";
-import { useGetAllMixesQuery } from "../app/api/GlobalApiSlice";
+import { useGetAllMixesQuery, useSwitchVideoMutation } from "../app/api/GlobalApiSlice";
 import { Mix } from "../types";
 const MixesPage = () => {
   const { data: allMixes,isLoading:isLoadingMix } = useGetAllMixesQuery(1)
+   const [switchVideoMutation] = useSwitchVideoMutation();
+
+    const handleItemClick = async (id: string) => {
+      try {
+        const result = await switchVideoMutation({ variables: { id } });
+    
+        if ('data' in result) {
+          console.log('Mutation response:', result.data);
+        } else if ('error' in result) {
+          console.error('Mutation error:', result.error);
+        }
+      } catch (error) {
+        console.error('Mutation error:', error);
+      }
+  };
   return (
     <>
       <div className="container">
@@ -14,7 +29,7 @@ const MixesPage = () => {
           </div>
           <div className="flex gap-x-5 text-red-600">
             <div className="flex">
-              <button className=" sm:text-sm md:text-md lg:text-xl">
+              <button className=" sm:text-sm md:text-md lg:text-xl" >
                 <BsFillPlayFill />
               </button>
               <button className=" sm:text-sm md:text-md lg:text-xl ml-1">
@@ -59,6 +74,14 @@ const MixesPage = () => {
                         className="w-full h-32 rounded-md shadow-md"
                     />
                   {/* <div className="bg-gray-300 hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div> */}
+                  <div className="flex">
+                    <button className=" sm:text-sm md:text-md lg:text-xl" onClick={() => handleItemClick(mix.id)}>
+                      <BsFillPlayFill />
+                    </button>
+                    <button className=" sm:text-sm md:text-md lg:text-xl ml-1" onClick={() => handleItemClick(mix.id)}>
+                      Play
+                    </button>
+                  </div>
                   <div className="">
                     <p className="text-base font-bold">{mix.name.slice(0,10)}...</p>
                     <p className="text-sm">{mix.owner.username}</p>

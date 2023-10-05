@@ -18,10 +18,25 @@ export const usersApi = createApi({
       invalidatesTags: ['GetUsers']
     }),
 
+    loginAsController: builder.mutation({
+      query: (data) => ({
+          url: 'matatu/controller/login/',
+          method: 'post',
+          body: {
+              uuid: data.uuid,
+              password: data.password,
+          }
+      }),
+      
+      invalidatesTags: ['GetUsers']
+  }),
+
 
   })
 });
 
 export const {
+  
+  useLoginAsControllerMutation,
   useLoginUserMutation,
 } = usersApi

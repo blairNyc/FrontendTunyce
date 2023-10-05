@@ -52,30 +52,30 @@ function Sidebar({toggleSideBar}:Props) {
             <div className="w-full">
                 <h2 className="text-lg font-medium ml-3 mt-3">MENU</h2>
                 <ul className="w-full">
-                    <NavElement path="/home" name="Discover">
+                    <NavElement path="explore" name="Discover">
                         <GoHomeFill className="text-xl" />
                     </NavElement>
-                    <NavElement path="/creators" name="Creators">
+                    {/* <NavElement path="/creators" name="Creators">
                         <BsPeopleFill className="text-xl" />
-                    </NavElement>
-                    <NavElement path="explore" name="Explorer">
+                    </NavElement> */}
+                    {/* <NavElement path="explore" name="Explorer">
                         <FaCompass className="text-xl" />
-                    </NavElement>
-                    <NavElement path="/player" name="Search">
+                    </NavElement> */}
+                    {/* <NavElement path="/player" name="Search">
                         <FiSearch className="text-xl" />
-                    </NavElement>
+                    </NavElement> */}
                 </ul>
                 <h2 className="text-lg font-medium ml-3 mt-3">LIBRARY</h2>
                 <ul>
-                    <NavElement path="music" name="Music">
+                    {/* <NavElement path="music" name="Music">
                         <BsMusicNoteBeamed className="text-xl" />
-                    </NavElement>
+                    </NavElement> */}
                     <NavElement path="mixes" name="Mixes">
                         <FaDeezer className="text-xl" />
                     </NavElement>
-                    <NavElement name="Artists">
+                    {/* <NavElement name="Artists">
                         <BsFillPersonFill className="text-xl" />
-                    </NavElement>
+                    </NavElement> */}
                 </ul>
                 {/* <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
                 <ul>

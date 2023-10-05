@@ -32,7 +32,7 @@ const schema = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
 }).required()
-export default function UserLogin() {
+export default function PlayerLogin() {
     const access = useAppSelector((state: RootState) => state.persistAuth.auth.access);
     const curr = useAppSelector((state:RootState)=>state.persistAuth.auth.curr_loggedin_user);
     const navigate = useNavigate()
