@@ -10,8 +10,6 @@ import { switchUser } from '../auth/auth/authSlice';
 import { SnackBar } from '../auth/userLogin';
 import LoadingSpinner from '../LoadingSpinner';
 import { setControllerCredentials } from '../../app/features/controller';
-import { setCredentials } from '../auth/auth/authSlice';
-import { useLoginUserMutation } from '../../app/api/apiAuthorizationSlice';
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement>{}
 export const TextInput = ({id,type,placeholder,...rest}:TextInputProps)=>(
     <input 
@@ -74,7 +72,7 @@ export default function ControllerLogin() {
     return (
         <>
             {isError &&
-               Object.values((error as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err} />)
+               Object.values((resErr as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err} />)
             }
             {
                 isLoading &&(
