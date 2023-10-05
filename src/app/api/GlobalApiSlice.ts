@@ -1,3 +1,4 @@
+import { MusicItemProp } from '../../types'
 import { apiSlice } from './apiSlice'
 
 export const apiVenuesSlice = apiSlice.injectEndpoints({
@@ -49,6 +50,14 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         url: 'media/video/latest/',
         method: 'get',
       }),
+      transformResponse: (response:MusicItemProp[]) => {
+        //return response if media url is from youtube
+        return response.map((item) => {
+          if (item.media.media_url.includes('youtube')) {
+            return item;
+          }
+        });
+      }
     }),
 
     // get all latest mixes

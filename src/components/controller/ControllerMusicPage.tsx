@@ -64,7 +64,10 @@ import React from "react";
 export default function ControllerMusicPage(){
     const {data,isError:isErrorMusicFetch,  isLoading}=useGetLatestMusicQuery(1);
     const [switchContent,{isLoading:isLoadingSwitch, isSuccess, isError,error}] = useSwitchContentMutation()
-    const d = useAppSelector((state:RootState)=>state.persistController.controller.matatu.id);
+    let d = useAppSelector((state:RootState)=>state.persistController.controller.matatu.id);
+    if(!d){
+        d = 1;
+    }
     const [openModal,setOpenModal] = React.useState(false);
     const handleSwitchContent = async (mediaUrl:string|number)=>{
         console.log('Attempting to swtich music')
@@ -82,7 +85,7 @@ export default function ControllerMusicPage(){
             return;
         }
     }
-    console.log('Error',isError,error);
+    console.log('Error',data);
     return (
         <>
             {isLoadingSwitch&&<LoadingSpinner/>}
@@ -123,16 +126,16 @@ export default function ControllerMusicPage(){
                     isLoading?(
                         [1,2,3].map((id)=><LoadingSkeleton key={id}/>)
                     ):(<div className="ml-10 mr-10 mx-auto mt-5 flex flex-col">
-                            { data?.map((music:MusicItemProp,id:number)=>(
+                            { data?.map((music:MusicItemProp | undefined,id:number)=>(
                                 <MusicItem 
-                                    video_thumbnail={music.video_thumbnail} 
-                                    name={music.name}
-                                    description={music.description}
-                                    id={music.id}
-                                    media={music.media}
+                                    video_thumbnail={music?.video_thumbnail?music?.video_thumbnail.includes('tunyce')?'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60':music?.video_thumbnail:''} 
+                                    name={music?.name?music.name:''}
+                                    description={music?.description?music?.description:'Music Description'}
+                                    id={Math.floor((Math.random() * 100) + 1)}
+                                    media={music?.media?music.media:{id:Math.floor((Math.random() * 100) + 1),media_url:'https://www.youtube.com/watch?v=ft18dshHRTc'}}
                                     onClick={handleSwitchContent}
-                                    owner={music.owner} 
-                                    key={id}
+                                    owner={music?.owner?music.owner:{email:'',id:Math.floor((Math.random() * 100) + 1),username:''}} 
+                                    key={id?id:Math.floor((Math.random() * 1000) + 1)}
                                 />
                             ))}
                         </div>)
