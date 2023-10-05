@@ -8,7 +8,7 @@ interface Credentials {
         access: string | null;
         username: string;
         [key: string]: string | null | boolean;
-        curr_loggedin_user: keyof UserTypes | ""
+        curr_loggedin_user: keyof UserTypes | "";
     }
 }
 const INITIAL_STATE: Credentials={
@@ -31,7 +31,7 @@ const authSlice = createSlice({
                 state.auth.is_normaluser = true;
                 state.auth.curr_loggedin_user="is_normaluser";
             }
-            if (action.payload.auth.is_restaunt) {
+            if (action.payload.auth.is_restraunt) {
                 state.auth.is_restaunt = true;
             }
             if (action.payload.auth.is_superuser) {
@@ -59,6 +59,14 @@ const authSlice = createSlice({
             state.auth.refresh = null;
             state.auth.username = '';
             state.auth.id = null;
+            state.auth.curr_loggedin_user = "";
+            delete state.auth.is_normaluser;
+            delete state.auth.is_restaunt;
+            delete state.auth.is_superuser;
+            delete state.auth.is_matatu;
+            delete state.auth.is_filmmaker;
+            delete state.auth.is_contentcreator;
+            delete state.auth.is_recordlabel;
         },
         switchUser: (state,action: PayloadAction<keyof UserTypes>)=>{
             state.auth.curr_loggedin_user = action.payload

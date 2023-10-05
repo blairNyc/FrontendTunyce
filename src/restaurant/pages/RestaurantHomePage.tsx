@@ -1,94 +1,145 @@
 import {IoAdd } from 'react-icons/io5';
-import Backdrop from '../../components/Backdrop';
-import UploadIcon from '/uploadicon.svg';
-import { useState } from 'react';
-export const FeaturedItem = ({title}:{title:string})=>(
-    <div className={`w-1/3 min-w-[280px] mx-3 relative flex flex-col cursor-pointer items-center justify-end pb-4 h-44`}>
-        <img src="https://picsum.photos/200/300" alt="" className="w-full absolute top-0 left-0 rounded-xl h-full object-center"/>
+import { useEffect, useState } from 'react';
+import AddRestaurantModal from '../components/AddRestaurantPage';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
+import axios from 'axios';
+
+interface RestaurantData {
+    id: number;
+    name: string;
+    capacity: number;
+    image_exterior: string;
+    image_interior: string;
+    created_at: string;
+    is_trial: boolean;
+    owner: number;
+    control: number;
+    location: number;
+}
+
+export const FeaturedItem = ({title, imageLink}:{title:string, imageLink : string})=>(
+    <div className={`w-1/3 min-w-[280px] mx-3 relative flex flex-col cursor-pointer items-center justify-end pb-4 h-48`}>
+        <img src={imageLink} alt="" className="w-full absolute top-0 left-0 rounded-xl h-full object-center"/>
        <div className="absolute  ">
             <h4 className="text-white text-center font-bold text-xl">{title}</h4>
         </div>
     </div>
 );
-interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement>{}
-const TextInput=({value,name, ...rest}:TextInputProps)=>(
-    <input 
-        type="text" 
-        {...rest}
-        className="border-none my-2 mx-3 bg-gray-300 rounded-lg px-2 py-2 outline-none"
-        value={value}
-        name={name}
-    />
-)
-export const NewRestaurantModal = ({toggleModal}:{toggleModal:()=>void})=>{
-    return(
-        <Backdrop>
-            <div className='relative w-full overflow-hidden flex flex-col justify-start items-start h-full'>
-                <div className='bg-white rounded-lg m-auto h-4/5 w-1/2'>
-                    <form className='w-full relative flex flex-col items-center justify-center'>
-                        <p className='mt-2 font-bold text-center'>NEW RESTAURANT</p>
-                        <button className='absolute rounded border border-text-primary mx-2 px-1 hover:bg-slate-300 top-1 right-0 text-2xl text-text-primary' onClick={toggleModal}>X</button>
-                        <div className='grid grid-cols-2 my-4 mx-4'>
-                            <TextInput placeholder='Name' value='' name='search'/>
-                            <TextInput placeholder='Sitting Capacity' value='' name='search'/>
-                            <div className='mx-3 my-2'>
-                                <select id="countries" className="bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-text-primary focus:border-text-primary block w-full  dark:bg-gray-700 dark:border-text-primary dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected>Choose Location</option>
-                                    <option value="US">Ngong road</option>
-                                    <option value="CA">Ngara road</option>
-                                    <option value="FR">France</option>
-                                    <option value="DE">Germany</option>
-                                </select>
-                            </div>
-                            <div className='px-3'>
-                                <p className='font-bold'>Please set your preferred Controller and Player Password</p>
-                                <TextInput placeholder='Controller Password' value='' name='search'/>
-                                <TextInput placeholder='Player Password' value='' name='search'/>
-                            </div>
-                            <div className='mx-2'>
-                                <p className='font-bold'>Photo Interior</p>
-                                <div className='border border-black h-40 border-dashed flex flex-col items-center justify-center'>
-                                    <img src={UploadIcon} alt="" className='w-20 h-20'/>
-                                    <p className='text-lg font-bold'>Drag & drop files or <span className='text-text-primary underline'>Browse</span></p>
-                                    <p className='text-text-primary font-light text-sm'>Supported formats: JPEG, PNG, JPG</p>
-                                </div>
-                            </div>
-                            <div className='mx-2'>
-                                <p className='font-bold '>Photo Interior</p>
-                                <div className='border border-black h-40 border-dashed flex flex-col items-center justify-center'>
-                                    <img src={UploadIcon} alt="" className='w-20 h-20'/>
-                                    <p className='text-lg font-bold'>Drag & drop files or <span className='text-text-primary underline'>Browse</span></p>
-                                    <p className='text-text-primary font-light text-sm'>Supported formats: JPEG, PNG, JPG</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button className='bg-text-primary py-1 w-3/5 text-center font-bold text-white px-3 rounded-md'>Register Matatu</button>
-                    </form>
-                </div>
-            </div>
-        </Backdrop>
-    )
-}
+
 function RestaurantHomePage() {
-    const [openModal,setOpenModal] = useState(false);
-    const toggleModal = ()=>{setOpenModal(!openModal)};
+
+    const navigate = useNavigate();
+
+    const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+
+    const [data, setRestaurantData] = useState<any>()
+
+    const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // setIsLoading(true)
+
+                const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/restaurant/restaurants', {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
+                });
+
+                const data = responseRoute.data;
+                // console.log(data)
+
+                setRestaurantData(data.message)
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+               //  setIsLoading(false);
+            }
+        };
+
+        fetchData();
+
+    }, [userToken]);
+
+    const handleSuccessClosing = () => {
+        setDisplaySuccessNotification(false);
+    }
+
+    const handleClick = (restaurantId: any) => {
+        navigate(`/restaurant-details/${restaurantId}`)
+    }
+
+    
+
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+    const closeModal = () => { setIsModalOpen(false) };
+
+    const successRegistration = () => {
+        setIsModalOpen(false);
+
+        setDisplaySuccessNotification(true)
+        const timer = setTimeout(() => {
+            setDisplaySuccessNotification(false)
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }
+
+
+
     return (
         <>
-            {openModal && <NewRestaurantModal toggleModal={toggleModal} />}
+            {/* {openModal && <NewRestaurantModal toggleModal={toggleModal} />} */}
+           
             <div className='w-full mt-8 h-full'>
                 <div className='w-full flex items-center justify-between'>
                     <h2 className="text-2xl text-text-primary font-bold">My Restaurants</h2>
-                    <button onClick={toggleModal} className="flex items-center justify-between font-bold text-text-primary">
+                    <button onClick={openModal} className="flex items-center justify-between font-bold text-text-primary">
                         <IoAdd className='text-xl border-2 rounded-md border-text-primary mx-2'/>
                         New Restaurant
                     </button>
                 </div>
                 <div className="w-full mt-5 flex items-center no-scrollbar overflow-x-auto">
-                    <FeaturedItem title="Heart want what it wants" />
-                    <FeaturedItem title="Live Water" />
-                    <FeaturedItem title="Anyone" />
+                    {data?.map((restaurant: RestaurantData) => (
+                        <div onClick={() => {
+                            const restaurantId: any = restaurant.id
+                            handleClick(restaurantId)
+                        }} className="hover:cursor-pointer">
+                            <FeaturedItem title={restaurant.name} imageLink="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" />
+                        </div>
+                    ))}
                 </div>
             </div>
+
+            <AddRestaurantModal isOpen={isModalOpen} onClose={closeModal} isRegistrationSuccessFull={successRegistration} />
+
+            {
+                displaySuccessNotification &&
+                <div className="absolute right-10 top-10 z-50">
+                    <div id="toast-success" className="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+                        <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                            </svg>
+                            <span className="sr-only">Check icon</span>
+                        </div>
+                        <div className="ml-3 text-sm font-normal">Matatu Created Successfully</div>
+                        <button type="button" onClick={handleSuccessClosing} className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                            <span className="sr-only">Close</span>
+                            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            }
         </>
     );
 }

@@ -3,6 +3,7 @@
 import { BiChevronLeftCircle, BiChevronRightCircle } from 'react-icons/bi';
 import { useGetAllTrendingMixesQuery, useGetLatestMusicQuery } from '../app/api/GlobalApiSlice';
 import { useState } from 'react';
+import { Mix } from '../types';
 import SignModal from './SignModal';
 
 
@@ -51,15 +52,15 @@ const MusItem = ({ plays, title, image, onClick }: { plays: string, title: strin
         <img src={image} alt="tunyce media" className="min-w-1/4 max-h-12 rounded-xl" />
         <div className="ml-3 w-3/4">
             <h4 className="text-sm uppercase font-bold">{title}</h4>
-            <p className="">{plays}Plays</p>
+            <p className="">{plays}</p>
         </div>
     </div>
 )
 
 
 function LandingPage() {
-    const { data: latestMixes } = useGetLatestMusicQuery([]);
-    const { data: trendingMixes } = useGetAllTrendingMixesQuery([]);
+    const { data: latestMixes, isLoading: isLoadingMixes } = useGetLatestMusicQuery([]);
+    const { data: trendingMixes, isLoading: isLoadingTrending } = useGetAllTrendingMixesQuery([]);
     const [visibleItems, setVisibleItems] = useState(9);
     const [isModalOpen, setIsModalOpen] = useState(false);
     console.log(trendingMixes);   
@@ -67,10 +68,6 @@ function LandingPage() {
     const showMore = () => {
         // Go to next page
         setVisibleItems((prevVisibleItems) => prevVisibleItems + 9);
-    };
-    const showPreviousItems = () => {
-        // Go back
-        setVisibleItems((prevVisibleItems) => Math.max(prevVisibleItems - 9, 9));
     };
 
     const openModal = () => {
@@ -83,7 +80,15 @@ function LandingPage() {
 
 
     return (
-        <div className='w-full h-full py-8'>
+        <div className='w-full h-full py-3'>
+            <header className="w-full flex mb-3 items-center justify-between">
+                <div className="flex items-center justify-between rounded-2xl px-2 w-4/5 md:w-1/3 bg-gray-200">
+                </div>
+                <div className="hidden md:flex md:flex-row flex-col items-center">
+                    <a href="/register" className="border cursor-pointer px-4 my-2 rounded-2xl border-black ">Sign Up</a>
+                    <a href="/login" className="px-4 py-1 my-2 mx-3 bg-text-primary rounded-2xl text-white font-semibold">Sign In</a>
+                </div>
+            </header>
             <div className="flex flex-row flex-wrap">
                 <GenreBox onClick={() => openModal()} text="Hip hop" bgcolor="bg-pink-400" />
                 <GenreBox onClick={() => openModal()} text="Afro pop" bgcolor="bg-red-500" />
@@ -104,7 +109,7 @@ function LandingPage() {
                             <MusItem
                                 key={tmix.id}
                                 plays='32K'
-                                title={tmix?.owner.username}
+                                title={tmix?.owner.username ?? 'Mix'}
                                 onClick={() => openModal()}
                                 image={tmix && tmix.video_thumbnail ? tmix.video_thumbnail :
                                     'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} />

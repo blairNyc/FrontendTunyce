@@ -1,31 +1,36 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
-import { FaRegBell } from "react-icons/fa6";
+// import { FaRegBell } from "react-icons/fa6";
 import { BsChevronDown } from "react-icons/bs";
-import { PiShoppingCartSimpleBold } from "react-icons/pi";
+// import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import TunycLogo from '../assets/tunyce_logo.png';
+import TunycDarkLogo from '../assets/tunyce_logo.svg'
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
-import { useState } from "react";
+import {useState } from "react";
+import { logOut, setCredentials, switchUser } from "./auth/auth/authSlice";
+import { UserTypes } from "../types";
 import { RootState } from "../app/store";
-import { setCredentials } from "./auth/auth/authSlice";
-const ListItem = ({ text, currPath, path }: { text: string, currPath: string, path: string }) => (
-    <NavLink style={({ isActive }) => { return { color: isActive ? '#FB5857' : '#4D4D56' } }} to={path} className='mx-[5px] md:mx-2'>
-        <p className={``}>{text}</p>
-        {path === currPath && (<p className="border-b-4 rounded-lg border-text-primary w-4 mx-auto text-center"></p>)}
-    </NavLink>
-);
+
+// const ListItem = ({ text, currPath, path }: { text: string, currPath: string, path: string }) => (
+//     <NavLink style={({ isActive }) => { return { color: isActive ? '#FB5857' : '#4D4D56' } }} to={path} className='mx-[5px] md:mx-2'>
+//         <p className={``}>{text}</p>
+//         {path === currPath && (<p className="border-b-4 rounded-lg border-text-primary w-4 mx-auto text-center"></p>)}
+//     </NavLink>
+// );
 interface IHeaderProp {
     sideBarOpen: boolean
     setSideBarOpen: () => void
 }
-
 function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
     const dispatch = useAppDispatch()
-    const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
+    const isMatOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_matatu);
+    const isResOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_restaunt);
+    // const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
     const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
+
     const location = useLocation().pathname;
     console.log(location);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -37,44 +42,46 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const [displayUpgradeModal, setDisplayUpgradeModal] = useState(false);
 
     const [selectedValue, setSelectedValue] = useState("Content Creator");
-    const handleSelectChange = (event: any) => {
+    const handleSelectChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(event.target.value);
     };
-
+    const authVals = useAppSelector((state:RootState)=>state.persistAuth.auth);
     const [upgradeMatatu] = useUpgradeToMatatuOwnerMutation()
     const [upgradeRestaurant] = useUpgradeToRestaurantOwnerMutation()
-
-    const onSubmitUpgrade = async (selectedValue: any) => {
-
+    const onSubmitUpgrade = async (selectedValue : string) => {
         try {
             if (selectedValue == "Matatu Owner") {
-                dispatch(upgradeMatatu)
+                const response = await dispatch(upgradeMatatu)
+                console.log(response);
+                dispatch(setCredentials({
+                    auth:{
+                        ...authVals,
+                        is_matatu: true
+                    }
+                }))   
             } else if (selectedValue == "Restaurant Owner") {
-                dispatch(upgradeRestaurant)
+                const response = await dispatch(upgradeRestaurant);
+                dispatch(setCredentials({
+                    auth:{
+                        ...authVals,
+                        is_restaunt: true
+                    }
+                }))
+                console.log("Restaurant Owner",response);
             }
         } catch (error) {
             console.log(error)
         }
-
-
-
     };
     const navigate = useNavigate();
-    const switchAccountHandler = () => {
+    const switchAccountHandler = (accountType: keyof UserTypes)=>{
         try {
-
-            dispatch(setCredentials({
-                auth: {
-                    curr_loggedin_user: 'is_matatu',
-                    access: authVal.access,
-                    refresh: authVal.refresh,
-                    username: authVal.username,
-                    // is_normaluser: authVal.is_normaluser
-                }
-            }));
-            navigate('/matatu');
+            dispatch(switchUser(accountType));
+            if (accountType == "is_matatu") navigate('/matatu');
+            else if (accountType == "is_restaunt") navigate('/restaurant');
+            return;
         } catch (error) {
-
+            console.log(error);
         }
     }
 
@@ -86,20 +93,37 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
         }
     };
 
+    const onLogout = async () => {
+        dispatch(logOut());
+        navigate('/');
+    };
 
     const DropdownMenu = () => (
         <div id="dropdownAvatarName" className="z-50 absolute right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                <div className="font-medium ">John Doe</div>
-                <div className="truncate">johndoe@gmail.com</div>
+                <div className="font-medium ">{authVal.username}</div>
+                <div className="truncate">mail@mail.com</div>
             </div>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
-                    {isMatOwner ? (<a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    {isMatOwner ? (
+                    
+                    <><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            onClick={() => {
+                                switchAccountHandler('is_matatu');
+                                setIsDropdownOpen(false);
+                            } }
+                        >Manage Fleet</a>
+                        <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link>
+                   </>   
+                    
+                    ) : null
+                    }
+                    {isResOwner ? ( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
-                            switchAccountHandler()
+                            switchAccountHandler('is_restaunt')
                         }}
-                    >Switch to Matatu owner</a>) : null
+                        >Switch to Restaurant owner</a>):null
                     }
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
@@ -121,6 +145,14 @@ window.location.href = `http://localhost:5173/?token=${token}`;
             <div className="py-2">
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
+                        setIsDropdownOpen(false)
+                    }}
+                >Advertise</a>
+            </div>
+            <div className="py-2">
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onClick={() => {
+                        onLogout()
                         setIsDropdownOpen(false)
                     }}
                 >Sign out</a>
@@ -194,34 +226,42 @@ window.location.href = `http://localhost:5173/?token=${token}`;
             <header className="w-full flex items-center justify-between">
                 <div className="flex items-center">
                     <AiOutlineMenu onClick={setSideBarOpen} className="text-2xl text-black" />
-                    <img src={TunycLogo} alt="" className={`w-10  h-auto ${sideBarOpen ? 'hidden' : 'block'} mx-2 rounded-full object-contain`} />
+                    <img src={TunycLogo} alt="" className={`w-24  h-auto ${sideBarOpen ? 'hidden' : 'block'} mx-2l object-contain`} />
                 </div>
-                <ul className='list-none hidden md:flex items-center'>
-                    <ListItem text='Music' currPath={location} path="/music" />
-                    <ListItem text='Podcast' currPath={location} path="/podcasts" />
-                    <ListItem text='Live' currPath={location} path="/live" />
-                </ul>
-                <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/3  bg-gray-200">
-                    <input type="text" placeholder="Search" className="border-2 bg-inherit rounded-lg px-2 py-0 outline-none" />
-                    <FiSearch className="text-2xl text-black mx-2" />
+                <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/2">                    
+                    <form className="w-full">   
+                        <div className="relative w-full">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                            <input type="search" id="default-search" className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Artists, Mixes..." required></input>
+                            <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                        </div>
+                    </form>
                 </div>
+                <img src={TunycDarkLogo} alt="" className={`w-20  h-auto md:hidden  object-contain`} />
                 <div className="hidden md:flex items-center h-full cursor-pointer justify-between">
                     <div className="flex items-center mr-8">
-                        <PiShoppingCartSimpleBold className="text-2xl text-text-primary mx-2" />
+                        {/* <PiShoppingCartSimpleBold className="text-2xl text-text-primary mx-2" /> */}
                         <div className="relative mx-2">
-                            <FaRegBell className="text-2xl text-text-primary" />
-                            <div className="absolute -top-0 -right-0 w-1 h-1 rounded-full bg-red-500"></div>
+                            {/* <FaRegBell className="text-2xl text-text-primary" /> */}
+                            {/* <div className="absolute -top-0 -right-0 w-1 h-1 rounded-full bg-red-500"></div> */}
                         </div>
                     </div>
                     <div className="flex h-full mx-2 items-center" onClick={toggleDropdown}>
                         <img src="https://picsum.photos/200/300" alt="" className="w-10 h-10 rounded-full object-cover" />
-                        <h3 className="text-md mx-2 font-bold">John Doe</h3>
+                        <h3 className="text-md mx-2 font-bold">{authVal.username}</h3>
                         <BsChevronDown className="text-xl mx-2 text-black" />
                     </div>
                 </div>
-                <div className="flex items-center md:hidden">
-                    <FiSearch className="text-xl text-black " />
-                    <img src="https://picsum.photos/200/300" alt="" className="w-7 ml-3 h-7 rounded-full object-cover" />
+                <div className="flex px-2 items-center md:hidden" >
+                    {/* <FiSearch className="text-xl text-black " /> */}
+                    <div onClick={toggleDropdown} className="flex hover:bg-slate-200 cursor-pointer p-1 rounded-xl items-center ml-1">
+                        <img src="https://picsum.photos/200/300" alt="" className="w-7 ml-3 h-7 rounded-full object-cover" />
+                        <BsChevronDown className="text-xl mx-1 text-black" />
+                    </div>
                 </div>
                 <div className="hidden absolute top-14 left-16 items-center justify-between rounded-2xl px-4 py-1 h-8 w-2/3 bg-gray-200">
                     <input type="text" placeholder="Search" className="border-2 w-4/5 bg-inherit rounded-lg px-2 h-full outline-none" />
@@ -229,13 +269,9 @@ window.location.href = `http://localhost:5173/?token=${token}`;
                 </div>
 
             </header>
-
             {isDropdownOpen && <DropdownMenu />}
             {displayUpgradeModal && <UpgradeAccountModal />}
-
         </div>
-
-
     )
 }
 

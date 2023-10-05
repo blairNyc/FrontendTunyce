@@ -1,6 +1,9 @@
 import { BiShuffle } from "react-icons/bi";
 import { BsFillPlayFill } from "react-icons/bs";
+import { useGetAllMixesQuery } from "../app/api/GlobalApiSlice";
+import { Mix } from "../types";
 const MixesPage = () => {
+  const { data: allMixes,isLoading:isLoadingMix } = useGetAllMixesQuery(1)
   return (
     <>
       <div className="container">
@@ -30,126 +33,40 @@ const MixesPage = () => {
         </div>
         {/*End of Subtitle*/}
         {/*Main Card*/}
-        <div className="ml-10 mr-10 mx-auto mt-4 rounded-md bg-white">
+        <div className="md:ml-10 md:mr-10 mx-auto mt-4 rounded-md bg-white">
           <h4 className="font-semibold text-base mb-3 mt-2">11 Mixes</h4>
           {/*Grid*/}
-          <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-5 gap-4 mr-2 ml-2">
+          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-4 md:mr-2 md:ml-2">
             {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300 hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300   hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
-            {/*End of Mix*/}
-            {/*Mix*/}
-            <div className="">
-              <div className="bg-gray-300  hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div>
-              <div className="">
-                <p className="text-base font-bold">Afterglow</p>
-                <p className="text-sm">DJ Lyta</p>
-              </div>
-            </div>
+            {
+              isLoadingMix ? (
+                <div className="flex flex-wrap justify-center">
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                  <div className="w-32 h-32 bg-gray-300 animate-pulse rounded-md shadow-md"></div>
+                </div>
+            ) : allMixes?.map((mix:Mix) => (
+                <div className="px-2">
+                    <img
+                        src={mix.video_thumbnail}
+                        alt=""
+                        className="w-full h-32 rounded-md shadow-md"
+                    />
+                  {/* <div className="bg-gray-300 hover:bg-gray-500 w-32 h-32  rounded-md shadow-md"></div> */}
+                  <div className="">
+                    <p className="text-base font-bold">{mix.name.slice(0,10)}...</p>
+                    <p className="text-sm">{mix.owner.username}</p>
+                  </div>
+                </div>
+              ))
+            }
+            
             {/*End of Mix*/}
           </div>
           {/*End Grid*/}

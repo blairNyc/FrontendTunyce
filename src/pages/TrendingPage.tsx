@@ -3,6 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { useGetAllTrendingMixesQuery } from "../app/api/GlobalApiSlice";
 import SignModal from './SignModal';
 import { useState } from "react";
+import { Mix } from "../types";
 
 const calculateDaysSinceCreation = (createdDateStr: string) => {
     const createdDate = new Date(createdDateStr);
@@ -58,7 +59,7 @@ function TrendingPage() {
             </header>
             <h2 className="text-2xl text-text-primary font-bold">Trending Content</h2>
             <div className="mt-1 flex flex-wrap">
-                {trendingMixes && trendingMixes.slice(0, 9).map((mix: any) => (
+                {trendingMixes && trendingMixes.slice(0, 9).map((mix: Mix) => (
                     <VideoItem onClick={() => openModal()} key={mix.id} mix={mix} />
                 ))}
             </div>

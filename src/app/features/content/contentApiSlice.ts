@@ -3,13 +3,6 @@ import { mainApiSlice } from '../../api/apiSlice'
 export const apiContentSlice = mainApiSlice.injectEndpoints({
     endpoints: (builder) => ({
         //gets all content creators
-        getAllContentCreators: builder.query({
-            query: () => ({
-                url: 'content_creators/content_creators',
-                method: 'get',
-            }),
-        }),
-
         // upgrade matatu
         upgradeToMatatuOwner: builder.mutation({
             query: () => ({
@@ -17,7 +10,16 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
                 method: 'post',
             }),
         }),
-
+        loginAsController: builder.mutation({
+            query: (data:{uuid:string,password:string}) => ({
+                url: '/matatu/controller/login/',
+                method: 'post',
+                body: {
+                    uuid: data.uuid,
+                    password: data.password,
+                }
+            }),
+        }),
         // upgrade matatu
         upgradeToRestaurantOwner: builder.mutation({
             query: () => ({
@@ -36,20 +38,31 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
                 },
             }),
         }),
+
+        // get all matatus
         getAllMatatus: builder.query({
             query: () => ({
                 url: 'matatu/matatus',
                 method: 'get',
             }),
         }),
+
+        // get genres
+        getAllGenres : builder.query({
+            query : () => ({
+                url: '/genres/',
+                method : 'get'
+            })
+        })
+        
+        
     })
 })
 
 export const {
-    useGetAllContentCreatorsQuery,
     useUpgradeToMatatuOwnerMutation,
     useUpgradeToRestaurantOwnerMutation,
     // useCreateMatatuMutation
-    useCreateMatatuMutation,
-    useGetAllMatatusQuery
+    useLoginAsControllerMutation,
+    useGetAllGenresQuery
 } = apiContentSlice;

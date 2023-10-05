@@ -1,7 +1,7 @@
 
-function Backdrop({children}:{children:React.ReactNode}) {
+function Backdrop({children,close}:{children:React.ReactNode, close?:()=>void}) {
     return (
-        <div className="w-screen z-20 left-0 overflow-hidden absolute top-0 h-screen bg-black-rgba">
+        <div onClick={close} className="w-screen z-20 left-0 overflow-hidden absolute top-0 h-screen bg-black-rgba">
             {children}
         </div>
     );
