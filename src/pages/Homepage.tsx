@@ -19,38 +19,38 @@ function getContrastTextColor(bgColor: string) {
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
   return brightness > 128 ? "text-black" : "text-white";
 }
-const topArt=[
-    {
-        name: "Harry",
-        plays: "",
-        img: "/E.png"
-    },
-    {
-        name: "DJ Clef",
-        plays: "",
-        img: "/Q.png"
-    },
-    {
-        name: "DJ Lensy",
-        plays: "",
-        img: "/Y.png"
-    },
-    {
-        name: "DJ Bunney254",
-        plays: "",
-        img: "/R.png"
-    },
-    {
-        name: "DJ Clef",
-        plays: "",
-        img: "/T.png"
-    },
-    {
-        name: "Mr CEO",
-        plays: "",
-        img: "/W.png"
-    },
-]
+// const topArt=[
+//     {
+//         name: "Harry",
+//         plays: "",
+//         img: "/E.png"
+//     },
+//     {
+//         name: "DJ Clef",
+//         plays: "",
+//         img: "/Q.png"
+//     },
+//     {
+//         name: "DJ Lensy",
+//         plays: "",
+//         img: "/Y.png"
+//     },
+//     {
+//         name: "DJ Bunney254",
+//         plays: "",
+//         img: "/R.png"
+//     },
+//     {
+//         name: "DJ Clef",
+//         plays: "",
+//         img: "/T.png"
+//     },
+//     {
+//         name: "Mr CEO",
+//         plays: "",
+//         img: "/W.png"
+//     },
+// ]
 
 interface MusicGenre {
     id: number;
@@ -93,16 +93,16 @@ function Homepage() {
 
     }, [genreItem]);
 
-  const genreItems = [
-    "Hiphop",
-    "Electric Pop",
-    "Jazz",
-    "Dance Beat",
-    "Classic",
-    "Metal",
-    "Rock",
-    "Country",
-  ];
+//   const genreItems = [
+//     "Hiphop",
+//     "Electric Pop",
+//     "Jazz",
+//     "Dance Beat",
+//     "Classic",
+//     "Metal",
+//     "Rock",
+//     "Country",
+//   ];
 
     return (
         

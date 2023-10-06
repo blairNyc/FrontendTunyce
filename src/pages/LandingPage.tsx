@@ -63,6 +63,8 @@ function LandingPage() {
     const [visibleItems, setVisibleItems] = useState(9);
     const [isModalOpen, setIsModalOpen] = useState(false);
     console.log(trendingMixes);
+    console.log(isLoadingMixes)
+    console.log(isLoadingTrending)
 
 
     const showMore = () => {

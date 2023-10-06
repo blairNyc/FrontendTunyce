@@ -3,7 +3,7 @@ import { useGetPlayingLinkMutation } from '../app/api/GlobalApiSlice';
 import ReactPlayer from 'react-player';
 
 const VideoScreen = () => {
-    const [getPlayingLink, { data, isLoading,isError, error }] = useGetPlayingLinkMutation();
+    const [getPlayingLink, { isLoading,isError, error }] = useGetPlayingLinkMutation();
 
     const fullscreenStyle:React.CSSProperties = {
         position: 'fixed',

@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../App.css'
 // import {
 //   useGetPlayingLinkMutation,
 // } from '../app/api/GlobalApiSlice'
 // import ReactHls from 'react-hls'
-import Hls from 'hls.js';
 import 'video.js/dist/video-js.css'
 import ReactPlayer from 'react-player';
 import { useGetPlayingLinkMutation } from '../app/api/GlobalApiSlice';
@@ -64,7 +63,7 @@ const VideoScreen = () => {
 
   // const videoRef = useRef<HTMLVideoElement>(null);
   
-  const [getPlayingLink, { data }] = useGetPlayingLinkMutation();
+  const [getPlayingLink] = useGetPlayingLinkMutation();
   const [mediaUrl, setMediaUrl] = useState("https://www.youtube.com/watch?v=KhEAe2_T-4c")
   const updateMediaUrl = async () => {
     try {

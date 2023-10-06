@@ -1,17 +1,17 @@
 import React from "react";
 import TunyceLogo from "../assets/tunyce_logo.svg";
 import { GoHomeFill } from "react-icons/go";
-import { FaCompass } from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
-import { BsMusicNoteBeamed } from "react-icons/bs";
-import { BsFillPersonFill } from "react-icons/bs";
+// import { FaCompass } from "react-icons/fa";
+// import { FiSearch } from "react-icons/fi";
+// import { BsMusicNoteBeamed } from "react-icons/bs";
+// import { BsFillPersonFill } from "react-icons/bs";
 // import { TbHeadphonesFilled } from "react-icons/tb";
 // import { MdFavorite } from "react-icons/md";
 import {  FaDeezer } from "react-icons/fa";
 // import { ImFolderDownload } from "react-icons/im";
 // import { IoSettingsSharp } from "react-icons/io5";
 // import { TbLogout } from "react-icons/tb";
-import { BsPeopleFill } from "react-icons/bs";
+// import { BsPeopleFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 
