@@ -50,7 +50,7 @@ export default function ControllerLayout() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen overflow-x-hidden h-screen">
       <div className="flex w-full h-full">
         <div className={`w-0 ${!sideBarOpen?'w-16':'md:w-1/5'} pt-4 `}>
             <div className='flex flex-col w-full justify-center items-center ' >
