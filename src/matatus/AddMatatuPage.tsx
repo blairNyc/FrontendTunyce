@@ -10,6 +10,7 @@ import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import ImageUpload from "./ImageUpload";
 import { useEffect, useState } from "react";
+import { IMatatuType } from '../types';
 
 interface registrationInput {
   name: string
@@ -45,7 +46,7 @@ interface Route {
   checkpoint: Checkpoint[];
 }
 
-function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: boolean, onClose: () => void, isRegistrationSuccessFull:() => void}) {
+function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: boolean, onClose: () => void, isRegistrationSuccessFull:(matatu:IMatatuType) => void}) {
 
   if (!isOpen) return null;
 
@@ -133,7 +134,7 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
 
       setSubmitting(true)
 
-      const userDataMain = {
+      const userDataMain:IMatatuType = {
         name : `${data.name}`,
         number_plate : `${data.number_plate}`,
         route : data.route,
@@ -151,7 +152,7 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
       }).then(response => {
         if(response.status == 201) {
           setSubmitting(false)
-          isRegistrationSuccessFull()
+          isRegistrationSuccessFull(userDataMain)
           close()
         }
       }
