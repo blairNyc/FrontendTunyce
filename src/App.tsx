@@ -339,7 +339,7 @@ function App() {
           element: <NotFound />,
         },
         {
-          path: '/matatu/my-wallet',
+          path: '/my-wallet',
           element: <RestaurantWalletPage />
         },
         FAQSRouter,
