@@ -1,3 +1,4 @@
+import { MusicItemProp } from '../../types'
 import { apiSlice } from './apiSlice'
 
 export const apiVenuesSlice = apiSlice.injectEndpoints({
@@ -46,9 +47,12 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     getLatestMusic: builder.query({
       query: () => ({
-        url: 'media/video/latest/',
+        url: 'media/video/',
         method: 'get',
       }),
+      transformResponse: (response:MusicItemProp[]) => {
+        return response.filter((item) =>item.media.media_url.includes('youtube'));
+      }
     }),
 
     // get all latest mixes
