@@ -83,6 +83,7 @@ const VideoScreen = () => {
   useEffect(() => {
     // const video = videoRef.current;
     updateMediaUrl()
+    console.log(mediaUrl)
     // setMediaUrl(data?.url?.media_url)
 
 

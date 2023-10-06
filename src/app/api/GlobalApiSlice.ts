@@ -96,7 +96,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     getPlayingLink: builder.mutation({
       query: () => ({
-        url: `matatu/get_content/12/`,
+        url: `matatu/get_content/20/`,
         method: 'get',
       }),
     }),
