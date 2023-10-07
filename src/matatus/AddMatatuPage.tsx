@@ -266,7 +266,7 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
                       </div> */}
 
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
                       <div className="flex flex-col">
                         <h4>Photo Interior</h4>
                         <ImageUpload onChildText={handleInteriorImage} />
