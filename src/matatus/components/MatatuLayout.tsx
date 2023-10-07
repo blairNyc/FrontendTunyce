@@ -75,7 +75,7 @@ function MatatuLayout() {
                                 </ul>
                                 <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>
                                 <ul>
-                                    <NavElement path='/matatu/my-wallet' name='Wallet'>
+                                    <NavElement path='/my-wallet' name='Wallet'>
                                         <BsWallet className='text-xl' />
                                     </NavElement>
                                     {/* <NavElement path='/restaurant/my-settings' name='Settings'>
