@@ -50,7 +50,7 @@ function MatatuLayout() {
     const switchAccountHandler = () => {
         dispatch(switchUser('is_normaluser'));
         setIsDropdownOpen(false);
-        navigate('/home');
+        navigate('/');
     };
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);

@@ -41,7 +41,7 @@ export default function UserLogin() {
     console.log('Access token',access,curr);
     React.useEffect(() => {
         if (access) {
-            navigate('/explore')
+            navigate('/')
         }
     }, [access, navigate])
     
@@ -67,7 +67,7 @@ export default function UserLogin() {
             console.log(response)
 
             dispatch(setCredentials(response));
-            navigate('/home');
+            navigate('/');
         } catch (error ) {
             // const err = error as ErrorType
             console.log('Error encountered: ',error)
@@ -76,7 +76,8 @@ export default function UserLogin() {
     return (
         <>
             {isError&&
-                Object.values((error as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err} />)
+                        Object.values((error as ErrorType).data).map((err:string,idx: number)=><SnackBar key={idx} text={err} />)
+                   
             }
             {
                 isLoading &&(<LoadingSpinner/>)
