@@ -100,7 +100,7 @@ const ExplorePage = () => {
                 <SectionTitle title="Featured Mixes" onClick={function (): void {
                     throw new Error("Function not implemented.");
                 } }/>
-                <div className="w-full flex items-center no-scrollbar overflow-x-auto">
+                <div className="w-full flex items-center no-scrollbar overflow-x-scroll">
                      {
                         isLoadingAllTrend?(
                             [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
