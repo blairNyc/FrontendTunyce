@@ -256,7 +256,8 @@ function App() {
       element: <UserLayout />,
       children: [
         {
-          path: '/home',
+          path: '/',
+          index: true,
           element: <Homepage />
         },
         {
