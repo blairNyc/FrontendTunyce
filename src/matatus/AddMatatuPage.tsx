@@ -138,7 +138,7 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
         name : `${data.name}`,
         number_plate : `${data.number_plate}`,
         route : data.route,
-        capacity : data.number_of_seats,
+        number_of_seats : data.number_of_seats,
         // driver : `${data.driver}`,
         image_exterior: `${exteriorImageUrl}`,
         image_interior: `${interiorImageUrl}`,

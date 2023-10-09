@@ -35,14 +35,13 @@ export interface IMatatuType{
     name: string
     number_plate: string
     route: number
-    capacity?:number
+    number_of_seats?: number
     is_trial?: boolean
     image_interior?: string
     image_exterior?: string
     owner?: string
     id?: string
-  
-  }
+}
 export interface Mix{ 
     name: string,
     video_thumbnail?: string,
