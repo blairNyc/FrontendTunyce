@@ -90,22 +90,26 @@ export default function UserLogin() {
             {
                 isLoading && (<LoadingSpinner />)
             }
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[36rem]">
-                <div className="flex justify-center items-center">
-                    <label htmlFor="mode-switch" className="mr-2">
-                        {isControllerMode ? 'Controller' : 'User'}
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[36rem] flex flex-col gap-2">
+                <div data-tooltip-target="tooltip-top" data-tooltip-placement="top" className="flex flex-col justify-center items-center">
+                    <label htmlFor="mode-switch" className="mr-2 font-bold">
+                        {isControllerMode ? 'User' : 'Controller'}
                     </label>
                     <Switch
                         id="mode-switch"
                         checked={isControllerMode}
                         onChange={toggleMode}
-                        onColor="#00ff00" // Customize color when switch is on
-                        offColor="#ff0000" // Customize color when switch is off
-                        uncheckedIcon={false} // Hide the unchecked icon
-                        checkedIcon={false} // Hide the checked icon
+                        onColor="#FF5349"
+                        offColor="#FF5349"
+                        uncheckedIcon={false}
+                        checkedIcon={false}
                         height={30}
                         width={70}
                     />
+                </div>
+                <div id="tooltip-top" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                    Have a controller account? Switch to controller
+                    <div className="tooltip-arrow" data-popper-arrow></div>
                 </div>
                 {isControllerMode ? (
                     <Card>
