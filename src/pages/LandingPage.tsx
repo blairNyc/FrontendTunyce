@@ -120,7 +120,7 @@ function LandingPage() {
                 <div>
                     <RowContainer onClick={showMore} text='New Releases' />
                     <div className="flex flex-row gap-2">
-                        {latestMixes?.slice(0, 7).map((mix: any) => (
+                        {latestMixes?.slice(0, 7).map((mix) => (
                             <EasyAfterNoon
                                 key={mix.id}
                                 onClick={() => openModal()}
