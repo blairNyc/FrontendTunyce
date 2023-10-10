@@ -48,6 +48,9 @@ export interface Mix{
     owner:{
         username?:string
     },
+    media:{
+        media_url: string
+    },
     views?:string, 
     id: string 
 }

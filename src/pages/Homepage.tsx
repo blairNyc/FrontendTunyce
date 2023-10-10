@@ -113,7 +113,7 @@ function Homepage() {
                 </div>
                 <div className='mb-10'>
                     <h1 className='text-2xl md:text-5xl  font-semibold capitalize'>Get Premium Access &</h1>
-                    <h1 className='text-xl md:text-4xl font-semibold capitalize'>Unlock All Popular Songs</h1>
+                    <h1 className='text-xl md:text-4xl font-semibold capitalize'>Unlock All Popular Creators</h1>
                 </div>
                 <div className='flex flex-row items-center '>
                     <button className='bg-universal-primary text-sm hover:bg-blue-700 text-white font-bold md:py-3 py-2 md:px-8 px-6 rounded-full'>
