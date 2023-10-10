@@ -10,6 +10,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { useAppDispatch } from "../../../app/hooks";
 import { logOut } from "../../auth/auth/authSlice";
+import { TbHeadphonesFilled } from "react-icons/tb";
 type DropdownMenuProps ={
     setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
     onLogout: () => void
@@ -64,9 +65,10 @@ export default function ControllerLayout() {
                             <NavElement path="/controller-creators" name="Discover">
                                 <GoHomeFill className="text-xl" />
                             </NavElement>
-                            
+                            <NavElement path="/my-playlists" name="My Playlists">
+                                <TbHeadphonesFilled className="text-xl" />
+                            </NavElement>
                         </ul>
-                    
                     </div>
             </div>
         </div>

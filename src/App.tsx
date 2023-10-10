@@ -51,6 +51,8 @@ import ControllerLogin from './components/controller/controllerLogin';
 import ControllerLayout from './components/controller/components/ControllerLayout';
 import ControllerMusicPage from './components/controller/ControllerMusicPage';
 import ControllerCreator from './components/controller/ControllerCreator';
+import PlayListPage from './user/Playerlist';
+import PlayListsPage from './user/Playlists';
 
 
 const NotFoundRouter: RouteObject = {
@@ -271,6 +273,14 @@ function App() {
           element: <ExplorePage />
         },
         {
+            path:'/my-playlists',
+            element: <PlayListsPage/>
+        },
+        {
+            path:'/my-playlists/:id',
+            element: <PlayListPage/>
+        },
+        {
           path: "/explore/innerpage",
           element: <InnerPage />,
         },
@@ -410,6 +420,14 @@ function App() {
           {
             path: '/controller-creators/:id',
             element: <ControllerCreator />
+          },
+          {
+            path:'my-playlists',
+            element: <PlayListsPage/>
+          },
+          {
+            path:'my-playlists/:id',
+            element: <PlayListPage/>
           },
           NotFoundRouter
         ]
