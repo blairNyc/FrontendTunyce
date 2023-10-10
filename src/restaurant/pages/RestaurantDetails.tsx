@@ -29,7 +29,7 @@ const RestaurantDetails = () => {
 
     const { id } = useParams<{ id: string }>();
 
-    const userToken: any = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+    const userToken: string = (useAppSelector((state: RootState) => state.persistAuth.auth.access) as string);
     // console.log(userToken)
 
     // Matatu Information

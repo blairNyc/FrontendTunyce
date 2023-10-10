@@ -32,7 +32,12 @@ const schema = yup
       .required(),
   })
   .required()
-
+type ErrorType = {
+    status: number,
+    data: {
+        [key: string]: string
+    }
+}
 export default function UserSignUp() {
     const { register, handleSubmit,formState: { errors }} = useForm<IRegistrationInput>({
         resolver: yupResolver(schema),
@@ -61,9 +66,9 @@ export default function UserSignUp() {
 
   return (
     <>
-        {isError&&(
-            <SnackBar text={error as string} />
-        )}
+        {isError &&
+            Object.values((error as ErrorType).data).map((err: string, idx: number) => <SnackBar key={idx} text={err} />)
+        }
         <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
             <Card>
                 <div className="sm:mx-auto sm:w-[36rem] sm:max-w-full"> 

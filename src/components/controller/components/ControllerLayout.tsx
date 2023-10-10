@@ -10,6 +10,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { useAppDispatch } from "../../../app/hooks";
 import { logOut } from "../../auth/auth/authSlice";
+import { TbHeadphonesFilled } from "react-icons/tb";
 type DropdownMenuProps ={
     setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
     onLogout: () => void
@@ -50,7 +51,7 @@ export default function ControllerLayout() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen overflow-x-hidden h-screen">
       <div className="flex w-full h-full">
         <div className={`w-0 ${!sideBarOpen?'w-16':'md:w-1/5'} pt-4 `}>
             <div className='flex flex-col w-full justify-center items-center ' >
@@ -64,9 +65,10 @@ export default function ControllerLayout() {
                             <NavElement path="/controller-creators" name="Discover">
                                 <GoHomeFill className="text-xl" />
                             </NavElement>
-                            
+                            <NavElement path="/my-playlists" name="My Playlists">
+                                <TbHeadphonesFilled className="text-xl" />
+                            </NavElement>
                         </ul>
-                    
                     </div>
             </div>
         </div>

@@ -1,5 +1,4 @@
 import { useGetAllArtistsQuery } from "../app/api/GlobalApiSlice";
-import { Artist } from "../types";
 import { useEffect, useState } from "react";
 import { useGetAllGenresQuery } from "../app/features/content/contentApiSlice";
 
@@ -19,38 +18,38 @@ function getContrastTextColor(bgColor: string) {
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
   return brightness > 128 ? "text-black" : "text-white";
 }
-// const topArt=[
-//     {
-//         name: "Harry",
-//         plays: "",
-//         img: "/E.png"
-//     },
-//     {
-//         name: "DJ Clef",
-//         plays: "",
-//         img: "/Q.png"
-//     },
-//     {
-//         name: "DJ Lensy",
-//         plays: "",
-//         img: "/Y.png"
-//     },
-//     {
-//         name: "DJ Bunney254",
-//         plays: "",
-//         img: "/R.png"
-//     },
-//     {
-//         name: "DJ Clef",
-//         plays: "",
-//         img: "/T.png"
-//     },
-//     {
-//         name: "Mr CEO",
-//         plays: "",
-//         img: "/W.png"
-//     },
-// ]
+const topArt=[
+    {
+        name: "Harry",
+        plays: "",
+        img: "/E.png"
+    },
+    {
+        name: "DJ Clef",
+        plays: "",
+        img: "/Q.png"
+    },
+    {
+        name: "DJ Lensy",
+        plays: "",
+        img: "/Y.png"
+    },
+    {
+        name: "DJ Bunney254",
+        plays: "",
+        img: "/R.png"
+    },
+    {
+        name: "DJ Clef",
+        plays: "",
+        img: "/T.png"
+    },
+    {
+        name: "Mr CEO",
+        plays: "",
+        img: "/W.png"
+    },
+]
 
 interface MusicGenre {
     id: number;
@@ -60,7 +59,7 @@ interface MusicGenre {
 }
 
 function Homepage() {
-  const { data: allArtists } = useGetAllArtistsQuery([]);
+  const { data: allArtists } = useGetAllArtistsQuery(1);
   console.log(allArtists)
 
     // const [genres, setAvailableGenres] = useState()
@@ -93,28 +92,28 @@ function Homepage() {
 
     }, [genreItem]);
 
-//   const genreItems = [
-//     "Hiphop",
-//     "Electric Pop",
-//     "Jazz",
-//     "Dance Beat",
-//     "Classic",
-//     "Metal",
-//     "Rock",
-//     "Country",
-//   ];
+  const genreItems = [
+    "Hiphop",
+    "Electric Pop",
+    "Jazz",
+    "Dance Beat",
+    "Classic",
+    "Metal",
+    "Rock",
+    "Country",
+  ];
 
     return (
         
 
         <div className='container'>
-            <div className='m-20'>
+            <div className='m-10 md:m-20'>
                 <div className='mb-2'>
                     <p className='text-universal-primary  md:text-3xl'>OUR FEATURES</p>
                 </div>
                 <div className='mb-10'>
                     <h1 className='text-2xl md:text-5xl  font-semibold capitalize'>Get Premium Access &</h1>
-                    <h1 className='text-xl md:text-5xl font-semibold capitalize'>Unlock All Popular Songs</h1>
+                    <h1 className='text-xl md:text-4xl font-semibold capitalize'>Unlock All Popular Creators</h1>
                 </div>
                 <div className='flex flex-row items-center '>
                     <button className='bg-universal-primary text-sm hover:bg-blue-700 text-white font-bold md:py-3 py-2 md:px-8 px-6 rounded-full'>
@@ -132,12 +131,13 @@ function Homepage() {
                 </div>
 
                 <div className="flex flex-wrap justify-center">
-                    {allArtists && allArtists.map((artist: Artist) => {
+                    {topArt.map((artist) => {
                         return (
                             <div className='flex flex-col items-center p-1 cursor-pointer' >
-                                <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
-                                <p className="uppercase">{artist.artist_stage_name}</p>
-                                <p>30M PLAYS</p>
+                                <img src={artist.img} alt="" className='bg-grey shadow-md rounded-lg w-24 h-24' />
+                                {/* <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div> */}
+                                <p className="text-sm">{artist.name}</p>
+                                {/* <p>30M PLAYS</p> */}
                             </div>
                         );
                     })}
@@ -155,10 +155,10 @@ function Homepage() {
                     </div>
 
                     <div className="flex flex-wrap justify-center">
-                        {allArtists && allArtists.map((artist: Artist) => {
+                        {topArt.map((artist) => {
 
                             return (
-                                <div key={artist.id} className='flex flex-col items-center p-1' >
+                                <div key={artist.name} className='flex flex-col items-center p-1' >
                                     <div className='bg-grey shadow-md rounded-lg w-28 h-28'></div>
                                 </div>
                                 
@@ -176,19 +176,18 @@ function Homepage() {
                     <div className="flex flex-wrap justify-center items-center">
 
                         
-                        {musicGenres &&  musicGenres.map((genre) => {
+                        {genreItems.map((genre) => {
                             const bgColor = getRandomColor();
                             const textColorClass = getContrastTextColor(bgColor);
 
                             return (
                                 <button
-                                    key={genre.id}
-                                    className={`px-5 py-4 m-2 rounded-full font-bold ${textColorClass}`}
+                                    key={genre}
+                                    className={`px-5 py-1 md:py-4 m-2 rounded-full font-bold ${textColorClass}`}
                                     style={{ backgroundColor: bgColor }}
                                 >
-                                    {genre.name}
+                                    {genre}
                                 </button>
-                                
                             )
                         })}
                     </div>

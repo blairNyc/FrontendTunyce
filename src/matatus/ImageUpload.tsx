@@ -38,7 +38,7 @@ const ImageUpload: React.FC<ChildProps> = ({onChildText}) => {
     });
 
     return (
-        <div className="container mx-auto mt-8">
+        <div className="container mx-auto mt-2 md:mt-8">
             {!imageUrl && (<div {...getRootProps()} className={dropzoneStyle(isDragActive)}>
                 <input {...getInputProps()} />
                 <p className="text-lg text-gray-600">
