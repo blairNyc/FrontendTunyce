@@ -60,7 +60,6 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/media/video/latest/`,
         method: 'get',
-
       }),
     }),
 
@@ -126,6 +125,14 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         url: `creator/content-creator/${creator_id}/content`,
         method: 'get',
       })
+    }),
+
+    // Get video details by id
+    getMediaDetails: builder.query({
+      query: (video_id) => ({
+        url: `/media/update_video/${video_id}/`,
+        method: 'get'
+      })
     })
 
   }),
@@ -150,7 +157,8 @@ export const {
   useSwitchVideoTimeMutation,
   useVideoEndUpdatesMutation,
   useGetAllArtistsQuery,
-  useGetSingleCreatorQuery
+  useGetSingleCreatorQuery,
+  useGetMediaDetailsQuery
 
 
 } = apiVenuesSlice
