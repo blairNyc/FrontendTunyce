@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
 import { Mix } from "../types";
-import { title } from "process";
 
 interface MediaInformation {
     message: {
@@ -57,7 +56,7 @@ interface CommonProps {
 //     </div>
 // )
 
-export const MusicVideoScreen = ({ path, owner, srcUrl, title, onClick }: CommonProps) => (
+export const MusicVideoScreen = ({ path, owner, srcUrl, title }: CommonProps) => (
     <Link to={path ?? ''} className="w-full my-2 border p-2 rounded-md cursor-pointer hover:bg-slate-100 flex">
     <div className="w-1/2">
             <img src={`${srcUrl}`} alt="" className="w-full h-24 rounded-sm inline-block object-cover"/>

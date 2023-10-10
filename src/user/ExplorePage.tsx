@@ -1,12 +1,9 @@
 import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io"
-import {useGetAllMixesQuery, useGetAllTrendingMixesQuery,useSwitchVideoMutation} from "../app/api/GlobalApiSlice"
+import {useGetAllMixesQuery, useGetAllTrendingMixesQuery} from "../app/api/GlobalApiSlice"
 import { Link, useNavigate } from 'react-router-dom';
 import { Mix } from "../types";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
 import { BsFillPlayFill } from "react-icons/bs";
-import { useAppSelector } from "../app/hooks";
-import { RootState } from "../app/store";
-
 
 interface CommonProps{
     title?: string

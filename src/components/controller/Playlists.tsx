@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { VscDiffAdded } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import { useGetAllPlayListsQuery } from "./UsersState";
-import CreatePlayListModal from "./components/CreatePlayList";
+import { useGetAllPlayListsQuery } from "../../user/UsersState";
+import CreatePlayListModal from "./components/CreatePlaylist";
 const ArtistItem = ({playlist}:PlayListProps) => {
     return(
         <Link to={`/my-playlists/${playlist.id}`} className="flex hover:scale-105 hover:bg-slate-100 py-4 rounded-lg flex-col items-center">
