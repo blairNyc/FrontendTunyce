@@ -29,6 +29,14 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
             }),
         }),
 
+        // upgrade to content creator
+        upgradeToContentCreator: builder.mutation({
+            query: () => ({
+                url: '/creator/upgrade/',
+                method: 'post',
+            }),
+        }),
+
         // register matatu
         createMatatu: builder.mutation({
             query: (matatuData) => ({
@@ -65,5 +73,6 @@ export const {
     useUpgradeToRestaurantOwnerMutation,
     // useCreateMatatuMutation
     useLoginAsControllerMutation,
-    useGetAllGenresQuery
+    useGetAllGenresQuery,
+    useUpgradeToContentCreatorMutation
 } = apiContentSlice;

@@ -5,7 +5,7 @@ import { GoHomeFill } from "react-icons/go";
 // import { FiSearch } from "react-icons/fi";
 // import { BsMusicNoteBeamed } from "react-icons/bs";
 // import { BsFillPersonFill } from "react-icons/bs";
-// import { TbHeadphonesFilled } from "react-icons/tb";
+import { TbHeadphonesFilled } from "react-icons/tb";
 // import { MdFavorite } from "react-icons/md";
 import {  FaCompass, FaDeezer } from "react-icons/fa";
 // import { ImFolderDownload } from "react-icons/im";
@@ -78,12 +78,12 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
                         <BsFillPersonFill className="text-xl" />
                     </NavElement> */}
                 </ul>
-                {/* <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
+                <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
                 <ul>
-                    <NavElement name="Cover">
+                    <NavElement path="/my-playlists" name="My Playlists">
                         <TbHeadphonesFilled className="text-xl" />
                     </NavElement>
-                    <NavElement name="Favorites">
+                    {/* <NavElement name="Favorites">
                         <MdFavorite className="text-xl" />
                     </NavElement>
                     <NavElement name="Shared">
@@ -91,8 +91,8 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
                     </NavElement>
                     <NavElement name="Downloads">
                         <ImFolderDownload className="text-xl" />
-                    </NavElement>
-                </ul> */}
+                    </NavElement> */}
+                </ul>
                 {/* <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
                 <ul>
                     <NavElement path="user-wallet" name="Wallet">
