@@ -116,7 +116,7 @@ function VideoScreen() {
         console.log(videoData)
     }
 
-    if (!mediaInfo?.message.media.media_url) return <div>No media URL available.</div>;
+    if (!mediaInfo?.message.media.media_url) return <div>Loading...</div>;
 
     const isYouTubeUrl = (mediaInfo: MediaInformation) => {
         const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
@@ -138,7 +138,7 @@ function VideoScreen() {
                                 <ReactPlayer
                                     url={mediaInfo.message.media.media_url}
                                     width='100%'
-                                    height='100vh'
+                                    height='100%'
                                     playing={true}
                                     controls
                                 />
