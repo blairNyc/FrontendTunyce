@@ -346,7 +346,26 @@ function App() {
         FAQSRouter,
         TermsCondsRouter,
       ]
-    } : curr_loggedin_user === "" ? {
+        } : curr_loggedin_user === "is_contentcreator" ? {
+          element: <ContentCreatorDashboard />,
+          children: [
+            {
+              path: '/my-content',
+              element: <MyContent />,
+            },
+            {
+              path: "*",
+              element: <NotFound />,
+            },
+            {
+              path: '/my-wallet',
+              element: <RestaurantWalletPage />
+            },
+            FAQSRouter,
+            TermsCondsRouter,
+          ]
+        }    
+    : curr_loggedin_user === "" ? {
       element: <DefaultLayout />,
       children: [
         {
