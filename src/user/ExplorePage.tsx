@@ -1,11 +1,9 @@
 import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io"
-import {useGetAllMixesQuery, useGetAllTrendingMixesQuery,useSwitchVideoMutation} from "../app/api/GlobalApiSlice"
+import {useGetAllMixesQuery, useGetAllTrendingMixesQuery,} from "../app/api/GlobalApiSlice"
 import { Link, useNavigate } from 'react-router-dom';
 import { Mix } from "../types";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
 import { BsFillPlayFill } from "react-icons/bs";
-import { useAppSelector } from "../app/hooks";
-import { RootState } from "../app/store";
 
 
 interface CommonProps{
@@ -36,7 +34,7 @@ export const FeaturedItem = ({ title, children, additionalStyles, owner, srcUrl,
         <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-bg-primary to-transparent rounded-xl"></div>
         <div className="absolute  z-40">
             <h4 className="text-white text-center font-bold text-xl">
-                {`${title?.slice(0, 20)}...`}
+                {`${title?.slice(0, 10)}...`}
             </h4>
             <p className="text-center">{owner}</p>
             <div className="flex">
@@ -55,7 +53,7 @@ export const MusicItem = ({ path, owner, srcUrl, title, onClick }:CommonProps)=>
     <Link to={path ?? ''} className="min-w-[150px] mx-2 cursor-pointer hover:scale-105" onClick={() => onClick?.('some-id')}>
         <img src={`${srcUrl}`} alt="" className="w-32 h-32 rounded-xl object-cover"/>
         <h4 className="font-bold">
-             {`${title?.slice(0, 20)}...`}
+             {`${title?.slice(0, 10)}...`}
         </h4>
         <p className="uppercase text-xs">{owner}</p>
         <div className="flex">
