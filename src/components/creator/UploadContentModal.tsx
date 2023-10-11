@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
 
 interface UploadContentModalProps {
   isOpen: boolean;
@@ -6,24 +8,61 @@ interface UploadContentModalProps {
   onUpload: (formData: FormData) => void;
 }
 
+interface UserCustom {
+  username: string;
+  email: string;
+}
+
+interface ContentInformation {
+  owner: UserCustom;
+  name: string;
+  video_thumbnail?: string | null;
+  views: number;
+  description?: string | null;
+}
+
 const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose, onUpload }) => {
+
+  const userName = useAppSelector((state: RootState) => state.persistAuth.auth.username);
+  
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
+  const [videoUrl, setVideoUrl] = useState<string>('');
   const [musicFile, setMusicFile] = useState<File | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+
+  const [postableVideoUrl, setPostableVideoUrl] = useState<string>('')
 
   const handleUpload = () => {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
     formData.append('genre', genre);
+    formData.append('video_url', videoUrl);
     if (musicFile) {
       formData.append('music', musicFile);
     }
     if (thumbnailFile) {
       formData.append('thumbnail', thumbnailFile);
     }
+
+      formData.forEach((value, key) => {
+      if (key.includes('video_url')) {
+        setPostableVideoUrl(`${value}`)
+      }
+
+      const data = {
+        videorefUrl: `${videoUrl}`,
+        content_owner: `${userName}`
+      };
+
+
+
+    });
+
+    
+
 
     // Call the onUpload function with the form data
     onUpload(formData);
@@ -99,6 +138,16 @@ const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose
               placeholder="Enter genre"
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              id="video_url"
+              className="w-full px-3 py-2 border-none bg-gray-100 rounded-2xl focus:bg-white focus:border-orange-500"
+              placeholder="Enter Youtube Video Url"
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
             />
           </div>
           <div className="flex p-4 justify-between">

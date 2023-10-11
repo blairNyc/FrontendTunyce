@@ -53,6 +53,7 @@ import ControllerMusicPage from './components/controller/ControllerMusicPage';
 import ControllerCreator from './components/controller/ControllerCreator';
 import PlayListPage from './user/Playerlist';
 import PlayListsPage from './user/Playlists';
+import CreatorLayout from './components/creator/components/CreatorLayout';
 
 
 const NotFoundRouter: RouteObject = {
@@ -357,8 +358,12 @@ function App() {
         TermsCondsRouter,
       ]
         } : curr_loggedin_user === "is_contentcreator" ? {
-          element: <ContentCreatorDashboard />,
+          element: <CreatorLayout />,
           children: [
+            {
+              path: '/',
+              element : <ContentCreatorDashboard />
+            },
             {
               path: '/my-content',
               element: <MyContent />,
