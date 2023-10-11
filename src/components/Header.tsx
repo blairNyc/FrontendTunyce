@@ -7,7 +7,7 @@ import TunycLogo from '../assets/tunyce_logo.png';
 import TunycDarkLogo from '../assets/tunyce_logo.svg'
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
+import { useUpgradeToContentCreatorMutation, useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
 import {useState } from "react";
 import { logOut, setCredentials, switchUser } from "./auth/auth/authSlice";
 import { UserTypes } from "../types";
@@ -28,6 +28,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const dispatch = useAppDispatch()
     const isMatOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_matatu);
     const isResOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_restaunt);
+    const isContentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
     // const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
     const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
 
@@ -48,6 +49,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const authVals = useAppSelector((state:RootState)=>state.persistAuth.auth);
     const [upgradeMatatu] = useUpgradeToMatatuOwnerMutation()
     const [upgradeRestaurant] = useUpgradeToRestaurantOwnerMutation()
+    const [upgradeContentCreator] = useUpgradeToContentCreatorMutation()
     const onSubmitUpgrade = async (selectedValue : string) => {
         try {
             if (selectedValue == "Matatu Owner") {
@@ -68,6 +70,15 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                     }
                 }))
                 console.log("Restaurant Owner",response);
+            } else if (selectedValue == "Content Creator") {
+                const response = await dispatch(upgradeContentCreator)
+                console.log(response)
+                dispatch(setCredentials({
+                    auth: {
+                        ...authVals,
+                        is_contentcreator: true
+                    }
+                }))
             }
         } catch (error) {
             console.log(error)
@@ -79,6 +90,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             dispatch(switchUser(accountType));
             if (accountType == "is_matatu") navigate('/matatu');
             else if (accountType == "is_restaunt") navigate('/restaurant');
+            
             return;
         } catch (error) {
             console.log(error);
@@ -117,6 +129,19 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link>
                    </>   
                     
+                    ) : null
+                    }
+                    {isContentCreator ? (
+
+                        <><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            onClick={() => {
+                                switchAccountHandler('is_contentcreator');
+                                setIsDropdownOpen(false);
+                            }}
+                        >Upload Content</a>
+                            <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link>
+                        </>
+
                     ) : null
                     }
                     {isResOwner ? ( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
