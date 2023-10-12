@@ -65,7 +65,7 @@ export default function ControllerMusicPage() {
     console.log(data)
     // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
 
-    const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
+    const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError }] = useSwitchContentMutation()
     let d = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
     if (!d) {
         d = 1;
