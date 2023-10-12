@@ -54,7 +54,7 @@ interface MusicItemProp {
 }
 import LoadingSpinner from "../LoadingSpinner";
 import { SnackBar } from "../auth/userLogin";
-import { ErrorType } from "../../types";
+// import { ErrorType } from "../../types";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 import { AiOutlineClose } from "react-icons/ai";
@@ -63,6 +63,8 @@ import React from "react";
 export default function ControllerMusicPage() {
     const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
     console.log(data)
+    // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
+
     const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
     let d = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
     if (!d) {
