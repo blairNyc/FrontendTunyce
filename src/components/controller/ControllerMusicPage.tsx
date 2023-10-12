@@ -62,6 +62,7 @@ import { FiCheckCircle } from "react-icons/fi";
 import React from "react";
 export default function ControllerMusicPage() {
     const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
+    console.log(data)
     const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
     let d = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
     if (!d) {
@@ -88,7 +89,9 @@ export default function ControllerMusicPage() {
             }
             {
                 isErrorMusicFetch && (
-                    <SnackBar text={(error as ErrorType).data.message ?? 'Error encountered'} />
+                    <SnackBar text={
+                        // (error as ErrorType).data?.message ?? 
+                        'Error encountered'} />
                 )
             }
             {isSuccess && openModal && <SuccessPopUp closeModal={() => { setOpenModal(!openModal) }} text={'Music switched successfully'} />}
