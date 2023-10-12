@@ -133,7 +133,16 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         url: `/media/update_video/${video_id}/`,
         method: 'get'
       })
-    })
+    }),
+
+    // Video upload
+    uploadVideoContent: builder.mutation({
+      query: (videoInformation) => ({
+        url: `/media/upload_video`,
+        method: 'post',
+        body: videoInformation
+      }),
+    }),
 
   }),
 })
@@ -158,7 +167,8 @@ export const {
   useVideoEndUpdatesMutation,
   useGetAllArtistsQuery,
   useGetSingleCreatorQuery,
-  useGetMediaDetailsQuery
+  useGetMediaDetailsQuery,
+  useUploadVideoContentMutation
 
 
 } = apiVenuesSlice
