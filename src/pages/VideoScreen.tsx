@@ -137,7 +137,7 @@ function VideoScreen() {
                                 <ReactPlayer
                                     url={mediaInfo.message.media.media_url}
                                     width='100%'
-                                    height='100%'
+                                    height='65vh'
                                     playing={true}
                                     controls
                                 />
