@@ -125,12 +125,12 @@ const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose
   //   }
   // };
 
-  const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
   const [genres, setGenres] = useState<Genre[]>([]);
-  const selectedGenreId = watch('genreId');
+  // const selectedGenreId = watch('genreId');
 
   useEffect(() => {
     const fetchGenres = async () => {
