@@ -121,7 +121,7 @@ const ExplorePage = () => {
                         isLoadingAllTrend?(
                             [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                         ):(
-                            trendingMixes?.filter((mix: Mix) => mix.media.media_url.includes('youtube.com')).map((mix: Mix) => (
+                            trendingMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com')).map((mix: Mix) => (
                                 <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
                                 // {
                                 //     mix && mix?.video_thumbnail
@@ -147,7 +147,7 @@ const ExplorePage = () => {
                             isLoadingMix?(
                                 [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                             ):(
-                                allMixes?.filter((mix: Mix) => mix.media.media_url.includes('youtube.com'))
+                                allMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com'))
                                 .map((mix: Mix) => (
                                     <MusicItem
                                         title={`${mix?.name}`}
@@ -167,7 +167,7 @@ const ExplorePage = () => {
                     throw new Error("Function not implemented.");
                 } }/>
                 <div className="w-full no-scrollbar overflow-x-auto flex items-center">
-                    {allMixes?.filter((mix: Mix) => mix.media.media_url.includes('youtube.com'))
+                    {allMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com'))
                     .map((mix: Mix) => (
                         <MusicItem
                             title={`${mix?.name}`}
