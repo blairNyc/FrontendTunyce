@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUploadVideoContentMutation } from '../../app/api/GlobalApiSlice';
+import axios from 'axios';
 
 interface UploadContentModalProps {
   isOpen: boolean;
@@ -21,17 +22,32 @@ interface FormValues {
   name: string;
   media: string;
   description: string;
+  genreId: number;
+}
+
+interface Genre {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  genreId: number;
 }
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required'),
   media: yup.string().url('Invalid URL').required('Media URL is required'),
   description: yup.string().required('Description is requhttps://tailwindcss.com/docs/text-colorired'),
+  genreId: yup.number().required('Genre is required'),
 });
 
 const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose }) => {
 
   const [uploadContent] = useUploadVideoContentMutation()
+
+  // const {data: genresData } = useGetAllGenresQuery(1)
+  // console.log(genresData)
+
+  
   
   // const [title, setTitle] = useState<string>('');
   // const [description, setDescription] = useState<string>('');
@@ -109,25 +125,47 @@ const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose
   //   }
   // };
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const selectedGenreId = watch('genreId');
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const response = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/genres'); // Replace with your actual API endpoint
+        setGenres(response.data.message);
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    };
+
+    fetchGenres();
+  }, [setValue]);
+
+  useEffect(() => {
+    // Set default value for genreId to the first genre in the list
+    if (genres.length > 0) {
+      setValue('genreId', genres[0].id);
+    }
+  }, [genres, setValue]);
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
 
     const videoObject = {
       name: `${data.name}`,
       media: `${data.media}`,
       video_thumbnail: `https://unsplash.com/photos/dKeB0-M9iiA`,
-      description: `${data.description}`
+      description: `${data.description}`,
+      genres : `${data.genreId}`
     }
 
-    console.log(videoObject)
 
     try {
-      const response = await uploadContent(videoObject)
-      console.log(response)
+     const response = await uploadContent(videoObject)
+     console.log(response)
 
 
     } catch (error) {
@@ -174,6 +212,21 @@ const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose
                 placeholder="Enter description"
                 {...register('description')} />
               <p className='text-xs text-rose-600'>{errors.description?.message}</p>
+            </div>
+
+            <div>
+              
+              <select 
+                {...register('genreId')}
+                className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
+              >
+                {genres.map((genre) => (
+                  <option key={genre.id} value={genre.id}>
+                    {genre.name}
+                  </option>
+                ))}
+              </select>
+              <p>{errors.genreId?.message}</p>
             </div>
           
             <button 
