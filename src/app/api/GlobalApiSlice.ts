@@ -55,6 +55,13 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }
     }),
 
+    getLatestMusicOther: builder.query({
+      query: () => ({
+        url: 'media/video/',
+        method: 'get',
+      })
+    }),
+
     // get all latest mixes
     getAllMixes: builder.query({
       query: () => ({
@@ -168,7 +175,7 @@ export const {
   useGetAllArtistsQuery,
   useGetSingleCreatorQuery,
   useGetMediaDetailsQuery,
-  useUploadVideoContentMutation
-
+  useUploadVideoContentMutation,
+  useGetLatestMusicOtherQuery
 
 } = apiVenuesSlice
