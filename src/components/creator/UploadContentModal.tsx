@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { useAppSelector } from '../../app/hooks';
-import { RootState } from '../../app/store';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUploadVideoContentMutation } from '../../app/api/GlobalApiSlice';
@@ -12,12 +10,12 @@ interface UploadContentModalProps {
   onUpload: (formData: FormData) => void;
 }
 
-interface ContentInformation {
-  name: string;
-  media: string;
-  video_thumbnail?: string | null;
-  description?: string | null;
-}
+// interface ContentInformation {
+//   name: string;
+//   media: string;
+//   video_thumbnail?: string | null;
+//   description?: string | null;
+// }
 
 interface FormValues {
   name: string;
@@ -31,7 +29,7 @@ const schema = yup.object().shape({
   description: yup.string().required('Description is requhttps://tailwindcss.com/docs/text-colorired'),
 });
 
-const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose, onUpload }) => {
+const UploadContentModal: React.FC<UploadContentModalProps> = ({ isOpen, onClose }) => {
 
   const [uploadContent] = useUploadVideoContentMutation()
   

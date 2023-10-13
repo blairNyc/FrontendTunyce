@@ -61,7 +61,7 @@ export default function ControllerLogin() {
                 }
             }))
             dispatch(switchUser('is_controller'))
-            navigate('/music');
+            navigate('/');
 
         } catch (error) {
             console.log(error)

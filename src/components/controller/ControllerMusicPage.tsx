@@ -54,7 +54,7 @@ interface MusicItemProp {
 }
 import LoadingSpinner from "../LoadingSpinner";
 import { SnackBar } from "../auth/userLogin";
-import { ErrorType } from "../../types";
+// import { ErrorType } from "../../types";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 import { AiOutlineClose } from "react-icons/ai";
@@ -62,7 +62,10 @@ import { FiCheckCircle } from "react-icons/fi";
 import React from "react";
 export default function ControllerMusicPage() {
     const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
-    const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
+    console.log(data)
+    // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
+
+    const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError }] = useSwitchContentMutation()
     let d = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
     if (!d) {
         d = 1;
@@ -88,7 +91,9 @@ export default function ControllerMusicPage() {
             }
             {
                 isErrorMusicFetch && (
-                    <SnackBar text={(error as ErrorType).data.message ?? 'Error encountered'} />
+                    <SnackBar text={
+                        // (error as ErrorType).data?.message ?? 
+                        'Error encountered'} />
                 )
             }
             {isSuccess && openModal && <SuccessPopUp closeModal={() => { setOpenModal(!openModal) }} text={'Music switched successfully'} />}
@@ -124,7 +129,7 @@ export default function ControllerMusicPage() {
                             </div>
                         ))
                     ) : (<div className="ml-10 mr-10 mx-auto mt-5 flex flex-col">
-                        {data?.map((music: MusicItemProp | undefined, id: number) => (
+                        {data && data?.map((music: MusicItemProp | undefined, id: number) => (
                             <MusicItem
                                 video_thumbnail={music?.video_thumbnail ? music?.video_thumbnail.includes('tunyce') ? 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60' : music?.video_thumbnail : ''}
                                 name={music?.name ? music.name : ''}
@@ -139,6 +144,13 @@ export default function ControllerMusicPage() {
                                 key={id ? id : Math.floor((Math.random() * 1000) + 1)}
                             />
                         ))}
+                        {
+                            !data&&(
+                                <div>
+                                    <h1>Reload the screen, poor connectivity</h1>
+                                </div>
+                            )
+                        }
                     </div>)
                 }
             </div>

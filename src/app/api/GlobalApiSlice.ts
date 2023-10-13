@@ -51,7 +51,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         method: 'get',
       }),
       transformResponse: (response:MusicItemProp[]) => {
-        return response.filter((item) =>item.media.media_url.includes('youtube'));
+        return response.filter((item) =>item.media?.media_url.includes('youtube'));
       }
     }),
 

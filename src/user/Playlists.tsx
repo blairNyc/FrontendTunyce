@@ -5,7 +5,7 @@ import { useGetAllPlayListsQuery } from "./UsersState";
 import CreatePlayListModal from "./components/CreatePlayList";
 const ArtistItem = ({playlist}:PlayListProps) => {
     return(
-        <Link to={`/my-playlists/${playlist.id}`} className="flex hover:scale-105 hover:bg-slate-100 py-4 rounded-lg flex-col items-center">
+        <Link to={`/my-playlists/${playlist.id}`} state={playlist} className="flex hover:scale-105 hover:bg-slate-100 py-4 rounded-lg flex-col items-center">
             <img src={playlist.playlist_thumbnail} className="w-36 h-36 rounded-full bg-gray-200"/>
             <p className="text-center text-black text-xl font-bold">{playlist.playlist_name}</p>
             <p className="text-center text-sm font-light">{playlist.playlist_description}</p>
