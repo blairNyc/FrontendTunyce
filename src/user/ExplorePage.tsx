@@ -1,5 +1,5 @@
 import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io"
-import {useGetAllMixesQuery, useGetAllTrendingMixesQuery} from "../app/api/GlobalApiSlice"
+import {useGetAllMixesQuery, useGetAllTrendingMixesQuery,} from "../app/api/GlobalApiSlice"
 import { Link, useNavigate } from 'react-router-dom';
 import { Mix } from "../types";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
@@ -33,7 +33,7 @@ export const FeaturedItem = ({ title, children, additionalStyles, owner, srcUrl,
         <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-bg-primary to-transparent rounded-xl"></div>
         <div className="absolute  z-40">
             <h4 className="text-white text-center font-bold text-xl">
-                {`${title?.slice(0, 20)}...`}
+                {`${title?.slice(0, 10)}...`}
             </h4>
             <p className="text-center">{owner}</p>
             <div className="flex">
@@ -52,7 +52,7 @@ export const MusicItem = ({ path, owner, srcUrl, title, onClick }:CommonProps)=>
     <Link to={path ?? ''} className="min-w-[150px] mx-2 cursor-pointer hover:scale-105" onClick={() => onClick?.('some-id')}>
         <img src={`${srcUrl}`} alt="" className="w-32 h-32 rounded-xl object-cover"/>
         <h4 className="font-bold">
-             {`${title?.slice(0, 20)}...`}
+             {`${title?.slice(0, 10)}...`}
         </h4>
         <p className="uppercase text-xs">{owner}</p>
         <div className="flex">
@@ -119,7 +119,7 @@ const ExplorePage = () => {
                         isLoadingAllTrend?(
                             [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                         ):(
-                            trendingMixes?.filter((mix: Mix) => mix.media.media_url.includes('youtube.com')).map((mix: Mix) => (
+                            trendingMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com')).map((mix: Mix) => (
                                 <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
                                 // {
                                 //     mix && mix?.video_thumbnail
@@ -145,7 +145,7 @@ const ExplorePage = () => {
                             isLoadingMix?(
                                 [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                             ):(
-                                allMixes?.filter((mix: Mix) => mix.media.media_url.includes('youtube.com'))
+                                allMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com'))
                                 .map((mix: Mix) => (
                                     <MusicItem
                                         title={`${mix?.name}`}
@@ -165,7 +165,7 @@ const ExplorePage = () => {
                     throw new Error("Function not implemented.");
                 } }/>
                 <div className="w-full no-scrollbar overflow-x-auto flex items-center">
-                    {allMixes?.filter((mix: Mix) => mix.media.media_url.includes('youtube.com'))
+                    {allMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com'))
                     .map((mix: Mix) => (
                         <MusicItem
                             title={`${mix?.name}`}

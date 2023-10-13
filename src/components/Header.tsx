@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 // import { FaRegBell } from "react-icons/fa6";
 import { BsChevronDown } from "react-icons/bs";
@@ -126,7 +126,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                                 setIsDropdownOpen(false);
                             } }
                         >Manage Fleet</a>
-                        <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link>
+                        {/* <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link> */}
                    </>   
                     
                     ) : null
@@ -139,7 +139,6 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                                 setIsDropdownOpen(false);
                             }}
                         >Upload Content</a>
-                            <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link>
                         </>
 
                     ) : null

@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import TopContent from './TopContent ';
 import Image from './assests/join.png'
 import UploadContentModal from './UploadContentModal';
+import { useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
 
 const ContentCreatorDashboard: React.FC = () => {
+
+  const userName = useAppSelector((state: RootState) => state.persistAuth.auth.username);
+  console.log(userName)
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -16,8 +21,7 @@ const ContentCreatorDashboard: React.FC = () => {
   };
 
   const handleUpload = (formData: FormData) => {
-    // Handle the upload of content here, e.g., send formData to your API
-    // You can implement this function as needed for your application
+    
     console.log('Uploading content...', formData);
 
     // Close the modal

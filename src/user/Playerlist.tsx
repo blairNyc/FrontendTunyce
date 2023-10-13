@@ -1,46 +1,47 @@
-import { AiOutlineHeart } from "react-icons/ai";
-import { BiDotsVerticalRounded, BiShuffle } from "react-icons/bi";
+import {  BiPlay, BiShuffle } from "react-icons/bi";
 
 import { BsFillPlayFill } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useGetPlaylistQuery } from "./UsersState";
-const PlaylistMusic = ()=>(
-    <div className=" container cursor-pointer hover:bg-slate-100 bg-white shadow-md w-full rounded-lg p-1 mt-2 flex  items-center justify-between">
-        <div className="flex">
-            <div className=" sm:w-10 md:w-14 lg:w-16 sm:h-10 md:h-14 lg:h-16 bg-gray-400  rounded-sm "></div>
-            <div className="ml-4">
-                <h4 className="sm:text-sm md:text-md lg:text-lg font-semibold">
-                Anyone
-                </h4>
-                <h6 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
-                Justin Bieber
-                </h6>
-            </div>
+import { MediaInformation } from "../types";
+import { Link } from "react-router-dom";
+const PlaylistMusic = ({content}:Props)=>(
+    <div className="container  p-2 cursor-pointer min-w-[130px] md:min-w-[180px] hover:bg-slate-100 bg-white shadow-md w-4/5 md:w-2/3 flex flex-col mt-2 ">
+        <div className="px-auto">
+            <img src={content.video_thumbnail} className="w-5/5 h-auto bg-gray-400  rounded-sm "/>
         </div>
-        <div className="flex ">
-            <button className="sm:text-xs md:text-sm lg:text-base sm:mr-5 md:mr-5 lg:mr-10">
-                3.22
+        <div className=" py-2">
+            <h4 className="text-xs md:text-sm font-semibold">
+                {content.name?content.name.slice(0,15)+'...':''}
+            </h4>
+            <h6 className="text-xs font-semibold text-gray-600">
+                {content.owner?content.owner.username.slice(0,10):''}
+            </h6>
+        </div>
+        <div className="flex  justify-evenly">
+            <button className="text-sm bg-text-primary text-white rounded-xl flex items-center px-4">
+                <BiPlay /> <span>Play</span>
             </button>
-            <button className="sm:text-xs md:text-sm lg:text-base sm:mr-8 md:mr-8 lg:mr-10">
-                <AiOutlineHeart />
-            </button>
-            <button className=" sm:text-xs md:text-sm lg:text-base sm:mr-8 md:mr-8 lg:mr-10">
-                <BiDotsVerticalRounded />
-            </button>
+        
         </div>
     </div>
-)
+);
+interface Props{
+    content: MediaInformation
+    content_type: string
+}
 export default function PlayListPage(){
     const {id} = useParams<{id:string}>();
-    console.log(id)
+    console.log(id);
+    const {state} = useLocation();
     const {data} = useGetPlaylistQuery(id);
-    console.log(data,'playlist');
+    console.log(data,'playlist',state);
     return (
         <>
             <div className="container">
                     <div className="flex justify-between">
                         <div className="text-red-600">
-                            <h5 className=" sm:text-base md:text-xl lg:2xl">Pop</h5>
+                            <h5 className=" sm:text-base md:text-xl lg:2xl">{state.playlist_name}</h5>
                         </div>
                         <div className="flex gap-x-5 text-red-600">
                             <div className="flex">
@@ -61,7 +62,7 @@ export default function PlayListPage(){
                             </div>
                         </div>
                     </div>
-                    <div className="ml-10 mr-10 mx-auto mt-5 flex flex-col  ">
+                    <div className="mx-auto mt-5 flex flex-col  ">
                     {/*Card*/}
                         {
                             (!data || data.length <=0) ? (
@@ -70,13 +71,16 @@ export default function PlayListPage(){
                                 <p className="text-center text-sm font-bold">
                                     Seems like you don't have any songs in your playlist
                                 </p>
-                                <button className="flex rounded-full items-center border bg-text-primary py-1 px-2" onClick={()=>{}}>
-                                    <h4 className="ml-2 text-white font-bold mr-3">Add songs</h4>
-                                </button>
+                                <Link to={'/mixes'} className="flex rounded-full items-center border bg-text-primary py-1 px-2" >
+                                    <h4 className="ml-2 text-white font-bold mr-3">Add Content</h4>
+                                </Link>
                             </div>) :
-                            <div className="mt-1 grid  grid-cols-2 lg:grid-cols-5 md:grid-cols-3 ">
-                                {data.map(()=>(
-                                    <PlaylistMusic />
+                            <div className="mt-1 grid  grid-cols-2 lg:grid-cols-4 md:grid-cols-3">
+                                {data.map((info:Props)=>(
+                                    <PlaylistMusic 
+                                        content={info.content}
+                                        content_type={info.content_type}
+                                    />
                                 ))}
                             </div>
                         }

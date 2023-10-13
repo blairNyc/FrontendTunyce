@@ -51,7 +51,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         method: 'get',
       }),
       transformResponse: (response:MusicItemProp[]) => {
-        return response.filter((item) =>item.media.media_url.includes('youtube'));
+        return response.filter((item) =>item.media?.media_url.includes('youtube'));
       }
     }),
 
@@ -133,7 +133,16 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         url: `/media/update_video/${video_id}/`,
         method: 'get'
       })
-    })
+    }),
+
+    // Video upload
+    uploadVideoContent: builder.mutation({
+      query: (videoInformation) => ({
+        url: `/media/upload_video`,
+        method: 'post',
+        body: videoInformation
+      }),
+    }),
 
   }),
 })
@@ -158,7 +167,8 @@ export const {
   useVideoEndUpdatesMutation,
   useGetAllArtistsQuery,
   useGetSingleCreatorQuery,
-  useGetMediaDetailsQuery
+  useGetMediaDetailsQuery,
+  useUploadVideoContentMutation
 
 
 } = apiVenuesSlice

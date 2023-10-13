@@ -71,3 +71,26 @@ export type IContentCreatorsType = {
     title: string;
     thumbnailUrl: string;
   }
+export interface MediaInformation {
+    id: number;
+    owner: {
+        username: string;
+        id: number;
+        email: string;
+    };
+    name: string;
+    video_thumbnail: string;
+    views: number;
+    description: string;
+    created_at: string;
+    media: {
+        id: number;
+        media_url: string;
+    };
+    genres: {
+        id: number;
+        name: string;
+        image: string;
+        description: string;
+    };
+ }

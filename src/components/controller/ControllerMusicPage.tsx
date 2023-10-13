@@ -54,7 +54,7 @@ interface MusicItemProp {
 }
 import LoadingSpinner from "../LoadingSpinner";
 import { SnackBar } from "../auth/userLogin";
-import { ErrorType } from "../../types";
+// import { ErrorType } from "../../types";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 import { AiOutlineClose } from "react-icons/ai";
@@ -62,7 +62,10 @@ import { FiCheckCircle } from "react-icons/fi";
 import React from "react";
 export default function ControllerMusicPage() {
     const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
-    const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
+    console.log(data)
+    // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
+
+    const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError }] = useSwitchContentMutation()
     let d = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
     if (!d) {
         d = 1;
@@ -88,7 +91,9 @@ export default function ControllerMusicPage() {
             }
             {
                 isErrorMusicFetch && (
-                    <SnackBar text={(error as ErrorType).data.message ?? 'Error encountered'} />
+                    <SnackBar text={
+                        // (error as ErrorType).data?.message ?? 
+                        'Error encountered'} />
                 )
             }
             {isSuccess && openModal && <SuccessPopUp closeModal={() => { setOpenModal(!openModal) }} text={'Music switched successfully'} />}
