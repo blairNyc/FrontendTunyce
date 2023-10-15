@@ -59,7 +59,7 @@ export default function ControllerLayout() {
                     <div className='w-full'>
                         <h2 className='text-lg font-medium ml-3 mt-1'>MENU</h2>
                         <ul className='w-full'>
-                            <NavElement path="/music" name="Music">
+                            <NavElement path="/" name="Music">
                                 <BsPeopleFill className="text-xl" />
                             </NavElement>
                             <NavElement path="/controller-creators" name="Discover">

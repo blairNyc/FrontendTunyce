@@ -413,15 +413,15 @@ function App() {
         element: <ControllerLayout />,
         children: [
           {
+            path: "/",
+            element: <ControllerMusicPage />
+          },
+          {
             path: "/controller-creators",
             element: <ControllerCreators />
           },
           FAQSRouter,
           TermsCondsRouter,
-          {
-            path: "/music",
-            element: <ControllerMusicPage />
-          },
           {
             path: '/controller-creators/:id',
             element: <ControllerCreator />

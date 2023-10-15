@@ -129,7 +129,7 @@ export default function ControllerMusicPage() {
                             </div>
                         ))
                     ) : (<div className="ml-10 mr-10 mx-auto mt-5 flex flex-col">
-                        {data?.map((music: MusicItemProp | undefined, id: number) => (
+                        {data && data?.map((music: MusicItemProp | undefined, id: number) => (
                             <MusicItem
                                 video_thumbnail={music?.video_thumbnail ? music?.video_thumbnail.includes('tunyce') ? 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60' : music?.video_thumbnail : ''}
                                 name={music?.name ? music.name : ''}
@@ -144,6 +144,13 @@ export default function ControllerMusicPage() {
                                 key={id ? id : Math.floor((Math.random() * 1000) + 1)}
                             />
                         ))}
+                        {
+                            !data&&(
+                                <div>
+                                    <h1>Reload the screen, poor connectivity</h1>
+                                </div>
+                            )
+                        }
                     </div>)
                 }
             </div>

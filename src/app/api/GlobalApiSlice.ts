@@ -1,5 +1,5 @@
 import { MusicItemProp } from '../../types'
-import { apiSlice } from './apiSlice'
+import { apiSlice } from './apiSlice';
 
 export const apiVenuesSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -50,9 +50,16 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         url: 'media/video/',
         method: 'get',
       }),
-      transformResponse: (response:MusicItemProp[]) => {
-        return response.filter((item) =>item.media?.media_url.includes('youtube'));
+      transformResponse: (response: MusicItemProp[]) => {
+        return response.filter((item) => item.media?.media_url.includes('youtube'));
       }
+    }),
+
+    getLatestMusicOther: builder.query({
+      query: () => ({
+        url: 'media/video/',
+        method: 'get',
+      })
     }),
 
     // get all latest mixes
@@ -168,7 +175,7 @@ export const {
   useGetAllArtistsQuery,
   useGetSingleCreatorQuery,
   useGetMediaDetailsQuery,
-  useUploadVideoContentMutation
-
+  useUploadVideoContentMutation,
+  useGetLatestMusicOtherQuery
 
 } = apiVenuesSlice

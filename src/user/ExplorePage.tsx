@@ -5,8 +5,6 @@ import { Mix } from "../types";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
 import { BsFillPlayFill } from "react-icons/bs";
 
-
-
 interface CommonProps{
     title?: string
     owner?: string
