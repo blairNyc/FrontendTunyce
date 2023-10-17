@@ -36,6 +36,7 @@ function RestaurantHomePage() {
     const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
 
     const [data, setRestaurantData] = useState<RestaurantData[]>();
+    console.log(data)
     const [isFetching,setIsFetching] = useState<boolean>(false);
     const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
 
@@ -108,11 +109,11 @@ function RestaurantHomePage() {
                         New Restaurant
                     </button>
                 </div>
-                <div className="w-full mt-5 flex items-center no-scrollbar overflow-x-auto">
+                <div className="w-full h-screen mt-5 flex no-scrollbar overflow-x-auto">
                     {
-                        isFetching?(
-                            [1,2,3,4].map((id)=><LoadingSkeleton key={id}/>)
-                        ):(
+                        // isFetching?(
+                        //     [1,2,3,4].map((id)=><LoadingSkeleton key={id}/>)
+                        // ):(
                         data?.map((restaurant: RestaurantData) => (
                             <div onClick={() => {
                                 const restaurantId: number= restaurant.id
@@ -120,7 +121,9 @@ function RestaurantHomePage() {
                             }} className="hover:cursor-pointer">
                                 <FeaturedItem title={restaurant.name} imageLink="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" />
                             </div>
-                        )))
+                        ))
+
+        
                     }
                 </div>
             </div>
