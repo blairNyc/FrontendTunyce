@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Mix } from '../types';
 import SignModal from './SignModal';
 
+
 const ButtonStyle = ({ text }: { text: string }) => (<button className='w-full rounded-md hover:bg-red-600 my-3 font-bold uppercase text-white bg-text-primary py-3'>{text}</button>)
 export const JointTunce = () => (
     <div className='h-screen flex pt-8 justify-center md:items-center'>
@@ -62,10 +63,12 @@ function LandingPage() {
     const { data: trendingMixes, isLoading: isLoadingTrending } = useGetAllTrendingMixesQuery([]);
     const [visibleItems, setVisibleItems] = useState(9);
     const [isModalOpen, setIsModalOpen] = useState(false);
+  
     console.log(trendingMixes);
     console.log(isLoadingMixes)
     console.log(isLoadingTrending)
 
+    console.log(trendingMixes); 
 
     const showMore = () => {
         // Go to next page
@@ -79,6 +82,7 @@ function LandingPage() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
 
     return (
         <div className='w-full h-full py-3'>
@@ -106,7 +110,7 @@ function LandingPage() {
                     <p>MUSIC TO GET YOU STARTED</p>
                     <RowContainer onClick={showMore} text='Popular' />
                     <div className="grid grid-cols-1 md:grid-cols-4 xs:grid-cols-3">
-                        {trendingMixes && trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: Mix) => (
+                        {trendingMixes && trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: any) => (
                             <MusItem
                                 key={tmix.id}
                                 plays='32K'
@@ -121,6 +125,7 @@ function LandingPage() {
                     <RowContainer onClick={showMore} text='New Releases' />
                     <div className="flex flex-row gap-2">
                         {latestMixes?.slice(0, 7).map((mix) => (
+                        {latestMixes && latestMixes?.slice(0, 7).map((mix: any) => (
                             <EasyAfterNoon
                                 key={mix.id}
                                 onClick={() => openModal()}
