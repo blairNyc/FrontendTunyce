@@ -1,6 +1,7 @@
 import { mainApiSlice } from '../../api/apiSlice'
 
 export const apiContentSlice = mainApiSlice.injectEndpoints({
+    
     endpoints: (builder) => ({
         //gets all content creators
         // upgrade matatu
@@ -11,8 +12,8 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
             }),
         }),
         loginAsController: builder.mutation({
-            query: (data:{uuid:string,password:string}) => ({
-                url: '/matatu/controller/login/',
+            query: (data) => ({
+                url: 'matatu/controller/login/',
                 method: 'post',
                 body: {
                     uuid: data.uuid,
@@ -24,6 +25,14 @@ export const apiContentSlice = mainApiSlice.injectEndpoints({
         upgradeToRestaurantOwner: builder.mutation({
             query: () => ({
                 url: '/restaurant/upgrade_restaurant/',
+                method: 'post',
+            }),
+        }),
+
+        // upgrade to content creator
+        upgradeToContentCreator: builder.mutation({
+            query: () => ({
+                url: '/creator/upgrade/',
                 method: 'post',
             }),
         }),
@@ -64,5 +73,6 @@ export const {
     useUpgradeToRestaurantOwnerMutation,
     // useCreateMatatuMutation
     useLoginAsControllerMutation,
-    useGetAllGenresQuery
+    useGetAllGenresQuery,
+    useUpgradeToContentCreatorMutation
 } = apiContentSlice;

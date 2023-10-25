@@ -63,7 +63,12 @@ function LandingPage() {
     const { data: trendingMixes, isLoading: isLoadingTrending } = useGetAllTrendingMixesQuery([]);
     const [visibleItems, setVisibleItems] = useState(9);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    console.log(trendingMixes);   
+  
+    console.log(trendingMixes);
+    console.log(isLoadingMixes)
+    console.log(isLoadingTrending)
+
+    console.log(trendingMixes); 
 
     const showMore = () => {
         // Go to next page
@@ -119,6 +124,7 @@ function LandingPage() {
                 <div>
                     <RowContainer onClick={showMore} text='New Releases' />
                     <div className="flex flex-row gap-2">
+                        {latestMixes?.slice(0, 7).map((mix) => (
                         {latestMixes && latestMixes?.slice(0, 7).map((mix: any) => (
                             <EasyAfterNoon
                                 key={mix.id}

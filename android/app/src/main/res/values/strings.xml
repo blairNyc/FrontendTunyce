@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TunyceMedia</string>
+    <string name="title_activity_main">TunyceMedia</string>
+    <string name="package_name">io.ionic.tunycemedia</string>
+    <string name="custom_url_scheme">io.ionic.tunycemedia</string>
+</resources>

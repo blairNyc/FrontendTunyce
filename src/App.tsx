@@ -51,6 +51,9 @@ import ControllerLogin from './components/controller/controllerLogin';
 import ControllerLayout from './components/controller/components/ControllerLayout';
 import ControllerMusicPage from './components/controller/ControllerMusicPage';
 import ControllerCreator from './components/controller/ControllerCreator';
+import PlayListPage from './user/Playerlist';
+import PlayListsPage from './user/Playlists';
+import CreatorLayout from './components/creator/components/CreatorLayout';
 
 
 const NotFoundRouter: RouteObject = {
@@ -256,7 +259,8 @@ function App() {
       element: <UserLayout />,
       children: [
         {
-          path: '/home',
+          path: '/',
+          index: true,
           element: <Homepage />
         },
         {
@@ -268,6 +272,14 @@ function App() {
         {
           path: '/explore',
           element: <ExplorePage />
+        },
+        {
+            path:'/my-playlists',
+            element: <PlayListsPage/>
+        },
+        {
+            path:'/my-playlists/:id',
+            element: <PlayListPage/>
         },
         {
           path: "/explore/innerpage",
@@ -339,13 +351,36 @@ function App() {
           element: <NotFound />,
         },
         {
-          path: '/matatu/my-wallet',
+          path: '/my-wallet',
           element: <RestaurantWalletPage />
         },
         FAQSRouter,
         TermsCondsRouter,
       ]
-    } : curr_loggedin_user === "" ? {
+        } : curr_loggedin_user === "is_contentcreator" ? {
+          element: <CreatorLayout />,
+          children: [
+            {
+              path: '/',
+              element : <ContentCreatorDashboard />
+            },
+            {
+              path: '/my-content',
+              element: <MyContent />,
+            },
+            {
+              path: "*",
+              element: <NotFound />,
+            },
+            {
+              path: '/my-wallet',
+              element: <RestaurantWalletPage />
+            },
+            FAQSRouter,
+            TermsCondsRouter,
+          ]
+        }    
+    : curr_loggedin_user === "" ? {
       element: <DefaultLayout />,
       children: [
         {
@@ -378,18 +413,26 @@ function App() {
         element: <ControllerLayout />,
         children: [
           {
+            path: "/",
+            element: <ControllerMusicPage />
+          },
+          {
             path: "/controller-creators",
             element: <ControllerCreators />
           },
           FAQSRouter,
           TermsCondsRouter,
           {
-            path: "/music",
-            element: <ControllerMusicPage />
-          },
-          {
             path: '/controller-creators/:id',
             element: <ControllerCreator />
+          },
+          {
+            path:'my-playlists',
+            element: <PlayListsPage/>
+          },
+          {
+            path:'my-playlists/:id',
+            element: <PlayListPage/>
           },
           NotFoundRouter
         ]
