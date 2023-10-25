@@ -333,6 +333,10 @@ function App() {
           path: '/matatu',
           element: <MatatuPage />,
         },
+        {
+          path: "/user-wallet",
+          element: <UserWalletPage />,
+        },
 
       ]
     } : curr_loggedin_user === "is_matatu" ? {

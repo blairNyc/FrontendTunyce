@@ -65,6 +65,12 @@ export default function ControllerMusicPage() {
     console.log(data)
     // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
 
+    const GenreBox = ({ text, bgcolor }: { text: string, bgcolor: string }) => (
+        <p className={`px-4 cursor-pointer text-white text-sm mx-1 my-2 rounded-lg font-semibold py-1 ${bgcolor}`}>
+            {text}
+        </p>
+    );
+
     const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError }] = useSwitchContentMutation()
     let d = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
     if (!d) {
@@ -120,6 +126,19 @@ export default function ControllerMusicPage() {
                             </button>
                         </div>
                     </div>
+                </div>
+
+                <div className="flex flex-row flex-wrap">
+                        <GenreBox text="Hip hop" bgcolor="bg-pink-400" />
+                        <GenreBox text="Afro pop" bgcolor="bg-red-500" />
+                        <GenreBox text="Dancehall" bgcolor="bg-lime-300" />
+                        <GenreBox text="Jazz" bgcolor="bg-purple-600" />
+                        <GenreBox text="Rhumba" bgcolor="bg-blue-500" />
+                        <GenreBox text="Gengetone" bgcolor="bg-pink-400" />
+                        <GenreBox text="Kenyan" bgcolor="bg-pink-400" />
+                        <GenreBox text="Reggae" bgcolor="bg-orange-500" />
+                        <GenreBox text="Podcasts" bgcolor="bg-red-500" />
+                        <GenreBox text="See All" bgcolor="bg-purple-900" />
                 </div>
                 {
                     isLoading ? (

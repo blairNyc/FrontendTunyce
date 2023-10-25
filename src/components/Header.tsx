@@ -8,7 +8,7 @@ import TunycDarkLogo from '../assets/tunyce_logo.svg'
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useUpgradeToContentCreatorMutation, useUpgradeToMatatuOwnerMutation, useUpgradeToRestaurantOwnerMutation, } from "../app/features/content/contentApiSlice";
-import {useState } from "react";
+import { useState } from "react";
 import { logOut, setCredentials, switchUser } from "./auth/auth/authSlice";
 import { UserTypes } from "../types";
 import { RootState } from "../app/store";
@@ -26,8 +26,8 @@ interface IHeaderProp {
 function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
     const dispatch = useAppDispatch()
-    const isMatOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_matatu);
-    const isResOwner = useAppSelector((state:RootState)=>state.persistAuth.auth.is_restaunt);
+    const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
+    const isResOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_restaunt);
     const isContentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
     // const isMatOwner = useAppSelector((state: RootState) => state.persistAuth.auth.is_matatu);
     const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
@@ -43,33 +43,33 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const [displayUpgradeModal, setDisplayUpgradeModal] = useState(false);
 
     const [selectedValue, setSelectedValue] = useState("Content Creator");
-    const handleSelectChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(event.target.value);
     };
-    const authVals = useAppSelector((state:RootState)=>state.persistAuth.auth);
+    const authVals = useAppSelector((state: RootState) => state.persistAuth.auth);
     const [upgradeMatatu] = useUpgradeToMatatuOwnerMutation()
     const [upgradeRestaurant] = useUpgradeToRestaurantOwnerMutation()
     const [upgradeContentCreator] = useUpgradeToContentCreatorMutation()
-    const onSubmitUpgrade = async (selectedValue : string) => {
+    const onSubmitUpgrade = async (selectedValue: string) => {
         try {
             if (selectedValue == "Matatu Owner") {
                 const response = await dispatch(upgradeMatatu)
                 console.log(response);
                 dispatch(setCredentials({
-                    auth:{
+                    auth: {
                         ...authVals,
                         is_matatu: true
                     }
-                }))   
+                }))
             } else if (selectedValue == "Restaurant Owner") {
                 const response = await dispatch(upgradeRestaurant);
                 dispatch(setCredentials({
-                    auth:{
+                    auth: {
                         ...authVals,
                         is_restaunt: true
                     }
                 }))
-                console.log("Restaurant Owner",response);
+                console.log("Restaurant Owner", response);
             } else if (selectedValue == "Content Creator") {
                 const response = await dispatch(upgradeContentCreator)
                 console.log(response)
@@ -85,12 +85,12 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
         }
     };
     const navigate = useNavigate();
-    const switchAccountHandler = (accountType: keyof UserTypes)=>{
+    const switchAccountHandler = (accountType: keyof UserTypes) => {
         try {
             dispatch(switchUser(accountType));
             if (accountType == "is_matatu") navigate('/matatu');
             else if (accountType == "is_restaunt") navigate('/restaurant');
-            
+
             return;
         } catch (error) {
             console.log(error);
@@ -119,16 +119,16 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                 <li>
                     {isMatOwner ? (
-                    
-                    <><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+
+                        <><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             onClick={() => {
                                 switchAccountHandler('is_matatu');
                                 setIsDropdownOpen(false);
-                            } }
+                            }}
                         >Manage Fleet</a>
-                        {/* <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link> */}
-                   </>   
-                    
+                            {/* <Link to="/play" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Player</Link> */}
+                        </>
+
                     ) : null
                     }
                     {isContentCreator ? (
@@ -143,11 +143,11 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
                     ) : null
                     }
-                    {isResOwner ? ( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    {isResOwner ? (<a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             switchAccountHandler('is_restaunt')
                         }}
-                        >Switch to Restaurant owner</a>):null
+                    >Switch to Restaurant owner</a>) : null
                     }
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
@@ -162,7 +162,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                     onClick={() => {
                         setIsDropdownOpen(false)
                         handleAdvertClick
-window.location.href = `http://localhost:5173/?token=${token}`;
+                        window.location.href = `http://localhost:5173/?token=${token}`;
                     }}
                 >Advert</a>
             </div>
@@ -252,12 +252,12 @@ window.location.href = `http://localhost:5173/?token=${token}`;
                     <AiOutlineMenu onClick={setSideBarOpen} className="text-2xl text-black" />
                     <img src={TunycLogo} alt="" className={`w-24  h-auto ${sideBarOpen ? 'hidden' : 'block'} mx-2l object-contain`} />
                 </div>
-                <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/2">                    
-                    <form className="w-full">   
+                <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/2">
+                    <form className="w-full">
                         <div className="relative w-full">
                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
                             <input type="search" id="default-search" className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Artists, Mixes..." required></input>

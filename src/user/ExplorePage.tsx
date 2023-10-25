@@ -1,7 +1,7 @@
 import {IoIosArrowDropleftCircle, IoIosArrowDroprightCircle} from "react-icons/io"
-import {useGetAllMixesQuery, useGetAllTrendingMixesQuery,} from "../app/api/GlobalApiSlice"
+import { useGetAllTrendingMixesQuery, useGetLatestMusicQuery } from "../app/api/GlobalApiSlice"
 import { Link, useNavigate } from 'react-router-dom';
-import { Mix } from "../types";
+import { Mix, MusicItemProp } from "../types";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
 import { BsFillPlayFill } from "react-icons/bs";
 
@@ -77,34 +77,14 @@ const ExplorePage = () => {
 
     // const isNormalUser: any = useAppSelector((state: RootState) => state.persistAuth.auth.is_normaluser);
 
-      const { data: allMixes,isLoading:isLoadingMix } = useGetAllMixesQuery(1)
-      console.log(allMixes)
+    const { data: allMixes, isLoading: isLoadingMix } = useGetLatestMusicQuery(1)
+    
       const { data: trendingMixes,isLoading:isLoadingAllTrend } = useGetAllTrendingMixesQuery(1)
 
       // const [switchVideoMutation] = useSwitchVideoMutation();
 
-      const handleItemClick = (id: string) => {  
-        
+      const handleItemClick = (id: number) => { 
           navigate(`/creators/videos/${id}`)
-
-        // if(isNormalUser && id !== null) {
-        //     navigate('creators/videos/1')
-           
-        // }
-
-          
-
-        // try {
-        //   const result = await switchVideoMutation({ variables: { id } });
-
-        //   if ('data' in result) {
-        //     console.log('Mutation response:', result.data);
-        //   } else if ('error' in result) {
-        //     console.error('Mutation error:', result.error);
-        //   }
-        // } catch (error) {
-        //   console.error('Mutation error:', error);
-        // }
       };
 
     return (
@@ -121,12 +101,11 @@ const ExplorePage = () => {
                         ):(
                             trendingMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com')).map((mix: Mix) => (
                                 <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                                // {
-                                //     mix && mix?.video_thumbnail
-                                //         ? mix?.video_thumbnail
-                                //         : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
-                                //     }
-                                    onClick={() => handleItemClick(mix.id)}
+                                    onClick={() => {
+                                        const stringVal: string = mix.id;
+                                        const mixId: number = parseInt(stringVal, 10);
+                                        handleItemClick(mixId)
+                                    }}
                                 />
                             ))
                         )
@@ -145,15 +124,15 @@ const ExplorePage = () => {
                             isLoadingMix?(
                                 [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                             ):(
-                                allMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com'))
-                                .map((mix: Mix) => (
-                                    <MusicItem
-                                        title={`${mix?.name}`}
-                                        owner={`${mix?.owner?.username}`}
-                                        srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                                        onClick={() => handleItemClick(mix.id)}                              
-                                    />
-                                )
+                                    allMixes?.filter((mix: MusicItemProp) => mix.media?.media_url.includes('youtube.com'))
+                                    .map((mix: MusicItemProp) => (
+                                        <MusicItem
+                                            title={`${mix?.name}`}
+                                            owner={`${mix?.owner?.username}`}
+                                            srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                                            onClick={() => handleItemClick(mix.id)}
+                                        />
+                                    )
                         ))}
 
                     </div>
@@ -165,19 +144,13 @@ const ExplorePage = () => {
                     throw new Error("Function not implemented.");
                 } }/>
                 <div className="w-full no-scrollbar overflow-x-auto flex items-center">
-                    {allMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com'))
-                    .map((mix: Mix) => (
+                    {allMixes?.filter((mix: MusicItemProp) => mix.media?.media_url.includes('youtube.com'))
+                    .map((mix: MusicItemProp) => (
                         <MusicItem
                             title={`${mix?.name}`}
                             owner={`${mix?.owner?.username}`}
                             srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                            // {mix && mix?.video_thumbnail
-                            //      ? mix?.video_thumbnail
-                            //      : 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'} 
-                             onClick={() => handleItemClick(mix.id)}
-                            // onClick={function (): void {
-                            //           throw new Error("Function not implemented.");
-                            //  }}                                
+                             onClick={() => handleItemClick(mix.id)}                           
                         />
                         ))}
                 </div>

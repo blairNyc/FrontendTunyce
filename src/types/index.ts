@@ -31,6 +31,7 @@ export interface MusicItemProp{
     }
     video_thumbnail:string,
 }
+
 export interface IMatatuType{
     name: string
     number_plate: string

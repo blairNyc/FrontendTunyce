@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { useSwitchVideoMutation } from '../../app/api/GlobalApiSlice';
 import { BsFillPlayFill } from "react-icons/bs";
+import { useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
+import { useNavigate } from 'react-router-dom';
 
 interface CommonProps{
     title?: string
@@ -18,7 +21,12 @@ interface CommonProps{
 }
 
 const VideoItem = ({ title, owner, id ,vidUrl, date,srcUrl,views }: CommonProps) => {
-    const [isHovered, setIsHovered] = useState(false);
+
+  const isNormalUser: any = useAppSelector((state: RootState) => state.persistAuth.auth.is_normaluser);
+
+  const navigate = useNavigate();
+
+  const [isHovered, setIsHovered] = useState(false);
   
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -44,20 +52,26 @@ const VideoItem = ({ title, owner, id ,vidUrl, date,srcUrl,views }: CommonProps)
     };
   }, [hoverTimeout]);
 
-  const [switchVideoMutation] = useSwitchVideoMutation();
+  // const [switchVideoMutation] = useSwitchVideoMutation();
 
   const handleItemClick = async () => {
-    try {
-      const result = await switchVideoMutation(id);
 
-      if ('data' in result) {
-        console.log('Video switched successfully:', result.data);
-      } else if ('error' in result) {
-        console.error('Video switch error:', result.error);
-      }
-    } catch (error) {
-      console.error('Video switch error:', error);
-    }
+    navigate(`/creators/videos/${id}`)
+
+    // if(isNormalUser) {
+    //   navigate(`/creators/videos/${id}`)
+    // } else {
+    //   try {
+    //     const result = await switchVideoMutation(id);
+    //     if ('data' in result) {
+    //       console.log('Video switched successfully:', result.data);
+    //     } else if ('error' in result) {
+    //       console.error('Video switch error:', result.error);
+    //     }
+    //   } catch (error) {
+    //     console.error('Video switch error:', error);
+    //   }
+    // }    
   };
   
     return (
