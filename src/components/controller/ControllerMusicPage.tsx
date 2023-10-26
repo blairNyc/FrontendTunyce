@@ -1,8 +1,27 @@
+import React, { useEffect, useState } from "react";
 import { BiShuffle, BiDotsVerticalRounded } from "react-icons/bi";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useGetLatestMusicQuery } from "../../app/api/GlobalApiSlice";
 import { LoadingSkeleton } from "../LoadingSkeletonList";
 import { useSwitchContentMutation } from "./features";
+import axios from 'axios';
+import LoadingSpinner from "../LoadingSpinner";
+import { SnackBar } from "../auth/userLogin";
+// import { ErrorType } from "../../types";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
+import { AiOutlineClose } from "react-icons/ai";
+import { FiCheckCircle } from "react-icons/fi";
+
+interface Genre {
+    id: number;
+    name: string;
+    image: string;
+    description: string;
+    genreId: number;
+}
+
+
 interface MusicItPrp extends MusicItemProp {
     onClick: (mediaUrl: string | number) => void
 }
@@ -52,17 +71,27 @@ interface MusicItemProp {
     }
     video_thumbnail: string,
 }
-import LoadingSpinner from "../LoadingSpinner";
-import { SnackBar } from "../auth/userLogin";
-// import { ErrorType } from "../../types";
-import { useAppSelector } from "../../app/hooks";
-import { RootState } from "../../app/store";
-import { AiOutlineClose } from "react-icons/ai";
-import { FiCheckCircle } from "react-icons/fi";
-import React from "react";
+
 export default function ControllerMusicPage() {
     const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
     console.log(data)
+
+    const [genres, setGenres] = useState<Genre[]>([]);
+    console.log(genres, " The List")
+
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const response = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/genres'); // Replace with your actual API endpoint
+                setGenres(response.data.message);
+            } catch (error) {
+                console.error('Error fetching genres:', error);
+            }
+        };
+
+        fetchGenres();
+    }, []);
+
     // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
 
     const GenreBox = ({ text, bgcolor }: { text: string, bgcolor: string }) => (
@@ -129,16 +158,13 @@ export default function ControllerMusicPage() {
                 </div>
 
                 <div className="flex flex-row flex-wrap">
-                        <GenreBox text="Hip hop" bgcolor="bg-pink-400" />
-                        <GenreBox text="Afro pop" bgcolor="bg-red-500" />
-                        <GenreBox text="Dancehall" bgcolor="bg-lime-300" />
-                        <GenreBox text="Jazz" bgcolor="bg-purple-600" />
-                        <GenreBox text="Rhumba" bgcolor="bg-blue-500" />
-                        <GenreBox text="Gengetone" bgcolor="bg-pink-400" />
-                        <GenreBox text="Kenyan" bgcolor="bg-pink-400" />
-                        <GenreBox text="Reggae" bgcolor="bg-orange-500" />
-                        <GenreBox text="Podcasts" bgcolor="bg-red-500" />
-                        <GenreBox text="See All" bgcolor="bg-purple-900" />
+
+                    {
+                        genres && genres.map(((genreInfo: Genre) => (
+                            <GenreBox text={genreInfo.name} bgcolor="bg-pink-400" />
+                        )))
+                    }
+                        
                 </div>
                 {
                     isLoading ? (

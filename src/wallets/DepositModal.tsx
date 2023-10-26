@@ -1,73 +1,46 @@
-import * as yup from 'yup'
 import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
 import Backdrop from "../components/Backdrop";
-import axios from 'axios';
-import { useAppSelector } from "../app/hooks";
-import { RootState } from "../app/store";
 import { useEffect, useState } from "react";
 import { IMatatuType } from '../types';
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import "yup-phone-lite";
+import { parsePhoneNumber } from 'libphonenumber-js'
 
-interface registrationInput {
-    name: string
-    number_plate: string
-    route: number
-    number_of_seats: number
-    // driver : string
-    is_trial?: boolean
-    image_interior?: string
-    image_exterior?: string
+interface depositInput {
+    phone: string,
+    amount: string
 }
 
-const schema = yup.object({
-    name: yup.string().required(),
-    number_plate: yup.string().required(),
-    number_of_seats: yup.number().required(),
-    route: yup.number().required(),
-    is_trial: yup.boolean(),
-    // driver: yup.string().required(),
-    image_exterior: yup.string(),
-    image_interior: yup.string(),
-}).required()
+// const schema = yup.object({
+//     phone: yup.string().required(),
+//     amount: yup.string().required(),
+// }).required()
 
-interface Checkpoint {
-    id: number;
-    name: string;
-}
+const schema = yup.object().shape({
+    phone: yup
+        .string()
+        .phone("KE", "Please enter a valid phone number")
+        .required("A phone number is required"),
+    amount: yup.string().required(),
+}).required();
 
-interface Route {
-    id: number;
-    name: string;
-    grade: string;
-    checkpoint: Checkpoint[];
-}
 
 function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: boolean, onClose: () => void, isRegistrationSuccessFull: (matatu: IMatatuType) => void }) {
 
     if (!isOpen) return null;
 
-    // User bearer token
-    const userToken = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+    // const { handleSubmit, depositMoney } = useForm<depositInput>({
+    //     resolver: yupResolver(schema),
+    // })
 
-    const { handleSubmit, register } = useForm<registrationInput>({
-        resolver: yupResolver(schema),
+    const {handleSubmit, register} = useForm<depositInput> ({
+        resolver: yupResolver(schema)
     })
+    
 
-    const [interiorImageUrl, setInteriorImageUrl] = useState<string>('');
-    const [exteriorImageUrl, setExteriorImageUrl] = useState<string>('');
 
-    const handleInteriorImage = (text: string) => {
-        if (text !== null) {
-            setInteriorImageUrl(text);
-        }
 
-    };
-
-    const handleExteriorImage = (text: string) => {
-        if (text !== null) {
-            setExteriorImageUrl(text);
-        }
-    };
 
 
     const [displayServerErrorNotification, setDisplayServerErrorNotification] = useState<boolean>(false)
@@ -84,34 +57,6 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
         setDisplayErrorNotification(false);
     }
 
-    const [routes, setRoutes] = useState<Route[]>([]);
-
-    const [selectedRouteId, setSelectedRouteId] = useState<number | ''>('');
-
-    const handleRouteChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedRouteId(Number(event.target.value));
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/region/routes/', {
-                    headers: {
-                        Authorization: `Bearer ${userToken}`,
-                    },
-                });
-
-                const data = responseRoute.data.message;
-                setRoutes(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-
-    }, [userToken]);
-
     useEffect(() => {
         if (displayErrorNotification) {
             setTimeout(() => { setDisplayErrorNotification(!displayErrorNotification) }, 3000);
@@ -122,60 +67,12 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
 
     }, [displayErrorNotification, displayServerErrorNotification]);
 
-    const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput) => {
-
-        const authToken: string = `${userToken}`
-
-        try {
-
-            setSubmitting(true)
-
-            const userDataMain: IMatatuType = {
-                name: `${data.name}`,
-                number_plate: `${data.number_plate}`,
-                route: data.route,
-                number_of_seats: data.number_of_seats,
-                // driver : `${data.driver}`,
-                image_exterior: `${exteriorImageUrl}`,
-                image_interior: `${interiorImageUrl}`,
-            }
-
-            // Make a POST request using Axios
-            await axios.post('https://warm-journey-18609535df73.herokuapp.com/api/v1/matatu/create_matatu', userDataMain, {
-                headers: {
-                    Authorization: `Bearer ${authToken}`,
-                },
-            }).then(response => {
-                if (response.status == 201) {
-                    setSubmitting(false)
-                    isRegistrationSuccessFull(userDataMain)
-                    close()
-                }
-            }
-            ).catch(error => {
-                setSubmitting(false)
-
-                if (error.response.status == 500) {
-                    setSubmitting(false)
-                    setDisplayServerErrorNotification(true)
-                } else {
-                    console.log(error.response.status)
-
-                    const errorData: object | unknown = Object.values(error.response.data)[0]
-                    const typedResponse = errorData as { data?: { error?: { [key: string]: unknown } } };
-                    for (const [key, value] of Object.entries(typedResponse)) {
-                        console.log(`Key: ${key}, Value: ${value}`);
-                        setErrorMessage(`${value}`)
-                    }
-                    setDisplayErrorNotification(true)
-                }
-            }
-
-            )
-
-        } catch (error: unknown) {
-            setSubmitting(false)
-        }
+    const onSubmit: SubmitHandler<depositInput> = async (data: depositInput) => {
+        // Formatting phone number
+        const pn = parsePhoneNumber(data.phone, "KE")
+        const formattedPhoneNumber = pn?.format("E.164")
+        console.log(formattedPhoneNumber)      
+        
     }
 
     return (
@@ -190,7 +87,7 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
 
                                 <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        New Matatu
+                                        Deposit
                                     </h3>
                                     <button type="button" onClick={onClose} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal"
                                     >
@@ -202,60 +99,34 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
                                 </div>
 
                                 <div className="p-6 space-y-6">
+                                    <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                        Please enter your mpesa number to topup:
+                                    </p>
+                                    
                                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mr-5 ml-5" action="">
                                         <div className="grid grid-cols-2 gap-4 ">
                                             <div className="mb-3">
                                                 <input
                                                     type="text"
-                                                    id="name"
-                                                    {...register("name")}
+                                                    id="phone"
+                                                    {...register("phone")}
                                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Name"
+                                                    placeholder="Phone"
                                                     required
                                                 />
                                             </div>
                                             <div className="mb-3">
                                                 <input
                                                     type="text"
-                                                    id="plate"
-                                                    {...register("number_plate")}
+                                                    id="amount"
+                                                    {...register("amount")}
                                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Number of Plate"
+                                                    placeholder="Amount"
                                                     required
                                                 />
                                             </div>
-
-                                            <div className="mb-3">
-                                                <select
-                                                    id="route"
-                                                    {...register("route")}
-                                                    value={selectedRouteId}
-                                                    onChange={(e) => {
-                                                        handleRouteChange(e);
-                                                    }}
-                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                >
-                                                    <option value="" label="Select a route" />
-                                                    {Array.isArray(routes) && routes.map((route) => (
-                                                        <option key={route.id} value={route.id} label={route.name} />
-                                                    ))}
-                                                </select>
-                                            </div>
-                                            <div className="mb-3">
-                                                <input
-                                                    type="text"
-                                                    id="seats"
-                                                    {...register("number_of_seats")}
-                                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Number of Seats"
-                                                    required
-                                                />
-                                            </div>
-
                                         </div>
                                         
-
-
                                         <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                             {submitting ? (
                                                 <button disabled data-modal-hide="staticModal" type="button" className="text-white bg-disabled-button-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">
