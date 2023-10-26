@@ -6,7 +6,7 @@ import TunycDarkLogo from '../../../assets/tunyce_logo.svg'
 import { BsChevronDown, BsPeopleFill,  } from "react-icons/bs";
 import { GoHomeFill } from "react-icons/go";
 import NavElement from "../../navelement";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { useAppDispatch } from "../../../app/hooks";
 import { logOut } from "../../auth/auth/authSlice";
@@ -44,24 +44,26 @@ const DropdownMenu = ({ setIsDropdownOpen }: DropdownMenuProps) => {
 
 export default function CreatorLayout() {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true);
+    const toggleSideBar = () => {setSideBarOpen(!sideBarOpen)};
     const toggleDropdown = () => {
       setIsDropdownOpen(!isDropdownOpen);
     };
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div className="w-screen overflow-x-hidden h-screen">
+    <div className="w-screen relative overflow-x-hidden h-screen">
       <div className="flex w-full h-full">
-        <div className={`w-0 ${!sideBarOpen?'w-16':'md:w-1/5'} pt-4 `}>
+        <div className={`w-0 overflow-hidden ${!sideBarOpen ? "absolute z-50 w-3/5 h-full md:hidden bg-white" : "md:w-1/5 h-full"} pt-4 `}>
+        <AiOutlineClose onClick={toggleSideBar}  className="text-xl md:hidden border-black border p-1 hover:bg-text-primary float-right mx-1 cursor-pointer" />
             <div className='flex flex-col w-full justify-center items-center ' >
                     <img alt='tunyce logo' className='w-32 h-auto' src={TunyceLogo} />
                     <div className='w-full'>
                         <h2 className='text-lg font-medium ml-3 mt-1'>MENU</h2>
                         <ul className='w-full'>
-                              <NavElement path="/" name="Dashboard">
+                              <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/" name="Dashboard">
                                 <BsPeopleFill className="text-xl" />
                             </NavElement>
-                            <NavElement path="/controller-creators" name="Discover">
+                            <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/my-content" name="My Content">
                                 <GoHomeFill className="text-xl" />
                             </NavElement>
                             
@@ -78,7 +80,7 @@ export default function CreatorLayout() {
           <div>
             <header className="w-full flex items-center justify-between">
                 <div className="flex items-center">
-                    <AiOutlineMenu onClick={setSideBarOpen} className="text-2xl text-black" />
+                    <AiOutlineMenu onClick={toggleSideBar} className="text-2xl text-black" />
                     <img src={TunycLogo} alt="" className={`w-24  h-auto ${sideBarOpen ? 'hidden' : 'block'} mx-2l object-contain`} />
                 </div>
                 <div className="hidden md:flex items-center justify-between rounded-2xl px-2 py-1 w-1/2">                    
