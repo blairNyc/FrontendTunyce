@@ -146,7 +146,7 @@ function AddRestaurantModal({ isOpen, onClose, isRegistrationSuccessFull }: { is
                     setSubmitting(false)
                     setDisplayServerErrorNotification(true)
                 } else {
-                    console.log(error.response.status)
+                    // console.log(error.response.status)
 
                     const errorData: object | unknown = Object.values(error.response.data)[0]
                     const typedResponse = errorData as { data?: { error?: { [key: string]: unknown } } };
@@ -159,6 +159,7 @@ function AddRestaurantModal({ isOpen, onClose, isRegistrationSuccessFull }: { is
             }
 
             )
+
         } catch (error) {
             // Handle errors
             setSubmitting(false)

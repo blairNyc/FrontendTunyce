@@ -1,0 +1,11 @@
+{
+  "appId": "io.ionic.tunycemedia",
+  "appName": "TunyceMedia",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "cordova": {},
+  "server": {
+    "androidScheme": "https"
+  }
+}

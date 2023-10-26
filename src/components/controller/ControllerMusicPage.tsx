@@ -3,30 +3,30 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { useGetLatestMusicQuery } from "../../app/api/GlobalApiSlice";
 import { LoadingSkeleton } from "../LoadingSkeletonList";
 import { useSwitchContentMutation } from "./features";
-interface MusicItPrp extends MusicItemProp{
-    onClick: (mediaUrl:string| number)=>void
+interface MusicItPrp extends MusicItemProp {
+    onClick: (mediaUrl: string | number) => void
 }
-export const SuccessPopUp = ({text,closeModal}:{text:string,closeModal:(val:boolean)=>void})=>(
-    <Backdrop>
-        <div className="p-4 relative flex flex-col items-center top-1/2 left-1/3 mb-4 text-sm w-1/3 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-            <AiOutlineClose onClick={closeModal} className="text-black text-2xl absolute mb-2 right-0 cursor-pointer font-bold"/>
+export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (val: boolean) => void }) => (
+    <div className="w-screen bg-black-rgba overflow-hidden absolute h-screen top-0 left-0">
+        <div className="p-4 relative flex flex-col items-center top-1/2 left-1/3 mb-4 text-sm w-1/3 text-green-800 rounded-2xl bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <AiOutlineClose onClick={closeModal} className="text-black text-2xl absolute mb-2 right-0 cursor-pointer font-bold" />
             <div className="m-2">
-                <FiCheckCircle className="text-green-500 text-9xl"/>
+                <FiCheckCircle className="text-green-500 text-9xl" />
                 <h5 className="block font-bold ">{text}</h5>
             </div>
         </div>
-    </Backdrop>
+    </div>
 )
-const MusicItem = ({name, onClick,id, video_thumbnail,owner}:MusicItPrp)=>(
-    <div onClick={()=>{onClick(id)}} className=" container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 flex  items-center justify-between">
+const MusicItem = ({ name, onClick, media, video_thumbnail, owner }: MusicItPrp) => (
+    <div onClick={() => { onClick(media.id) }} className=" container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 flex  items-center justify-between">
         <div className="flex">
-            <img src={video_thumbnail} alt="" className=" sm:w-10 md:w-14 lg:w-16 sm:h-10 md:h-14 lg:h-16 rounded-sm "/>
+            <img src={video_thumbnail} alt="" className=" sm:w-10 md:w-14 lg:w-16 sm:h-10 md:h-14 lg:h-16 rounded-sm " />
             <div className="ml-4">
                 <h4 className="sm:text-sm md:text-md lg:text-lg font-semibold">
-                    {name.slice(0,20)??'Music Name'}
+                    {name.slice(0, 20) ?? 'Music Name'}
                 </h4>
                 <h6 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
-                    {owner.username??'Artist Name'}
+                    {owner.username ?? 'Artist Name'}
                 </h6>
             </div>
         </div>
@@ -37,65 +37,67 @@ const MusicItem = ({name, onClick,id, video_thumbnail,owner}:MusicItPrp)=>(
         </div>
     </div>
 );
-interface MusicItemProp{
-    name:string;
-    description:string;
-    id:number;
-    media:{
-        id:number
-        media_url:string
+interface MusicItemProp {
+    name: string;
+    description: string;
+    id: number;
+    media: {
+        id: number
+        media_url: string
     }
-    owner:{
-        id:number
-        username:string
-        email:string
+    owner: {
+        id: number
+        username: string
+        email: string
     }
-    video_thumbnail:string,
+    video_thumbnail: string,
 }
 import LoadingSpinner from "../LoadingSpinner";
 import { SnackBar } from "../auth/userLogin";
-import { ErrorType } from "../../types";
+// import { ErrorType } from "../../types";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 import { AiOutlineClose } from "react-icons/ai";
-import Backdrop from "../Backdrop";
 import { FiCheckCircle } from "react-icons/fi";
 import React from "react";
-export default function ControllerMusicPage(){
-    const {data,isError:isErrorMusicFetch,  isLoading}=useGetLatestMusicQuery(1);
-    const [switchContent,{isLoading:isLoadingSwitch, isSuccess, isError,error}] = useSwitchContentMutation()
-    const d = useAppSelector((state:RootState)=>state.persistController.controller.matatu.id);
-    const [openModal,setOpenModal] = React.useState(false);
-    const handleSwitchContent = async (mediaUrl:string|number)=>{
-        console.log('Attempting to swtich music')
+export default function ControllerMusicPage() {
+    const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
+    console.log(data)
+    // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
+
+    const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError }] = useSwitchContentMutation()
+    let d = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
+    if (!d) {
+        d = 1;
+    }
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleSwitchContent = async (mediaUrl: string | number) => {
         const data = {
-            mediaID:mediaUrl,
-            matatuID:d
+            mediaID: mediaUrl,
+            matatuID: d
         }
-        console.log(data);
         try {
-            const response = await switchContent(data).unwrap();
-            console.log(response);
+            await switchContent(data).unwrap();
             setOpenModal(!openModal);
         } catch (error) {
-            console.log(error)
             return;
         }
     }
-    console.log('Error',isError,error);
     return (
         <>
-            {isLoadingSwitch&&<LoadingSpinner/>}
-            {isError&&
-                <SnackBar text={'Error encountered'}/>
+            {isLoadingSwitch && <LoadingSpinner />}
+            {isError &&
+                <SnackBar text={'Error encountered'} />
             }
             {
-                isErrorMusicFetch&&(
-                    <SnackBar text={(error as ErrorType).data.message??'Error encountered'}/>
+                isErrorMusicFetch && (
+                    <SnackBar text={
+                        // (error as ErrorType).data?.message ?? 
+                        'Error encountered'} />
                 )
             }
-            {isSuccess &&openModal &&<SuccessPopUp closeModal={()=>{setOpenModal(!openModal)}} text={'Music switched successfully'}/>}
-            <div className="container">
+            {isSuccess && openModal && <SuccessPopUp closeModal={() => { setOpenModal(!openModal) }} text={'Music switched successfully'} />}
+            <div className="overflow-x-hidden overflow-y-scroll">
                 <div className="flex justify-between">
                     <div className="text-red-600">
                         <h5 className=" sm:text-base md:text-xl lg:2xl">My Music</h5>
@@ -120,23 +122,37 @@ export default function ControllerMusicPage(){
                     </div>
                 </div>
                 {
-                    isLoading?(
-                        [1,2,3].map((id)=><LoadingSkeleton key={id}/>)
-                    ):(<div className="ml-10 mr-10 mx-auto mt-5 flex flex-col">
-                            { data?.map((music:MusicItemProp,id:number)=>(
-                                <MusicItem 
-                                    video_thumbnail={music.video_thumbnail} 
-                                    name={music.name}
-                                    description={music.description}
-                                    id={music.id}
-                                    media={music.media}
-                                    onClick={handleSwitchContent}
-                                    owner={music.owner} 
-                                    key={id}
-                                />
-                            ))}
-                        </div>)
-                    }
+                    isLoading ? (
+                        [1, 2, 3].map((id) => (
+                            <div className="ml-10 mr-10 mx-auto mt-5 flex flex-col">
+                                <LoadingSkeleton key={id} />
+                            </div>
+                        ))
+                    ) : (<div className="ml-10 mr-10 mx-auto mt-5 flex flex-col">
+                        {data && data?.map((music: MusicItemProp | undefined, id: number) => (
+                            <MusicItem
+                                video_thumbnail={music?.video_thumbnail ? music?.video_thumbnail.includes('tunyce') ? 'https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60' : music?.video_thumbnail : ''}
+                                name={music?.name ? music.name : ''}
+                                description={music?.description ? music?.description : 'Music Description'}
+                                id={music?.id ? music.id : 0}
+                                media={music?.media ? music.media : {
+                                    id: music?.media?.id ? music.media.id : 0,
+                                    media_url: music?.media.media_url ? music.media.media_url : ''
+                                }}
+                                onClick={handleSwitchContent}
+                                owner={music?.owner ? music.owner : { email: '', id: Math.floor((Math.random() * 100) + 1), username: '' }}
+                                key={id ? id : Math.floor((Math.random() * 1000) + 1)}
+                            />
+                        ))}
+                        {
+                            !data&&(
+                                <div>
+                                    <h1>Reload the screen, poor connectivity</h1>
+                                </div>
+                            )
+                        }
+                    </div>)
+                }
             </div>
         </>
     );

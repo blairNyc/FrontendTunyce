@@ -3,7 +3,7 @@ import { useGetPlayingLinkMutation } from '../app/api/GlobalApiSlice';
 import ReactPlayer from 'react-player';
 
 const VideoScreen = () => {
-    const [getPlayingLink, { data, isLoading,isError, error }] = useGetPlayingLinkMutation();
+    const [getPlayingLink, { isLoading,isError, error }] = useGetPlayingLinkMutation();
 
     const fullscreenStyle:React.CSSProperties = {
         position: 'fixed',
@@ -24,7 +24,9 @@ const VideoScreen = () => {
 
   if (isError) return <div>Error</div>;
   console.log(error)
-  const mediaUrl = data?.url?.media_url;
+//   const mediaUrl = data?.url?.media_url;
+  
+  const mediaUrl = "https://www.youtube.com/watch?v=cXzYWEFib4M";
 
   if (!mediaUrl) return <div>No media URL available.</div>;
 

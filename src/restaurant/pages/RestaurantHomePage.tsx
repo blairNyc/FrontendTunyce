@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
 import axios from 'axios';
+import { LoadingSkeleton } from '../../components/LoadingSkeletonList';
 
 interface RestaurantData {
     id: number;
@@ -34,15 +35,16 @@ function RestaurantHomePage() {
 
     const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
 
-    const [data, setRestaurantData] = useState<any>()
-
+    const [data, setRestaurantData] = useState<RestaurantData[]>();
+    console.log(data)
+    const [isFetching,setIsFetching] = useState<boolean>(false);
     const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsFetching(!isFetching);
             try {
                 // setIsLoading(true)
-
                 const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/restaurant/restaurants', {
                     headers: {
                         Authorization: `Bearer ${userToken}`,
@@ -52,10 +54,11 @@ function RestaurantHomePage() {
                 const data = responseRoute.data;
                 // console.log(data)
 
+                setIsFetching(!isFetching)
                 setRestaurantData(data.message)
-
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setIsFetching(!isFetching)
             } finally {
                //  setIsLoading(false);
             }
@@ -69,7 +72,7 @@ function RestaurantHomePage() {
         setDisplaySuccessNotification(false);
     }
 
-    const handleClick = (restaurantId: any) => {
+    const handleClick = (restaurantId: number) => {
         navigate(`/restaurant-details/${restaurantId}`)
     }
 
@@ -106,15 +109,22 @@ function RestaurantHomePage() {
                         New Restaurant
                     </button>
                 </div>
-                <div className="w-full mt-5 flex items-center no-scrollbar overflow-x-auto">
-                    {data?.map((restaurant: RestaurantData) => (
-                        <div onClick={() => {
-                            const restaurantId: any = restaurant.id
-                            handleClick(restaurantId)
-                        }} className="hover:cursor-pointer">
-                            <FeaturedItem title={restaurant.name} imageLink="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" />
-                        </div>
-                    ))}
+                <div className="w-full h-screen mt-5 flex no-scrollbar overflow-x-auto">
+                    {
+                        // isFetching?(
+                        //     [1,2,3,4].map((id)=><LoadingSkeleton key={id}/>)
+                        // ):(
+                        data?.map((restaurant: RestaurantData) => (
+                            <div onClick={() => {
+                                const restaurantId: number= restaurant.id
+                                handleClick(restaurantId)
+                            }} className="hover:cursor-pointer">
+                                <FeaturedItem title={restaurant.name} imageLink="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" />
+                            </div>
+                        ))
+
+        
+                    }
                 </div>
             </div>
 

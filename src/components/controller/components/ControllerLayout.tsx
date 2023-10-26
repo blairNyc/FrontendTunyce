@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import TunyceLogo from '/tunyce_logo.svg';
 import TunycLogo from '../../../assets/tunyce_logo.png';
@@ -8,26 +8,41 @@ import { GoHomeFill } from "react-icons/go";
 import NavElement from "../../navelement";
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
+import { useAppDispatch } from "../../../app/hooks";
+import { logOut } from "../../auth/auth/authSlice";
+import { TbHeadphonesFilled } from "react-icons/tb";
 type DropdownMenuProps ={
     setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
     onLogout: () => void
 }
-const DropdownMenu = ({onLogout,setIsDropdownOpen}:DropdownMenuProps) => (
-    <div id="dropdownAvatarName" className="z-50 absolute right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-        <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div className="font-medium ">Controller</div>
-            <div className="truncate">mail@mail.com</div>
-        </div>    
-        <div className="py-2">
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                onClick={() => {
-                    onLogout()
-                    setIsDropdownOpen(false)
-                }}
-            >Sign out</a>
+
+const DropdownMenu = ({ setIsDropdownOpen }: DropdownMenuProps) => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
+    const onLogout = async () => {
+        dispatch(logOut());
+        navigate('/');
+    };
+
+    return (
+        <div id="dropdownAvatarName" className="z-50 absolute right-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+            <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                <div className="font-medium">Controller</div>
+                <div className="truncate">mail@mail.com</div>
+            </div>
+            <div className="py-2">
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onClick={() => {
+                        onLogout()
+                        setIsDropdownOpen(false)
+                    }}
+                >Sign out</a>
+            </div>
         </div>
-  </div>
-);
+    );
+};
+
 export default function ControllerLayout() {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true);
     const toggleDropdown = () => {
@@ -36,7 +51,7 @@ export default function ControllerLayout() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen overflow-x-hidden h-screen">
       <div className="flex w-full h-full">
         <div className={`w-0 ${!sideBarOpen?'w-16':'md:w-1/5'} pt-4 `}>
             <div className='flex flex-col w-full justify-center items-center ' >
@@ -44,15 +59,16 @@ export default function ControllerLayout() {
                     <div className='w-full'>
                         <h2 className='text-lg font-medium ml-3 mt-1'>MENU</h2>
                         <ul className='w-full'>
+                            <NavElement path="/" name="Music">
+                                <BsPeopleFill className="text-xl" />
+                            </NavElement>
                             <NavElement path="/controller-creators" name="Discover">
                                 <GoHomeFill className="text-xl" />
                             </NavElement>
-                            <NavElement path="/music" name="Music">
-                                <BsPeopleFill className="text-xl" />
+                            <NavElement path="/my-playlists" name="My Playlists">
+                                <TbHeadphonesFilled className="text-xl" />
                             </NavElement>
-                            
                         </ul>
-                    
                     </div>
             </div>
         </div>

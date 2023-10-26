@@ -1,4 +1,5 @@
-import { apiSlice } from './apiSlice'
+import { MusicItemProp } from '../../types'
+import { apiSlice } from './apiSlice';
 
 export const apiVenuesSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -46,9 +47,19 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     getLatestMusic: builder.query({
       query: () => ({
-        url: 'media/video/latest/',
+        url: 'media/video/',
         method: 'get',
       }),
+      transformResponse: (response: MusicItemProp[]) => {
+        return response.filter((item) => item.media?.media_url.includes('youtube'));
+      }
+    }),
+
+    getLatestMusicOther: builder.query({
+      query: () => ({
+        url: 'media/video/',
+        method: 'get',
+      })
     }),
 
     // get all latest mixes
@@ -56,7 +67,6 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `/media/video/latest/`,
         method: 'get',
-
       }),
     }),
 
@@ -79,7 +89,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     switchVideo: builder.mutation({
       query: (id) => ({
-        url: `matatu/switch_content/${id}/`,
+        url: `matatu/switch_content/${id}/12/`,
         method: 'post',
       }),
     }),
@@ -96,7 +106,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
 
     getPlayingLink: builder.mutation({
       query: () => ({
-        url: `matatu/get_content`,
+        url: `matatu/get_content/20/`,
         method: 'get',
       }),
     }),
@@ -122,7 +132,24 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         url: `creator/content-creator/${creator_id}/content`,
         method: 'get',
       })
-    })
+    }),
+
+    // Get video details by id
+    getMediaDetails: builder.query({
+      query: (video_id) => ({
+        url: `/media/update_video/${video_id}/`,
+        method: 'get'
+      })
+    }),
+
+    // Video upload
+    uploadVideoContent: builder.mutation({
+      query: (videoInformation) => ({
+        url: `/media/upload_video`,
+        method: 'post',
+        body: videoInformation
+      }),
+    }),
 
   }),
 })
@@ -146,7 +173,9 @@ export const {
   useSwitchVideoTimeMutation,
   useVideoEndUpdatesMutation,
   useGetAllArtistsQuery,
-  useGetSingleCreatorQuery
-
+  useGetSingleCreatorQuery,
+  useGetMediaDetailsQuery,
+  useUploadVideoContentMutation,
+  useGetLatestMusicOtherQuery
 
 } = apiVenuesSlice

@@ -8,7 +8,8 @@ const baseQuery = fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
 
         const token = (getState() as RootState).persistAuth.auth.access
-
+      
+        
         if (token) {
             headers.set("authorization", `Bearer ${token}`)
         }
@@ -42,7 +43,8 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi) 
             api.dispatch(setCredentials({
                 auth: {
                     ...authVals,
-                    refresh: (refreshResult as {data: {refresh:string}}).data.refresh,
+                    refresh: (refreshResult as {data: {access:string,refresh:string}}).data.refresh,
+                    access: (refreshResult as {data: {access:string}}).data.access
                 }
             }))
             // retry the original query with new access token 
