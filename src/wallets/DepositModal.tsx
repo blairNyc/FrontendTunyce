@@ -6,16 +6,13 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import "yup-phone-lite";
 import { parsePhoneNumber } from 'libphonenumber-js'
+import { useCheckWalletBalanceQuery, useConnectWalletMutation, useDepositCashToWalletMutation } from "../app/api/GlobalApiSlice";
 
 interface depositInput {
     phone: string,
     amount: string
 }
 
-// const schema = yup.object({
-//     phone: yup.string().required(),
-//     amount: yup.string().required(),
-// }).required()
 
 const schema = yup.object().shape({
     phone: yup
@@ -30,18 +27,15 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
 
     if (!isOpen) return null;
 
-    // const { handleSubmit, depositMoney } = useForm<depositInput>({
-    //     resolver: yupResolver(schema),
-    // })
-
-    const {handleSubmit, register} = useForm<depositInput> ({
+    const { handleSubmit, register } = useForm<depositInput>({
         resolver: yupResolver(schema)
     })
-    
 
+    const [submitWalletUser] = useConnectWalletMutation()
+    const [depositToWallet] = useDepositCashToWalletMutation()
 
-
-
+    const { data: walletBalance } = useCheckWalletBalanceQuery(1)
+    console.log(walletBalance)
 
     const [displayServerErrorNotification, setDisplayServerErrorNotification] = useState<boolean>(false)
     const [displayErrorNotification, setDisplayErrorNotification] = useState<boolean>(false)
@@ -67,12 +61,40 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
 
     }, [displayErrorNotification, displayServerErrorNotification]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await submitWalletUser(1)
+                console.log(response)
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        fetchData()
+
+    }, []);
+
     const onSubmit: SubmitHandler<depositInput> = async (data: depositInput) => {
         // Formatting phone number
         const pn = parsePhoneNumber(data.phone, "KE")
         const formattedPhoneNumber = pn?.format("E.164")
-        console.log(formattedPhoneNumber)      
-        
+
+        const depositBody = {
+            "amount": `${data.amount}`,
+            "phone": `${formattedPhoneNumber}`
+        }
+
+        try {
+            const response = await depositToWallet(depositBody)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+        // console.log(formattedPhoneNumber)   
+        // console.log(data)
+
+
+
     }
 
     return (
@@ -102,7 +124,7 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
                                     <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                         Please enter your mpesa number to topup:
                                     </p>
-                                    
+
                                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mr-5 ml-5" action="">
                                         <div className="grid grid-cols-2 gap-4 ">
                                             <div className="mb-3">
@@ -126,7 +148,7 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
                                                 />
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                             {submitting ? (
                                                 <button disabled data-modal-hide="staticModal" type="button" className="text-white bg-disabled-button-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">

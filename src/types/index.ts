@@ -14,22 +14,30 @@ export interface ErrorType {
         [key:string]:string
     }
 }
-export interface MusicItemProp{
-    name:string;
-    description:string;
-    id:number;
-    media:{
-        id:number
-        media_url:string
+
+export interface MusicItemProp {
+    name: string;
+    description: string;
+    id: number;
+    media: {
+        id: number
+        media_url: string
     }
-    created_at:string
-    views?:number;
-    owner:{
-        id:number
-        username:string
-        email:string
+    created_at: string
+    views?: number;
+    owner: {
+        id: number
+        username: string
+        email: string
     }
-    video_thumbnail:string,
+    genres: {
+        id: number;
+        name: string;
+        image: string;
+        description: string;
+        genreId: number;
+    }
+    video_thumbnail: string,
 }
 
 export interface IMatatuType{

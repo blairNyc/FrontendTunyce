@@ -102,15 +102,20 @@ function ControllerCreator() {
                                         <VideoItem
                                             name={item.name}
                                             key={item.id}
-                                            views={item.views??10}
+                                            views={item.views ?? 10}
                                             description=""
                                             media={item.media}
                                             owner={item.owner}
                                             id={item.id}
                                             onClick={handleSwitchContent}
                                             video_thumbnail={item.video_thumbnail}
-                                            created_at={item.created_at}
-                                        />
+                                            created_at={item.created_at} genres={{
+                                                id: 0,
+                                                name: "",
+                                                image: "",
+                                                description: "",
+                                                genreId: 0
+                                            }}                                        />
                                     ))
                                 }
                             </div>

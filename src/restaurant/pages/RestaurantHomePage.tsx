@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
 import axios from 'axios';
-import { LoadingSkeleton } from '../../components/LoadingSkeletonList';
+// import { LoadingSkeleton } from '../../components/LoadingSkeletonList';
 
 interface RestaurantData {
     id: number;

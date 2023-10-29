@@ -1,3 +1,4 @@
+import { Genre } from '../../components/controller/ControllerMusicPage';
 import { MusicItemProp } from '../../types'
 import { apiSlice } from './apiSlice';
 
@@ -52,6 +53,15 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (response: MusicItemProp[]) => {
         return response.filter((item) => item.media?.media_url.includes('youtube'));
+      }
+    }),
+    getGenres: builder.query({
+      query: () => ({
+        url: '/genres',
+        method: 'get',
+      }),
+      transformResponse: (response: { message: Genre[] }) => {
+        return response.message;
       }
     }),
 
@@ -151,6 +161,32 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    // Wallet connection
+    connectWallet: builder.mutation({
+      query: () => ({
+        url: `wallet/connect/`,
+        method: 'post'
+      }),
+    }),
+
+    // Deposit to wallet
+   depositCashToWallet : builder.mutation({
+    query: (depositBody) => ({
+      url:`wallet/deposit/`,
+      method:'post',
+      body:depositBody,
+    })
+   }),
+
+   checkWalletBalance : builder.query({
+    query : () => ({
+      url:`wallet/deposit/`,
+      method: 'get'
+    })
+   })
+
+
+
   }),
 })
 
@@ -165,6 +201,7 @@ export const {
   useAllDjVideosQuery,
   useAllDeejayMixesQuery,
   useGetLatestMusicQuery,
+  useGetGenresQuery,
   useGetMixesQuery,
   useGetAllMixesQuery,
   useGetAllTrendingMixesQuery,
@@ -176,6 +213,9 @@ export const {
   useGetSingleCreatorQuery,
   useGetMediaDetailsQuery,
   useUploadVideoContentMutation,
-  useGetLatestMusicOtherQuery
+  useGetLatestMusicOtherQuery,
+  useConnectWalletMutation,
+  useDepositCashToWalletMutation,
+  useCheckWalletBalanceQuery
 
 } = apiVenuesSlice
