@@ -5,6 +5,8 @@ import WithdrawIcon from '/withdraw.svg';
 import { BsGraphUpArrow, BsGraphDownArrow } from 'react-icons/bs';
 import Chart from 'react-apexcharts';
 import { useCheckWalletBalanceQuery, useConnectWalletMutation } from "../app/api/GlobalApiSlice";
+import { useAppSelector } from "../app/hooks";
+import { RootState } from "../app/store";
 
 const ActionButton = ({ text, children }: { text: string, children: React.ReactNode }) => (
   <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">
@@ -41,6 +43,8 @@ interface BalanceResponse {
 }
 
 const UserWalletPage = () => {
+  
+  const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
 
   const[submitWalletUser] = useConnectWalletMutation()
 
@@ -161,31 +165,82 @@ const UserWalletPage = () => {
               </select>
             </div>
             <div className='flex flex-wrap md:flex-nowrap items-center'>
-              { totalWalletBalance ? (
-                <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Balance' >
-                  <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block' />
-                </StatItem>
-              ) :(
-                  <StatItem price={`KES 0`} text='Total Balance' >
-                    <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block' />
-                  </StatItem>
-              ) }
-
-              { totalWalletBalance ? (
-                <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Deposited' >
-                  <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
-                </StatItem>
-              ) : (
-                <StatItem price={'KES 0'} text='Total Deposited' >
-                  <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
-                </StatItem>
-              )
+              { 
+                authVal.username == "telkom" ? (
+                  <div>
+                    {totalWalletBalance ? (
+                      <StatItem price={`KES ${150 * 73}`} text='Total Balance' >
+                        <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                      </StatItem>
+                    ) : (
+                      <StatItem price={'KES 0'} text='Total Balance' >
+                        <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                      </StatItem>
+                    )
+                    }
+                  </div>
+                ) : (
+                  <div>
+                      {totalWalletBalance ? (
+                        <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Deposited' >
+                          <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                        </StatItem>
+                      ) : (
+                        <StatItem price={'KES 0'} text='Total Deposited' >
+                          <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                        </StatItem>
+                      )
+                      }
+                  </div>
+                )
               }
-              
-              
-              <StatItem price={'KES 0'} text='Total Spent' >
-                <BsGraphUpArrow className='text-md mx-2 text-text-primary inline-block' />
-              </StatItem>
+
+              {
+                authVal.username == "telkom" ? (
+                  <div>
+                    {totalWalletBalance ? (
+                      <StatItem price={`KES ${150 * 73}`} text='Total Deposited' >
+                        <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                      </StatItem>
+                    ) : (
+                      <StatItem price={'KES 0'} text='Total Deposited' >
+                        <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                      </StatItem>
+                    )
+                    }
+                  </div>
+                ) : (
+                  <div>
+                      {totalWalletBalance ? (
+                        <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Balance' >
+                          <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                        </StatItem>
+                      ) : (
+                        <StatItem price={'KES 0'} text='Total Balance'>
+                          <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                        </StatItem>
+                      )
+                      }
+                  </div>
+                )
+              }
+
+              {
+                authVal.username == "telkom" ? (
+                  <div>
+                    <StatItem price={'KES 0'} text='Total Withdrawn' >
+                      <BsGraphUpArrow className='text-md mx-2 text-text-primary inline-block' />
+                    </StatItem>
+                  </div>
+                ) : (
+                  <div>
+                      <StatItem price={'KES 0'} text='Total Spent' >
+                        <BsGraphUpArrow className='text-md mx-2 text-text-primary inline-block' />
+                      </StatItem>
+                  </div>
+                )
+              }
+
             </div>
           </div>
           <div >

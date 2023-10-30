@@ -4,6 +4,8 @@ import {BsGraphUpArrow, BsGraphDownArrow} from 'react-icons/bs';
 import Chart from 'react-apexcharts';
 import { useCheckWalletBalanceQuery, useConnectWalletMutation } from '../../app/api/GlobalApiSlice';
 import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { RootState } from '../../app/store';
 
 interface MessageData {
     id: number;
@@ -38,6 +40,9 @@ const TableHeaderText= ({text}:{text:string})=><th className='px-1 text-xs py-2'
 const TableDataText = ({text,additionalStyles}:{text:string,additionalStyles?:string})=><td className={`px-1 ${additionalStyles} text-xs py-2`}>{text}</td>
 const date = new Date('12/12/2021');
 function RestaurantWalletPage() {
+
+    const contentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
+
     const apexOptions = { 
         series: [{
             name: 'Deposit',

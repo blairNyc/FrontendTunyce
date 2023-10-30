@@ -10,6 +10,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { useAppDispatch } from "../../../app/hooks";
 import { logOut } from "../../auth/auth/authSlice";
+
 type DropdownMenuProps ={
     setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
     onLogout: () => void
