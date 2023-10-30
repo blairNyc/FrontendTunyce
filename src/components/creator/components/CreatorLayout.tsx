@@ -3,7 +3,7 @@ import { useState } from "react";
 import TunyceLogo from '/tunyce_logo.svg';
 import TunycLogo from '../../../assets/tunyce_logo.png';
 import TunycDarkLogo from '../../../assets/tunyce_logo.svg'
-import { BsChevronDown, BsPeopleFill,  } from "react-icons/bs";
+import { BsChevronDown, BsPeopleFill, BsWallet,  } from "react-icons/bs";
 import { GoHomeFill } from "react-icons/go";
 import NavElement from "../../navelement";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -64,6 +64,9 @@ export default function CreatorLayout() {
                             <NavElement path="/controller-creators" name="Discover">
                                 <GoHomeFill className="text-xl" />
                             </NavElement>
+                              <NavElement path='/my-wallet' name='Wallet'>
+                                  <BsWallet className='text-xl' />
+                              </NavElement>
                             
                         </ul>
                     

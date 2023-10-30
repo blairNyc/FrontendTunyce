@@ -1,12 +1,10 @@
-import { useState } from "react";
-import { BiMoneyWithdraw, BiMoney } from "react-icons/bi";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 import DepositModal from "./DepositModal";
 import DepositIcon from '/deposit.svg';
 import WithdrawIcon from '/withdraw.svg';
 import { BsGraphUpArrow, BsGraphDownArrow } from 'react-icons/bs';
 import Chart from 'react-apexcharts';
+import { useCheckWalletBalanceQuery, useConnectWalletMutation } from "../app/api/GlobalApiSlice";
 
 const ActionButton = ({ text, children }: { text: string, children: React.ReactNode }) => (
   <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">
@@ -17,7 +15,7 @@ const ActionButton = ({ text, children }: { text: string, children: React.ReactN
 const StatItem = ({ text, children, price }: { text: string, price: string, children: React.ReactNode }) => (
   <div className='border py-3 m-2 px-2 rounded-xl w-full md:w-48 h-28 border-b-gray-200'>
     <p className='text-sm lg:sm text-slate-600 my-1'>{text}</p>
-    <h2 className='text-sm lg:text-lg font-bold text-black my-1'>{price}.00</h2>
+    <h2 className='text-sm lg:text-lg font-bold text-black my-1'>{price}</h2>
     <p className='text-xs text-slate-600 my-1'>
       {children}
       {/*  */}
@@ -30,7 +28,67 @@ const TableHeaderText = ({ text }: { text: string }) => <th className='px-1 text
 const TableDataText = ({ text, additionalStyles }: { text: string, additionalStyles?: string }) => <td className={`px-1 ${additionalStyles} text-xs py-2`}>{text}</td>
 const date = new Date('10/28/2023');
 
+
+interface MessageData {
+  id: number;
+  uuid: string;
+  amount: string;
+  owner: number;
+}
+
+interface BalanceResponse {
+  message: MessageData;
+}
+
 const UserWalletPage = () => {
+
+  const[submitWalletUser] = useConnectWalletMutation()
+
+  const { data: walletBalance } = useCheckWalletBalanceQuery(1)
+
+  const [totalWalletBalance, setTotalWalletBalance] = useState<BalanceResponse>()
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await submitWalletUser(1)
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+    fetchData()
+  }, []);
+
+  useEffect(() => {
+    
+    if(walletBalance !== null) {
+      setTotalWalletBalance(walletBalance)
+    }
+  }, [walletBalance])
+  
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState<boolean>(false);
+
+  const openDepositModal = () => {
+    setIsDepositModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsDepositModalOpen(false);
+  };
+
+  const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
+
+  const successRegistration = () => {
+    setIsDepositModalOpen(false);
+  
+    setDisplaySuccessNotification(true)
+    const timer = setTimeout(() => {
+      setDisplaySuccessNotification(false)
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }
 
   const apexOptions = {
     series: [{
@@ -74,29 +132,6 @@ const UserWalletPage = () => {
     },
   };
 
-  const [isDepositModalOpen, setIsDepositModalOpen] = useState<boolean>(false);
-
-  const openDepositModal = () => {
-    setIsDepositModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsDepositModalOpen(false);
-  };
-
-  const [displaySuccessNotification, setDisplaySuccessNotification] = useState<boolean>(false);
-
-  const successRegistration = () => {
-    setIsDepositModalOpen(false);
-  
-    setDisplaySuccessNotification(true)
-    const timer = setTimeout(() => {
-      setDisplaySuccessNotification(false)
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }
-
 
   return (
     
@@ -126,13 +161,29 @@ const UserWalletPage = () => {
               </select>
             </div>
             <div className='flex flex-wrap md:flex-nowrap items-center'>
-              <StatItem price={'KES 240000'} text='Total Earnings' >
-                <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block' />
-              </StatItem>
-              <StatItem price={'KES 12000'} text='Total Earned' >
-                <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
-              </StatItem>
-              <StatItem price={'KES 16000'} text='Total Withdrawn' >
+              { totalWalletBalance ? (
+                <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Balance' >
+                  <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block' />
+                </StatItem>
+              ) :(
+                  <StatItem price={`KES 0`} text='Total Balance' >
+                    <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block' />
+                  </StatItem>
+              ) }
+
+              { totalWalletBalance ? (
+                <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Deposited' >
+                  <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                </StatItem>
+              ) : (
+                <StatItem price={'KES 0'} text='Total Deposited' >
+                  <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                </StatItem>
+              )
+              }
+              
+              
+              <StatItem price={'KES 0'} text='Total Spent' >
                 <BsGraphUpArrow className='text-md mx-2 text-text-primary inline-block' />
               </StatItem>
             </div>

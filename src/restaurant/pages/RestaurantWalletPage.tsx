@@ -2,6 +2,20 @@ import DepositIcon from '/deposit.svg';
 import WithdrawIcon from '/withdraw.svg';
 import {BsGraphUpArrow, BsGraphDownArrow} from 'react-icons/bs';
 import Chart from 'react-apexcharts';
+import { useCheckWalletBalanceQuery, useConnectWalletMutation } from '../../app/api/GlobalApiSlice';
+import { useEffect, useState } from 'react';
+
+interface MessageData {
+    id: number;
+    uuid: string;
+    amount: string;
+    owner: number;
+}
+
+interface BalanceResponse {
+    message: MessageData;
+}
+
 const ActionButton=({text,children}:{text:string, children:React.ReactNode})=>(
     <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">
         {children}
@@ -11,7 +25,7 @@ const ActionButton=({text,children}:{text:string, children:React.ReactNode})=>(
 const StatItem = ({text,children,price }:{text:string,price:string,children:React.ReactNode})=>(
     <div className='border py-3 m-2 px-2 rounded-xl w-full md:w-48 h-28 border-b-gray-200'>
         <p className='text-sm lg:sm text-slate-600 my-1'>{text}</p>
-        <h2 className='text-sm lg:text-lg font-bold text-black my-1'>{price}.00</h2>
+        <h2 className='text-sm lg:text-lg font-bold text-black my-1'>{price}</h2>
         <p className='text-xs text-slate-600 my-1'>
             {children}
             {/*  */}
@@ -65,6 +79,30 @@ function RestaurantWalletPage() {
             },
         },
     };
+
+    const [submitWalletUser] = useConnectWalletMutation()
+    const { data: walletBalance } = useCheckWalletBalanceQuery(1)
+
+    const [totalWalletBalance, setTotalWalletBalance] = useState<BalanceResponse>()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                await submitWalletUser(1)
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        fetchData()
+    }, []);
+
+    useEffect(() => {
+
+        if (walletBalance !== null) {
+            setTotalWalletBalance(walletBalance)
+        }
+    }, [walletBalance])
+    
     return (
         <div className="mt-8  h-screen">
             <div className="flex w-full items-center justify-between">
@@ -90,12 +128,26 @@ function RestaurantWalletPage() {
                             </select>
                         </div>
                         <div className='flex flex-wrap md:flex-nowrap items-center'>
-                            <StatItem price={'KES 240000'} text='Total Earnings' >
-                                <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block'/>
-                            </StatItem>
-                            <StatItem price={'KES 12000'} text='Total Earned' >
-                                <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block'/>
-                            </StatItem>
+                            {totalWalletBalance ? (
+                                <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Earnings' >
+                                    <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block' />
+                                </StatItem>
+                            ) : (
+                                <StatItem price={`KES 0`} text='Total Earnings' >
+                                    <BsGraphUpArrow className='text-md mx-2 text-green-400 inline-block' />
+                                </StatItem>
+                            )}
+
+                            {totalWalletBalance ? (
+                                <StatItem price={`KES ${totalWalletBalance?.message.amount}`} text='Total Earned' >
+                                    <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                                </StatItem>
+                            ) : (
+                                <StatItem price={'KES 0'} text='Total Earned' >
+                                    <BsGraphDownArrow className='text-md mx-2 text-text-primary inline-block' />
+                                </StatItem>
+                            )
+                            }
                             <StatItem price={'KES 16000'} text='Total Withdrawn' >
                                 <BsGraphUpArrow className='text-md mx-2 text-text-primary inline-block'/>
                             </StatItem>

@@ -71,7 +71,6 @@ function DepositModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen: 
             }
         }
         fetchData()
-
     }, []);
 
     const onSubmit: SubmitHandler<depositInput> = async (data: depositInput) => {
