@@ -13,6 +13,12 @@ export const apiMatatuSlice = apiSlice.injectEndpoints({
                 return response.message
             },
         }),
+        getCreatorContent: builder.query({
+            query: (id) => ({
+                url: `creator/content-creator/${id}/content/`,
+                method: 'get',
+            }),
+        }),
         createMatatu: builder.mutation({
             query: (matatuData) => ({
                 url: `matatu/create_matatu`,
@@ -25,6 +31,7 @@ export const apiMatatuSlice = apiSlice.injectEndpoints({
     }),
 });
 export const { 
+    useGetCreatorContentQuery,
     useGetAllMatatusQuery, 
     useCreateMatatuMutation,
 } = apiMatatuSlice;
