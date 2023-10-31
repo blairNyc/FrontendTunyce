@@ -1,8 +1,8 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 // import { FaRegBell } from "react-icons/fa6";
 import { BsChevronDown } from "react-icons/bs";
-// import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import TunycLogo from '../assets/tunyce_logo.png';
 import TunycDarkLogo from '../assets/tunyce_logo.svg'
 import { AiOutlineMenu } from "react-icons/ai";
@@ -143,11 +143,11 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
                     ) : null
                     }
-                    {isResOwner ? ( <a href="#" className="block text-xs hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    {isResOwner ? ( <a href="#" className="block text-sm hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             switchAccountHandler('is_restaunt')
                         }}
-                        >Switch to Restaurant owner</a>):null
+                        >Restaurant owner</a>):null
                     }
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
@@ -164,15 +164,15 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         handleAdvertClick
 window.location.href = `http://localhost:5173/?token=${token}`;
                     }}
-                >Advert</a>
+                >Ads Manager</a>
             </div>
-            <div className="py-2">
+            {/* <div className="py-2">
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
                         setIsDropdownOpen(false)
                     }}
                 >Advertise</a>
-            </div>
+            </div> */}
             <div className="py-2">
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
@@ -268,7 +268,9 @@ window.location.href = `http://localhost:5173/?token=${token}`;
                 <img src={TunycDarkLogo} alt="" className={`w-20  h-auto md:hidden  object-contain`} />
                 <div className="hidden md:flex items-center h-full cursor-pointer justify-between">
                     <div className="flex items-center mr-8">
-                        {/* <PiShoppingCartSimpleBold className="text-2xl text-text-primary mx-2" /> */}
+                        <Link to={'/cart'}>
+                            <PiShoppingCartSimpleBold className="text-2xl text-text-primary mx-2" />
+                        </Link>
                         <div className="relative mx-2">
                             {/* <FaRegBell className="text-2xl text-text-primary" /> */}
                             {/* <div className="absolute -top-0 -right-0 w-1 h-1 rounded-full bg-red-500"></div> */}
@@ -280,6 +282,7 @@ window.location.href = `http://localhost:5173/?token=${token}`;
                         <BsChevronDown className="text-xl mx-2 text-black" />
                     </div>
                 </div>
+                
                 <div className="flex px-2 items-center md:hidden" >
                     {/* <FiSearch className="text-xl text-black " /> */}
                     <div onClick={toggleDropdown} className="flex hover:bg-slate-200 cursor-pointer p-1 rounded-xl items-center ml-1">

@@ -143,7 +143,7 @@ const router = createBrowserRouter([
         element: <Homepage />
       },
       {
-        path: "/explore",
+        path: "/discover",
         element: <ExplorePage />,
       },
       {
@@ -270,7 +270,7 @@ function App() {
         FAQSRouter,
         TermsCondsRouter,
         {
-          path: '/explore',
+          path: '/discover',
           element: <ExplorePage />
         },
         {
