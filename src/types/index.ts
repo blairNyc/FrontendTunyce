@@ -14,7 +14,20 @@ export interface ErrorType {
         [key:string]:string
     }
 }
-
+export interface Transaction {
+    id: number;
+    transaction_id: string;
+    amount: number;
+    description: string;
+    type: string;
+    transaction_date: string;
+    walletaccount: {
+        id: number;
+        uuid: string;
+        amount: string;
+        owner: number;
+    };
+}
 export interface MusicItemProp {
     name: string;
     description: string;

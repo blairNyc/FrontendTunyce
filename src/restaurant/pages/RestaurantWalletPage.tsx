@@ -57,7 +57,7 @@ const date = new Date('12/12/2021');
 
 function RestaurantWalletPage() {
 
-    const contentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
+    // const contentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
 
     const apexOptions = { 
         series: [{
@@ -236,9 +236,6 @@ function RestaurantWalletPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        
-                                    }
                                     <tr className='text-left'>
                                         <td className='px-1 flex items-center text-xs py-2'>
                                             <img src="https://picsum.photos/200/300" alt="" className="w-5 h-5 rounded-full inline-block object-cover"/>

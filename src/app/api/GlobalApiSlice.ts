@@ -1,5 +1,5 @@
 import { Genre } from '../../components/controller/ControllerMusicPage';
-import { MusicItemProp } from '../../types'
+import { MusicItemProp, Transaction } from '../../types'
 import { apiSlice } from './apiSlice';
 
 export const apiVenuesSlice = apiSlice.injectEndpoints({
@@ -191,7 +191,10 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     query : () => ({
       url: `transaction/list/`,
       method : 'get'
-    })
+    }),
+    transformResponse:(response:{message:Transaction[]})=>{
+      return response?.message;
+    }
    }),
 
   }),
