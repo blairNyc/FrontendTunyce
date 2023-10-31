@@ -4,10 +4,10 @@ import DepositIcon from '/deposit.svg';
 import WithdrawIcon from '/withdraw.svg';
 import { BsGraphUpArrow, BsGraphDownArrow } from 'react-icons/bs';
 import Chart from 'react-apexcharts';
-import { useCheckWalletBalanceQuery, useConnectWalletMutation } from "../app/api/GlobalApiSlice";
+import { useCheckWalletBalanceQuery, useCheckWalletTransactionsQuery, useConnectWalletMutation } from "../app/api/GlobalApiSlice";
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
-
+import { Transaction } from "../types";
 const ActionButton = ({ text, children }: { text: string, children: React.ReactNode }) => (
   <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">
     {children}
@@ -42,6 +42,14 @@ interface BalanceResponse {
   message: MessageData;
 }
 
+interface TransactionResponse {
+  message : Transaction
+}
+
+const capitalizeFirstLetter = (text:string)=>{
+  return text[0].toUpperCase()+text.slice(1,text.length)
+}
+
 const UserWalletPage = () => {
   
   const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
@@ -49,8 +57,13 @@ const UserWalletPage = () => {
   const[submitWalletUser] = useConnectWalletMutation()
 
   const { data: walletBalance } = useCheckWalletBalanceQuery(1)
+  const { data: transactionHistory } = useCheckWalletTransactionsQuery(1)
+  console.log(transactionHistory)
 
   const [totalWalletBalance, setTotalWalletBalance] = useState<BalanceResponse>()
+
+  const [transactionHistoryDetails, setTransactionHistoryDetails] = useState<TransactionResponse>()
+  // console.log(transactionHistoryDetails)
 
 
   useEffect(() => {
@@ -65,11 +78,11 @@ const UserWalletPage = () => {
   }, []);
 
   useEffect(() => {
-    
     if(walletBalance !== null) {
       setTotalWalletBalance(walletBalance)
     }
   }, [walletBalance])
+
   
   const [isDepositModalOpen, setIsDepositModalOpen] = useState<boolean>(false);
 
@@ -297,25 +310,28 @@ const UserWalletPage = () => {
                 <thead>
                   <tr className='text-left'>
                     <TableHeaderText text='Name' />
-                    <TableHeaderText text='Data' />
-                    <TableHeaderText text='TransID' />
-                    <TableHeaderText text='Quantity' />
+                    <TableHeaderText text='Date' />
+                    <TableHeaderText text='Trans.ID' />
+                    <TableHeaderText text='Amount' />
                     <TableHeaderText text='Type' />
                     <TableHeaderText text='Status' />
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className='text-left'>
-                    <td className='px-1 flex items-center text-xs py-2'>
-                      <img src="https://picsum.photos/200/300" alt="" className="w-5 h-5 rounded-full inline-block object-cover" />
-                      <span></span> Tester12
-                    </td>
-                    <TableDataText text={date.toDateString()} />
-                    <TableDataText text='RY6842CGJB' />
-                    <TableDataText text='Ksh 1' />
-                    <TableDataText text='Deposit' />
-                    <TableDataText additionalStyles='text-green-600' text='Success' />
-                  </tr>
+                  {
+                    transactionHistory && transactionHistory.map((transaction)=>(
+                      <tr>
+                        <td className='px-1 flex items-center text-xs py-2'>
+                          Tester12
+                        </td>
+                        <TableDataText text={new Date(transaction.transaction_date).toDateString()}/>
+                        <TableDataText text={transaction.transaction_id.slice(0,6)} />
+                        <TableDataText text={transaction.amount.toString()} />
+                        <TableDataText text={capitalizeFirstLetter(transaction.type)} />
+                        <TableDataText additionalStyles='text-green-600' text='Success' />
+                      </tr>
+                    ))
+                  }
                 </tbody>
               </table>
             </div>

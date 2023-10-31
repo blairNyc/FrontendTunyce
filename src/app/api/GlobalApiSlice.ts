@@ -1,5 +1,5 @@
 import { Genre } from '../../components/controller/ControllerMusicPage';
-import { MusicItemProp } from '../../types'
+import { MusicItemProp, Transaction } from '../../types'
 import { apiSlice } from './apiSlice';
 
 export const apiVenuesSlice = apiSlice.injectEndpoints({
@@ -178,14 +178,24 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     })
    }),
 
+   // Check wallet balance
    checkWalletBalance : builder.query({
     query : () => ({
       url:`wallet/deposit/`,
       method: 'get'
     })
-   })
+   }),
 
-
+   // Check wallet transactions
+   checkWalletTransactions : builder.query({
+    query : () => ({
+      url: `transaction/list/`,
+      method : 'get'
+    }),
+    transformResponse:(response:{message:Transaction[]})=>{
+      return response?.message;
+    }
+   }),
 
   }),
 })
@@ -216,6 +226,7 @@ export const {
   useGetLatestMusicOtherQuery,
   useConnectWalletMutation,
   useDepositCashToWalletMutation,
-  useCheckWalletBalanceQuery
+  useCheckWalletBalanceQuery,
+  useCheckWalletTransactionsQuery
 
 } = apiVenuesSlice
