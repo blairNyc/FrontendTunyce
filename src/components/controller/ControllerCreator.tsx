@@ -16,7 +16,7 @@ const dateDiff = (date1:Date,date2:Date)=>{
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     return diffDays;
 }
-const VideoItem = ({name,views,created_at, onClick,id, video_thumbnail}:MusicItPrp)=>{
+export const VideoItem = ({name,views,created_at, onClick,id, video_thumbnail}:MusicItPrp)=>{
     const date = new Date(created_at);
     return(
         <div onClick={()=>{onClick(id)}} className="md:w-56 w-44 hover:bg-gray-100 border-gray-300 m-2  min-h-[100px] min-w-[90px] xl:min-w-[100px] md:min-w-[190px] border p-2 md:p-2 rounded">
@@ -100,6 +100,7 @@ function ControllerCreator() {
                                 {
                                     data?.map((item)=>(
                                         <VideoItem
+                                            genres={item.genres}
                                             name={item.name}
                                             key={item.id}
                                             views={item.views??10}
