@@ -32,12 +32,45 @@ export const controllerApiSlice = apiSlice.injectEndpoints({
                     "isplaying":true
                 }
             })
-        })
+        }),
+        paySubscription: builder.mutation({
+            query: (data:{phone:string})=>({
+                url:`/subscription/pay/`,
+                method:'post',
+                body:{
+                    "phone":data.phone,
+                    "reference":'payment method',
+                    description:'subscription payment'
+                }
+            })
+        }),
+        paySubscriptionCallback: builder.mutation({
+            query: (data:{userId:string})=>({
+                url:`/subscription/callback/${data.userId}`,
+                method:'post',
+            })
+        }),
+        getPendingSubscription: builder.query({
+            query: ()=>({
+                url:`/subscription/pending/subscriptions/`,
+                method:'get',
+            })
+        }),
+        addToCart: builder.mutation({
+            query: (data:{creatorID:string|number})=>({
+                url:`/subscription/cart/${data.creatorID}/`,
+                method:'post',
+            })
+        }),
     })
 });
 
 export const {
     useGetCreatorsQuery,
     useGetCreatorContentAndInfoQuery,
-    useSwitchContentMutation
+    useSwitchContentMutation,
+    usePaySubscriptionMutation,
+    usePaySubscriptionCallbackMutation,
+    useGetPendingSubscriptionQuery,
+    useAddToCartMutation,
 } = controllerApiSlice;
