@@ -25,17 +25,17 @@ const Videos: React.FC = () => {
     <div className="w-full mt-5">
       <h2 className="text-2xl font-semibold"> Videos</h2>
       <div className="w-full h-full relative mt-3">
-        <div className="overflow-y-scroll no-scrollbar flex items-center">
+        <div className="overflow-y-scroll no-scrollbar grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3">
           {
-            creator && creator.map((value: SingleCreator) => {
+            creator ? creator.map((value: SingleCreator) => {
               <VideoItem key={value.id} value={value} />
-            })
+            }):(
+              <div  className='mx-auto' >
+                <h2 className='text-text-primary text-xl'>No Videos</h2>
+              </div>
+            )
           }
-          <VideoItem />
-          <VideoItem />
-          <VideoItem />
-          <VideoItem />
-          <VideoItem />
+          
         </div>
       </div>
     </div>
