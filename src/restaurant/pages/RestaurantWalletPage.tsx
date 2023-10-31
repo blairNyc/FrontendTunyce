@@ -4,8 +4,6 @@ import {BsGraphUpArrow, BsGraphDownArrow} from 'react-icons/bs';
 import Chart from 'react-apexcharts';
 import { useCheckWalletBalanceQuery, useConnectWalletMutation } from '../../app/api/GlobalApiSlice';
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../app/hooks';
-import { RootState } from '../../app/store';
 
 interface MessageData {
     id: number;
