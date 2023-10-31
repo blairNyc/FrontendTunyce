@@ -4,9 +4,28 @@ import DepositIcon from '/deposit.svg';
 import WithdrawIcon from '/withdraw.svg';
 import { BsGraphUpArrow, BsGraphDownArrow } from 'react-icons/bs';
 import Chart from 'react-apexcharts';
-import { useCheckWalletBalanceQuery, useConnectWalletMutation } from "../app/api/GlobalApiSlice";
+import { useCheckWalletBalanceQuery, useCheckWalletTransactionsQuery, useConnectWalletMutation } from "../app/api/GlobalApiSlice";
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
+
+interface Transaction {
+  id: number;
+  transaction_id: string;
+  amount: number;
+  description: string;
+  type: string;
+  transaction_date: string;
+  walletaccount: {
+    id: number;
+    uuid: string;
+    amount: string;
+    owner: number;
+  };
+}
+
+interface TransactionResponse {
+  message: Transaction;
+}
 
 const ActionButton = ({ text, children }: { text: string, children: React.ReactNode }) => (
   <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">
@@ -50,7 +69,14 @@ const UserWalletPage = () => {
 
   const { data: walletBalance } = useCheckWalletBalanceQuery(1)
 
+  const { data: walletTransactions } = useCheckWalletTransactionsQuery(1)
+  // console.log(walletTransactions)
+
+  
+
   const [totalWalletBalance, setTotalWalletBalance] = useState<BalanceResponse>()
+
+  const [currentWalletTransactions, setCurrentWalletTransactions] = useState<TransactionResponse>()
 
 
   useEffect(() => {
@@ -70,6 +96,12 @@ const UserWalletPage = () => {
       setTotalWalletBalance(walletBalance)
     }
   }, [walletBalance])
+
+  useEffect(() => {
+    if (walletTransactions !== null) {
+      setCurrentWalletTransactions(walletTransactions)
+    }
+  }, [walletTransactions])
   
   const [isDepositModalOpen, setIsDepositModalOpen] = useState<boolean>(false);
 
@@ -305,17 +337,23 @@ const UserWalletPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className='text-left'>
-                    <td className='px-1 flex items-center text-xs py-2'>
-                      <img src="https://picsum.photos/200/300" alt="" className="w-5 h-5 rounded-full inline-block object-cover" />
-                      <span></span> Tester12
-                    </td>
-                    <TableDataText text={date.toDateString()} />
-                    <TableDataText text='RY6842CGJB' />
-                    <TableDataText text='Ksh 1' />
-                    <TableDataText text='Deposit' />
-                    <TableDataText additionalStyles='text-green-600' text='Success' />
-                  </tr>
+                  { currentWalletTransactions && 
+                    currentWalletTransactions?.map((transaction : TransactionResponse) => (
+                    <tr className='text-left'>
+                      <td className='px-1 flex items-center text-xs py-2'>
+                        <img src="https://picsum.photos/200/300" alt="" className="w-5 h-5 rounded-full inline-block object-cover" />
+                        <span></span> {authVal.username}
+                      </td>
+                      <TableDataText text={date.toDateString()} />
+                      <TableDataText text='RY6842CGJB' />
+                      {/* <TableDataText text='Ksh 1' /> */}
+                      <TableDataText text={`Ksh ${transaction.message.amount}`} />
+                      <TableDataText text='Deposit' />
+                      <TableDataText additionalStyles='text-green-600' text='Success' />
+                    </tr>
+                  ))
+                }                  
+                  
                 </tbody>
               </table>
             </div>

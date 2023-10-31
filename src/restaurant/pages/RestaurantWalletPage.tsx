@@ -18,6 +18,21 @@ interface BalanceResponse {
     message: MessageData;
 }
 
+interface Transaction {
+    id: number;
+    transaction_id: string;
+    amount: number;
+    description: string;
+    type: string;
+    transaction_date: string;
+    walletaccount: {
+        id: number;
+        uuid: string;
+        amount: string;
+        owner: number;
+    };
+}
+
 const ActionButton=({text,children}:{text:string, children:React.ReactNode})=>(
     <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">
         {children}
@@ -39,6 +54,7 @@ const StatItem = ({text,children,price }:{text:string,price:string,children:Reac
 const TableHeaderText= ({text}:{text:string})=><th className='px-1 text-xs py-2'>{text}</th>
 const TableDataText = ({text,additionalStyles}:{text:string,additionalStyles?:string})=><td className={`px-1 ${additionalStyles} text-xs py-2`}>{text}</td>
 const date = new Date('12/12/2021');
+
 function RestaurantWalletPage() {
 
     const contentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
@@ -220,6 +236,9 @@ function RestaurantWalletPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {
+                                        
+                                    }
                                     <tr className='text-left'>
                                         <td className='px-1 flex items-center text-xs py-2'>
                                             <img src="https://picsum.photos/200/300" alt="" className="w-5 h-5 rounded-full inline-block object-cover"/>

@@ -178,14 +178,21 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     })
    }),
 
+   // Check wallet balance
    checkWalletBalance : builder.query({
     query : () => ({
       url:`wallet/deposit/`,
       method: 'get'
     })
-   })
+   }),
 
-
+   // Check wallet transactions
+   checkWalletTransactions : builder.query({
+    query : () => ({
+      url: `transaction/list/`,
+      method : 'get'
+    })
+   }),
 
   }),
 })
@@ -216,6 +223,7 @@ export const {
   useGetLatestMusicOtherQuery,
   useConnectWalletMutation,
   useDepositCashToWalletMutation,
-  useCheckWalletBalanceQuery
+  useCheckWalletBalanceQuery,
+  useCheckWalletTransactionsQuery
 
 } = apiVenuesSlice
