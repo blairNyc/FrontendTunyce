@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 // import { NavElement } from "./Sidebar";
 import { BsFire, BsFillPersonFill } from "react-icons/bs";
-import { FaDeezer } from "react-icons/fa6";
+// import { FaDeezer } from "react-icons/fa6";
 import { FiSearch } from "react-icons/fi";
 import { GoHomeFill } from "react-icons/go";
 import TunyceLogo from '/tunyce_logo.svg';
@@ -71,9 +71,9 @@ function DefaultLayout() {
                                     <NavElement path="/trending" name='Trending'>
                                         <BsFire className='text-xl' />
                                     </NavElement>
-                                    <NavElement path="/new" name='New'>
+                                    {/* <NavElement path="/new" name='New'>
                                         <FaDeezer className='text-xl' />
-                                    </NavElement>
+                                    </NavElement> */}
                                     <NavElement name='Artists' path='/artists'>
                                         <BsFillPersonFill className='text-xl' />
                                     </NavElement>
