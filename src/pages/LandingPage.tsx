@@ -51,7 +51,7 @@ const MusItem = ({ plays, title, image, onClick }: { plays: string, title: strin
         <img src={image} alt="tunyce media" className="min-w-1/4 max-h-12 rounded-xl" />
         <div className="ml-3 w-3/4">
             <h4 className="text-sm uppercase font-bold">{title}</h4>
-            <p className="">{plays}</p>
+            <p className="text-sm my-2">{plays}</p>
         </div>
     </div>
 )
@@ -86,7 +86,7 @@ function LandingPage() {
                 <div className="flex items-center justify-between rounded-2xl px-2 w-4/5 md:w-1/3 bg-gray-200">
                 </div>
                 <div className="hidden md:flex md:flex-row flex-col items-center">
-                    <a href="/register" className="border cursor-pointer px-4 my-2 rounded-2xl border-black ">Sign Up</a>
+                    <a href="/signup" className="border cursor-pointer px-4 my-2 rounded-2xl border-black ">Sign Up</a>
                     <a href="/login" className="px-4 py-1 my-2 mx-3 bg-text-primary rounded-2xl text-white font-semibold">Sign In</a>
                 </div>
             </header>
@@ -109,7 +109,7 @@ function LandingPage() {
                         {trendingMixes && trendingMixes?.slice(visibleItems - 9, visibleItems).map((tmix: Mix) => (
                             <MusItem
                                 key={tmix.id}
-                                plays='32K'
+                                plays='Artist'
                                 title={tmix?.owner.username ?? 'Mix'}
                                 onClick={() => openModal()}
                                 image={tmix && tmix.video_thumbnail ? tmix.video_thumbnail :

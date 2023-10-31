@@ -3,13 +3,15 @@ import { useState } from "react";
 import TunyceLogo from '/tunyce_logo.svg';
 import TunycLogo from '../../../assets/tunyce_logo.png';
 import TunycDarkLogo from '../../../assets/tunyce_logo.svg'
-import { BsChevronDown, BsPeopleFill,  } from "react-icons/bs";
+import { BsChevronDown, BsPeopleFill, BsWallet,  } from "react-icons/bs";
 import { GoHomeFill } from "react-icons/go";
 import NavElement from "../../navelement";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { useAppDispatch } from "../../../app/hooks";
 import { logOut } from "../../auth/auth/authSlice";
+// import { PiShoppingCartSimpleBold } from "react-icons/pi";
+// import { FaRegBell } from "react-icons/fa";
 type DropdownMenuProps ={
     setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
     onLogout: () => void
@@ -68,7 +70,12 @@ export default function CreatorLayout() {
                             </NavElement>
                             
                         </ul>
-                    
+                        <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>
+                        <ul>
+                            <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path='/my-wallet' name='Wallet'>
+                                <BsWallet className='text-xl' />
+                            </NavElement>
+                        </ul>
                     </div>
             </div>
         </div>

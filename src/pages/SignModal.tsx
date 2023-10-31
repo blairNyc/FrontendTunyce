@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-
+import {AiOutlineClose} from 'react-icons/ai';
 const SignModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const modalAnimation = {
     hidden: { scale: 0.8, opacity: 0 },
@@ -30,7 +30,8 @@ const SignModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
         variants={modalAnimation}
       >
         <button className="absolute top-2 right-4 text-gray-600 w-fit h-fit " onClick={onClose}>
-          Close
+          {/* Close */}
+          <AiOutlineClose className='text-3xl' />
         </button>
         <div className="flex justify-center items-center space-x-8">
           <img src="/Q.png" alt="tunyce media" className="w-1/3 rounded-3xl" />
