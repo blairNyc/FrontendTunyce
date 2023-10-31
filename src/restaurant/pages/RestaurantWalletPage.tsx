@@ -16,20 +16,20 @@ interface BalanceResponse {
     message: MessageData;
 }
 
-interface Transaction {
-    id: number;
-    transaction_id: string;
-    amount: number;
-    description: string;
-    type: string;
-    transaction_date: string;
-    walletaccount: {
-        id: number;
-        uuid: string;
-        amount: string;
-        owner: number;
-    };
-}
+// interface Transaction {
+//     id: number;
+//     transaction_id: string;
+//     amount: number;
+//     description: string;
+//     type: string;
+//     transaction_date: string;
+//     walletaccount: {
+//         id: number;
+//         uuid: string;
+//         amount: string;
+//         owner: number;
+//     };
+// }
 
 const ActionButton=({text,children}:{text:string, children:React.ReactNode})=>(
     <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">

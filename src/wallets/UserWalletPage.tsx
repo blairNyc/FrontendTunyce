@@ -28,7 +28,7 @@ const StatItem = ({ text, children, price }: { text: string, price: string, chil
 );
 const TableHeaderText = ({ text }: { text: string }) => <th className='px-1 text-xs py-2'>{text}</th>
 const TableDataText = ({ text, additionalStyles }: { text: string, additionalStyles?: string }) => <td className={`px-1 ${additionalStyles} text-xs py-2`}>{text}</td>
-const date = new Date('10/28/2023');
+// const date = new Date('10/28/2023');
 
 
 interface MessageData {
@@ -42,9 +42,9 @@ interface BalanceResponse {
   message: MessageData;
 }
 
-interface TransactionResponse {
-  message : Transaction
-}
+// interface TransactionResponse {
+//   message : Transaction
+// }
 
 const capitalizeFirstLetter = (text:string)=>{
   return text[0].toUpperCase()+text.slice(1,text.length)
@@ -58,13 +58,8 @@ const UserWalletPage = () => {
 
   const { data: walletBalance } = useCheckWalletBalanceQuery(1)
   const { data: transactionHistory } = useCheckWalletTransactionsQuery(1)
-  console.log(transactionHistory)
 
   const [totalWalletBalance, setTotalWalletBalance] = useState<BalanceResponse>()
-
-  const [transactionHistoryDetails, setTransactionHistoryDetails] = useState<TransactionResponse>()
-  // console.log(transactionHistoryDetails)
-
 
   useEffect(() => {
     const fetchData = async () => {
