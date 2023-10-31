@@ -103,8 +103,6 @@ function VideoScreen() {
     // console.log(allMixes)
 
     const [mediaInfo, setMediaInfo] = useState<MediaInformation>()
-    console.log(mediaInfo)
-    
     useEffect(() => {
         if(videoData !== null) {
             setMediaInfo(videoData)
@@ -181,6 +179,7 @@ function VideoScreen() {
                                     .map((mix: Mix) => (
                                         <MusicVideoScreen
                                             title={`${mix?.name}`}
+                                            path={`/creators/videos/${mix.id}`}
                                             owner={`${mix?.owner?.username}`}
                                             srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
                                             onClick={() => handleItemClick(mix.id)}                  
