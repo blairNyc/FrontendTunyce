@@ -41,7 +41,7 @@ const TableDataText = ({text,additionalStyles}:{text:string,additionalStyles?:st
 const date = new Date('12/12/2021');
 function RestaurantWalletPage() {
 
-    const contentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
+    // const contentCreator = useAppSelector((state: RootState) => state.persistAuth.auth.is_contentcreator);
 
     const apexOptions = { 
         series: [{
