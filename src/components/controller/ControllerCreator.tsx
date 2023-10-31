@@ -110,13 +110,8 @@ function ControllerCreator() {
                                             id={item.id}
                                             onClick={handleSwitchContent}
                                             video_thumbnail={item.video_thumbnail}
-                                            created_at={item.created_at} genres={{
-                                                id: 0,
-                                                name: "",
-                                                image: "",
-                                                description: "",
-                                                genreId: 0
-                                            }}                                        />
+                                            created_at={item.created_at} 
+                                        />
                                     ))
                                 }
                             </div>
