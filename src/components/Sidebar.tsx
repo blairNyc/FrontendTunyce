@@ -12,9 +12,9 @@ import {  FaCompass, FaDeezer } from "react-icons/fa";
 // import { IoSettingsSharp } from "react-icons/io5";
 // import { TbLogout } from "react-icons/tb";
 // import { BsPeopleFill } from "react-icons/bs";
-import { NavLink } from "react-router-dom";
+import {NavLink } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
-import { BsPeopleFill } from "react-icons/bs";
+import { BsCart2, BsPeopleFill } from "react-icons/bs";
 
 type NavElProps = {
   name: string;
@@ -56,13 +56,13 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
             <div className="w-full">
                 <h2 className="text-lg font-medium ml-3 mt-3">MENU</h2>
                 <ul className="w-full">
-                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/" name="Discover">
+                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/" name="Explore">
                         <GoHomeFill className="text-xl" />
                     </NavElement>
                     <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/creators" name="Creators">
                         <BsPeopleFill className="text-xl" />
                     </NavElement>
-                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/explore" name="Explorer">
+                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/discover" name="Discover">
                         <FaCompass className="text-xl" />
                     </NavElement>
                 </ul>
@@ -71,7 +71,7 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
                     {/* <NavElement path="music" name="Music">
                         <BsMusicNoteBeamed className="text-xl" />
                     </NavElement> */}
-                    <NavElement path="mixes" name="Mixes">
+                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="mixes" name="Mixes">
                         <FaDeezer className="text-xl" />
                     </NavElement>
                     {/* <NavElement name="Artists">
@@ -80,7 +80,7 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
                 </ul>
                 <h2 className="text-lg font-medium ml-3 mt-3">PLAYLISTS</h2>
                 <ul>
-                    <NavElement path="/my-playlists" name="My Playlists">
+                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/my-playlists" name="My Playlists">
                         <TbHeadphonesFilled className="text-xl" />
                     </NavElement>
                     {/* <NavElement name="Favorites">
@@ -93,6 +93,14 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
                         <ImFolderDownload className="text-xl" />
                     </NavElement> */}
                 </ul>
+                <div className="md:hidden">
+                    <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
+                    <ul>
+                        <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/cart" name="Cart">
+                            <BsCart2 className="text-xl" />
+                        </NavElement>
+                    </ul>
+                </div>
                 {/* <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
                 <ul>
                     <NavElement path="user-wallet" name="Wallet">
