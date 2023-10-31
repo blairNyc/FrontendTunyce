@@ -7,7 +7,7 @@ import Chart from 'react-apexcharts';
 import { useCheckWalletBalanceQuery, useCheckWalletTransactionsQuery, useConnectWalletMutation } from "../app/api/GlobalApiSlice";
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
-import { Transaction } from "../types";
+
 const ActionButton = ({ text, children }: { text: string, children: React.ReactNode }) => (
   <button className="bg-bg-primary flex items-center hover:bg-gray-200 text-white px-4 py-1">
     {children}
