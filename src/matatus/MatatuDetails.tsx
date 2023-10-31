@@ -29,7 +29,7 @@ const MatatuDetails = () => {
 
     const { id } = useParams<{ id: string }>();
 
-    const userToken: any = useAppSelector((state: RootState) => state.persistAuth.auth.access);
+    const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
 
     // Matatu Information
     const [ownerInfo, setOwnerInformation] = useState<OwnerInterface>();
