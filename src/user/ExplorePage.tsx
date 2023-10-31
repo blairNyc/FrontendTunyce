@@ -14,7 +14,7 @@ interface CommonProps{
     seeAllPath?: string
     path?:string
     onClick?: (id: string) => void;
-
+    id?:string
 }
 
 export const SectionTitle = ({title, seeAllPath, }: CommonProps) => {
@@ -48,8 +48,8 @@ export const FeaturedItem = ({ title, children, additionalStyles, owner, srcUrl,
         {children}
     </div>
 );
-export const MusicItem = ({ path, owner, srcUrl, title, onClick }:CommonProps)=>(
-    <Link to={path ?? ''} className="min-w-[150px] mx-2 cursor-pointer hover:scale-105" onClick={() => onClick?.('some-id')}>
+export const MusicItem = ({ path, owner, srcUrl,id, title, onClick }:CommonProps)=>(
+    <Link to={path ?? ''} state={{id:id,name:title}} className="min-w-[150px] mx-2 cursor-pointer hover:scale-105" onClick={() => onClick?.('some-id')}>
         <img src={`${srcUrl}`} alt="" className="w-32 h-32 rounded-xl object-cover"/>
         <h4 className="font-bold">
              {`${title?.slice(0, 10)}...`}
@@ -109,7 +109,7 @@ const ExplorePage = () => {
 
     return (
         <div className="mt-8 relative w-full no-scrollbar overflow-y-auto">
-            <h2 className="text-2xl text-text-primary font-bold">Explore</h2>
+            <h2 className="text-2xl text-text-primary font-bold">Discover</h2>
             <div className="mt-10">
                 <SectionTitle title="Featured Mixes" onClick={function (): void {
                     throw new Error("Function not implemented.");
