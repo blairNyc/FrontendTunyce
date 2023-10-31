@@ -1,10 +1,9 @@
-import { BsPlayCircle } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { useGetAllTrendingMixesQuery } from "../app/api/GlobalApiSlice";
 import SignModal from './SignModal';
 import { useState } from "react";
 import { Mix } from "../types";
-
+import { BiPlay } from "react-icons/bi";
 const calculateDaysSinceCreation = (createdDateStr: string) => {
     const createdDate = new Date(createdDateStr);
     const currentDate = new Date();
@@ -16,16 +15,16 @@ const VideoItem = ({ mix, onClick }: { mix: any; onClick: () => void }) => {
     const daysSinceCreation = calculateDaysSinceCreation(mix.created_at);
 
     return (
-        <div onClick={onClick} className="cursor-pointer md:w-52 w-40 my-1 hover:bg-gray-100 border-gray-320 md:m-2 min-h-[100px] min-w-[90px] xl:min-w-[320px] md:min-w-[190px]  rounded-lg">
+        <div onClick={onClick} className="cursor-pointer my-1 hover:bg-gray-100 border-gray-320 md:m-2 min-h-[100px] min-w-[80px]  rounded-lg">
             <div className="w-full h-32 relative flex items-center justify-center">
-                <span className="absolute mx-2 flex h-6 w-6" style={{ bottom: '50%', left: '50%', transform: 'translate(-50%, 50%)' }}>
-                    <BsPlayCircle className="mb-9 inline-flex rounded-full h-6 w-6 bg-orangered" />
+                <span className="absolute border-orangered  h-6 w-6" style={{ bottom: '50%', left: '50%', transform: 'translate(-50%, 50%)' }}>
+                    <BiPlay className="inline-flex rounded-full h-full w-full text-slate-300 bg-orangered" />
                 </span>
                 <img src={mix && mix.video_thumbnail ? mix.video_thumbnail :
                     'https://png.pngtree.com/png-vector/20190605/ourmid/pngtree-headphones-icon-png-image_1477434.jpg'} alt="" className="w-full h-full object-cover rounded-lg" />
             </div>
             <div className="my-2">
-                <h3 className="text-text-primary font-semibold text-sm md:text-lg overflow-hidden line-clamp-2">{mix.name}</h3>
+                <h3 className="text-text-primary font-semibold text-sm overflow-hidden line-clamp-2">{mix.name}</h3>
                 <p className="text-text-secondary my-1 text-sm font-bold">{mix.owner?.username}</p>
                 {daysSinceCreation >= 30 ? (
                     <p className="text-text-secondary my-1 text-xs mx-2">{mix.views} Views . {Math.floor(daysSinceCreation / 30)} months ago</p>
@@ -71,7 +70,7 @@ function TrendingPage() {
                 </div>
             </header>
             <h2 className="text-2xl text-text-primary font-bold">Trending Content</h2>
-            <div className="mt-1 flex flex-wrap">
+            <div className="grid grid-cols-4 gap-2 ">
                 {trendingMixes.slice(0, 9).map((mix: Mix) => (
                     <VideoItem onClick={() => openModal()} key={mix.id} mix={mix} />
                 ))}
