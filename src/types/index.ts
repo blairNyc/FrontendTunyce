@@ -29,6 +29,13 @@ export interface MusicItemProp{
         username:string
         email:string
     }
+    genres:{
+        id: number;
+        name: string;
+        image: string;
+        description: string;
+        genreId: number;
+    }
     video_thumbnail:string,
 }
 export interface IMatatuType{
@@ -46,7 +53,8 @@ export interface Mix{
     name: string,
     video_thumbnail?: string,
     owner:{
-        username?:string
+        username?:string,
+        id?:string,
     },
     media:{
         media_url: string
