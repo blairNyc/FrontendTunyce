@@ -123,6 +123,7 @@ function VideoScreen() {
     const handleItemClick = (id: string) => {
         setCurrentMediaId(id)
         navigate(`/creators/videos/${id}`)
+    
     };
 
     return (

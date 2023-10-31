@@ -57,7 +57,7 @@ const MusItem = ({ plays, title, image, onClick }: { plays: string, title: strin
 )
 
 
-function LandingPage() {
+function Page() {
     const { data: latestMixes, isLoading: isLoadingMixes } = useGetLatestMusicQuery([]);
     const { data: trendingMixes, isLoading: isLoadingTrending } = useGetAllTrendingMixesQuery([]);
     const [visibleItems, setVisibleItems] = useState(9);
@@ -135,4 +135,4 @@ function LandingPage() {
     );
 }
 
-export default LandingPage;
+export default Page;

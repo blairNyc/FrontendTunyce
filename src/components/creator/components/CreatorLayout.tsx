@@ -12,6 +12,7 @@ import { useAppDispatch } from "../../../app/hooks";
 import { logOut } from "../../auth/auth/authSlice";
 // import { PiShoppingCartSimpleBold } from "react-icons/pi";
 // import { FaRegBell } from "react-icons/fa";
+
 type DropdownMenuProps ={
     setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>
     onLogout: () => void
@@ -68,6 +69,9 @@ export default function CreatorLayout() {
                             <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/my-content" name="My Content">
                                 <GoHomeFill className="text-xl" />
                             </NavElement>
+                              <NavElement path='/my-wallet' name='Wallet'>
+                                  <BsWallet className='text-xl' />
+                              </NavElement>
                             
                         </ul>
                         <h2 className='text-lg font-medium ml-3 mt-1'>OTHERS</h2>

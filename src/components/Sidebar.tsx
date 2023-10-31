@@ -13,8 +13,9 @@ import {  FaCompass, FaDeezer } from "react-icons/fa";
 // import { TbLogout } from "react-icons/tb";
 // import { BsPeopleFill } from "react-icons/bs";
 import {NavLink } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";
 import { BsCart2, BsPeopleFill } from "react-icons/bs";
+import {  AiOutlineClose } from "react-icons/ai";
+// import { BsPeopleFill } from "react-icons/bs";
 
 type NavElProps = {
   name: string;
@@ -102,17 +103,18 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
                     </ul>
                 </div>
                 {/* <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
+                <h2 className="text-lg font-medium ml-3 mt-3">OTHER</h2>
                 <ul>
-                    <NavElement path="user-wallet" name="Wallet">
+                    <NavElement path="/user-wallet" name="Wallet">
                         <AiFillWallet className="text-xl" />
                     </NavElement>
-                    <NavElement name="Settings">
+                    {/* <NavElement name="Settings">
                         <IoSettingsSharp className="text-xl" />
                     </NavElement>
                     <NavElement name="Logout">
                         <TbLogout className="text-xl" />
-                    </NavElement>
-                </ul> */}
+                    </NavElement> */}
+               
             </div>
         </div>
     </div>

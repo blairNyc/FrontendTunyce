@@ -244,7 +244,7 @@ function App() {
           element: <RestaurantHomePage />
         },
         {
-          path: '/restaurant/my-wallet',
+          path: '/my-wallet',
           element: <RestaurantWalletPage />
         },
         {
@@ -333,7 +333,11 @@ function App() {
           path: '/matatu',
           element: <MatatuPage />,
         },
-
+        {
+          path: "/user-wallet",
+          element: <UserWalletPage />,
+        },
+        
       ]
     } : curr_loggedin_user === "is_matatu" ? {
       element: <MatatuLayout />,

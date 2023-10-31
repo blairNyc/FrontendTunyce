@@ -265,7 +265,7 @@ const RestaurantDetails = () => {
                         <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                             Please enter your preferred player password:
                         </p>
-                        <input type="text" id="controller_password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-universal-primary focus:border-universal-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-universal-primary dark:focus:border-universal-primary" placeholder="Player Password" required />
+                        <input type="text" id="player_password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-universal-primary focus:border-universal-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-universal-primary dark:focus:border-universal-primary" placeholder="Player Password" required />
                     </div>
 
                     <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
