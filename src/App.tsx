@@ -261,7 +261,7 @@ function App() {
         {
           path: '/',
           index: true,
-          element: <Homepage />
+          element: <ExplorePage />
         },
         {
           path: "*",
@@ -271,7 +271,7 @@ function App() {
         TermsCondsRouter,
         {
           path: '/discover',
-          element: <ExplorePage />
+          element: <Homepage />
         },
         {
             path:'/my-playlists',

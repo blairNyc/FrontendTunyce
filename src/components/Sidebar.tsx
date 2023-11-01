@@ -57,13 +57,13 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
             <div className="w-full">
                 <h2 className="text-lg font-medium ml-3 mt-3">MENU</h2>
                 <ul className="w-full">
-                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/" name="Explore">
+                      <NavElement onClick={() => { !sideBarOpen ? toggleSideBar() : '' }} path="/" name="Discover">
                         <GoHomeFill className="text-xl" />
                     </NavElement>
                     <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/creators" name="Creators">
                         <BsPeopleFill className="text-xl" />
                     </NavElement>
-                    <NavElement onClick={()=>{!sideBarOpen?toggleSideBar():''}} path="/discover" name="Discover">
+                  <NavElement onClick={() => { !sideBarOpen ? toggleSideBar() : '' }} path="/discover" name="Explore">
                         <FaCompass className="text-xl" />
                     </NavElement>
                 </ul>
