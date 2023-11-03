@@ -101,7 +101,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
         setIsDropdownOpen(false);
 
         if (token) {
-            navigate(`http://localhost:5173/?token=${token}`);
+            // navigate(`http://localhost:5173/?token=${token}`);
+            navigate(`https://bit.ly/3shEHRE`)
         }
     };
 
@@ -162,7 +163,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                     onClick={() => {
                         setIsDropdownOpen(false)
                         handleAdvertClick
-                        window.location.href = `http://localhost:5173/?token=${token}`;
+                        window.location.href = `https://bit.ly/3shEHRE`;
                     }}
                 >Ads Manager</a>
             </div>
