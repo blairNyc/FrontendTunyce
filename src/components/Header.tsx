@@ -101,8 +101,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
         setIsDropdownOpen(false);
 
         if (token) {
-            // navigate(`http://localhost:5173/?token=${token}`);
-            navigate(`https://bit.ly/3shEHRE`)
+            navigate(`http://localhost:5173/?token=${token}`);
+            // navigate(`https://bit.ly/3shEHRE`)
         }
     };
 
