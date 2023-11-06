@@ -35,9 +35,11 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
     const location = useLocation().pathname;
     console.log(location);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isAdvertsDropdownOpen, setAdvertsIsDropdownOpen] = useState(false);
     const token = authVal.access;
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
+        setAdvertsIsDropdownOpen(false)
     };
 
     const [displayUpgradeModal, setDisplayUpgradeModal] = useState(false);
@@ -144,44 +146,85 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
                     ) : null
                     }
-                    {isResOwner ? ( <a href="#" className="block text-sm hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    {isResOwner ? (<a href="#" className="block text-sm hover:text-text-primary px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             switchAccountHandler('is_restaunt')
                         }}
-                        >Restaurant owner</a>):null
+                    >Restaurant owner</a>) : null
                     }
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         onClick={() => {
                             setIsDropdownOpen(false)
+                            setAdvertsIsDropdownOpen(false)
                             setDisplayUpgradeModal(true)
                         }}
                     >Upgrade Account</a>
                 </li>
             </ul>
             <div className="py-2">
+
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
-                        setIsDropdownOpen(false)
-                        handleAdvertClick
-                        window.location.href = `http://localhost:5173/?token=${token}`;
+                        setAdvertsIsDropdownOpen(true)
                     }}
                 >Ads Manager</a>
             </div>
-            {/* <div className="py-2">
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    onClick={() => {
-                        setIsDropdownOpen(false)
-                    }}
-                >Advertise</a>
-            </div> */}
             <div className="py-2">
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
+                        setIsDropdownOpen(false)
+                        setAdvertsIsDropdownOpen(false)
+                        window.open('https://mega.nz/folder/mMpmHTTY#VanCJi2AEoFeCKuUL1UQvA', '_blank', 'noopener')
+                    }}
+                >Downloads</a>
+            </div>
+            <div className="py-2">
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    onClick={() => {
+                        setIsDropdownOpen(false)
                         onLogout()
                         setIsDropdownOpen(false)
+                        setAdvertsIsDropdownOpen(false)
                     }}
                 >Sign out</a>
             </div>
+        </div>
+    );
+
+    const AdvertsDropdownMenu = () => (
+        <div id="dropdownLeft" className="z-50 absolute right-48 top-64  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLeftButton">
+                <li>
+                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        onClick={() => {
+                            setIsDropdownOpen(false)
+                            handleAdvertClick
+                            setAdvertsIsDropdownOpen(false)
+                            window.location.href = `http://localhost:5173/?token=${token}`;
+                        }}
+                    >Adverts Report</a>
+                </li>
+                <li>
+                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        onClick={() => {
+                            setIsDropdownOpen(false)
+                            setAdvertsIsDropdownOpen(false)
+                            window.open('https://bit.ly/TunyceAd', '_blank', 'noopener')
+                        }}
+                    >Upload Advert</a>
+                </li>
+                <li>
+                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        onClick={() => {
+                            setIsDropdownOpen(false)
+                            setAdvertsIsDropdownOpen(false)
+                            window.open('https://bit.ly/Tunadpro', '_blank', 'noopener')
+
+                        }}
+                    >Order Advert</a>
+                </li>
+
+            </ul>
         </div>
     );
 
@@ -283,7 +326,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         <BsChevronDown className="text-xl mx-2 text-black" />
                     </div>
                 </div>
-                
+
                 <div className="flex px-2 items-center md:hidden" >
                     {/* <FiSearch className="text-xl text-black " /> */}
                     <div onClick={toggleDropdown} className="flex hover:bg-slate-200 cursor-pointer p-1 rounded-xl items-center ml-1">
@@ -298,6 +341,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
             </header>
             {isDropdownOpen && <DropdownMenu />}
+            {isAdvertsDropdownOpen && <AdvertsDropdownMenu />}
             {displayUpgradeModal && <UpgradeAccountModal />}
         </div>
     )
