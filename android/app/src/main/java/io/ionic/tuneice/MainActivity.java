@@ -1,4 +1,4 @@
-package io.ionic.tunycemedia;
+package io.ionic.tuneice;
 
 import com.getcapacitor.BridgeActivity;
 
