@@ -54,6 +54,8 @@ import ControllerCreator from './components/controller/ControllerCreator';
 import PlayListPage from './user/Playerlist';
 import PlayListsPage from './user/Playlists';
 import CreatorLayout from './components/creator/components/CreatorLayout';
+import AdvertReportPage from './adverts/AdvertReportPage';
+import AdvertOrderPage from './adverts/AdvertOrderPage';
 
 
 const NotFoundRouter: RouteObject = {
@@ -264,6 +266,16 @@ function App() {
           element: <ExplorePage />
         },
         {
+          path: '/advertreports',
+          index: true,
+          element: <AdvertReportPage />
+        },
+        {
+          path: '/advertorders',
+          index: true,
+          element: <AdvertOrderPage />
+        },
+        {
           path: "*",
           element: <NotFound />,
         },
@@ -441,6 +453,8 @@ function App() {
           NotFoundRouter
         ]
       }
+
+
         : NotFoundRouter,
     {
       element: <Login />,

@@ -40,6 +40,9 @@ const authSlice = createSlice({
             if (action.payload.auth.is_matatu) {
                 state.auth.is_matatu = true;
             }
+            if (action.payload.auth.is_agency) {
+                state.auth.is_agency = true;
+            }
             if (action.payload.auth.is_filmmaker) {
                 state.auth.is_filmmaker = true;
             }
@@ -67,6 +70,7 @@ const authSlice = createSlice({
             delete state.auth.is_filmmaker;
             delete state.auth.is_contentcreator;
             delete state.auth.is_recordlabel;
+            delete state.auth.is_agency;
         },
         switchUser: (state,action: PayloadAction<keyof UserTypes>)=>{
             state.auth.curr_loggedin_user = action.payload

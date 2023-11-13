@@ -5,6 +5,13 @@ import { apiSlice } from './apiSlice';
 export const apiVenuesSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
 
+    getAdvertReports: builder.query({
+      query: () => ({
+        url: 'adverts/advertreport/1/',
+        method: 'get',
+      })
+    }),
+
     allVideoCategories: builder.query({
       query: () => ({
         url: 'videos/all_video_types/v1/',
@@ -71,6 +78,8 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         method: 'get',
       })
     }),
+
+
 
     // get all latest mixes
     getAllMixes: builder.query({
@@ -211,6 +220,7 @@ export const {
   useAllDjVideosQuery,
   useAllDeejayMixesQuery,
   useGetLatestMusicQuery,
+  useGetAdvertReportsQuery,
   useGetGenresQuery,
   useGetMixesQuery,
   useGetAllMixesQuery,

@@ -165,6 +165,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
 
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     onClick={() => {
+                        
                         setAdvertsIsDropdownOpen(true)
                     }}
                 >Ads Manager</a>
@@ -200,7 +201,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                             setIsDropdownOpen(false)
                             handleAdvertClick
                             setAdvertsIsDropdownOpen(false)
-                            window.location.href = `http://localhost:5173/?token=${token}`;
+                            navigate('/advertreports')
                         }}
                     >Adverts Report</a>
                 </li>
@@ -209,7 +210,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         onClick={() => {
                             setIsDropdownOpen(false)
                             setAdvertsIsDropdownOpen(false)
-                            window.open('https://bit.ly/TunyceAd', '_blank', 'noopener')
+                            navigate('/advertorders')
+                            // window.open('https://bit.ly/TunyceAd', '_blank', 'noopener')
                         }}
                     >Upload Advert</a>
                 </li>
@@ -218,7 +220,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         onClick={() => {
                             setIsDropdownOpen(false)
                             setAdvertsIsDropdownOpen(false)
-                            window.open('https://bit.ly/Tunadpro', '_blank', 'noopener')
+                            navigate('/advertorders')
+                            // window.open('https://bit.ly/Tunadpro', '_blank', 'noopener')
 
                         }}
                     >Order Advert</a>
