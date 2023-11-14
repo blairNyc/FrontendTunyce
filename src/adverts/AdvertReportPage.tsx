@@ -1,5 +1,3 @@
-import { BiShuffle, BiDotsVerticalRounded } from "react-icons/bi";
-import { BsFillPlayFill } from "react-icons/bs";
 import {useGetAdvertReportsQuery} from "../app/api/GlobalApiSlice";
 // import { LoadingSkeleton } from "./LoadingSkeletonList";
 // import { useSwitchContentMutation } from "./features";
@@ -59,10 +57,7 @@ import { RootState } from "../app/store";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiCheckCircle } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
-import LoadingSpinner from "../components/LoadingSpinner";
-import { SnackBar } from "../components/auth/userLogin";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
-import { useSwitchContentMutation } from "../components/controller/features";
 export default function AdvertReportPage() {
     const { data, isError: isErrorReportFetch, isLoading } = useGetAdvertReportsQuery(1);
     const [RetrivedReports,setRetrivedReports] = useState(data)
