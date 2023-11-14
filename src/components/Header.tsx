@@ -210,8 +210,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         onClick={() => {
                             setIsDropdownOpen(false)
                             setAdvertsIsDropdownOpen(false)
-                            navigate('/advertorders')
-                            // window.open('https://bit.ly/TunyceAd', '_blank', 'noopener')
+                            // navigate('/advertorders')
+                            window.open('https://bit.ly/TunyceAd', '_blank', 'noopener')
                         }}
                     >Upload Advert</a>
                 </li>
@@ -220,8 +220,8 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                         onClick={() => {
                             setIsDropdownOpen(false)
                             setAdvertsIsDropdownOpen(false)
-                            navigate('/advertorders')
-                            // window.open('https://bit.ly/Tunadpro', '_blank', 'noopener')
+                            // navigate('/advertorders')
+                            window.open('https://bit.ly/Tunadpro', '_blank', 'noopener')
 
                         }}
                     >Order Advert</a>
