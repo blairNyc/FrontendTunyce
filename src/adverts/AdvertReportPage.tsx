@@ -13,7 +13,20 @@ export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (
         </div>
     </div>
 )
-const ReportItem = ({ report }) => (
+
+interface Report {
+    advert: {
+      title: string;
+      type: string;
+      // Other properties...
+    };
+    player_name?: string;
+    route?: string;
+    report_date_time: string;
+    // Other properties...
+  }
+
+const ReportItem: React.FC<{ report: Report }> = ({ report })  => (
   <div
     //  onClick={() => { onClick(media.id) }}
     className="container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 p-5 flex items-center justify-between"
