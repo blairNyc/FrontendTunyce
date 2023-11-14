@@ -48,7 +48,8 @@ export default function AdvertOrderPage() {
                     </div>
                     <div className="flex gap-x-5 text-red-600">
                        <h5>
-                       Very Soon You'll be able to schedule your adverts on a route by route basis! Stay Tuned! 
+                       
+                       You'll be able to schedule your adverts on a route by route basis! Stay Tuned! 
                        </h5>
                     </div>
                 </div>
