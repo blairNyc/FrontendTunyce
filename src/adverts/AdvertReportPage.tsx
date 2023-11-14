@@ -144,7 +144,7 @@ export default function AdvertReportPage() {
                                     </button>
                                 </div> */}
                             </div>
-                        {RetrivedReports && RetrivedReports?.map((report: unknown) => (
+                        {RetrivedReports && RetrivedReports?.map((report: Report) => (
                             <ReportItem
                                 report= {report}
                                
