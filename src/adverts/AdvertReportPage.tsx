@@ -56,7 +56,7 @@ import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiCheckCircle } from "react-icons/fi";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingSkeleton } from "../components/LoadingSkeletonList";
 export default function AdvertReportPage() {
     const { data, isError: isErrorReportFetch, isLoading } = useGetAdvertReportsQuery(1);
@@ -131,7 +131,7 @@ export default function AdvertReportPage() {
                                     </button>
                                 </div> */}
                             </div>
-                        {RetrivedReports && RetrivedReports?.map((report: any) => (
+                        {RetrivedReports && RetrivedReports?.map((report: unknown) => (
                             <ReportItem
                                 report= {report}
                                

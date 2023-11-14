@@ -24,7 +24,7 @@ import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiCheckCircle } from "react-icons/fi";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 export default function AdvertOrderPage() {
     const { data } = useGetAdvertReportsQuery(1);
     const [latestMusic,setLatestMusic] = useState(data)
