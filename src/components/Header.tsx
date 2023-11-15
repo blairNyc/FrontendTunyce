@@ -213,7 +213,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                             // navigate('/advertorders')
                             window.open('https://bit.ly/TunyceAd', '_blank', 'noopener')
                         }}
-                    >Upload Advert</a>
+                    >Post Your Ad</a>
                 </li>
                 <li>
                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -224,7 +224,7 @@ function Header({ setSideBarOpen, sideBarOpen }: IHeaderProp) {
                             window.open('https://bit.ly/Tunadpro', '_blank', 'noopener')
 
                         }}
-                    >Order Advert</a>
+                    >Create Ad Content</a>
                 </li>
 
             </ul>
