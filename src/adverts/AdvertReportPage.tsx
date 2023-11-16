@@ -47,6 +47,10 @@ const ReportItem: React.FC<{ report: Report }> = ({ report })  => (
         <h5 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
             {report.player_name ?? 'Player Name'}
         </h5>
+
+        <h5 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
+            {report.player_plate ?? 'Player Plate'}
+        </h5>
         
         <h5 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
             {report.route ?? 'Player Name'}
@@ -130,6 +134,9 @@ export default function AdvertReportPage() {
                             
                                 <h5 className="sm:text-sm md:text-md lg:text-lg font-semibold">
                                     Played By
+                                </h5>
+                                  <h5 className="sm:text-sm md:text-md lg:text-lg font-semibold">
+                                    Plate Number
                                 </h5>
                                 
                                 <h5 className="sm:text-sm md:text-md lg:text-lg font-semibold">
