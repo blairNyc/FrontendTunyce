@@ -101,7 +101,8 @@ const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }
               <input type="text"
                 className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
                 placeholder="Enter Title"
-                {...register('title')} />
+                // {...register('title')} 
+                />
               <p className='text-xs text-rose-600'>{errors.name?.message}</p>
             </div>
             <div className="mb-4">
@@ -124,7 +125,7 @@ const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }
             <div>
               
               <select 
-                {...register('type')}
+                // {...register('type')}
                 className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
               >
                 {genres.map((genre) => (

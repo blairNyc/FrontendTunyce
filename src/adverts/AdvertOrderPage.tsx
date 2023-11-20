@@ -1,4 +1,4 @@
-import {useAddAdvertScheduleMutation, useGetAdvertReportsQuery} from "../app/api/GlobalApiSlice";
+import {useAddAdvertScheduleMutation} from "../app/api/GlobalApiSlice";
 import * as yup from 'yup'
 
 export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (val: boolean) => void }) => (
@@ -25,7 +25,6 @@ import { RootState } from "../app/store";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiCheckCircle } from "react-icons/fi";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Checkbox, Label } from "flowbite-react";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -182,9 +181,9 @@ export default function AdvertOrderPage() {
 
 
 
-    const calculateSchedulePrice = ()=>{
-        return(numberOfMatatus * numberOfPlays * 45)
-    }
+    // const calculateSchedulePrice = ()=>{
+    //     return(numberOfMatatus * numberOfPlays * 45)
+    // }
 
 
         
@@ -198,8 +197,10 @@ export default function AdvertOrderPage() {
 
     const { handleSubmit, register, formState: { errors } } = useForm<scheduleInput>({
         resolver: yupResolver(schema),
+
     })
 
+    console.log(errors)
     const onSubmit: SubmitHandler<scheduleInput> = async(data:scheduleInput) =>{
 
         const advertData =  {
@@ -207,7 +208,7 @@ export default function AdvertOrderPage() {
             route:data.selectedRoute,
             pricing_plan :1,
             advert:data.selectedAdvert,
-            numberofplayers:numberOfMatatus * numberOfPlays,
+            numberofplayers:Number(numberOfMatatus) * Number(numberOfPlays),
             counter:0
 
         }
@@ -243,7 +244,7 @@ export default function AdvertOrderPage() {
                                 
                                 <select 
                                     value={selectedAdvert}
-                                    onChange={handleAdvertChange}
+                                    // onChange={handleAdvertChange}
                                     className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
                             
                                     {...register('selectedAdvert')}
@@ -299,7 +300,7 @@ export default function AdvertOrderPage() {
                                     />
                                 <select 
                                 value={selectedSlot}
-                                onChange={handleSlotChange}
+                                // onChange={handleSlotChange}
                                 className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
                                 {...register('selectedSlot')}
                                 >
@@ -322,7 +323,7 @@ export default function AdvertOrderPage() {
                                 <select 
                                 
                                     value={selectedRoute}
-                                    onChange={handleRouteChange}
+                                    // onChange={handleRouteChange}
                                     {...register('selectedRoute')}
                                     className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
                                 >

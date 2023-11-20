@@ -20,7 +20,8 @@ interface Report {
       type: string;
       // Other properties...
     };
-    player_name?: string;
+    player_name?: string;  
+    player_plate?: string;
     route?: string;
     report_date_time: string;
     // Other properties...
