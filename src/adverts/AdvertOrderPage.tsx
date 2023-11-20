@@ -1,6 +1,8 @@
 import {useAddAdvertScheduleMutation} from "../app/api/GlobalApiSlice";
 import * as yup from 'yup'
 
+import { Label } from 'flowbite-react';
+
 export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (val: boolean) => void }) => (
     <div className="w-screen bg-black-rgba overflow-hidden absolute h-screen top-0 left-0 z-50">
         <div className="p-4 relative flex flex-col items-center top-1/2 left-1/3 mb-4 text-sm w-1/3 text-green-800 rounded-2xl bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -59,9 +61,9 @@ export default function AdvertOrderPage() {
     const [adverts, setAdverts] = useState<AdvertData[]>();
     const [routes, setRoutes] = useState<RouteData[]>();
     const [slots, setSlots] = useState<RouteData[]>();
-    const [selectedAdvert, setSelectedAdvert] = useState('');
-    const [selectedSlot, setSelectedSlot] = useState('');
-    const [selectedRoute, setSelectedRoute] = useState('');
+    // const [selectedAdvert, setSelectedAdvert] = useState('');
+    // const [selectedSlot, setSelectedSlot] = useState('');
+    // const [selectedRoute, setSelectedRoute] = useState('');
     const [numberOfMatatus, setNumberOfMatatus] = useState<number | ''>(''); // Use 'number | ""' to allow for empty string as initial state
     const [numberOfPlays, setNumberOfPlays] = useState<number | ''>(''); // Use 'number | ""' to allow for empty string as initial state
     const [effectiveStartDate, setEffectiveStartDate] = useState<string>('');
@@ -137,21 +139,21 @@ export default function AdvertOrderPage() {
 
 
 
-    const handleAdvertChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedAdvert(event.target.value);
-        // You can perform additional actions based on the selected value if needed
-    };
+    // const handleAdvertChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    //     setSelectedAdvert(event.target.value);
+    //     // You can perform additional actions based on the selected value if needed
+    // };
 
-    const handleSlotChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedSlot(event.target.value);
-        // You can perform additional actions based on the selected value if needed
-    };
+    // const handleSlotChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    //     setSelectedSlot(event.target.value);
+    //     // You can perform additional actions based on the selected value if needed
+    // };
 
     
-    const handleRouteChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setSelectedRoute(event.target.value);
-        // You can perform additional actions based on the selected value if needed
-    };
+    // const handleRouteChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    //     setSelectedRoute(event.target.value);
+    //     // You can perform additional actions based on the selected value if needed
+    // };
 
     const handleNumberOfMatatusChange = (event: ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
@@ -243,7 +245,7 @@ export default function AdvertOrderPage() {
                                 </div>
                                 
                                 <select 
-                                    value={selectedAdvert}
+                                    // value={selectedAdvert}
                                     // onChange={handleAdvertChange}
                                     className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
                             
@@ -299,7 +301,7 @@ export default function AdvertOrderPage() {
                                         value="Slot"
                                     />
                                 <select 
-                                value={selectedSlot}
+                                // value={selectedSlot}
                                 // onChange={handleSlotChange}
                                 className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
                                 {...register('selectedSlot')}
@@ -322,7 +324,7 @@ export default function AdvertOrderPage() {
                                 
                                 <select 
                                 
-                                    value={selectedRoute}
+                                    // value={selectedRoute}
                                     // onChange={handleRouteChange}
                                     {...register('selectedRoute')}
                                     className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
