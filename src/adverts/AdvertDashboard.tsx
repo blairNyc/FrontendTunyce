@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useAppSelector } from '../app/hooks';
 import Image from '../components/creator/assests/join.png'
 import { RootState } from '../app/store';
-import TopContent from '../components/creator/TopContent ';
-import UploadContentModal from '../components/creator/UploadContentModal';
 import UploadAdvertModal from './components/UploadAdvertModal';
 import { useNavigate } from 'react-router-dom';
 import Adverts from './components/Adverts';
