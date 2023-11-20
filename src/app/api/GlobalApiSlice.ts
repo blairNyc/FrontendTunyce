@@ -12,6 +12,17 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       })
     }),
 
+
+     //records when video ends
+     addAdvertSchedule: builder.mutation({
+      query: (advertData) => ({
+        url: `adverts/schedules/create/`,
+        method: 'post',
+        body: advertData,
+      }),
+    }),
+
+
     allVideoCategories: builder.query({
       query: () => ({
         url: 'videos/all_video_types/v1/',
@@ -59,7 +70,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         method: 'get',
       }),
       transformResponse: (response: MusicItemProp[]) => {
-        return response.filter((item) => item.media?.media_url.includes('youtube'));
+        return response.filter((item) => item.media?.media_url.includes('youtu'));
       }
     }),
     getGenres: builder.query({
@@ -221,6 +232,7 @@ export const {
   useAllDeejayMixesQuery,
   useGetLatestMusicQuery,
   useGetAdvertReportsQuery,
+  useAddAdvertScheduleMutation,
   useGetGenresQuery,
   useGetMixesQuery,
   useGetAllMixesQuery,

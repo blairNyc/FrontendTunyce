@@ -56,6 +56,8 @@ import PlayListsPage from './user/Playlists';
 import CreatorLayout from './components/creator/components/CreatorLayout';
 import AdvertReportPage from './adverts/AdvertReportPage';
 import AdvertOrderPage from './adverts/AdvertOrderPage';
+import UploadAdverts from './adverts/UploadAdverts';
+import AdvertDashboard from './adverts/AdvertDashboard';
 
 
 const NotFoundRouter: RouteObject = {
@@ -274,6 +276,16 @@ function App() {
           path: '/advertorders',
           index: true,
           element: <AdvertOrderPage />
+        },
+        {
+          path: '/advertdashboard',
+          index: true,
+          element: <AdvertDashboard />
+        },
+        {
+          path: '/uploadadverts',
+          index: true,
+          element: <UploadAdverts/>
         },
         {
           path: "*",

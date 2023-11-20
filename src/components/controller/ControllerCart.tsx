@@ -162,6 +162,8 @@ export default function ControllerCart(){
                     <button onClick={toggleModal} className="bg-universal-primary w-4/5 my-2 float-right text-white font-bold text-lg px-2 py-1 rounded-md">Checkout</button>
                 </div>
             </div>
+           
+
         </>
     );
 }

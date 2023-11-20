@@ -50,6 +50,7 @@ export const controllerApiSlice = apiSlice.injectEndpoints({
                 method:'post',
             })
         }),
+        
         getPendingSubscription: builder.query({
             query: ()=>({
                 url:`/subscription/pending/subscriptions/`,
@@ -57,9 +58,22 @@ export const controllerApiSlice = apiSlice.injectEndpoints({
             })
         }),
         addToCart: builder.mutation({
-            query: (data:{creatorID:string|number})=>({
-                url:`/subscription/cart/${data.creatorID}/`,
+            query: ()=>({
+                url:`/schedules/create/`,
                 method:'post',
+            })
+        }),
+
+        payAdverts: builder.mutation({
+            query: (data:{phone:string, amount:number})=>({
+                url:`/wallet/advertpayment/`,
+                method:'post',
+                body:{
+                    "phone":data.phone,
+                    "reference":'payment method',
+                    "description":'subscription payment',
+                    "amount":data.amount
+                }
             })
         }),
     })
@@ -73,4 +87,5 @@ export const {
     usePaySubscriptionCallbackMutation,
     useGetPendingSubscriptionQuery,
     useAddToCartMutation,
+    usePayAdvertsMutation,
 } = controllerApiSlice;
