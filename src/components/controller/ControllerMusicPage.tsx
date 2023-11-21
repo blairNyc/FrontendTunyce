@@ -2,7 +2,7 @@ import { BiShuffle, BiDotsVerticalRounded } from "react-icons/bi";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useGetGenresQuery, useGetLatestMusicQuery } from "../../app/api/GlobalApiSlice";
 import { LoadingSkeleton } from "../LoadingSkeletonList";
-import { useGetBundleStatusQuery, usePayBundlesMutation, useSwitchContentMutation } from "./features";
+import {  usePayBundlesMutation, useSwitchContentMutation } from "./features";
 interface MusicItPrp extends MusicItemProp {
     onClick: (mediaUrl: string | number) => void
 }
