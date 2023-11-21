@@ -57,6 +57,7 @@ export const controllerApiSlice = apiSlice.injectEndpoints({
                 method:'get',
             })
         }),
+
         addToCart: builder.mutation({
             query: ()=>({
                 url:`/schedules/create/`,
@@ -76,6 +77,26 @@ export const controllerApiSlice = apiSlice.injectEndpoints({
                 }
             })
         }),
+
+        payBundles: builder.mutation({
+            query: (data:{phone:string, amount:number ,matId:number})=>({
+                url:`/matatu/bundles/pay/${data.matId}/`,
+                method:'post',
+                body:{
+                    "phone":data.phone,
+                    "reference":'payment method',
+                    "description":'subscription payment',
+                    "amount":data.amount
+                }
+            })
+        }),
+
+        getBundleStatus: builder.query({
+            query: (matId)=>({
+                url:`/matatu/bundles/checkpayment/${matId}/`,
+                method:'get',
+            })
+        }),
     })
 });
 
@@ -88,4 +109,6 @@ export const {
     useGetPendingSubscriptionQuery,
     useAddToCartMutation,
     usePayAdvertsMutation,
+    usePayBundlesMutation,
+    useGetBundleStatusQuery
 } = controllerApiSlice;

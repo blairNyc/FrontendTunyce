@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@aka_theos/react-hls-player": "^1.0.0",
-    "@capacitor/android": "5.4.2",
+    "@capacitor/android": "5.5.1",
     "@capacitor/core": "^5.4.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
