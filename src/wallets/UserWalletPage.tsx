@@ -51,6 +51,7 @@ const capitalizeFirstLetter = (text:string)=>{
 }
 
 const UserWalletPage = () => {
+
   
   const authVal = useAppSelector((state: RootState) => state.persistAuth.auth);
 

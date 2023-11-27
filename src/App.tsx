@@ -58,6 +58,7 @@ import AdvertReportPage from './adverts/AdvertReportPage';
 import AdvertOrderPage from './adverts/AdvertOrderPage';
 import UploadAdverts from './adverts/UploadAdverts';
 import AdvertDashboard from './adverts/AdvertDashboard';
+import EventBooking from './Events/EventBooking';
 
 
 const NotFoundRouter: RouteObject = {
@@ -98,6 +99,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <LandingPage />
       },
+
       {
         path: "/artists",
         element: <ArtistsPage />,
@@ -146,6 +148,7 @@ const router = createBrowserRouter([
         path: '/home',
         element: <Homepage />
       },
+      
       {
         path: "/discover",
         element: <ExplorePage />,
@@ -232,7 +235,7 @@ const router = createBrowserRouter([
   {
     element: <SignUp />,
     path: '/signup'
-  }
+  },
 ])
 
 console.log(router);
@@ -243,6 +246,11 @@ function App() {
     curr_loggedin_user === "is_restaunt" ? {
       element: <RestaurantLayout />,
       children: [
+        {
+          path: '/ferregola',
+          // index: true,
+          element: <EventBooking/>
+        },
         {
           path: '/restaurant',
           element: <RestaurantHomePage />
@@ -262,6 +270,11 @@ function App() {
     } : curr_loggedin_user === "is_normaluser" ? {
       element: <UserLayout />,
       children: [
+        {
+          path: '/ferregola',
+          // index: true,
+          element: <EventBooking/>
+        },
         {
           path: '/',
           index: true,
@@ -367,6 +380,12 @@ function App() {
       element: <MatatuLayout />,
       children: [
         {
+          path: '/ferregola',
+          // index: true,
+          element: <EventBooking/>
+        },
+
+        {
           path: '/matatu',
           element: <MatatuPage />,
         },
@@ -388,6 +407,13 @@ function App() {
         } : curr_loggedin_user === "is_contentcreator" ? {
           element: <CreatorLayout />,
           children: [
+           
+            {
+              path: '/ferregola',
+              // index: true,
+              element: <EventBooking/>
+            },
+
             {
               path: '/',
               element : <ContentCreatorDashboard />
@@ -422,6 +448,12 @@ function App() {
         {
           path: '/search',
           element: <SearchPage />
+        },
+        
+        {
+          path: '/ferregola',
+          // index: true,
+          element: <EventBooking/>
         },
         {
           path: "/artists/:id",

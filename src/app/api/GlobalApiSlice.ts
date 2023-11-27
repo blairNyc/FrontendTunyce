@@ -13,7 +13,7 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
     }),
 
 
-     //records when video ends
+     //Add an advert Schedule to cart 
      addAdvertSchedule: builder.mutation({
       query: (advertData) => ({
         url: `adverts/schedules/create/`,
@@ -21,6 +21,15 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         body: advertData,
       }),
     }),
+
+    //ticket checkouts
+      ticketCheckout: builder.mutation({
+        query: (ticketData) => ({
+          url: `events/eventspayment/`,
+          method: 'post',
+          body: ticketData,
+        }),
+      }),
 
 
     allVideoCategories: builder.query({
@@ -233,6 +242,7 @@ export const {
   useGetLatestMusicQuery,
   useGetAdvertReportsQuery,
   useAddAdvertScheduleMutation,
+  useTicketCheckoutMutation,
   useGetGenresQuery,
   useGetMixesQuery,
   useGetAllMixesQuery,
@@ -249,6 +259,7 @@ export const {
   useConnectWalletMutation,
   useDepositCashToWalletMutation,
   useCheckWalletBalanceQuery,
+   
   useCheckWalletTransactionsQuery
 
 } = apiVenuesSlice

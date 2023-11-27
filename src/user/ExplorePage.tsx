@@ -90,6 +90,25 @@ const ExplorePage = () => {
     return (
         <div className="mt-8 relative w-full no-scrollbar overflow-y-auto">
             <h2 className="text-2xl text-text-primary font-bold">Discover</h2>
+            <div className="mx-4 w-full my-6">
+                    <div  className="flex border w-2/4 rounded-xl p-px cursor-pointer hover:scale-105 m-2 items-center">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMw89oVMvX1fVuYE8Hq9Z6NFe5lWvkl-7QODGdR02How&s" alt="tunyce media" className="min-w-2/4 max-h-70 rounded-xl" />
+                        <div className="ml-3 w-2/4">
+                            <h4 className="text-sm my-2 uppercase px-2 py-1 font-bold">Lokole Festival</h4>
+                            <p>Watch Lokole Festival Live! </p>
+                    
+                            <button onClick={() =>{
+                                        navigate("/ferregola")}}
+                        
+                        className="bg-universal-primary w-4/5 my-2  text-white font-bold text-lg px-2 py-1 rounded-md">Book Now</button>
+                            
+                        
+                        </div>
+                        
+                    </div>
+                    {/* <RowContainer onClick={showMore} text='Buy Online Tickets' /> */}
+                    
+            </div>
             <div className="mt-10">
                 <SectionTitle title="Featured Mixes" onClick={function (): void {
                     throw new Error("Function not implemented.");

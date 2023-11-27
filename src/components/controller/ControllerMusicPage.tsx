@@ -143,7 +143,7 @@ export default function ControllerMusicPage() {
     
           const data = responseRoute.data;
           if(data.advertPaid == false){
-            setOpenBundleModal(true)
+            setOpenBundleModal(false)
           }else{
             setOpenBundleModal(false)
           }
@@ -192,9 +192,9 @@ export default function ControllerMusicPage() {
 
                                     <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Pay Today's Mat Bundles
+                                        Pay ksh 150 For Mat Bundles
                                     </h3>
-                                    <h6>Reload page once paid</h6>
+                                    <h6>Click "Confirm" once once paid</h6>
                                     {/* <button type="button" onClick={toggleModal} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal"
                                         >
                                         <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
