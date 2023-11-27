@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
@@ -19,19 +18,10 @@ interface SlotData {
 }
 
 
-interface ScheduleData {
-  id: number;
-  advert: AdvertData;
-  cost: number;
-  slot: SlotData;
-  link: string;
-  
-}
 
 const EventPoster: React.FC = () => {
 
-  const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
-
+  
   const [openModal,setOpenModal]=useState(false);
   const [phoneNo,setPhoneNo]=useState('');
   const [payForSchedules,{isLoading:isLoadingPay}]  = usePayAdvertsMutation();
