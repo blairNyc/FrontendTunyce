@@ -89,7 +89,7 @@ export default function EventBooking() {
             name :data.name,
             email:data.email,
             phone:`+254${phoneNo}`,
-            amount:2
+            amount:2000
            
         }
 
