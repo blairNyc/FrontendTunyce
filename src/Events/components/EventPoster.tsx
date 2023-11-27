@@ -1,21 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useAppSelector } from '../../app/hooks';
-import { RootState } from '../../app/store';
 import Backdrop from '../../components/Backdrop';
 import {  usePayAdvertsMutation} from '../../components/controller/features';
 
-interface AdvertData {
-  id: number;
-  title: string;
-  type: string;
-  link: string;
-  
-}
-
-interface SlotData {
-  name: string;
-  
-}
 
 
 
