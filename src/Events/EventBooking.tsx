@@ -27,11 +27,9 @@ import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiCheckCircle } from "react-icons/fi";
-import { ChangeEvent, useEffect, useState } from "react";
-import axios from "axios";
+import {  useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Cart from "../adverts/components/Cart";
 import EventPoster from "./components/EventPoster";
 
 
@@ -91,7 +89,7 @@ export default function EventBooking() {
             name :data.name,
             email:data.email,
             phone:`+254${phoneNo}`,
-            amount:2000
+            amount:2
            
         }
 

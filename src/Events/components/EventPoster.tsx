@@ -31,8 +31,7 @@ interface ScheduleData {
 const EventPoster: React.FC = () => {
 
   const userToken: string | null = useAppSelector((state: RootState) => state.persistAuth.auth.access);
-  const [schedules, setSchedules] = useState<ScheduleData[]>();
-  const [totals, setTotals] = useState(0);
+
   const [openModal,setOpenModal]=useState(false);
   const [phoneNo,setPhoneNo]=useState('');
   const [payForSchedules,{isLoading:isLoadingPay}]  = usePayAdvertsMutation();
@@ -43,32 +42,7 @@ const EventPoster: React.FC = () => {
     
   useEffect(() =>{
 
-    const fetchData = async () => {
-      try {
-  
-        const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/adverts/schedulescart/', {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        });
-  
-        const data = responseRoute.data;
-        const totalPrice = data.reduce((acc:number, item:ScheduleData) => acc + Number(item.cost), 0);
-        console.log(data)
-        console.log(totalPrice)
-        setTotals(totalPrice)
-        setSchedules(data)
-  
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        // Do nothing
-      }
-
-      
-    };
-    
-    fetchData();
+ 
 
   })
 
@@ -76,7 +50,7 @@ const EventPoster: React.FC = () => {
     e.preventDefault();
     const phoneData = {
         phone: `+254${phoneNo}`,
-        amount:totals
+        amount:2000
     }
     console.log(phoneData);
     try {
