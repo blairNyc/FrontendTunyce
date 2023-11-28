@@ -18,24 +18,25 @@ export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (
     </div>
 )
 const MusicItem = ({ name, onClick, media, video_thumbnail, owner }: MusicItPrp) => (
-    <div onClick={() => { onClick(media.id) }} className=" container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 flex  items-center justify-between">
-        <div className="flex">
-            <img src={video_thumbnail} alt="" className=" sm:w-10 md:w-14 lg:w-16 sm:h-10 md:h-14 lg:h-16 rounded-sm " />
-            <div className="ml-4">
-                <h4 className="sm:text-sm md:text-md lg:text-lg font-semibold">
-                    {name.slice(0, 20) ?? 'Music Name'}
-                </h4>
-                <h6 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
-                    {owner.username ?? 'Artist Name'}
-                </h6>
-            </div>
-        </div>
-        <div className="flex items-center ">
-            <button className=" sm:text-xs md:text-sm lg:text-base sm:mr-8 md:mr-8 lg:mr-10">
-                <BiDotsVerticalRounded />
-            </button>
+    <div onClick={() => { onClick(media.id) }} className="container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 flex items-center justify-between">
+    <div className="flex">
+        <img src={video_thumbnail} alt="" className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-sm" />
+        <div className="ml-4">
+            <h4 className="text-md font-semibold sm:text-lg md:text-xl lg:text-2xl">
+                {name.slice(0, 20) ?? 'Music Name'}
+            </h4>
+            <h6 className="text-sm text-gray-600 sm:text-md md:text-lg lg:text-xl">
+                {owner.username ?? 'Artist Name'}
+            </h6>
         </div>
     </div>
+    <div className="flex items-center">
+        <button className="text-sm sm:text-md md:text-lg lg:text-xl mr-8">
+            <BiDotsVerticalRounded />
+        </button>
+    </div>
+</div>
+
 );
 interface MusicItemProp {
     name: string;
@@ -280,17 +281,17 @@ export default function ControllerMusicPage() {
                         </div>
                     </div>
                 </div>
-                <div className="m-2">
-                    <label htmlFor="countries" className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Filter Songs by genres</label>
-                    <select id="countries" onChange={handleSelect} className="bg-gray-50 border-2 border-gray-700 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-4/5 md:w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                {/* <div className="m-2"> */}
+                    {/* <label htmlFor="countries" className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Filter Songs by genres</label> */}
+                    {/* <select id="countries" onChange={handleSelect} className="bg-gray-50 border-2 border-gray-700 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-4/5 md:w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option className="" selected>Select Genre</option>
                         {
                             genres && genres.map((genreInfo)=>(
                                 <option value={genreInfo.id}>{genreInfo.name}</option>
                             ))
                         }
-                    </select>
-                </div>
+                    </select> */}
+                {/* </div> */}
                 {
                     isLoading ? (
                         [1, 2, 3].map((id) => (
