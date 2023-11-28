@@ -80,12 +80,12 @@ import axios from "axios";
 export default function ControllerMusicPage() {
     const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
     const [latestMusic,setLatestMusic] = useState(data)
-    const {data:genres,isLoading:isLoadingGenres} = useGetGenresQuery(1);    
+    // const {data:genres,isLoading:isLoadingGenres} = useGetGenresQuery(1);    
     const [payForBundles,{isLoading:isLoadingPay}]  = usePayBundlesMutation();
     const [phoneNo,setPhoneNo]=useState(''); 
    
     
-    console.log(data,isLoadingGenres)
+    // console.log(data,isLoadingGenres)
     // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
 
     const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError }] = useSwitchContentMutation()
