@@ -18,7 +18,7 @@ export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (
     </div>
 )
 const MusicItem = ({ name, onClick, media, video_thumbnail, owner }: MusicItPrp) => (
-    <div onClick={() => { onClick(media.id) }} className="container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 flex items-center justify-between">
+   <div onClick={() => { onClick(media.id) }} className="container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 flex items-center justify-between">
     <div className="flex">
         <img src={video_thumbnail} alt="" className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-sm" />
         <div className="ml-4">
@@ -80,12 +80,12 @@ import axios from "axios";
 export default function ControllerMusicPage() {
     const { data, isError: isErrorMusicFetch, isLoading } = useGetLatestMusicQuery(1);
     const [latestMusic,setLatestMusic] = useState(data)
-    // const {data:genres,isLoading:isLoadingGenres} = useGetGenresQuery(1);    
+    const {data:genres,isLoading:isLoadingGenres} = useGetGenresQuery(1);    
     const [payForBundles,{isLoading:isLoadingPay}]  = usePayBundlesMutation();
     const [phoneNo,setPhoneNo]=useState(''); 
    
     
-    // console.log(data,isLoadingGenres)
+    console.log(data,isLoadingGenres)
     // const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError, error }] = useSwitchContentMutation()
 
     const [switchContent, { isLoading: isLoadingSwitch, isSuccess, isError }] = useSwitchContentMutation()
@@ -281,18 +281,17 @@ export default function ControllerMusicPage() {
                         </div>
                     </div>
                 </div>
-                
-                {/* <div className="m-2"> */}
-                    {/* <label htmlFor="countries" className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Filter Songs by genres</label> */}
-                    {/* <select id="countries" onChange={handleSelect} className="bg-gray-50 border-2 border-gray-700 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-4/5 md:w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <div className="m-2">
+                    <label htmlFor="countries" className="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Filter Songs by genres</label>
+                    <select id="countries" onChange={handleSelect} className="bg-gray-50 border-2 border-gray-700 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-4/5 md:w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option className="" selected>Select Genre</option>
                         {
                             genres && genres.map((genreInfo)=>(
                                 <option value={genreInfo.id}>{genreInfo.name}</option>
                             ))
                         }
-                    </select> */}
-                {/* </div> */}
+                    </select>
+                </div>
                 {
                     isLoading ? (
                         [1, 2, 3].map((id) => (
