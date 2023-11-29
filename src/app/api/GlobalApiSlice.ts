@@ -12,6 +12,14 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       })
     }),
 
+    
+    getTicketReports: builder.query({
+      query: () => ({
+        url: 'events/ticket/',
+        method: 'get',
+      })
+    }),
+
 
      //Add an advert Schedule to cart 
      addAdvertSchedule: builder.mutation({
@@ -241,6 +249,7 @@ export const {
   useAllDeejayMixesQuery,
   useGetLatestMusicQuery,
   useGetAdvertReportsQuery,
+  useGetTicketReportsQuery,
   useAddAdvertScheduleMutation,
   useTicketCheckoutMutation,
   useGetGenresQuery,

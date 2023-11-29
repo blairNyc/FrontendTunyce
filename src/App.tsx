@@ -59,6 +59,7 @@ import AdvertOrderPage from './adverts/AdvertOrderPage';
 import UploadAdverts from './adverts/UploadAdverts';
 import AdvertDashboard from './adverts/AdvertDashboard';
 import EventBooking from './Events/EventBooking';
+import TicketReportPage from './Events/EventTickets';
 
 
 const NotFoundRouter: RouteObject = {
@@ -279,6 +280,11 @@ function App() {
           path: '/',
           index: true,
           element: <ExplorePage />
+        },
+        {
+          path: '/ticketsreports',
+          index: true,
+          element: <TicketReportPage/>
         },
         {
           path: '/advertreports',

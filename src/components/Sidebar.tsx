@@ -108,6 +108,18 @@ function Sidebar({toggleSideBar,sideBarOpen}:Props) {
                 <NavElement path="/user-wallet" name="Wallet">
                         <AiFillWallet className="text-xl" />
                     </NavElement>
+                    
+                    <NavElement path="/advertdashboard" name="Advert Dashboard">
+                        <AiFillWallet className="text-xl" />
+                    </NavElement>
+
+                    <NavElement path="/ticketsreports" name="Event Organiser">
+                        <AiFillWallet className="text-xl" />
+                    </NavElement>
+
+
+              
+              
                     {/* <NavElement name="Settings">
                         <IoSettingsSharp className="text-xl" />
                     </NavElement>
