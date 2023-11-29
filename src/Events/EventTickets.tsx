@@ -23,31 +23,22 @@ interface Report {
   }
 
 const Ticket: React.FC<{ report: Report }> = ({ report })  => (
-  <div
-    //  onClick={() => { onClick(media.id) }}
-    className="container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 p-5 flex items-center justify-between"
-    >
-   
-
-        <h4 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
-            {report.name}
-        </h4>
-         <h4 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
-            {report.email}
-        </h4>
-        <h4 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
-            ksh {2000}
-        </h4>
-        {/* <h4 className="sm:text-xs md:text-sm lg:text-md text-gray-600">
-            {report.schedule.id}
-        </h4> */}
-        
-    {/* <div className="flex items-center ">
-        <button className="sm:text-xs md:text-sm lg:text-base sm:mr-8 md:mr-8 lg:mr-10">
-            <BiDotsVerticalRounded />
-        </button>
-    </div> */}
+<div
+    // onClick={() => { onClick(media.id) }}
+    className="container bg-white cursor-pointer hover:bg-slate-200 shadow-md w-full rounded-lg p-1 mt-2 p-5 flex flex-col sm:flex-row items-center justify-between"
+>
+    <h4 className="text-xs md:text-sm lg:text-md text-gray-600 mb-2 sm:mb-0">
+        {report.name}
+    </h4>
+    <h4 className="text-xs md:text-sm lg:text-md text-gray-600 mb-2 sm:mb-0">
+        {report.email}
+    </h4>
+    <h4 className="text-xs md:text-sm lg:text-md text-gray-600 mb-2 sm:mb-0">
+        ksh {2000}
+    </h4>
+    {/* Additional fields or buttons can be added here */}
 </div>
+
 
 );
 
