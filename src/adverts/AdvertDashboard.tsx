@@ -40,7 +40,7 @@ const AdvertDashboard: React.FC = () => {
           src="https://customer-dlfgw97wf2jxho9p.cloudflarestream.com/ea9e056c360c2e8faf11eff9a0815f0b/iframe"
           // style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-          allowfullscreen="true"
+          // allowfullscreen="true"
         ></iframe>
       </div>
 

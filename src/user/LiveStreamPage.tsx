@@ -1,11 +1,10 @@
 import { BiPlusCircle, BiShuffle } from "react-icons/bi";
 import { BsFillPlayFill } from "react-icons/bs";
-import { useGetAllMixesQuery, useGetAllStreamsQuery} from "../app/api/GlobalApiSlice";
-import { LiveStream, Mix } from "../types";
+import { useGetAllStreamsQuery} from "../app/api/GlobalApiSlice";
+import { LiveStream} from "../types";
 import AddToPlaylist from "./components/AddToPlaylist";
 import React from "react";
 import {  useGetAllPlayListsQuery } from "./UsersState";
-import { Stream } from "stream";
 const LiveStreamPage = () => {
 	const {data} = useGetAllPlayListsQuery(1);
     const playLists = data?data.map((playlist:{id:number,playlist_name:string})=>({id:playlist.id, name:playlist.playlist_name})):[];
