@@ -77,6 +77,14 @@ export interface Mix{
     views?:string, 
     id: string 
 }
+
+export interface LiveStream{ 
+    name: string,
+    thumbnail?: string,
+    rtmp_url?:string,
+    rtmp_key?:string,
+    playing_url?:string,
+}
 export type IContentCreatorsType = {
     email: string
     id: string | number

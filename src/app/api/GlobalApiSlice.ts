@@ -117,6 +117,14 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    // get all latest mixes
+     getAllStreams: builder.query({
+      query: () => ({
+        url: `/events/livestreams/`,
+        method: 'get',
+      }),
+    }),
+
     // get all trending
     getAllTrendingMixes: builder.query({
       query: () => ({
@@ -255,6 +263,7 @@ export const {
   useGetGenresQuery,
   useGetMixesQuery,
   useGetAllMixesQuery,
+  useGetAllStreamsQuery,
   useGetAllTrendingMixesQuery,
   useSwitchVideoMutation,
   useGetPlayingLinkMutation,

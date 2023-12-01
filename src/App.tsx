@@ -60,6 +60,7 @@ import UploadAdverts from './adverts/UploadAdverts';
 import AdvertDashboard from './adverts/AdvertDashboard';
 import EventBooking from './Events/EventBooking';
 import TicketReportPage from './Events/EventTickets';
+import LiveStreamPage from './user/LiveStreamPage';
 
 
 const NotFoundRouter: RouteObject = {
@@ -181,6 +182,10 @@ const router = createBrowserRouter([
       {
         path: "/mixes",
         element: <MixesPage />,
+      },
+      {
+        path: "/streams",
+        element: <LiveStreamPage />,
       },
       {
         path: "/artist",
@@ -349,6 +354,10 @@ function App() {
           element: <MusicPage />,
         },
         {
+          path: "/streams",
+          element: <LiveStreamPage />,
+        },
+        {
           path: "/mixes",
           element: <MixesPage />,
         },
@@ -450,6 +459,10 @@ function App() {
         {
           path: "/artists",
           element: <ArtistsPage />,
+        },
+        {
+          path: "/streams",
+          element: <LiveStreamPage />,
         },
         {
           path: '/search',
