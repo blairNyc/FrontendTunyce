@@ -1,10 +1,8 @@
 
-import ReactPlayer from 'react-player';
 import { BiPlusCircle, BiShuffle } from "react-icons/bi";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useGetAllStreamsQuery} from "../app/api/GlobalApiSlice";
 import { LiveStream} from "../types";
-import AddToPlaylist from "./components/AddToPlaylist";
 import WHEPClient from './WHEPClient';
 
 import React, { useEffect, useRef } from "react";

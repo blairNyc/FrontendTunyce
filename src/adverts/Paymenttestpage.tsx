@@ -1,7 +1,6 @@
 import {useAddAdvertScheduleMutation} from "../app/api/GlobalApiSlice";
 import * as yup from 'yup'
 
-import { Label } from 'flowbite-react';
 
 export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (val: boolean) => void }) => (
     <div className="w-screen bg-black-rgba overflow-hidden absolute h-screen top-0 left-0 z-50">
