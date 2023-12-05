@@ -61,6 +61,8 @@ import AdvertDashboard from './adverts/AdvertDashboard';
 import EventBooking from './Events/EventBooking';
 import TicketReportPage from './Events/EventTickets';
 import LiveStreamPage from './user/LiveStreamPage';
+import PaymentTest from './adverts/Paymenttestpage';
+import PaymentConfirm from './adverts/confirmpayment';
 
 
 const NotFoundRouter: RouteObject = {
@@ -100,6 +102,15 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <LandingPage />
+      },
+
+      {
+        path: '/testingcardpayments123',
+        element: <PaymentTest/>
+      },
+      {
+        path: '/confirmpayments123',
+        element: <PaymentConfirm/>
       },
 
       {
@@ -282,6 +293,14 @@ function App() {
           element: <EventBooking/>
         },
         {
+          path: '/testingcardpayments123',
+          element: <PaymentTest/>
+        },
+        {
+          path: '/confirmpayments123',
+          element: <PaymentConfirm/>
+        },
+        {
           path: '/',
           index: true,
           element: <ExplorePage />
@@ -455,6 +474,14 @@ function App() {
         {
           path: '/',
           element: <LandingPage />
+        },
+        {
+          path: '/testingcardpayments123',
+          element: <PaymentTest/>
+        },
+        {
+          path: '/confirmpayments123',
+          element: <PaymentConfirm/>
         },
         {
           path: "/artists",

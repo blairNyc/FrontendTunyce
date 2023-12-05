@@ -1,10 +1,15 @@
+
+import ReactPlayer from 'react-player';
 import { BiPlusCircle, BiShuffle } from "react-icons/bi";
 import { BsFillPlayFill } from "react-icons/bs";
 import { useGetAllStreamsQuery} from "../app/api/GlobalApiSlice";
 import { LiveStream} from "../types";
 import AddToPlaylist from "./components/AddToPlaylist";
-import React from "react";
+import WHEPClient from './WHEPClient';
+
+import React, { useEffect, useRef } from "react";
 import {  useGetAllPlayListsQuery } from "./UsersState";
+import LiveStreamCode from '../Events/components/LiveStreamCode';
 const LiveStreamPage = () => {
 	const {data} = useGetAllPlayListsQuery(1);
     const playLists = data?data.map((playlist:{id:number,playlist_name:string})=>({id:playlist.id, name:playlist.playlist_name})):[];
@@ -13,6 +18,23 @@ const LiveStreamPage = () => {
 	const [content,setContent] = React.useState<number>(0);
 	const toggleModal = () => {setIsOpen(!isOpen)}
 	console.log(playLists,"Live Stream");
+	const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+	toggleModal()
+    const url = 'https://customer-dlfgw97wf2jxho9p.cloudflarestream.com/ea9e056c360c2e8faf11eff9a0815f0b/webRTC/play';
+    const videoElement = videoRef.current;
+
+    if (videoElement) {
+      new WHEPClient(url, videoElement);
+    }
+
+    // Cleanup function (optional)
+    return () => {
+      // Perform cleanup if necessary
+    };
+  }, []);
+
 	return (
 		<>
 			<div className="container">
@@ -48,13 +70,17 @@ const LiveStreamPage = () => {
 				{/*End of Subtitle*/}
 				{/*Main Card*/}
 				<div className="w-4/4   p-6 bg-white">
-					<iframe
-						className="w-4/4 h-full"
-						src="https://customer-dlfgw97wf2jxho9p.cloudflarestream.com/ea9e056c360c2e8faf11eff9a0815f0b/iframe"
-						// style={"border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"}
-						allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-						// allowfullscreen="true"
-					></iframe>
+					{/* <video id="remote-video" controls autoPlay muted ref={videoRef}></video> */}
+  
+					<div>
+						<iframe
+							src="https://customer-dlfgw97wf2jxho9p.cloudflarestream.com/ea9e056c360c2e8faf11eff9a0815f0b/iframe"
+							//  
+							allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+							// allowfullscreen="true"
+						></iframe>
+					</div>
+					
 				</div>
 
 				<div className="md:ml-10 md:mr-10 mx-auto mt-4 rounded-md bg-white">
@@ -106,7 +132,7 @@ const LiveStreamPage = () => {
 			</div>
 			{
 				isOpen ? (
-					<AddToPlaylist contentId={content} playLists={playLists} toggleModal={toggleModal} isOpen={isOpen} />
+					<LiveStreamCode contentId={content} playLists={playLists} toggleModal={toggleModal} isOpen={isOpen} />
 				) : null
 			}
 		</>

@@ -206,6 +206,15 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+      // Advert upload
+      uploadAdvertContent: builder.mutation({
+        query: (videoInformation) => ({
+          url: `/adverts/create/`,
+          method: 'post',
+          body: videoInformation
+        }),
+      }),
+
     // Wallet connection
     connectWallet: builder.mutation({
       query: () => ({
@@ -273,6 +282,7 @@ export const {
   useGetSingleCreatorQuery,
   useGetMediaDetailsQuery,
   useUploadVideoContentMutation,
+  useUploadAdvertContentMutation,
   useGetLatestMusicOtherQuery,
   useConnectWalletMutation,
   useDepositCashToWalletMutation,

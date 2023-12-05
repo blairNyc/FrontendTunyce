@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useUploadVideoContentMutation } from '../../app/api/GlobalApiSlice';
+import { useUploadAdvertContentMutation} from '../../app/api/GlobalApiSlice';
 import axios from 'axios';
 
 interface UploadAdvertModalProps {
@@ -13,9 +12,8 @@ interface UploadAdvertModalProps {
 
 interface FormValues {
   name: string;
-  media: string;
+  media: FileList; // Assuming File is a valid type for your media field
   description: string;
-  genreId: number;
 }
 
 interface Genre {
@@ -27,19 +25,17 @@ interface Genre {
 }
 
 const schema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  media: yup.string().url('Invalid URL').required('Media URL is required'),
-  description: yup.string().required('Description is requhttps://tailwindcss.com/docs/text-colorired'),
-  genreId: yup.number().required('Genre is required'),
+  name: yup.string().required('Name isds required'),
+  media: yup.mixed().required('File is required'),
+  description: yup.string().required('Description is required'),
 });
+
 
 const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }) => {
 
-  const [uploadContent] = useUploadVideoContentMutation()
+  const [uploadContent] = useUploadAdvertContentMutation()
 
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-  });
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>();
 
   const [genres, setGenres] = useState<Genre[]>([]);
 
@@ -63,14 +59,50 @@ const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }
     }
   }, [genres, setValue]);
 
+
+  const uploadFileToCloudflare = async (file: File): Promise<string> => {
+    const apiKey = "JYP_aCZwf7ecoir0eURKNMIascHPuV3sWQl4HCdQ";
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/50b610db010a3a760608a57bea528f88/stream`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${apiKey}`,
+        },
+        body: formData,
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        if (data.success) {
+            const playback = data.result.playback;
+            const videoUrl = playback.hls; // or playback.dash depending on your preferred streaming format
+            return videoUrl;
+        } else {
+            throw new Error("Failed to upload file to Cloudflare Stream");
+        }
+    } else {
+        throw new Error(`Request failed with status ${response.status}`);
+    }
+};
+
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
 
+      
+      const videoLink = await uploadFileToCloudflare(data?.media[0]);
+      console.log(videoLink)
+      // formData.append('video', videoLink);
+
     const videoObject = {
-      name: `${data.name}`,
-      media: `${data.media}`,
-      video_thumbnail: `https://unsplash.com/photos/dKeB0-M9iiA`,
+      title: `${data.name}`,
+      link: `${videoLink}`,
+      type:`video`,
+      duration:`${12}`,
       description: `${data.description}`,
-      genres : `${data.genreId}`
+      // genres : `${data.genreId}`
     }
 
 
@@ -101,18 +133,11 @@ const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }
               <input type="text"
                 className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
                 placeholder="Enter Title"
-                // {...register('title')} 
+                {...register('name')} 
                 />
               <p className='text-xs text-rose-600'>{errors.name?.message}</p>
             </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
-                placeholder="Enter youtube url"
-                {...register('media')} />
-              <p className='text-xs text-rose-600'>{errors.media?.message}</p>
-            </div>
+           
             <div className="mb-4">
               <input
                 type="text"
@@ -121,21 +146,17 @@ const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }
                 {...register('description')} />
               <p className='text-xs text-rose-600'>{errors.description?.message}</p>
             </div>
-
-            <div>
-              
-              <select 
-                // {...register('type')}
+              <div className="mb-4">
+              <input
+                type="file"
                 className="w-full px-3 py-2 rounded-2xl border-none bg-gray-100 focus:bg-white focus:border-none"
-              >
-                {genres.map((genre) => (
-                  <option key={genre.id} value={genre.id}>
-                    {genre.name}
-                  </option>
-                ))}
-              </select>
-              <p>{errors.genreId?.message}</p>
+                placeholder="Enter description"
+                {...register("media", { required: true })} />
+              <p className='text-xs text-rose-600'>{errors.media?.message}</p>
             </div>
+
+           
+            
           
             <button 
               type="submit"

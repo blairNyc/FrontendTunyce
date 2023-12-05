@@ -82,6 +82,7 @@ const Cart: React.FC = () => {
     try {
         const response = await payForSchedules(phoneData).unwrap();
         console.log(response);
+        
     } catch (error) {
         console.log(error);
     }
