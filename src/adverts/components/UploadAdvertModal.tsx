@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import * as yup from 'yup';
 import { useUploadAdvertContentMutation} from '../../app/api/GlobalApiSlice';
 import axios from 'axios';
 
