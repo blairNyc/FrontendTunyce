@@ -143,7 +143,7 @@ export default function PaymentTest() {
             console.log(responseRoute.data.transToken)
             setToken(data.transToken)
 
-            window.open(`https://secure.3gdirectpay.com/dpopayment.php?ID=${token}`)
+            window.open(`https://secure.3gdirectpay.com/dpopayment.php?ID=${responseRoute.data.transToken}`)
       
       
           } catch (error) {
