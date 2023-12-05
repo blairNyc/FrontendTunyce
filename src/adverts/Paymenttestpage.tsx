@@ -25,28 +25,10 @@ import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiCheckCircle } from "react-icons/fi";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Cart from "./components/Cart";
-
-
-interface AdvertData {
-    id: number;
-    title: string;
-    type: string;
-    link: string;
-    
-}
-
-interface RouteData {
-    id: number;
-    name: string;
-    type: string;
-    link: string;
-    
-}
 
 interface scheduleInput {
 }
@@ -174,7 +156,6 @@ export default function PaymentTest() {
 
         const advertData =  {
             pricing_plan :1,
-            numberofplayers:Number(numberOfMatatus) * Number(numberOfPlays),
             counter:0
 
         }

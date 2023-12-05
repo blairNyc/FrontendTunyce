@@ -81,6 +81,7 @@ export default class WHEPClient {
 		});
 
 		this.peerConnection.addEventListener("negotiationneeded", (ev) => {
+			console.log(ev)
 			negotiateConnectionWithClientOffer(this.peerConnection, this.endpoint);
 		});
 	}

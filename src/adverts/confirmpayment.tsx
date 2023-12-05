@@ -1,8 +1,3 @@
-import {useAddAdvertScheduleMutation} from "../app/api/GlobalApiSlice";
-import * as yup from 'yup'
-
-import { Label } from 'flowbite-react';
-
 export const SuccessPopUp = ({ text, closeModal }: { text: string, closeModal: (val: boolean) => void }) => (
     <div className="w-screen bg-black-rgba overflow-hidden absolute h-screen top-0 left-0 z-50">
         <div className="p-4 relative flex flex-col items-center top-1/2 left-1/3 mb-4 text-sm w-1/3 text-green-800 rounded-2xl bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -27,8 +22,6 @@ import { RootState } from "../app/store";
 import { AiOutlineClose } from "react-icons/ai";
 import { FiCheckCircle } from "react-icons/fi";
 import axios from "axios";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 
 

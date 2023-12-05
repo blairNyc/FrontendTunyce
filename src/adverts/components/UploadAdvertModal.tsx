@@ -24,11 +24,6 @@ interface Genre {
   genreId: number;
 }
 
-const schema = yup.object().shape({
-  name: yup.string().required('Name isds required'),
-  media: yup.mixed().required('File is required'),
-  description: yup.string().required('Description is required'),
-});
 
 
 const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }) => {
@@ -54,9 +49,6 @@ const UploadAdvertModal: React.FC<UploadAdvertModalProps> = ({ isOpen, onClose }
 
   useEffect(() => {
     // Set default value for genreId to the first genre in the list
-    if (genres.length > 0) {
-      setValue('genreId', genres[0].id);
-    }
   }, [genres, setValue]);
 
 
