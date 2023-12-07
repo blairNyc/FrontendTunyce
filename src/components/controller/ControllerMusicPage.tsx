@@ -146,7 +146,7 @@ export default function ControllerMusicPage() {
           if(data.advertPaid == false){
             setOpenBundleModal(false)
           }else{
-            setOpenBundleModal(false)
+            setOpenBundleModal(true)
           }
         //   console.log("Testins")
           console.log(data)
