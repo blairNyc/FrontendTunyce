@@ -30,7 +30,7 @@ import { FiCheckCircle } from "react-icons/fi";
 import {  useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import EventPoster from "./components/EventPoster";
+// import EventPoster from "./components/EventPoster";
 
 
 
@@ -181,7 +181,7 @@ export default function EventBooking() {
                         </form>
                 </div>
                 <div className="ml-4 mt-4 w-1/3">
-                    <EventPoster/>
+                    {/* <EventPoster/> */}
                 </div>
                 {modalOpen && (
                 <SuccessPopUp text="Check your phone for STK push!" closeModal={handleCloseModal} />

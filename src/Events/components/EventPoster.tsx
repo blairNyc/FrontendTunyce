@@ -10,7 +10,7 @@ const EventPoster: React.FC = () => {
   
   const [openModal,setOpenModal]=useState(false);
   const [phoneNo,setPhoneNo]=useState('');
-  const [payForSchedules,{isLoading:isLoadingPay}]  = usePayAdvertsMutation();
+  // const [payForSchedules,{isLoading:isLoadingPay}]  = usePayAdvertsMutation();
 
   const toggleModal = ()=>{
     setOpenModal(!openModal);
@@ -22,20 +22,7 @@ const EventPoster: React.FC = () => {
 
   })
 
-  async function handlePay(e: React.FormEvent<HTMLFormElement>){
-    e.preventDefault();
-    const phoneData = {
-        phone: `+254${phoneNo}`,
-        amount:2000
-    }
-    console.log(phoneData);
-    try {
-        const response = await payForSchedules(phoneData).unwrap();
-        console.log(response);
-    } catch (error) {
-        console.log(error);
-    }
-}
+
 
 
 
@@ -68,7 +55,7 @@ const EventPoster: React.FC = () => {
                           </div>
 
                           <div className="p-6 space-y-6">
-                          <form onSubmit={handlePay}  className="flex flex-col mr-5 ml-5" action="">
+                          {/* <form onSubmit={handlePay}  className="flex flex-col mr-5 ml-5" action="">
                               <div className="mb-3">
                                   <label htmlFor="phone" className="text-sm font-bold text-gray-600 dark:text-gray-400">Phone Number</label>
                                   <div className="flex border-black rounded-lg items-center border mt-2">
@@ -101,7 +88,7 @@ const EventPoster: React.FC = () => {
                               
                               <button data-modal-hide="staticModal" type="button" onClick={toggleModal} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
                               </div>
-                          </form>
+                          </form> */}
                           </div>                
                       </div>
                       </div>
