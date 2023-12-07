@@ -36,7 +36,9 @@ const Cart: React.FC = () => {
   const [openModal,setOpenModal]=useState(false);
   const [phoneNo,setPhoneNo]=useState('');
   const [payForSchedules,{isLoading:isLoadingPay}]  = usePayAdvertsMutation();
+  const [selectedPaymentOption, setSelectedPaymentOption] = useState('phone'); // 'phone' or 'card'
 
+  
   const toggleModal = ()=>{
     setOpenModal(!openModal);
 }
@@ -70,11 +72,12 @@ const Cart: React.FC = () => {
     
     fetchData();
 
-  })
+  },[])
 
   async function handlePay(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     const phoneData = {
+        paymentType:"mpesa",
         phone: `+254${phoneNo}`,
         amount:totals
     }
@@ -88,6 +91,9 @@ const Cart: React.FC = () => {
     }
 }
 
+const handlePaymentOptionChange = (option: React.SetStateAction<string>) => {
+  setSelectedPaymentOption(option);
+};
 
 
 
@@ -98,12 +104,15 @@ const Cart: React.FC = () => {
       openModal && (
           <Backdrop >
               <div className="fixed inset-0 flex items-center justify-center z-50">
+                  
                   <div className="modal-container bg-white rounded-md mx-auto">
                   {/* Add your modal content here */}
                   <div id="staticModal" data-modal-backdrop="static" tabIndex={-1} aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center">
                       <div className="relative w-full mx-2 max-w-2xl max-h-full">
 
                       <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                      
+
 
                           <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -116,12 +125,48 @@ const Cart: React.FC = () => {
                               </svg>
                               <span className="sr-only">Close modal</span>
                           </button>
+                          
                           </div>
+
+                          <div className="ml-8 flex space-x-4">
+                              <button
+                                onClick={() => handlePaymentOptionChange('phone')}
+                                className={`text-sm font-bold ${selectedPaymentOption !== 'phone' ? 'text-gray-400' : ' text-gray-600'}`}
+                              >
+                                Mpesa
+                              </button>
+                              <button
+                                onClick={async () =>
+                                  {
+                                    handlePaymentOptionChange('card')
+                                    const paymentData = {
+                                      paymentType:"card",
+                                      phone:"",
+                                      amount:totals
+                                    }
+
+                                    try {
+                                      const response = await payForSchedules(paymentData).unwrap();
+                                      console.log(response);
+                                      window.open(`https://secure.3gdirectpay.com/dpopayment.php?ID=${response.transToken}`)
+      
+                                      
+                                  } catch (error) {
+                                      console.log(error);
+                                  }
+
+                                  }
+                              }
+                                className={`text-sm font-bold ${selectedPaymentOption !== 'card' ? 'text-gray-400' : ' text-gray-600'}`}
+                              >
+                                Card & Other Options
+                              </button>
+                            </div>
 
                           <div className="p-6 space-y-6">
                           <form onSubmit={handlePay}  className="flex flex-col mr-5 ml-5" action="">
                               <div className="mb-3">
-                                  <label htmlFor="phone" className="text-sm font-bold text-gray-600 dark:text-gray-400">Phone Number</label>
+                                  <label htmlFor="phone" className="text-sm font-bold text-gray-600 dark:text-gray-400">Mpesa Phone Number</label>
                                   <div className="flex border-black rounded-lg items-center border mt-2">
                                       <span className="text-sm p-2.5  font-bold text-gray-600 dark:text-gray-400">+254</span>
                                       <input
@@ -151,6 +196,7 @@ const Cart: React.FC = () => {
                               )}
                               
                               <button data-modal-hide="staticModal" type="button" onClick={toggleModal} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
+                           
                               </div>
                           </form>
                           </div>                

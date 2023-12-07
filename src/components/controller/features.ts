@@ -66,13 +66,13 @@ export const controllerApiSlice = apiSlice.injectEndpoints({
         }),
 
         payAdverts: builder.mutation({
-            query: (data:{phone:string, amount:number})=>({
-                url:`/wallet/advertpayment/`,
+            query: (data:{phone:string, amount:number,paymentType:string})=>({
+                url:`/wallet/advertpayment/${data.paymentType}/`,
                 method:'post',
                 body:{
                     "phone":data.phone,
-                    "reference":'payment method',
-                    "description":'subscription payment',
+                    "reference":data.paymentType,
+                    "description":'Advert Payment',
                     "amount":data.amount
                 }
             })
