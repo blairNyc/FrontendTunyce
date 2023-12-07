@@ -127,11 +127,11 @@ export default function AdvertOrderPage() {
             const data = responseRoute.data;
             console.log(data)
 
-            if(data.success){
-                setPaid(true)
-            }else{
-                setPaid(false)
-            }
+            // if(data.success){
+            //     setPaid(true)
+            // }else{
+            //     setPaid(false)
+            // }
         };
 
         confirmPaid()
