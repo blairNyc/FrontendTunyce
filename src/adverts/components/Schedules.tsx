@@ -75,6 +75,7 @@ const Schedules: React.FC = () => {
   async function handlePay(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     const phoneData = {
+        paymentType:'mpesa',
         phone: `+254${phoneNo}`,
         amount:totals
     }
