@@ -144,9 +144,9 @@ export default function ControllerMusicPage() {
     
           const data = responseRoute.data;
           if(data.advertPaid == false){
-            setOpenBundleModal(false)
-          }else{
             setOpenBundleModal(true)
+          }else{
+            setOpenBundleModal(false)
           }
         //   console.log("Testins")
           console.log(data)
