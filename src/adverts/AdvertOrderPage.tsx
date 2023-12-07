@@ -107,28 +107,34 @@ export default function AdvertOrderPage() {
             
         };
 
-        // const fetchRoutes = async () => {
-        //     try {
-        
-        //       const responseRoute = await axios.get('https://warm-journey-18609535df73.herokuapp.com/api/v1/region/routes/', {
-        //         headers: {
-        //           Authorization: `Bearer ${userToken}`,
-        //         },
-        //       });
-        
-        //       const data = responseRoute.data;
-        //       console.log(data)
-        
-        //       setRoutes(data.message)
-        
-        //     } catch (error) {
-        //       console.error('Error fetching data:', error);
-        //     } finally {
-        //       // Do nothing
-        //     }
-      
-            
-        // };
+        // Get the current URL
+        const currentUrl = window.location.href;
+
+        // Parse the URL and get the search parameters
+        const urlSearchParams = new URLSearchParams(currentUrl);
+    
+        // Get the value of the 'TransactionToken' parameter
+        const transactionToken = urlSearchParams.get('TransactionToken');
+    
+        const confirmPaid = async () => 
+        {
+        const responseRoute = await axios.post(`https://warm-journey-18609535df73.herokuapp.com/api/v1/wallet/verifyadvertpayment/${transactionToken}`, {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+            });
+    
+            const data = responseRoute.data;
+            console.log(data)
+
+            if(data.success){
+                setPaid(true)
+            }else{
+                setPaid(false)
+            }
+        };
+
+        confirmPaid()
         
         
         fetchAdvert();
