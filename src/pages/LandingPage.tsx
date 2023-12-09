@@ -5,7 +5,7 @@ import { useGetAllTrendingMixesQuery, useGetLatestMusicQuery } from '../app/api/
 import { useState } from 'react';
 import { Mix } from '../types';
 import SignModal from './SignModal';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const ButtonStyle = ({ text }: { text: string }) => (<button className='w-full rounded-md hover:bg-red-600 my-3 font-bold uppercase text-white bg-text-primary py-3'>{text}</button>)
 export const JointTunce = () => (
@@ -63,7 +63,7 @@ function Page() {
     const { data: trendingMixes, isLoading: isLoadingTrending } = useGetAllTrendingMixesQuery([]);
     const [visibleItems, setVisibleItems] = useState(9);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     console.log(trendingMixes);
     console.log(isLoadingMixes)
     console.log(isLoadingTrending)
