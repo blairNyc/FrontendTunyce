@@ -90,7 +90,7 @@ const ExplorePage = () => {
     return (
         <div className="mt-8 relative w-full no-scrollbar overflow-y-auto">
             <h2 className="text-2xl text-text-primary font-bold">Discover</h2>
-            <div className="mx-4 w-full my-6">
+            {/* <div className="mx-4 w-full my-6">
                     <div  className="flex border w-2/4 rounded-xl p-px cursor-pointer hover:scale-105 m-2 items-center">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMw89oVMvX1fVuYE8Hq9Z6NFe5lWvkl-7QODGdR02How&s" alt="tunyce media" className="min-w-2/4 max-h-70 rounded-xl" />
                         <div className="ml-3 w-2/4">
@@ -106,9 +106,9 @@ const ExplorePage = () => {
                         </div>
                         
                     </div>
-                    {/* <RowContainer onClick={showMore} text='Buy Online Tickets' /> */}
+                    <RowContainer onClick={showMore} text='Buy Online Tickets' />
                     
-            </div>
+            </div> */}
             <div className="mt-10">
                 <SectionTitle title="Featured Mixes" onClick={function (): void {
                     throw new Error("Function not implemented.");
@@ -119,7 +119,7 @@ const ExplorePage = () => {
                             [1,2,3,4,5,].map((index)=>(<LoadingSkeleton key={index}/>))
                         ):(
                             trendingMixes?.filter((mix: Mix) => mix.media?.media_url.includes('youtube.com')).map((mix: Mix) => (
-                                <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                                <FeaturedItem key={mix.id} title={`${mix?.name}`} owner={`${mix?.owner?.username}`} srcUrl={mix?.video_thumbnail}
                                     onClick={() => {
                                         const stringVal: string = mix.id;
                                         const mixId: number = parseInt(stringVal, 10);
@@ -148,7 +148,7 @@ const ExplorePage = () => {
                                         <MusicItem
                                             title={`${mix?.name}`}
                                             owner={`${mix?.owner?.username}`}
-                                            srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                                            srcUrl={mix?.video_thumbnail}
                                             onClick={() => handleItemClick(mix.id)}
                                         />
                                     )
@@ -168,8 +168,8 @@ const ExplorePage = () => {
                         <MusicItem
                             title={`${mix?.name}`}
                             owner={`${mix?.owner?.username}`}
-                            srcUrl="https://images.unsplash.com/photo-1653361953232-cd154e54beff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTV8fHRyZW5kaW5nJTIwbWl4fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                             onClick={() => handleItemClick(mix.id)}                           
+                            srcUrl={mix?.video_thumbnail}
+                            onClick={() => handleItemClick(mix.id)}                           
                         />
                         ))}
                 </div>

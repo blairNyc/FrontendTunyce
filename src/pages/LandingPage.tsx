@@ -103,7 +103,7 @@ function Page() {
                 <GenreBox onClick={() => openModal()} text="Reggae" bgcolor="bg-orange-500" />
                 <GenreBox onClick={() => openModal()} text="Podcasts" bgcolor="bg-red-500" />
             </div>
-            <div className="mx-4 w-full my-6">
+            {/* <div className="mx-4 w-full my-6">
                     <div  className="flex border w-2/4 rounded-xl p-px cursor-pointer hover:scale-105 m-2 items-center">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMw89oVMvX1fVuYE8Hq9Z6NFe5lWvkl-7QODGdR02How&s" alt="tunyce media" className="min-w-2/4 max-h-70 rounded-xl" />
                         <div className="ml-3 w-2/4">
@@ -119,9 +119,9 @@ function Page() {
                         </div>
                         
                     </div>
-                    {/* <RowContainer onClick={showMore} text='Buy Online Tickets' /> */}
+                    <RowContainer onClick={showMore} text='Buy Online Tickets' />
                     
-            </div>
+            </div> */}
             <div className="mx-4 w-full my-6">
                 <div>
                     <p>MUSIC TO GET YOU STARTED</p>

@@ -220,6 +220,7 @@ export default function AdvertOrderPage() {
             counter:0
 
         }
+        console.log(advertData)
 
         try{
             const schedule = await AddSchedule(advertData).unwrap();
@@ -284,12 +285,12 @@ export default function AdvertOrderPage() {
                                 <p className='text-red-900'></p>
                             </div>
 
-                            <div>
+                            {/* <div>
 
                                 <div className="mb-2 block">
                                     <Label
-                                        htmlFor="Number of Plays Per Matatu Per Day"
-                                        value="Number of Matatus Per Matatu Per Day"
+                                        htmlFor="Number of Slots Per Matatu"
+                                        value="Number of Slots Per Matatu"
                                     />
                                 </div>
                                 <input  
@@ -299,7 +300,7 @@ export default function AdvertOrderPage() {
                                 </input>
                                 <p className='text-red-900'></p>
                             </div>
-                           
+                            */}
 
                             <div>
                                  <Label
