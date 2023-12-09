@@ -285,7 +285,7 @@ export default function AdvertOrderPage() {
                                 <p className='text-red-900'></p>
                             </div>
 
-                            {/* <div>
+                            <div>
 
                                 <div className="mb-2 block">
                                     <Label
@@ -300,7 +300,7 @@ export default function AdvertOrderPage() {
                                 </input>
                                 <p className='text-red-900'></p>
                             </div>
-                            */}
+                           
 
                             <div>
                                  <Label
