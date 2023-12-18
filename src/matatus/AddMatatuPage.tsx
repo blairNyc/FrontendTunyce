@@ -11,6 +11,8 @@ import { RootState } from "../app/store";
 import ImageUpload from "./ImageUpload";
 import { useEffect, useState } from "react";
 import { IMatatuType } from '../types';
+import { Accept, useDropzone } from 'react-dropzone';
+import React, { useCallback } from 'react';
 
 interface registrationInput {
   name: string
@@ -19,8 +21,6 @@ interface registrationInput {
   number_of_seats: number
   // driver : string
   is_trial?: boolean
-  image_interior?: string
-  image_exterior?: string
 }
 
 const schema = yup.object({
@@ -29,10 +29,9 @@ const schema = yup.object({
   number_of_seats: yup.number().required(),
   route: yup.number().required(),
   is_trial: yup.boolean(),
-  // driver: yup.string().required(),
-  image_exterior: yup.string(),
-  image_interior: yup.string(),
-}).required()
+  
+}).required();
+  
 
 interface Checkpoint {
   id: number;
@@ -57,21 +56,7 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
     resolver: yupResolver(schema),
   })
 
-  const [interiorImageUrl, setInteriorImageUrl] = useState<string>('');
-  const [exteriorImageUrl, setExteriorImageUrl] = useState<string>('');
 
-  const handleInteriorImage = (text: string) => {
-    if (text !== null) {
-      setInteriorImageUrl(text);
-    }
-
-  };
-
-  const handleExteriorImage = (text: string) => {
-    if (text !== null) {
-      setExteriorImageUrl(text);
-    }
-  };
 
  
   const [displayServerErrorNotification, setDisplayServerErrorNotification] = useState<boolean>(false)
@@ -88,6 +73,8 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
     setDisplayErrorNotification(false);
   }
 
+
+
   const [routes, setRoutes] = useState<Route[]>([]);
 
   const [selectedRouteId, setSelectedRouteId] = useState<number | ''>('');
@@ -95,6 +82,10 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
   const handleRouteChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRouteId(Number(event.target.value));
   };
+
+  
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -127,7 +118,7 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
   }, [displayErrorNotification, displayServerErrorNotification]);
 
   const onSubmit: SubmitHandler<registrationInput> = async (data: registrationInput)=>{
-    
+    console.log("submited")
     const authToken: string = `${userToken}`
 
     try {
@@ -140,8 +131,6 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
         route : data.route,
         number_of_seats : data.number_of_seats,
         // driver : `${data.driver}`,
-        image_exterior: `${exteriorImageUrl}`,
-        image_interior: `${interiorImageUrl}`,
       }
 
       // Make a POST request using Axios
@@ -266,16 +255,7 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
                       </div> */}
 
                     </div>
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="flex flex-col">
-                        <h4>Photo Interior</h4>
-                        <ImageUpload onChildText={handleInteriorImage} />
-                      </div>
-                      <div className="flex flex-col">
-                        <h4>Photo Exterior</h4>
-                        <ImageUpload onChildText={handleExteriorImage} />
-                      </div>
-                    </div>
+                  
            
 
                     <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
@@ -346,5 +326,9 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
     </Backdrop>
   );
 }
+
+const dropzoneStyle = (isDragActive: boolean) => `
+  border-2 ${isDragActive ? 'border-green-500' : 'border-gray-300'} 
+  border-dashed rounded p-8 text-center cursor-pointer`;
 
 export default AddMatatuModal;

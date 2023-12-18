@@ -53,6 +53,8 @@ interface scheduleInput {
     selectedAdvert:string,
     selectedRoute:string,
     selectedSlot:string,
+    effectiveStartDate:string,
+    effectiveEndDate:string,
 }
 
 export default function AdvertOrderPage() {
@@ -179,7 +181,7 @@ export default function AdvertOrderPage() {
 
     const handleEffectiveStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEffectiveStartDate(event.target.value);
-        // You can perform additional actions based on the selected value if needed
+        // You can perform additional actions based on the selected value if ndeede
     };
 
     const handleEffectiveEndDateChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -217,7 +219,9 @@ export default function AdvertOrderPage() {
             pricing_plan :1,
             advert:data.selectedAdvert,
             numberofplayers:Number(numberOfMatatus) * Number(numberOfPlays),
-            counter:0
+            counter:0,
+            effectiveStartDate:data.eff
+            
 
         }
         console.log(advertData)
@@ -302,7 +306,7 @@ export default function AdvertOrderPage() {
                             </div>
                            
 
-                            <div>
+                            {/* <div>
                                  <Label
                                         htmlFor="Slot"
                                         value="Slot"
@@ -319,8 +323,8 @@ export default function AdvertOrderPage() {
                                     </option>
                                     ))}
                                 </select>
-                                {/* <p>{errors.genreId?.message}</p> */}
-                            </div>
+                                <p>{errors.genreId?.message}</p>
+                            </div> */}
 
                             <div>
                                 

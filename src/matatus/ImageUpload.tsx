@@ -11,16 +11,19 @@ const ImageUpload: React.FC<ChildProps> = ({onChildText}) => {
     const [imageUrl, setImageUrl] = useState<string>("");
     
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
+        
         const file = acceptedFiles[0];
-
         const formData = new FormData();
         formData.append('file', file);
 
         try {
+          
             // Replace YOUR_ENDPOINT_HERE with the actual endpoint URL
             const response = await axios.post<{
                 AdvertPath: string }>('https://media.tunycemedia.com/upload/advert', formData);
 
+            console.log('file dropped')
+      
             // Assuming the response contains the image URL
             const { AdvertPath } = response.data;
 

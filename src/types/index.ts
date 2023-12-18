@@ -59,8 +59,8 @@ export interface IMatatuType{
     route: number
     number_of_seats?: number
     is_trial?: boolean
-    image_interior?: string
-    image_exterior?: string
+    image_interior?: File
+    image_exterior?: File
     owner?: string
     id?: string
 }
