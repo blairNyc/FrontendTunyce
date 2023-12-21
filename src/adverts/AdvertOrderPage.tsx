@@ -63,6 +63,7 @@ export default function AdvertOrderPage() {
     const [adverts, setAdverts] = useState<AdvertData[]>();
     const [routes, setRoutes] = useState<RouteData[]>();
     const [slots, setSlots] = useState<RouteData[]>();
+    console.log(slots)
     // const [selectedAdvert, setSelectedAdvert] = useState('');
     // const [selectedSlot, setSelectedSlot] = useState('');
     // const [selectedRoute, setSelectedRoute] = useState('');
@@ -202,6 +203,8 @@ export default function AdvertOrderPage() {
         selectedAdvert: yup.string().required(),
         selectedRoute: yup.string().required(),
         selectedSlot: yup.string().required(),
+        effectiveStartDate: yup.string().required(),
+        effectiveEndDate: yup.string().required(),
 
     }).required()
 
@@ -220,7 +223,7 @@ export default function AdvertOrderPage() {
             advert:data.selectedAdvert,
             numberofplayers:Number(numberOfMatatus) * Number(numberOfPlays),
             counter:0,
-            effectiveStartDate:data.eff
+            effectiveStartDate:data.effectiveStartDate
             
 
         }

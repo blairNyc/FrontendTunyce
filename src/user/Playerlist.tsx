@@ -7,6 +7,7 @@ import { MediaInformation } from "../types";
 import { Link } from "react-router-dom";
 import { usePlayPlaylistMutation } from "../app/api/GlobalApiSlice";
 import { useAppSelector } from "../app/hooks";
+import { RootState } from "../app/store";
 const PlaylistMusic = ({content}:Props)=>(
     <div className="container  p-2 cursor-pointer min-w-[130px] md:min-w-[180px] hover:bg-slate-100 bg-white shadow-md w-4/5 md:w-2/3 flex flex-col mt-2 ">
         <div className="px-auto">

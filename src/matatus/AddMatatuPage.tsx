@@ -8,11 +8,11 @@ import Backdrop from "../components/Backdrop";
 import axios from 'axios';
 import { useAppSelector } from "../app/hooks";
 import { RootState } from "../app/store";
-import ImageUpload from "./ImageUpload";
+// import ImageUpload from "./ImageUpload";
 import { useEffect, useState } from "react";
 import { IMatatuType } from '../types';
-import { Accept, useDropzone } from 'react-dropzone';
-import React, { useCallback } from 'react';
+// import { Accept, useDropzone } from 'react-dropzone';
+import React from 'react';
 
 interface registrationInput {
   name: string
@@ -327,8 +327,8 @@ function AddMatatuModal({ isOpen, onClose, isRegistrationSuccessFull }: { isOpen
   );
 }
 
-const dropzoneStyle = (isDragActive: boolean) => `
-  border-2 ${isDragActive ? 'border-green-500' : 'border-gray-300'} 
-  border-dashed rounded p-8 text-center cursor-pointer`;
+// const dropzoneStyle = (isDragActive: boolean) => `
+//   border-2 ${isDragActive ? 'border-green-500' : 'border-gray-300'} 
+//   border-dashed rounded p-8 text-center cursor-pointer`;
 
 export default AddMatatuModal;
