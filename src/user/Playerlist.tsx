@@ -5,6 +5,8 @@ import { useLocation, useParams } from "react-router-dom";
 import { useGetPlaylistQuery } from "./UsersState";
 import { MediaInformation } from "../types";
 import { Link } from "react-router-dom";
+import { usePlayPlaylistMutation } from "../app/api/GlobalApiSlice";
+import { useAppSelector } from "../app/hooks";
 const PlaylistMusic = ({content}:Props)=>(
     <div className="container  p-2 cursor-pointer min-w-[130px] md:min-w-[180px] hover:bg-slate-100 bg-white shadow-md w-4/5 md:w-2/3 flex flex-col mt-2 ">
         <div className="px-auto">
@@ -35,6 +37,11 @@ export default function PlayListPage(){
     console.log(id);
     const {state} = useLocation();
     const {data} = useGetPlaylistQuery(id);
+    let d : number = useAppSelector((state: RootState) => state.persistController.controller.matatu.id);
+    if (!d) {
+        d = 1;
+    }
+    const [playPlaylist] = usePlayPlaylistMutation()
     console.log(data,'playlist',state);
     return (
         <>
@@ -45,10 +52,28 @@ export default function PlayListPage(){
                         </div>
                         <div className="flex gap-x-5 text-red-600">
                             <div className="flex">
-                            <button className=" sm:text-sm md:text-md lg:text-md">
+                            <button
+                            onClick={()=>{
+                                const playlist_data = {
+                                    playlistId : id,
+                                    matId : d
+                                }
+                                console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",playlist_data,playlist_data.playlistId, playlist_data.matId)
+                                playPlaylist(playlist_data);
+                            }}
+                            className=" sm:text-sm md:text-md lg:text-md">
                                 <BsFillPlayFill />
                             </button>
-                            <button className=" sm:text-sm md:text-md lg:text-md ml-1">
+                            <button
+                                onClick={()=>{
+                                    const playlist_data = {
+                                        playlistId : id,
+                                        matId : d
+                                    }
+                                    console.log(playlist_data,playlist_data.playlistId, playlist_data.matId)
+                                    playPlaylist(playlist_data);
+                                }}
+                                className=" sm:text-sm md:text-md lg:text-md ml-1">
                                 Play
                             </button>
                             </div>

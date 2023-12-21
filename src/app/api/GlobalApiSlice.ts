@@ -148,6 +148,12 @@ export const apiVenuesSlice = apiSlice.injectEndpoints({
         method: 'post',
       }),
     }),
+    playPlaylist: builder.mutation({
+      query: (playlist_data) => ({
+        url: `matatu/play_playlist/${playlist_data.playlistId}/${playlist_data.matId}/`,
+        method: 'post',
+      }),
+    }),
 
     switchVideoTime: builder.mutation({
       query: (time) => ({
@@ -287,7 +293,7 @@ export const {
   useConnectWalletMutation,
   useDepositCashToWalletMutation,
   useCheckWalletBalanceQuery,
-   
+  usePlayPlaylistMutation,
   useCheckWalletTransactionsQuery
 
 } = apiVenuesSlice

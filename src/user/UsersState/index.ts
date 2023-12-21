@@ -32,6 +32,8 @@ export const authenticatedUserApi = apiSlice.injectEndpoints({
                 body
             }),
         }),
+
+        
         addContentToPlaylist: builder.mutation({
             query: (body:{playlist_id:number,content_type:string, content_id:number}) => ({
                 url: `/media/playlists/add-content-to-playlist/${body.playlist_id}/${body.content_id}`,
